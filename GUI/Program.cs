@@ -16,7 +16,8 @@ namespace GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Admin_Forms a = Admin_Forms.INSTANCIA;
+            a.Mostrar_Form_Login();
         }
     }
 }
