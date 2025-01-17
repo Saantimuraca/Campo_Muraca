@@ -16,13 +16,17 @@ namespace GUI
         public Menu()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+            
         }
 
         private void BtnCerrarSesion_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            a.Mostrar_Form_Login();
+            a.Definir_Estado(new EstadoIniciarSesion());
+        }
+
+        private void Menu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

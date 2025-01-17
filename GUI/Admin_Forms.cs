@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace GUI
 {
-    public class Admin_Forms
+    internal class Admin_Forms
     {
+        private Estado Gestor_Estados = new EstadoIniciarSesion();
         private static Admin_Forms instancia;
         public static Admin_Forms INSTANCIA
         {
@@ -21,24 +22,11 @@ namespace GUI
             }
         }
 
-        public void Mostrar_Form_Login()
+        public void Definir_Estado(Estado estado)
         {
-            using(Login l = new Login())
-            {
-                l.ShowDialog();
-                if(!l.islogueado)
-                {
-                    Environment.Exit(0);
-                }
-            }
-        }
-
-        public void Mostrar_Menu()
-        {
-            using (Menu m = new Menu())
-            {
-                m.ShowDialog();
-            }
+            Gestor_Estados?.Cerrar_Estado();
+            Gestor_Estados = estado;
+            Gestor_Estados.Ejecutar_Estado();
         }
     }
 }

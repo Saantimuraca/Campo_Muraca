@@ -47,6 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin_Forms.cs" />
+    <Compile Include="Estado.cs" />
+    <Compile Include="EstadoCerrarApp.cs" />
+    <Compile Include="EstadoIniciarSesion.cs" />
+    <Compile Include="EstadoMenu.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -16,8 +16,8 @@ namespace GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Admin_Forms a = Admin_Forms.INSTANCIA;
-            a.Mostrar_Form_Login();
+            Admin_Forms admin_forms = Admin_Forms.INSTANCIA;
+            admin_forms.Definir_Estado(new EstadoIniciarSesion());
         }
     }
 }

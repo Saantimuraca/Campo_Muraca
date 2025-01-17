@@ -17,15 +17,13 @@ namespace GUI
         public Login()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+
         }
 
         private void BtnIniciarSesion_Click(object sender, EventArgs e)
         {
-           islogueado = true;
-            this.Hide();
-            a.Mostrar_Menu();
-            this.Close();
+            islogueado = true;
+            a.Definir_Estado(new EstadoMenu());
         }
     }
 }
