@@ -11,18 +11,6 @@ namespace ORM
 {
     public class ORM_Usuario
     {
-        private static ORM_Usuario instancia;
-        public static ORM_Usuario INSTANCIA
-        {
-            get
-            {
-                if (instancia == null)
-                {
-                    instancia = new ORM_Usuario();
-                }
-                return instancia;
-            }
-        }
 
         private Gestor_Datos gestorDatos = Gestor_Datos.INSTANCIA;
 

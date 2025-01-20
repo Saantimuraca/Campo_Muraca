@@ -9,19 +9,7 @@ namespace BLL
 {
     public class BLL_Usuario
     {
-        private static BLL_Usuario instancia;
-
-        public static BLL_Usuario INSTANCIA
-        {
-            get
-            {
-                if (instancia == null)
-                {
-                    instancia = new BLL_Usuario();
-                }
-                return instancia;
-            }
-        }
+        
 
         public void AgregarUsuario(BE_Usuario pUsuario)
         {
