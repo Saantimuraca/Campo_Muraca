@@ -34,6 +34,7 @@
             this.opcion1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opcion2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opcion3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,11 +88,22 @@
             this.opcion3ToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.opcion3ToolStripMenuItem.Text = "Opcion 3";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(806, 119);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 689);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BtnCerrarSesion);
             this.Controls.Add(this.menuStrip1);
@@ -114,5 +126,6 @@
         private System.Windows.Forms.ToolStripMenuItem opcion1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem opcion2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem opcion3ToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }

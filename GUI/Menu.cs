@@ -28,5 +28,11 @@ namespace GUI
         {
             Environment.Exit(0);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ABM_Usuarios us = new ABM_Usuarios();
+            us.ShowDialog();
+        }
     }
 }

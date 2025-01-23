@@ -24,8 +24,19 @@ namespace BE
 
         public bool Estado_Usuario { get; set; }
 
-        public BE_Usuario(string pNombreUsuario, string pMailUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, string pTelefonoUsuario, bool pEstadoUsuario)
+        public BE_Usuario(string pNombreUsuario, string pMailUsuario, DateTime pFechaNacimientoUsuario, string pTelefonoUsuario, bool pEstadoUsuario)
         {
+            Nombre_Usuario = pNombreUsuario;
+            Mail_Usuario = pMailUsuario;
+            Fecha_Nacimiento_Usuario = pFechaNacimientoUsuario;
+            Fecha_Creacion_Usuario = DateTime.Now;
+            Telefono_Usuario = pTelefonoUsuario;
+            Estado_Usuario = pEstadoUsuario;
+        }
+
+        public BE_Usuario(int idUsuario, string pNombreUsuario, string pMailUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, string pTelefonoUsuario, bool pEstadoUsuario)
+        {
+            Id_Usuario = idUsuario;
             Nombre_Usuario = pNombreUsuario;
             Mail_Usuario = pMailUsuario;
             Fecha_Nacimiento_Usuario = pFechaNacimientoUsuario;

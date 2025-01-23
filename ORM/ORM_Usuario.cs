@@ -54,7 +54,7 @@ namespace ORM
             List<BE_Usuario> lista = new List<BE_Usuario>();
             foreach(DataRowView row in gestorDatos.DevolverTabla("Usuario").DefaultView)
             {
-                BE_Usuario usuario = new BE_Usuario(row[1].ToString(), row[2].ToString(), DateTime.Parse(row[3].ToString()), int.Parse(row[4].ToString()), row[6].ToString(), bool.Parse(row[7].ToString()));
+                BE_Usuario usuario = new BE_Usuario(int.Parse(row[0].ToString()), row[1].ToString(), row[2].ToString(), DateTime.Parse(row[3].ToString()), int.Parse(row[4].ToString()), row[6].ToString(), bool.Parse(row[7].ToString()));
                 lista.Add(usuario);
             }
             return lista;

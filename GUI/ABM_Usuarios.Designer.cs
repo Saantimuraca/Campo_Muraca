@@ -56,6 +56,7 @@
             this.BtnAgregarUsuario.TabIndex = 0;
             this.BtnAgregarUsuario.Text = "NUEVO";
             this.BtnAgregarUsuario.UseVisualStyleBackColor = false;
+            this.BtnAgregarUsuario.Click += new System.EventHandler(this.BtnAgregarUsuario_Click);
             // 
             // BtnBajaUsuario
             // 
