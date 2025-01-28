@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GUI
 {
@@ -19,6 +20,7 @@ namespace GUI
         public ABM_Usuarios()
         {
             InitializeComponent();
+            Mostrar(DgvUsuarios, LinqUsuarios());
         }
 
         private void BtnAgregarUsuario_Click(object sender, EventArgs e)
@@ -26,7 +28,7 @@ namespace GUI
             try
             {
                 if (!Information.IsDate(TxtFechaNacimiento.Text)) throw new Exception("Fecha inválida!!!");
-                bllUsuario.AgregarUsuario(bllUsuario.CrearUsuario(TxtNombreUsuario.Text, TxtMail.Text, TxtContraseña.Text, TxtFechaNacimiento.Text, TxtTelefonoUsuario.Text));
+                bllUsuario.AgregarUsuario(bllUsuario.CrearUsuario(TxtDNIUsuario.Text, TxtNombreUsuario.Text, TxtMail.Text, TxtFechaNacimiento.Text, TxtTelefonoUsuario.Text));
                 Mostrar(DgvUsuarios, LinqUsuarios());
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
@@ -42,7 +44,5 @@ namespace GUI
         {
             return (from u in bllUsuario.ListaUsuarios() select new {USUARIO = u.Nombre_Usuario, MAIL = u.Mail_Usuario, EDAD = u.Edad_Usuario, TELEFONO = u.Telefono_Usuario, ESTADO = u.Estado_Usuario == true ? "Activo":"Bloqueado"}).ToList();
         }
-
-        
     }
 }

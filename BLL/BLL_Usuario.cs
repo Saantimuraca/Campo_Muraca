@@ -16,6 +16,7 @@ namespace BLL
     {
         
         ORM_Usuario ormUsuario = new ORM_Usuario();
+        Encriptador encriptador = new Encriptador();
         public void AgregarUsuario(BE_Usuario pUsuario)
         {
             ormUsuario.AgregarUsuario(pUsuario);
@@ -36,10 +37,10 @@ namespace BLL
 
         }
 
-        public BE_Usuario CrearUsuario(string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, string pFechaNacimiento, string pTelefonoUsuario)
+        public BE_Usuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario)
         {
-            BE_Usuario nuevo_usuario = new BE_Usuario(pNombreUsuario, pMailUsuario, pContraseñaUsuario, DateTime.Parse(pFechaNacimiento), CalcularEdadUsuario(DateTime.Parse(pFechaNacimiento)), pTelefonoUsuario, true);
-            var validador = new Validador_Usuario(ListaNombresUsuarios());
+            BE_Usuario nuevo_usuario = new BE_Usuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), encriptador.GenerarHash($"{pDniUsuario}{pNombreUsuario.ToUpper()}S"), DateTime.Parse(pFechaNacimiento).Date, CalcularEdadUsuario(DateTime.Parse(pFechaNacimiento)), DateTime.Now, pTelefonoUsuario, true);
+            var validador = new Validador_Usuario(ListaNombresUsuarios(), ListaDNIs());
             var resultado = validador.Validate(nuevo_usuario);
             if (!resultado.IsValid)
             {
@@ -53,6 +54,16 @@ namespace BLL
                 throw new Exception(mensajeErrores.ToString());
             }
             return nuevo_usuario;
+        }
+
+        public List<string> ListaDNIs()
+        {
+            List<string> lista = new List<string>();   
+            foreach(BE_Usuario usuario in ListaUsuarios())
+            {
+                lista.Add(usuario.Dni_Usuario);
+            }
+            return lista;
         }
 
         public int CalcularEdadUsuario(DateTime pFechaNacimientoUsuario)

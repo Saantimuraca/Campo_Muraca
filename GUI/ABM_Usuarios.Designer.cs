@@ -37,12 +37,12 @@
             this.BtnHabilitarUsuario = new System.Windows.Forms.Button();
             this.TxtMail = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.TxtContraseña = new System.Windows.Forms.TextBox();
             this.TxtFechaNacimiento = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtTelefonoUsuario = new System.Windows.Forms.TextBox();
+            this.TxtDNIUsuario = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             // 
             this.BtnAgregarUsuario.BackColor = System.Drawing.Color.OliveDrab;
             this.BtnAgregarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAgregarUsuario.Location = new System.Drawing.Point(12, 17);
+            this.BtnAgregarUsuario.Location = new System.Drawing.Point(28, 34);
             this.BtnAgregarUsuario.Name = "BtnAgregarUsuario";
             this.BtnAgregarUsuario.Size = new System.Drawing.Size(107, 38);
             this.BtnAgregarUsuario.TabIndex = 0;
@@ -62,7 +62,7 @@
             // 
             this.BtnBajaUsuario.BackColor = System.Drawing.Color.IndianRed;
             this.BtnBajaUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnBajaUsuario.Location = new System.Drawing.Point(265, 17);
+            this.BtnBajaUsuario.Location = new System.Drawing.Point(371, 34);
             this.BtnBajaUsuario.Name = "BtnBajaUsuario";
             this.BtnBajaUsuario.Size = new System.Drawing.Size(107, 38);
             this.BtnBajaUsuario.TabIndex = 1;
@@ -73,7 +73,7 @@
             // 
             this.BtnModificarUsuario.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BtnModificarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnModificarUsuario.Location = new System.Drawing.Point(399, 17);
+            this.BtnModificarUsuario.Location = new System.Drawing.Point(566, 34);
             this.BtnModificarUsuario.Name = "BtnModificarUsuario";
             this.BtnModificarUsuario.Size = new System.Drawing.Size(107, 38);
             this.BtnModificarUsuario.TabIndex = 2;
@@ -84,16 +84,17 @@
             // 
             this.DgvUsuarios.AllowUserToAddRows = false;
             this.DgvUsuarios.AllowUserToDeleteRows = false;
+            this.DgvUsuarios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvUsuarios.Location = new System.Drawing.Point(12, 78);
             this.DgvUsuarios.Name = "DgvUsuarios";
             this.DgvUsuarios.ReadOnly = true;
-            this.DgvUsuarios.Size = new System.Drawing.Size(494, 333);
+            this.DgvUsuarios.Size = new System.Drawing.Size(661, 333);
             this.DgvUsuarios.TabIndex = 3;
             // 
             // TxtNombreUsuario
             // 
-            this.TxtNombreUsuario.Location = new System.Drawing.Point(538, 149);
+            this.TxtNombreUsuario.Location = new System.Drawing.Point(679, 165);
             this.TxtNombreUsuario.Name = "TxtNombreUsuario";
             this.TxtNombreUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtNombreUsuario.TabIndex = 4;
@@ -102,7 +103,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(535, 133);
+            this.label1.Location = new System.Drawing.Point(676, 149);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 5;
@@ -112,7 +113,7 @@
             // 
             this.BtnHabilitarUsuario.BackColor = System.Drawing.Color.Yellow;
             this.BtnHabilitarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnHabilitarUsuario.Location = new System.Drawing.Point(138, 17);
+            this.BtnHabilitarUsuario.Location = new System.Drawing.Point(199, 34);
             this.BtnHabilitarUsuario.Name = "BtnHabilitarUsuario";
             this.BtnHabilitarUsuario.Size = new System.Drawing.Size(107, 38);
             this.BtnHabilitarUsuario.TabIndex = 6;
@@ -121,7 +122,7 @@
             // 
             // TxtMail
             // 
-            this.TxtMail.Location = new System.Drawing.Point(538, 193);
+            this.TxtMail.Location = new System.Drawing.Point(679, 209);
             this.TxtMail.Name = "TxtMail";
             this.TxtMail.Size = new System.Drawing.Size(281, 20);
             this.TxtMail.TabIndex = 7;
@@ -130,32 +131,15 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(535, 177);
+            this.label2.Location = new System.Drawing.Point(676, 193);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 13);
             this.label2.TabIndex = 8;
             this.label2.Text = "Correo electrónico";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(535, 216);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Contraseña";
-            // 
-            // TxtContraseña
-            // 
-            this.TxtContraseña.Location = new System.Drawing.Point(538, 232);
-            this.TxtContraseña.Name = "TxtContraseña";
-            this.TxtContraseña.Size = new System.Drawing.Size(281, 20);
-            this.TxtContraseña.TabIndex = 10;
-            // 
             // TxtFechaNacimiento
             // 
-            this.TxtFechaNacimiento.Location = new System.Drawing.Point(538, 270);
+            this.TxtFechaNacimiento.Location = new System.Drawing.Point(679, 255);
             this.TxtFechaNacimiento.Name = "TxtFechaNacimiento";
             this.TxtFechaNacimiento.Size = new System.Drawing.Size(281, 20);
             this.TxtFechaNacimiento.TabIndex = 11;
@@ -164,7 +148,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(535, 255);
+            this.label4.Location = new System.Drawing.Point(676, 240);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(125, 13);
             this.label4.TabIndex = 12;
@@ -174,7 +158,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(535, 292);
+            this.label5.Location = new System.Drawing.Point(676, 277);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 13);
             this.label5.TabIndex = 14;
@@ -182,23 +166,40 @@
             // 
             // TxtTelefonoUsuario
             // 
-            this.TxtTelefonoUsuario.Location = new System.Drawing.Point(538, 307);
+            this.TxtTelefonoUsuario.Location = new System.Drawing.Point(679, 292);
             this.TxtTelefonoUsuario.Name = "TxtTelefonoUsuario";
             this.TxtTelefonoUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtTelefonoUsuario.TabIndex = 13;
+            // 
+            // TxtDNIUsuario
+            // 
+            this.TxtDNIUsuario.Location = new System.Drawing.Point(679, 124);
+            this.TxtDNIUsuario.Name = "TxtDNIUsuario";
+            this.TxtDNIUsuario.Size = new System.Drawing.Size(281, 20);
+            this.TxtDNIUsuario.TabIndex = 15;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(676, 108);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "DNI";
             // 
             // ABM_Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(960, 450);
+            this.ClientSize = new System.Drawing.Size(1089, 450);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.TxtDNIUsuario);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.TxtTelefonoUsuario);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.TxtFechaNacimiento);
-            this.Controls.Add(this.TxtContraseña);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TxtMail);
             this.Controls.Add(this.BtnHabilitarUsuario);
@@ -227,11 +228,11 @@
         private System.Windows.Forms.Button BtnHabilitarUsuario;
         private System.Windows.Forms.TextBox TxtMail;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox TxtContraseña;
         private System.Windows.Forms.TextBox TxtFechaNacimiento;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TxtTelefonoUsuario;
+        private System.Windows.Forms.TextBox TxtDNIUsuario;
+        private System.Windows.Forms.Label label6;
     }
 }

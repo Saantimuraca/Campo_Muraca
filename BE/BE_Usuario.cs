@@ -8,7 +8,7 @@ namespace BE
 {
     public class BE_Usuario
     {
-        public int Id_Usuario {  get; set; }
+        public string Dni_Usuario {  get; set; }
 
         public string Nombre_Usuario { get; set; }
 
@@ -26,21 +26,10 @@ namespace BE
 
         public bool Estado_Usuario { get; set; }
 
-        public BE_Usuario(string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, string pTelefonoUsuario, bool pEstadoUsuario)
-        {
-            Nombre_Usuario = pNombreUsuario;
-            Mail_Usuario = pMailUsuario;
-            Contraseña_Usuario = pContraseñaUsuario;
-            Fecha_Nacimiento_Usuario = pFechaNacimientoUsuario;
-            Edad_Usuario = pEdadUsuario;
-            Fecha_Creacion_Usuario = DateTime.Now;
-            Telefono_Usuario = pTelefonoUsuario;
-            Estado_Usuario = pEstadoUsuario;
-        }
 
-        public BE_Usuario(int idUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario)
+        public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario)
         {
-            Id_Usuario = idUsuario;
+            Dni_Usuario = pDniUsuario;
             Nombre_Usuario = pNombreUsuario;
             Mail_Usuario = pMailUsuario;
             Contraseña_Usuario = pContraseñaUsuario;
