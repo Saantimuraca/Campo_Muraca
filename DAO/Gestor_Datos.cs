@@ -29,7 +29,7 @@ namespace DAO
         public Gestor_Datos()
         {
             BaseDeDatosEnMemoria = new DataSet();
-            co = new SqlConnection("");
+            co = new SqlConnection("Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True");
             string query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'";
             SqlDataAdapter Adaptador = new SqlDataAdapter(query, co);
             DataTable TablaNombreDeLasTablas = new DataTable();

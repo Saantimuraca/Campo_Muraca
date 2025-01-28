@@ -31,7 +31,7 @@
             this.BtnAgregarUsuario = new System.Windows.Forms.Button();
             this.BtnBajaUsuario = new System.Windows.Forms.Button();
             this.BtnModificarUsuario = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DgvUsuarios = new System.Windows.Forms.DataGridView();
             this.TxtNombreUsuario = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BtnHabilitarUsuario = new System.Windows.Forms.Button();
@@ -43,7 +43,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtTelefonoUsuario = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnAgregarUsuario
@@ -80,16 +80,16 @@
             this.BtnModificarUsuario.Text = "MODIFICAR";
             this.BtnModificarUsuario.UseVisualStyleBackColor = false;
             // 
-            // dataGridView1
+            // DgvUsuarios
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 78);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(494, 333);
-            this.dataGridView1.TabIndex = 3;
+            this.DgvUsuarios.AllowUserToAddRows = false;
+            this.DgvUsuarios.AllowUserToDeleteRows = false;
+            this.DgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvUsuarios.Location = new System.Drawing.Point(12, 78);
+            this.DgvUsuarios.Name = "DgvUsuarios";
+            this.DgvUsuarios.ReadOnly = true;
+            this.DgvUsuarios.Size = new System.Drawing.Size(494, 333);
+            this.DgvUsuarios.TabIndex = 3;
             // 
             // TxtNombreUsuario
             // 
@@ -204,13 +204,13 @@
             this.Controls.Add(this.BtnHabilitarUsuario);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TxtNombreUsuario);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DgvUsuarios);
             this.Controls.Add(this.BtnModificarUsuario);
             this.Controls.Add(this.BtnBajaUsuario);
             this.Controls.Add(this.BtnAgregarUsuario);
             this.Name = "ABM_Usuarios";
             this.Text = "ABM_Usuarios";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvUsuarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,7 +221,7 @@
         private System.Windows.Forms.Button BtnAgregarUsuario;
         private System.Windows.Forms.Button BtnBajaUsuario;
         private System.Windows.Forms.Button BtnModificarUsuario;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DgvUsuarios;
         private System.Windows.Forms.TextBox TxtNombreUsuario;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BtnHabilitarUsuario;
