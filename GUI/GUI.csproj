@@ -67,6 +67,12 @@
     <Compile Include="EstadoCerrarApp.cs" />
     <Compile Include="EstadoIniciarSesion.cs" />
     <Compile Include="EstadoMenu.cs" />
+    <Compile Include="GestionRolesUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionRolesUsuarios.Designer.cs">
+      <DependentUpon>GestionRolesUsuarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ABM_Usuarios.resx">
       <DependentUpon>ABM_Usuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionRolesUsuarios.resx">
+      <DependentUpon>GestionRolesUsuarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -125,13 +134,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Screenshot_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Screenshot_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Screenshot_4.png" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

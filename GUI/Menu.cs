@@ -19,20 +19,22 @@ namespace GUI
             
         }
 
-        private void BtnCerrarSesion_Click(object sender, EventArgs e)
-        {
-            a.Definir_Estado(new EstadoIniciarSesion());
-        }
+        
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void opcion1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ABM_Usuarios us = new ABM_Usuarios();
             us.ShowDialog();
+        }
+
+        private void opcion3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            a.Definir_Estado(new EstadoIniciarSesion());
         }
     }
 }
