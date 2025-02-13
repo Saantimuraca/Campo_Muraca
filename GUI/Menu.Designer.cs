@@ -72,6 +72,7 @@
             this.opcion2ToolStripMenuItem.Name = "opcion2ToolStripMenuItem";
             this.opcion2ToolStripMenuItem.Size = new System.Drawing.Size(166, 20);
             this.opcion2ToolStripMenuItem.Text = "Gestión de Roles y Permisos";
+            this.opcion2ToolStripMenuItem.Click += new System.EventHandler(this.opcion2ToolStripMenuItem_Click);
             // 
             // opcion3ToolStripMenuItem
             // 

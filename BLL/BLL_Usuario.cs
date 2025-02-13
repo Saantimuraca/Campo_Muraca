@@ -17,6 +17,7 @@ namespace BLL
         
         ORM_Usuario ormUsuario = new ORM_Usuario();
         Encriptador encriptador = new Encriptador();
+        GestorPermisos gp = new GestorPermisos();
         public void AgregarUsuario(BE_Usuario pUsuario)
         {
             ormUsuario.AgregarUsuario(pUsuario);
@@ -37,9 +38,10 @@ namespace BLL
 
         }
 
-        public BE_Usuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario)
+        public BE_Usuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario, string pRol, string pIdioma)
         {
-            BE_Usuario nuevo_usuario = new BE_Usuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), encriptador.GenerarHash($"{pDniUsuario}{pNombreUsuario.ToUpper()}S"), DateTime.Parse(pFechaNacimiento).Date, CalcularEdadUsuario(DateTime.Parse(pFechaNacimiento)), DateTime.Now, pTelefonoUsuario, true);
+            BEPermisoCompuesto rol = (BEPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == pRol);
+            BE_Usuario nuevo_usuario = new BE_Usuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), $"{pDniUsuario}{pNombreUsuario.ToUpper()}s", DateTime.Parse(pFechaNacimiento).Date, CalcularEdadUsuario(DateTime.Parse(pFechaNacimiento)), DateTime.Now, pTelefonoUsuario, true, rol, pIdioma);
             var validador = new Validador_Usuario(ListaNombresUsuarios(), ListaDNIs());
             var resultado = validador.Validate(nuevo_usuario);
             if (!resultado.IsValid)
@@ -53,6 +55,7 @@ namespace BLL
                 // Lanzar una excepción con todos los errores concatenados
                 throw new Exception(mensajeErrores.ToString());
             }
+            nuevo_usuario.Contraseña_Usuario = encriptador.GenerarHash($"{pDniUsuario}{pNombreUsuario}");
             return nuevo_usuario;
         }
 

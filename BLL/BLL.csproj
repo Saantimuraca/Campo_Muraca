@@ -53,9 +53,8 @@
   <ItemGroup>
     <Compile Include="BLL_Usuario.cs" />
     <Compile Include="GestorPermisos.cs" />
-    <Compile Include="Pemiso.cs" />
-    <Compile Include="PermisoCompuesto.cs" />
-    <Compile Include="PermisoSimple.cs" />
+    <Compile Include="BLL_Pemiso.cs" />
+    <Compile Include="BLLPermisoCompuesto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sesion.cs" />
   </ItemGroup>

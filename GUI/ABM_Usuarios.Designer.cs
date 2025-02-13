@@ -43,6 +43,10 @@
             this.TxtTelefonoUsuario = new System.Windows.Forms.TextBox();
             this.TxtDNIUsuario = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.CbRol = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CbIdioma = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,7 +98,7 @@
             // 
             // TxtNombreUsuario
             // 
-            this.TxtNombreUsuario.Location = new System.Drawing.Point(679, 177);
+            this.TxtNombreUsuario.Location = new System.Drawing.Point(679, 155);
             this.TxtNombreUsuario.Name = "TxtNombreUsuario";
             this.TxtNombreUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtNombreUsuario.TabIndex = 4;
@@ -103,7 +107,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(676, 161);
+            this.label1.Location = new System.Drawing.Point(676, 139);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 5;
@@ -122,7 +126,7 @@
             // 
             // TxtMail
             // 
-            this.TxtMail.Location = new System.Drawing.Point(679, 221);
+            this.TxtMail.Location = new System.Drawing.Point(679, 199);
             this.TxtMail.Name = "TxtMail";
             this.TxtMail.Size = new System.Drawing.Size(281, 20);
             this.TxtMail.TabIndex = 7;
@@ -131,7 +135,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(676, 205);
+            this.label2.Location = new System.Drawing.Point(676, 183);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 13);
             this.label2.TabIndex = 8;
@@ -139,7 +143,7 @@
             // 
             // TxtFechaNacimiento
             // 
-            this.TxtFechaNacimiento.Location = new System.Drawing.Point(679, 267);
+            this.TxtFechaNacimiento.Location = new System.Drawing.Point(679, 245);
             this.TxtFechaNacimiento.Name = "TxtFechaNacimiento";
             this.TxtFechaNacimiento.Size = new System.Drawing.Size(281, 20);
             this.TxtFechaNacimiento.TabIndex = 11;
@@ -148,7 +152,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(676, 252);
+            this.label4.Location = new System.Drawing.Point(676, 230);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(125, 13);
             this.label4.TabIndex = 12;
@@ -158,7 +162,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(676, 289);
+            this.label5.Location = new System.Drawing.Point(676, 267);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 13);
             this.label5.TabIndex = 14;
@@ -166,14 +170,14 @@
             // 
             // TxtTelefonoUsuario
             // 
-            this.TxtTelefonoUsuario.Location = new System.Drawing.Point(679, 304);
+            this.TxtTelefonoUsuario.Location = new System.Drawing.Point(679, 282);
             this.TxtTelefonoUsuario.Name = "TxtTelefonoUsuario";
             this.TxtTelefonoUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtTelefonoUsuario.TabIndex = 13;
             // 
             // TxtDNIUsuario
             // 
-            this.TxtDNIUsuario.Location = new System.Drawing.Point(679, 136);
+            this.TxtDNIUsuario.Location = new System.Drawing.Point(679, 114);
             this.TxtDNIUsuario.Name = "TxtDNIUsuario";
             this.TxtDNIUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtDNIUsuario.TabIndex = 15;
@@ -182,11 +186,50 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(676, 120);
+            this.label6.Location = new System.Drawing.Point(676, 98);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = "DNI";
+            // 
+            // CbRol
+            // 
+            this.CbRol.FormattingEnabled = true;
+            this.CbRol.Location = new System.Drawing.Point(679, 322);
+            this.CbRol.Name = "CbRol";
+            this.CbRol.Size = new System.Drawing.Size(281, 21);
+            this.CbRol.TabIndex = 17;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(679, 306);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Rol";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(679, 346);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Idioma";
+            // 
+            // CbIdioma
+            // 
+            this.CbIdioma.FormattingEnabled = true;
+            this.CbIdioma.Items.AddRange(new object[] {
+            "Español",
+            "Ingles"});
+            this.CbIdioma.Location = new System.Drawing.Point(679, 362);
+            this.CbIdioma.Name = "CbIdioma";
+            this.CbIdioma.Size = new System.Drawing.Size(281, 21);
+            this.CbIdioma.TabIndex = 20;
             // 
             // ABM_Usuarios
             // 
@@ -194,6 +237,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1089, 450);
+            this.Controls.Add(this.CbIdioma);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.CbRol);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.TxtDNIUsuario);
             this.Controls.Add(this.label5);
@@ -234,5 +281,9 @@
         private System.Windows.Forms.TextBox TxtTelefonoUsuario;
         private System.Windows.Forms.TextBox TxtDNIUsuario;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox CbRol;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox CbIdioma;
     }
 }

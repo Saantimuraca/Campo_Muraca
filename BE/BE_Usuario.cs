@@ -26,8 +26,12 @@ namespace BE
 
         public bool Estado_Usuario { get; set; }
 
+        public BEPermisoCompuesto Rol {  get; set; }
 
-        public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario)
+        public string Idioma {  get; set; }
+
+
+        public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, BEPermisoCompuesto rol, string idioma)
         {
             Dni_Usuario = pDniUsuario;
             Nombre_Usuario = pNombreUsuario;
@@ -35,9 +39,11 @@ namespace BE
             Contraseña_Usuario = pContraseñaUsuario;
             Fecha_Nacimiento_Usuario = pFechaNacimientoUsuario;
             Edad_Usuario = pEdadUsuario;
-            Fecha_Creacion_Usuario =pFechaCreacionUsuario;
+            Fecha_Creacion_Usuario = pFechaCreacionUsuario;
             Telefono_Usuario = pTelefonoUsuario;
             Estado_Usuario = pEstadoUsuario;
+            Rol = rol;
+            Idioma = idioma;
         }
     }
 }

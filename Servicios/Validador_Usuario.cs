@@ -29,6 +29,8 @@ namespace Servicios
     .Matches(@"^\d{7,8}$").WithMessage("El DNI debe contener 7 u 8 dígitos numéricos.")
     .Must(dni => ValidarDNI(dni)).WithMessage("El DNI ingresado no es válido.")
     .Must((usuario, dni) => !lista2.Contains(dni)).WithMessage("El DNI ingresado ya existe.");
+            RuleFor(u => u.Rol).NotNull().WithMessage("Debe seleccionar un rol para el usuario!!!");
+            RuleFor(u => u.Idioma).NotEmpty().WithMessage("Debe seleccionar un idioma para el usuario!!!");
         }
 
         public bool ValidarDNI(string dni)

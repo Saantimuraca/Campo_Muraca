@@ -13,6 +13,7 @@ namespace ORM
     {
 
         private Gestor_Datos gestorDatos = Gestor_Datos.INSTANCIA;
+        ORMPermiso ormPermiso = new ORMPermiso();
 
         public void AgregarUsuario(BE_Usuario pUsuario)
         {
@@ -26,6 +27,8 @@ namespace ORM
             drUsuario[6] = pUsuario.Fecha_Creacion_Usuario;
             drUsuario[7] = pUsuario.Telefono_Usuario;
             drUsuario[8] = pUsuario.Estado_Usuario;
+            drUsuario[9] = pUsuario.Rol.DevolverNombrePermiso();
+            drUsuario[10] = pUsuario.Idioma;
             gestorDatos.DevolverTabla("Usuario").Rows.Add(drUsuario);
             gestorDatos.ActualizarPorTabla("Usuario");
         }
@@ -58,7 +61,8 @@ namespace ORM
             List<BE_Usuario> lista = new List<BE_Usuario>();
             foreach(DataRowView row in gestorDatos.DevolverTabla("Usuario").DefaultView)
             {
-                BE_Usuario usuario = new BE_Usuario(row[0].ToString(), row[1].ToString(), row[2].ToString(), row[3].ToString(), DateTime.Parse(row[4].ToString()), int.Parse(row[5].ToString()), DateTime.Parse(row[6].ToString()), row[7].ToString(), bool.Parse(row[8].ToString()));
+                BEPermisoCompuesto rol = (BEPermisoCompuesto)ormPermiso.DevolverPermisos("Roles").Find(x => x.DevolverNombrePermiso() == row[9].ToString());
+                BE_Usuario usuario = new BE_Usuario(row[0].ToString(), row[1].ToString(), row[2].ToString(), row[3].ToString(), DateTime.Parse(row[4].ToString()), int.Parse(row[5].ToString()), DateTime.Parse(row[6].ToString()), row[7].ToString(), bool.Parse(row[8].ToString()), rol, row[10].ToString());
                 lista.Add(usuario);
             }
             return lista;

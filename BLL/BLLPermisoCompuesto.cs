@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,28 +7,21 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class PermisoCompuesto : Permiso
+    public class BLLPermisoCompuesto : BLL_Permiso
     {
-        public PermisoCompuesto(string pNombre) : base(pNombre) { }
 
-        protected List<Permiso> listaPermisos = new List<Permiso>();
-
-        public override void Agregar(Permiso pPermiso)
+        public override void Agregar(BE_Permiso pPermiso, BEPermisoCompuesto pPermisoCompuesto)
         {
-            listaPermisos.Add(pPermiso);
+            pPermisoCompuesto.DevolverListaPermisos().Add(pPermiso);
         }
 
-        public override void Eliminar(Permiso pPermiso)
+        public override void Eliminar(BE_Permiso pPermiso, BEPermisoCompuesto pPermisoCompuesto)
         {
-            listaPermisos.Remove(pPermiso);
+            pPermisoCompuesto.DevolverListaPermisos().Remove(pPermiso);
         }
 
-        public override bool isComposite()
-        {
-            return true;
-        }
 
-        public bool VerificarPermisoIncluido(Permiso permisoActual, string permiso)
+        public bool VerificarPermisoIncluido(BE_Permiso permisoActual, string permiso)
         {
             //Verifico si el objeto permiso que le mando es el permiso que estoy buscando.
             if(permisoActual.DevolverNombrePermiso() == permiso) { return true; }
@@ -38,7 +32,7 @@ namespace BLL
                 {
                     //Si es compuesto aplicamos la funcion de verificar si es el permiso que buscamos en cada permiso de ese permiso compuesto.
                     //De esta forma nos aseguramos de verificar en cada permiso del árbol.
-                    foreach(Permiso p in (permisoActual as PermisoCompuesto).listaPermisos)
+                    foreach(BE_Permiso p in (permisoActual as BEPermisoCompuesto).DevolverListaPermisos())
                     {
                         //Si el pemiso que buscamos esta dentro del permiso compuesto que estamos analizando retorna true.
                         if (VerificarPermisoIncluido(p, permiso)) return true;
@@ -49,9 +43,6 @@ namespace BLL
             return false;
         }
 
-        public List<Permiso> DevolverListaPermisos()
-        {
-            return listaPermisos;
-        }
+        
     }
 }

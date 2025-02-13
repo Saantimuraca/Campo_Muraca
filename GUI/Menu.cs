@@ -36,5 +36,11 @@ namespace GUI
         {
             a.Definir_Estado(new EstadoIniciarSesion());
         }
+
+        private void opcion2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GestionRolesUsuarios roles = new GestionRolesUsuarios();
+            roles.ShowDialog();
+        }
     }
 }
