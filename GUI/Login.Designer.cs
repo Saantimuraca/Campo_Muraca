@@ -34,6 +34,7 @@
             this.TxtNombreUsuario = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.TxtContraseña = new System.Windows.Forms.TextBox();
+            this.BtnVisibilidadContraseña = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnIniciarSesion
@@ -88,14 +89,27 @@
             // 
             this.TxtContraseña.Location = new System.Drawing.Point(230, 114);
             this.TxtContraseña.Name = "TxtContraseña";
+            this.TxtContraseña.PasswordChar = '*';
             this.TxtContraseña.Size = new System.Drawing.Size(216, 20);
             this.TxtContraseña.TabIndex = 5;
+            // 
+            // BtnVisibilidadContraseña
+            // 
+            this.BtnVisibilidadContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVisibilidadContraseña.Location = new System.Drawing.Point(452, 114);
+            this.BtnVisibilidadContraseña.Name = "BtnVisibilidadContraseña";
+            this.BtnVisibilidadContraseña.Size = new System.Drawing.Size(58, 20);
+            this.BtnVisibilidadContraseña.TabIndex = 6;
+            this.BtnVisibilidadContraseña.Text = "VER";
+            this.BtnVisibilidadContraseña.UseVisualStyleBackColor = true;
+            this.BtnVisibilidadContraseña.Click += new System.EventHandler(this.BtnVisibilidadContraseña_Click);
             // 
             // Login
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(676, 234);
+            this.Controls.Add(this.BtnVisibilidadContraseña);
             this.Controls.Add(this.TxtContraseña);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.TxtNombreUsuario);
@@ -117,5 +131,6 @@
         private System.Windows.Forms.TextBox TxtNombreUsuario;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TxtContraseña;
+        private System.Windows.Forms.Button BtnVisibilidadContraseña;
     }
 }

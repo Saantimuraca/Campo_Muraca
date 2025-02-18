@@ -72,6 +72,7 @@
             this.BtnBajaUsuario.TabIndex = 1;
             this.BtnBajaUsuario.Text = "DESHABILITAR";
             this.BtnBajaUsuario.UseVisualStyleBackColor = false;
+            this.BtnBajaUsuario.Click += new System.EventHandler(this.BtnBajaUsuario_Click);
             // 
             // BtnModificarUsuario
             // 
@@ -123,6 +124,7 @@
             this.BtnHabilitarUsuario.TabIndex = 6;
             this.BtnHabilitarUsuario.Text = "HABILITAR";
             this.BtnHabilitarUsuario.UseVisualStyleBackColor = false;
+            this.BtnHabilitarUsuario.Click += new System.EventHandler(this.BtnHabilitarUsuario_Click);
             // 
             // TxtMail
             // 

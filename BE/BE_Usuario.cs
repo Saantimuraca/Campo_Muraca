@@ -30,8 +30,10 @@ namespace BE
 
         public string Idioma {  get; set; }
 
+        public int Intentos {  get; set; }
 
-        public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, BEPermisoCompuesto rol, string idioma)
+
+        public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, BEPermisoCompuesto rol, string idioma, int intentos)
         {
             Dni_Usuario = pDniUsuario;
             Nombre_Usuario = pNombreUsuario;
@@ -44,6 +46,7 @@ namespace BE
             Estado_Usuario = pEstadoUsuario;
             Rol = rol;
             Idioma = idioma;
+            Intentos = intentos;
         }
     }
 }

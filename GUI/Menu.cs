@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,13 +14,17 @@ namespace GUI
     public partial class Menu : Form
     {
         Admin_Forms a = Admin_Forms.INSTANCIA;
+        Sesion sesion = Sesion.INSTANCIA;
         public Menu()
         {
             InitializeComponent();
-            
+            label2.Text += $" {sesion.ObtenerUsuarioActual().Idioma}";
+            label3.Text += $" {sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso()}";
+            label1.Text += $", {sesion.ObtenerUsuarioActual().Nombre_Usuario}";
         }
 
-        
+
+
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
         {

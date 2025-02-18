@@ -132,6 +132,10 @@
       <Project>{012955d3-b5e0-4ff1-9bfd-9cf773202384}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Servicios\Servicios.csproj">
+      <Project>{e1487e4e-2c51-467e-a600-ff03fcb69006}</Project>
+      <Name>Servicios</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

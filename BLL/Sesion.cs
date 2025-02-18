@@ -21,7 +21,9 @@ namespace BLL
                 return instancia;
             }
         }
-        private string sessionUser = "";
+        private string usuarioSesion = "";
+        private string idiomaSesion = "Español";
+        private string rolsesion = "";
         private BEPermisoCompuesto PermisosSesion;
 
         BLLPermisoCompuesto bllPermisoCompuesto = new BLLPermisoCompuesto();
@@ -30,6 +32,21 @@ namespace BLL
         public void AgregarPermisoCompuesto(string pNombre, List<string> pListaPermisos, bool pIsRol)
         {
 
+        }
+
+        public void IniciarSesion(BE_Usuario usuario)
+        {
+            usuarioSesion = usuario.Nombre_Usuario;
+            idiomaSesion = usuario.Idioma;
+            rolsesion = usuario.Rol.DevolverNombrePermiso();
+            GestorPermisos gp = new GestorPermisos();
+            PermisosSesion = (BEPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == rolsesion);
+        }
+
+        public BE_Usuario ObtenerUsuarioActual()
+        {
+            BLL_Usuario bllUsuario = new BLL_Usuario();
+            return bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == usuarioSesion);
         }
 
         public bool SesionTienePermiso(string pPermiso)

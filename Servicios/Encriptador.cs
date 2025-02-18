@@ -20,6 +20,7 @@ namespace Servicios
                 //Convertir el hash a una cadena hexadecimal
                 StringBuilder stringBuilder = new StringBuilder();
                 foreach(byte b in hashBytes)
+                
                 {
                     stringBuilder.Append(b.ToString("x2"));
                 }
