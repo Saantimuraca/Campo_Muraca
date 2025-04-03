@@ -41,8 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALBitacora.cs" />
+    <Compile Include="DALIdioma.cs" />
+    <Compile Include="DALTraductor.cs" />
     <Compile Include="Gestor_Datos.cs" />
+    <Compile Include="DALPermiso.cs" />
+    <Compile Include="DALUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BE\BE.csproj">
+      <Project>{51a168ef-7902-4731-8380-dcecc156ab26}</Project>
+      <Name>BE</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

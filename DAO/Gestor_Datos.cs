@@ -61,15 +61,21 @@ namespace DAO
 
                 //Este If chequea los casos cuando sea una Tabla Normal y Una Tabla Intermedia, por estandar todas las tablas intermedias
                 //deben tener como maximo 2 columnas que serian las PK de las 2 tablas que esten relacionadas
-                if (CantidadCollumnas == 2)
+                if (CantidadCollumnas == 2 || $"{Row["TABLE_NAME"]}" == "Traduccion")
                 {
-                    BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].PrimaryKey = new DataColumn[] { BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[0], BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[1] };
+                    if($"{Row["TABLE_NAME"]}" != "Idioma")
+                    {
+                        BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].PrimaryKey = new DataColumn[] { BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[0], BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[1] };
+                    }
+                    else
+                    {
+                        BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].PrimaryKey = new DataColumn[] { BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[0] };
+                    }
                 }
                 else
                 {
                     BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].PrimaryKey = new DataColumn[] { BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[0] };
                 }
-
                 DiccionarioDeAdaptadores.Add((Row["TABLE_NAME"] as string), adapter);
             }
         }

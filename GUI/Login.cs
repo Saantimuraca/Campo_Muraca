@@ -1,5 +1,6 @@
 ﻿using BE;
 using BLL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,8 @@ namespace GUI
         public Login()
         {
             InitializeComponent();
+            TxtNombreUsuario.Text = "Saantimuraca";
+            TxtContraseña.Text = "123Hola";
 
         }
 
@@ -29,21 +32,26 @@ namespace GUI
         {
             try
             {
+                Bitacora bitacora = new Bitacora();
                 string nombreUsuario = TxtNombreUsuario.Text;
                 string contraseñaUsuario = TxtContraseña.Text;
-                if (!bllUsuario.ExisteUsuario(nombreUsuario)) throw new Exception();
-                if (!bllUsuario.Login(nombreUsuario, contraseñaUsuario)) throw new Exception();
-                a.Definir_Estado(new EstadoMenu());
-                bllUsuario.AumentarIntentos(nombreUsuario);
-                BE_Usuario usuario = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario ==  nombreUsuario);
-                switch (usuario.Intentos)
+                if (!bllUsuario.ExisteUsuario(nombreUsuario)) throw new Exception("Credenciales incorrectas!!!");
+                if (!bllUsuario.Login(nombreUsuario, contraseñaUsuario))
                 {
-                  case 1: MessageBox.Show("Le quedan 2 intentos antes de que se bloquee el usuario!!!"); break;
-                  case 2: MessageBox.Show("Le quedan 1 intento antes de que se bloquee el usuario!!!"); break;
-                  default: MessageBox.Show("Usuario bloqueado!!!"); break;
+                    bllUsuario.AumentarIntentos(nombreUsuario);
+                    BE_Usuario usuario = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == nombreUsuario);
+                    switch (usuario.Intentos)
+                    {
+                        case 1: MessageBox.Show("Le quedan 2 intentos antes de que se bloquee el usuario!!!"); break;
+                        case 2: MessageBox.Show("Le queda 1 intento antes de que se bloquee el usuario!!!"); break;
+                        default: MessageBox.Show("Usuario bloqueado!!!"); break;
+                    }
+                    if(usuario.Estado_Usuario != false) throw new Exception("Credenciales incorrectas!!!");
                 }
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Iniciar sesión"));
+                a.Definir_Estado(new EstadoMenu());
             }
-            catch { MessageBox.Show("Credenciales incorrectas!!!"); ; }
+            catch(Exception ex) { MessageBox.Show(ex.Message);}
             
         }
 

@@ -10,13 +10,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace BLL
 {
     public class BLL_Usuario
     {
         
-        ORM_Usuario ormUsuario = new ORM_Usuario();
+        DALUsuario  ormUsuario = new DALUsuario();
         Encriptador encriptador = new Encriptador();
         GestorPermisos gp = new GestorPermisos();
         public void AgregarUsuario(BE_Usuario pUsuario)
@@ -24,9 +25,15 @@ namespace BLL
             ormUsuario.AgregarUsuario(pUsuario);
         }
 
+        public void ModificarUsuario(BE_Usuario pUsuario)
+        {
+            ormUsuario.ModificarUsuario(pUsuario);
+        }
+
         public bool Login(string pNombreUsuario, string pContraseñaIngresada)
         {
             BE_Usuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
+            if (usuario.Estado_Usuario == false) throw new Exception("Usuario bloqueado!!!");
             if(VerificarContraseña(pContraseñaIngresada, usuario.Contraseña_Usuario))
             {
                 Sesion sesion = Sesion.INSTANCIA;
@@ -36,6 +43,14 @@ namespace BLL
                 return true;
             }
             return false;
+        }
+
+        public void CambiarIdioma(BE_Usuario pUsuario, string pNuevoIdioma)
+        {
+            pUsuario.Idioma = pNuevoIdioma;
+            ormUsuario.CambiarIdioma(pUsuario);
+            Sesion sesion = Sesion.INSTANCIA;
+            sesion.ConfigurarIdioma(pNuevoIdioma);
         }
 
         public bool ExisteUsuario(string pNombreUsuario)
@@ -71,16 +86,12 @@ namespace BLL
             ormUsuario.HabilitarUsuario(usuario);
         }
 
-        public void ModificarUsuario(BE_Usuario pUsuario)
-        {
 
-        }
-
-        public BE_Usuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario, string pRol, string pIdioma)
+        public BE_Usuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario, string pRol, string pIdioma, string pTipo)
         {
             BEPermisoCompuesto rol = (BEPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == pRol);
-            BE_Usuario nuevo_usuario = new BE_Usuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), $"{pDniUsuario}{pNombreUsuario.ToUpper()}s", DateTime.Parse(pFechaNacimiento).Date, CalcularEdadUsuario(DateTime.Parse(pFechaNacimiento)), DateTime.Now, pTelefonoUsuario, true, rol, pIdioma, 0);
-            var validador = new Validador_Usuario(ListaNombresUsuarios(), ListaDNIs());
+            BE_Usuario nuevo_usuario = new BE_Usuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), $"{pDniUsuario}{pNombreUsuario.ToUpper()}s", DateTime.Parse(pFechaNacimiento).Date, DateTime.Now, pTelefonoUsuario, true, rol, pIdioma, 0);
+            var validador = new Validador_Usuario(ListaNombresUsuarios(), ListaDNIs(), pTipo);
             var resultado = validador.Validate(nuevo_usuario);
             if (!resultado.IsValid)
             {
@@ -107,19 +118,7 @@ namespace BLL
             return lista;
         }
 
-        public int CalcularEdadUsuario(DateTime pFechaNacimientoUsuario)
-        {
-            DateTime fechaActual = DateTime.Now;
-            int edad = fechaActual.Year - pFechaNacimientoUsuario.Year;
-
-            // Ajustar la edad si la persona no ha cumplido años este año
-            if (fechaActual < pFechaNacimientoUsuario.AddYears(edad))
-            {
-                edad--;
-            }
-
-            return edad;
-        }
+        
 
         public List<string> ListaNombresUsuarios()
         {
@@ -140,5 +139,19 @@ namespace BLL
         {
             ormUsuario.ReestablecerIntentos(usuario);
         }
+
+        public void CerrarSesion(BE_Usuario pUsuario)
+        {
+            Sesion sesion = Sesion.INSTANCIA;
+            sesion.CerrarSesion();
+        }
+
+        public void CambiarContraseña(BE_Usuario pUsuario, string pNuevaContraseña)
+        {
+            pUsuario.Contraseña_Usuario = encriptador.GenerarHash(pNuevaContraseña);
+            ormUsuario.CambiarContraseña(pUsuario);
+        }
+
+        
     }
 }

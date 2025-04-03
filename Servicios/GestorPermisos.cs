@@ -10,15 +10,16 @@ namespace BLL
 {
     public class GestorPermisos
     {
-        ORMPermiso ormPermiso = new ORMPermiso();
+        DALPermiso ormPermiso = new DALPermiso();
         public bool Configurar_Control(string tag)
         {
+            Sesion sesion = Sesion.INSTANCIA;
             //Si esta funcion devuelve false, el control no estará habilitado, si devuelve true, si estará
-            if (tag == null || tag == "")
+            if (tag == null || tag == "" || sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador")
             {
                 return true;
             }
-            return Sesion.INSTANCIA.SesionTienePermiso(tag);
+            return sesion.SesionTienePermiso(tag);
         }
 
         public bool EliminarPermiso(string pNombre)

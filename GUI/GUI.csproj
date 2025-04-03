@@ -73,6 +73,18 @@
     <Compile Include="GestionRolesUsuarios.Designer.cs">
       <DependentUpon>GestionRolesUsuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUIBitacora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIBitacora.Designer.cs">
+      <DependentUpon>GUIBitacora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIIdiomas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIIdiomas.Designer.cs">
+      <DependentUpon>GUIIdiomas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +105,12 @@
     <EmbeddedResource Include="GestionRolesUsuarios.resx">
       <DependentUpon>GestionRolesUsuarios.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUIBitacora.resx">
+      <DependentUpon>GUIBitacora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIIdiomas.resx">
+      <DependentUpon>GUIIdiomas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,14 +119,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -1,4 +1,6 @@
 ﻿using BE;
+using ORM;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +28,8 @@ namespace BLL
         private string rolsesion = "";
         private BEPermisoCompuesto PermisosSesion;
 
-        BLLPermisoCompuesto bllPermisoCompuesto = new BLLPermisoCompuesto();
-
-
-        public void AgregarPermisoCompuesto(string pNombre, List<string> pListaPermisos, bool pIsRol)
-        {
-
-        }
+        PermisoCompuesto PermisoCompuesto = new PermisoCompuesto();
+        DALUsuario DALUsuario = new DALUsuario();
 
         public void IniciarSesion(BE_Usuario usuario)
         {
@@ -45,13 +42,29 @@ namespace BLL
 
         public BE_Usuario ObtenerUsuarioActual()
         {
-            BLL_Usuario bllUsuario = new BLL_Usuario();
-            return bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == usuarioSesion);
+            return DALUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == usuarioSesion);
         }
 
         public bool SesionTienePermiso(string pPermiso)
         {
-            return bllPermisoCompuesto.VerificarPermisoIncluido(PermisosSesion, pPermiso);
+            return PermisoCompuesto.VerificarPermisoIncluido(PermisosSesion, pPermiso);
+        }
+
+        public void CerrarSesion()
+        {
+            usuarioSesion = null;
+        }
+
+        public void ConfigurarIdioma(string pNuevaConfiguracion)
+        {
+            Traductor traductor = Traductor.INSTANCIA;
+            idiomaSesion = pNuevaConfiguracion;
+            traductor.Notificar();
+        }
+
+        public string ObtenerIdiomaSesion()
+        {
+            return idiomaSesion;
         }
     }
 }

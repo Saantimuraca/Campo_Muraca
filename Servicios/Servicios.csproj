@@ -35,6 +35,9 @@
       <HintPath>..\packages\FluentValidation.11.11.0\lib\netstandard2.0\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
@@ -52,8 +55,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bitacora.cs" />
+    <Compile Include="GestorDeCopiasDeDatos.cs" />
+    <Compile Include="IObserver.cs" />
+    <Compile Include="PermisoCompuesto.cs" />
+    <Compile Include="Pemiso.cs" />
     <Compile Include="Encriptador.cs" />
+    <Compile Include="GestorPermisos.cs" />
     <Compile Include="ServicioMail.cs" />
+    <Compile Include="Sesion.cs" />
+    <Compile Include="Traductor.cs" />
     <Compile Include="Validador_Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -64,6 +75,10 @@
     <ProjectReference Include="..\BE\BE.csproj">
       <Project>{51a168ef-7902-4731-8380-dcecc156ab26}</Project>
       <Name>BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAO\DAL.csproj">
+      <Project>{d270cded-81cd-46aa-bf9a-80fbf1a30f6c}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

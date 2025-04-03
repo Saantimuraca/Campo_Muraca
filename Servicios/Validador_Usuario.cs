@@ -12,7 +12,7 @@ namespace Servicios
 {
     public class Validador_Usuario : AbstractValidator<BE_Usuario>
     {
-        public Validador_Usuario(List<string> lista, List<string> lista2)
+        public Validador_Usuario(List<string> lista, List<string> lista2, string pTipo)
         {
             RuleFor(u => u.Nombre_Usuario).NotEmpty().WithMessage("Debe ingresar un nombre de usuario!!!").Must((usuario, nombreUsuario) => !lista.Contains(nombreUsuario))
     .WithMessage("El nombre de usuario ya existe!!!");
@@ -24,13 +24,16 @@ namespace Servicios
     .Matches(@"\d").WithMessage("La contraseña debe contener al menos un número.");
             RuleFor(u => u.Mail_Usuario).Cascade(CascadeMode.Stop).EmailAddress().WithMessage("Debe ingresar un mail valido!!!");
             RuleFor(u => u.Telefono_Usuario).Matches(@"^\d{10}$").WithMessage("El número de usuario debe tener 10 dígitos!!!");
-            RuleFor(u => u.Dni_Usuario)
-    .NotEmpty().WithMessage("Debe ingresar un DNI!!!")
-    .Matches(@"^\d{7,8}$").WithMessage("El DNI debe contener 7 u 8 dígitos numéricos.")
-    .Must(dni => ValidarDNI(dni)).WithMessage("El DNI ingresado no es válido.")
-    .Must((usuario, dni) => !lista2.Contains(dni)).WithMessage("El DNI ingresado ya existe.");
-            RuleFor(u => u.Rol).NotNull().WithMessage("Debe seleccionar un rol para el usuario!!!");
-            RuleFor(u => u.Idioma).NotEmpty().WithMessage("Debe seleccionar un idioma para el usuario!!!");
+            if(pTipo != "Modificar")
+            {
+                RuleFor(u => u.Dni_Usuario)
+                .NotEmpty().WithMessage("Debe ingresar un DNI!!!")
+                .Matches(@"^\d{7,8}$").WithMessage("El DNI debe contener 7 u 8 dígitos numéricos.")
+                .Must(dni => ValidarDNI(dni)).WithMessage("El DNI ingresado no es válido.")
+                .Must((usuario, dni) => !lista2.Contains(dni)).WithMessage("El DNI ingresado ya existe.");
+                RuleFor(u => u.Rol).NotNull().WithMessage("Debe seleccionar un rol para el usuario!!!");
+                RuleFor(u => u.Idioma).NotEmpty().WithMessage("Debe seleccionar un idioma para el usuario!!!");
+            }
         }
 
         public bool ValidarDNI(string dni)

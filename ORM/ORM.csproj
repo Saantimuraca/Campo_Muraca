@@ -50,9 +50,9 @@
       <Project>{51a168ef-7902-4731-8380-dcecc156ab26}</Project>
       <Name>BE</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAO\DAO.csproj">
+    <ProjectReference Include="..\DAO\DAL.csproj">
       <Project>{d270cded-81cd-46aa-bf9a-80fbf1a30f6c}</Project>
-      <Name>DAO</Name>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servicios\Servicios.csproj">
       <Project>{e1487e4e-2c51-467e-a600-ff03fcb69006}</Project>

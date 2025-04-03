@@ -51,21 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLIdioma.cs" />
+    <Compile Include="BLLTraduccion.cs" />
     <Compile Include="BLL_Usuario.cs" />
-    <Compile Include="GestorPermisos.cs" />
-    <Compile Include="BLL_Pemiso.cs" />
-    <Compile Include="BLLPermisoCompuesto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sesion.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">
       <Project>{51a168ef-7902-4731-8380-dcecc156ab26}</Project>
       <Name>BE</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ORM\ORM.csproj">
-      <Project>{08fa0947-0c1a-40ca-bf40-c2b9763ff3ec}</Project>
-      <Name>ORM</Name>
+    <ProjectReference Include="..\DAO\DAL.csproj">
+      <Project>{d270cded-81cd-46aa-bf9a-80fbf1a30f6c}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servicios\Servicios.csproj">
       <Project>{e1487e4e-2c51-467e-a600-ff03fcb69006}</Project>

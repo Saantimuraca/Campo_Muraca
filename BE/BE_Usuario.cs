@@ -33,6 +33,22 @@ namespace BE
         public int Intentos {  get; set; }
 
 
+        public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, BEPermisoCompuesto rol, string idioma, int intentos)
+        {
+            Dni_Usuario = pDniUsuario;
+            Nombre_Usuario = pNombreUsuario;
+            Mail_Usuario = pMailUsuario;
+            Contraseña_Usuario = pContraseñaUsuario;
+            Fecha_Nacimiento_Usuario = pFechaNacimientoUsuario;
+            Fecha_Creacion_Usuario = pFechaCreacionUsuario;
+            Telefono_Usuario = pTelefonoUsuario;
+            Estado_Usuario = pEstadoUsuario;
+            Rol = rol;
+            Idioma = idioma;
+            Intentos = intentos;
+        }
+
+
         public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, BEPermisoCompuesto rol, string idioma, int intentos)
         {
             Dni_Usuario = pDniUsuario;

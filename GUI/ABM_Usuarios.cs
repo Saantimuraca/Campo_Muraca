@@ -12,44 +12,66 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Servicios;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Collections.Specialized.BitVector32;
 
 namespace GUI
 {
-    public partial class ABM_Usuarios : Form
+    public partial class ABM_Usuarios : Form, IObserver
     {
         BLL_Usuario bllUsuario = new BLL_Usuario();
         GestorPermisos gp = new GestorPermisos();
-        ServicioMail mail = new ServicioMail(); 
-        
+        ServicioMail mail = new ServicioMail();
+        Sesion Sesion = Sesion.INSTANCIA;
+        Bitacora bitacora = new Bitacora();
+        Traductor traductor = Traductor.INSTANCIA;
+
         public ABM_Usuarios()
         {
             InitializeComponent();
             Mostrar(DgvUsuarios, LinqUsuarios());
+            TraducirDgv();
             CargarRoles();
+            CargarIdiomas();
             mail.EmailEnviado += MensajeMailEnviado;
+            traductor.Suscribir(this);
+            traductor.Notificar();
+        }
+
+        private void CargarIdiomas()
+        {
+            BLLIdioma bllIdioma = new BLLIdioma();
+            foreach(BEIdioma idioma in bllIdioma.ListaIdiomas())
+            {
+                CbIdioma.Items.Add(idioma.idioma); 
+            }
         }
 
         private void BtnAgregarUsuario_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!Information.IsDate(TxtFechaNacimiento.Text)) throw new Exception("Fecha inválida!!!");
-                if (CbRol.SelectedItem == null) throw new Exception("Debe seleccionar un rol para el usuario!!!");
-                if (CbIdioma.SelectedItem == null) throw new Exception("Debe seleccionar un idioma para el usuario!!!");
-                bllUsuario.AgregarUsuario(bllUsuario.CrearUsuario(TxtDNIUsuario.Text, TxtNombreUsuario.Text, TxtMail.Text, TxtFechaNacimiento.Text, TxtTelefonoUsuario.Text, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString()));
+                if (!Information.IsDate(TxtFechaNacimiento.Text)) throw new Exception(traductor.Traducir("Fecha invalida!!!", Sesion.ObtenerIdiomaSesion()));
+                if (CbRol.SelectedItem == null) throw new Exception(traductor.Traducir("Debe seleccionar un rol para el usuario!!!", Sesion.ObtenerIdiomaSesion()));
+                if (CbIdioma.SelectedItem == null) throw new Exception(traductor.Traducir("Debe seleccionar un idioma para el usuario!!!", Sesion.ObtenerIdiomaSesion()));
+                bllUsuario.AgregarUsuario(bllUsuario.CrearUsuario(TxtDNIUsuario.Text, TxtNombreUsuario.Text, TxtMail.Text, TxtFechaNacimiento.Text, TxtTelefonoUsuario.Text, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), "Agregar"));
                 Mostrar(DgvUsuarios, LinqUsuarios());
+                TraducirDgv();
                 string destinatario = TxtMail.Text;
-                string asunto = "Registro exitoso!!!";
-                string cuerpo = $"Estimado/a {TxtNombreUsuario.Text},\r\n\r\n¡Bienvenido/a al sistema de Santiago Muraca! 🎉\r\n\r\nTu cuenta ha sido creada con éxito. Ahora puedes acceder a nuestro sistema y disfrutar de todos los beneficios.";
+                BE_Usuario usuarioCreado = bllUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == TxtDNIUsuario.Text);
+                string asunto = traductor.Traducir("Registro exitoso!!!", Sesion.ObtenerIdiomaSesion());
+                string usuario = usuarioCreado.Nombre_Usuario;
+                string plantilla = traductor.Traducir("Mensaje mail", Sesion.ObtenerIdiomaSesion());
+                string cuerpo = plantilla.Replace("{usuario}", usuario);
                 string emailOrigen = "saantimuraca12@gmail.com";
                 string contraseña = "sdrjuqddpkdzwsph";
                 string[] vectorMail = TxtMail.Text.Split('@');
-                MessageBox.Show("Usuario creado con exito!!!");
+                MessageBox.Show(traductor.Traducir("Usuario creado exitosamente!!!", Sesion.ObtenerIdiomaSesion()));
                 if (vectorMail[1].ToLower() == "gmail.com")
                 {
                     mail.EnviarCorreo(destinatario, asunto, cuerpo, emailOrigen, contraseña);
                 }
+                RefrescarControles();
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Agregar usuario"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -65,6 +87,17 @@ namespace GUI
             return (from u in bllUsuario.ListaUsuarios() select new {USUARIO = u.Nombre_Usuario, MAIL = u.Mail_Usuario, EDAD = u.Edad_Usuario, TELEFONO = u.Telefono_Usuario, ESTADO = u.Estado_Usuario == true ? "Activo":"Bloqueado", ROL = u.Rol.DevolverNombrePermiso()}).ToList();
         }
 
+        public void TraducirDgv()
+        {
+            Traductor traductor = Traductor.INSTANCIA;
+            DgvUsuarios.Columns[0].HeaderText = traductor.Traducir("USUARIO", Sesion.ObtenerIdiomaSesion());
+            DgvUsuarios.Columns[1].HeaderText = traductor.Traducir("MAIL", Sesion.ObtenerIdiomaSesion());
+            DgvUsuarios.Columns[2].HeaderText = traductor.Traducir("EDAD", Sesion.ObtenerIdiomaSesion());
+            DgvUsuarios.Columns[3].HeaderText = traductor.Traducir("TELEFONO", Sesion.ObtenerIdiomaSesion());
+            DgvUsuarios.Columns[4].HeaderText = traductor.Traducir("ESTADO", Sesion.ObtenerIdiomaSesion());
+            DgvUsuarios.Columns[5].HeaderText = traductor.Traducir("ROL", Sesion.ObtenerIdiomaSesion());
+        }
+
         public void CargarRoles()
         {
             CbRol.SelectedIndex = -1;
@@ -78,16 +111,19 @@ namespace GUI
 
         private void MensajeMailEnviado(object sender, EventArgs e)
         {
-            MessageBox.Show("Se ha enviado un mail informando del alta al usuario!!!");
+            MessageBox.Show(traductor.Traducir("Se ha enviado un mail informando del alta al usuario!!!", Sesion.ObtenerIdiomaSesion()));
         }
 
         private void BtnHabilitarUsuario_Click(object sender, EventArgs e)
         {
             try
             {
-                if (DgvUsuarios.SelectedRows.Count == 0) throw new Exception("Debe seleccionar un usuario!!!");
+                if (DgvUsuarios.SelectedRows.Count == 0) throw new Exception(traductor.Traducir("Debe seleccionar un usuario!!!", Sesion.ObtenerIdiomaSesion()));
                 bllUsuario.HabilitarUsuario(DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
                 Mostrar(DgvUsuarios, LinqUsuarios());
+                TraducirDgv();
+                RefrescarControles();
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Habilitar usuario"));
             }
             catch (Exception ex) {MessageBox.Show(ex.Message); }    
         }
@@ -96,11 +132,88 @@ namespace GUI
         {
             try
             {
-                if (DgvUsuarios.SelectedRows.Count == 0) throw new Exception("Debe seleccionar un usuario!!!");
+                if (DgvUsuarios.SelectedRows.Count == 0) throw new Exception(traductor.Traducir("Debe seleccionar un usuario!!!", Sesion.ObtenerIdiomaSesion()));
                 bllUsuario.BloquearUsuario(DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
                 Mostrar(DgvUsuarios, LinqUsuarios());
+                TraducirDgv();
+                RefrescarControles();
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Baja usuario"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void BtnModificarUsuario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DgvUsuarios.SelectedRows.Count == 0) throw new Exception(traductor.Traducir("Debe seleccionar un usuario!!!", Sesion.ObtenerIdiomaSesion()));
+                string nuevoNombreUsuario = TxtNombreUsuario.Text;
+                string nuevoMailUsuario = TxtMail.Text;
+                string nuevafechaNacimiento = TxtFechaNacimiento.Text;
+                if (!Information.IsDate(nuevafechaNacimiento)) throw new Exception(traductor.Traducir("La fecha de nacimiento es invalida!!!", Sesion.ObtenerIdiomaSesion()));
+                string nuevoTelefonoUsuario = TxtTelefonoUsuario.Text;
+                BE_Usuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+                bllUsuario.ModificarUsuario(bllUsuario.CrearUsuario(usuarioSeleccionado.Dni_Usuario, nuevoNombreUsuario, nuevoMailUsuario, nuevafechaNacimiento, nuevoTelefonoUsuario, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), "Modificar"));
+                Mostrar(DgvUsuarios, LinqUsuarios());
+                TraducirDgv();
+                RefrescarControles();
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Modificar Usuario"));
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        public void RefrescarControles()
+        {
+            TxtDNIUsuario.Text = "";
+            TxtNombreUsuario.Text = "";
+            TxtMail.Text = "";
+            TxtFechaNacimiento.Text = "";
+            TxtTelefonoUsuario.Text = "";
+            CargarRoles();
+            TxtDNIUsuario.Enabled = true;
+            CbIdioma.Enabled = true;
+            CbIdioma.SelectedIndex = -1;
+            CbIdioma.SelectedItem = null;
+            DgvUsuarios.ClearSelection();
+        }
+
+        private void DgvUsuarios_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            BE_Usuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+            TxtDNIUsuario.Text = usuarioSeleccionado.Dni_Usuario;
+            TxtDNIUsuario.Enabled = false;
+            TxtNombreUsuario.Text = usuarioSeleccionado.Nombre_Usuario;
+            TxtMail.Text = usuarioSeleccionado.Mail_Usuario;
+            TxtFechaNacimiento.Text = usuarioSeleccionado.Fecha_Nacimiento_Usuario.ToShortDateString();
+            TxtTelefonoUsuario.Text = usuarioSeleccionado.Telefono_Usuario;
+            int index = CbRol.FindStringExact(usuarioSeleccionado.Rol.DevolverNombrePermiso());
+            CbRol.SelectedIndex = index;
+            int index2 = CbIdioma.FindStringExact(usuarioSeleccionado.Idioma);
+            CbIdioma.SelectedIndex = index2;
+            CbIdioma.Enabled = false;
+        }
+
+        private void BtnEliminarSeleccion_Click(object sender, EventArgs e)
+        {
+            RefrescarControles();
+        }
+
+        public void ActualizarLenguaje()
+        {
+            Traductor traductor = Traductor.INSTANCIA;
+            foreach (Control ctrl in this.Controls)
+            {
+                if(ctrl is Label || ctrl is Button)
+                {
+                    ctrl.Text = traductor.Traducir(ctrl.Name, Sesion.ObtenerIdiomaSesion());
+                }
+            }
+            //TraducirDgv();
+        }
+
+        private void ABM_Usuarios_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.OpenForms["Menu"].Show();
         }
     }
 }

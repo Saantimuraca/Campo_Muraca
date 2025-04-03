@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class BLL_Permiso
+    public class Permiso
     {
         public virtual void Agregar(BE_Permiso pPermiso, BEPermisoCompuesto pPermisoCompuesto) { }
 

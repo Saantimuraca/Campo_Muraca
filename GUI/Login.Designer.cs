@@ -39,7 +39,9 @@
             // 
             // BtnIniciarSesion
             // 
-            this.BtnIniciarSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.BtnIniciarSesion.BackColor = System.Drawing.Color.PowderBlue;
+            this.BtnIniciarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnIniciarSesion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnIniciarSesion.Location = new System.Drawing.Point(206, 150);
             this.BtnIniciarSesion.Name = "BtnIniciarSesion";
             this.BtnIniciarSesion.Size = new System.Drawing.Size(256, 43);
@@ -51,20 +53,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(142, 15);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(253, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(397, 25);
+            this.label1.Size = new System.Drawing.Size(165, 30);
             this.label1.TabIndex = 1;
-            this.label1.Text = "USTED ESTA EN EL INICIO DE SESION";
+            this.label1.Text = "Inicio de sesión\r\n";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(227, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 13);
+            this.label2.Size = new System.Drawing.Size(108, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Nombre de usuario";
             // 
@@ -78,10 +80,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(227, 98);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Contraseña";
             // 
@@ -95,7 +97,7 @@
             // 
             // BtnVisibilidadContraseña
             // 
-            this.BtnVisibilidadContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVisibilidadContraseña.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnVisibilidadContraseña.Location = new System.Drawing.Point(452, 114);
             this.BtnVisibilidadContraseña.Name = "BtnVisibilidadContraseña";
             this.BtnVisibilidadContraseña.Size = new System.Drawing.Size(58, 20);
@@ -107,7 +109,7 @@
             // Login
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(676, 234);
             this.Controls.Add(this.BtnVisibilidadContraseña);
             this.Controls.Add(this.TxtContraseña);
