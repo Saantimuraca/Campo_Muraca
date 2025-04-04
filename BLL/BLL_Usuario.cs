@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Collections.Specialized.BitVector32;
 
@@ -20,6 +21,7 @@ namespace BLL
         DALUsuario  ormUsuario = new DALUsuario();
         Encriptador encriptador = new Encriptador();
         GestorPermisos gp = new GestorPermisos();
+        Traductor traductor = Traductor.INSTANCIA;
         public void AgregarUsuario(BE_Usuario pUsuario)
         {
             ormUsuario.AgregarUsuario(pUsuario);
@@ -53,9 +55,27 @@ namespace BLL
             sesion.ConfigurarIdioma(pNuevoIdioma);
         }
 
-        public bool ExisteUsuario(string pNombreUsuario)
+        public bool ExisteUsuario(string pNombreUsuario, int pTipo, string pDNI)
         {
-            return ListaNombresUsuarios().Find(x => x == pNombreUsuario) == null ? false:true;
+            if(pTipo == 0)
+            {
+                return ListaNombresUsuarios().Find(x => x == pNombreUsuario) == null ? false : true;
+            }
+            else
+            {
+                if (ListaNombresUsuarios().Find(x => x == pNombreUsuario) != null)
+                {
+                   foreach(BE_Usuario usuario in ListaUsuarios())
+                   {
+                        if(pNombreUsuario == usuario.Nombre_Usuario && pDNI != usuario.Dni_Usuario)
+                        {
+                            return true;
+                        }
+                   }
+                    return false;
+                }
+                return false;
+            }
         }
 
         public void AumentarIntentos(string pNombreUsuario)
@@ -86,24 +106,18 @@ namespace BLL
             ormUsuario.HabilitarUsuario(usuario);
         }
 
-
-        public BE_Usuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario, string pRol, string pIdioma, string pTipo)
+        private bool DNIRepetido(string dni)
         {
+            return ListaDNIs().Find(x => x == dni) == null ? false: true;
+        }
+
+
+        public BE_Usuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario, string pRol, string pIdioma, int pTipo)
+        {
+            if(pTipo == 0) { if (DNIRepetido(pDniUsuario)) throw new Exception(traductor.Traducir("Ya existe un usuario asociado al DNI ingresado!!!", "")); }
+            if (ExisteUsuario(pNombreUsuario, pTipo, pDniUsuario)) throw new Exception(traductor.Traducir("Usuario existente!!!", ""));
             BEPermisoCompuesto rol = (BEPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == pRol);
             BE_Usuario nuevo_usuario = new BE_Usuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), $"{pDniUsuario}{pNombreUsuario.ToUpper()}s", DateTime.Parse(pFechaNacimiento).Date, DateTime.Now, pTelefonoUsuario, true, rol, pIdioma, 0);
-            var validador = new Validador_Usuario(ListaNombresUsuarios(), ListaDNIs(), pTipo);
-            var resultado = validador.Validate(nuevo_usuario);
-            if (!resultado.IsValid)
-            {
-                StringBuilder mensajeErrores = new StringBuilder("Se encontraron los siguientes errores:\n");
-
-                foreach (var error in resultado.Errors)
-                {
-                    mensajeErrores.AppendLine(error.ErrorMessage); // Agregar cada error al mensaje
-                }
-                // Lanzar una excepción con todos los errores concatenados
-                throw new Exception(mensajeErrores.ToString());
-            }
             nuevo_usuario.Contraseña_Usuario = encriptador.GenerarHash($"{pDniUsuario}{pNombreUsuario}");
             return nuevo_usuario;
         }

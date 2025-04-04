@@ -204,6 +204,7 @@ namespace GUI
                 Mostrar(DgvIdiomaActual, LinqIdiomaActual());
                 DgvIdiomaActual.Columns[0].Visible = false;
                 CargarCb();
+                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Agregar idioma"));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -223,6 +224,7 @@ namespace GUI
                 TxtBusqueda.Text = "";
                 LBL_IdiomaSeleccionado.Visible = false;
                 CargarCb();
+                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar idioma"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -244,6 +246,7 @@ namespace GUI
                 TxtBusqueda.Text = "";
                 LBL_IdiomaSeleccionado.Visible = false;
                 CargarCb();
+                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar idioma"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }   
         }

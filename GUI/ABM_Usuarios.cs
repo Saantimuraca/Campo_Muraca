@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Servicios;
 using static System.Collections.Specialized.BitVector32;
+using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace GUI
 {
@@ -24,6 +26,7 @@ namespace GUI
         Sesion Sesion = Sesion.INSTANCIA;
         Bitacora bitacora = new Bitacora();
         Traductor traductor = Traductor.INSTANCIA;
+        List<Label> listaLabels = new List<Label>();
 
         public ABM_Usuarios()
         {
@@ -35,6 +38,27 @@ namespace GUI
             mail.EmailEnviado += MensajeMailEnviado;
             traductor.Suscribir(this);
             traductor.Notificar();
+            EnlistarLabels();
+            OcultarLabels();
+        }
+
+        private void EnlistarLabels()
+        {
+            foreach(Control c in this.Controls)
+            {
+                if(c is  Label && c.Name.StartsWith("Error"))
+                {
+                    listaLabels.Add((Label)c);
+                }
+            }
+        }
+
+        private void OcultarLabels()
+        {
+            foreach(Label L in listaLabels)
+            {
+                L.Visible = false;
+            }
         }
 
         private void CargarIdiomas()
@@ -53,7 +77,7 @@ namespace GUI
                 if (!Information.IsDate(TxtFechaNacimiento.Text)) throw new Exception(traductor.Traducir("Fecha invalida!!!", Sesion.ObtenerIdiomaSesion()));
                 if (CbRol.SelectedItem == null) throw new Exception(traductor.Traducir("Debe seleccionar un rol para el usuario!!!", Sesion.ObtenerIdiomaSesion()));
                 if (CbIdioma.SelectedItem == null) throw new Exception(traductor.Traducir("Debe seleccionar un idioma para el usuario!!!", Sesion.ObtenerIdiomaSesion()));
-                bllUsuario.AgregarUsuario(bllUsuario.CrearUsuario(TxtDNIUsuario.Text, TxtNombreUsuario.Text, TxtMail.Text, TxtFechaNacimiento.Text, TxtTelefonoUsuario.Text, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), "Agregar"));
+                bllUsuario.AgregarUsuario(bllUsuario.CrearUsuario(TxtDNIUsuario.Text, TxtNombreUsuario.Text, TxtMail.Text, TxtFechaNacimiento.Text, TxtTelefonoUsuario.Text, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), 0));
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
                 string destinatario = TxtMail.Text;
@@ -153,7 +177,7 @@ namespace GUI
                 if (!Information.IsDate(nuevafechaNacimiento)) throw new Exception(traductor.Traducir("La fecha de nacimiento es invalida!!!", Sesion.ObtenerIdiomaSesion()));
                 string nuevoTelefonoUsuario = TxtTelefonoUsuario.Text;
                 BE_Usuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
-                bllUsuario.ModificarUsuario(bllUsuario.CrearUsuario(usuarioSeleccionado.Dni_Usuario, nuevoNombreUsuario, nuevoMailUsuario, nuevafechaNacimiento, nuevoTelefonoUsuario, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), "Modificar"));
+                bllUsuario.ModificarUsuario(bllUsuario.CrearUsuario(usuarioSeleccionado.Dni_Usuario, nuevoNombreUsuario, nuevoMailUsuario, nuevafechaNacimiento, nuevoTelefonoUsuario, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), 1));
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
                 RefrescarControles();
@@ -214,6 +238,82 @@ namespace GUI
         private void ABM_Usuarios_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.OpenForms["Menu"].Show();
+        }
+
+        private void TxtDNIUsuario_Leave(object sender, EventArgs e)
+        {
+            Regex r = new Regex(@"^\d{7,8}$");
+            if (!r.IsMatch(TxtDNIUsuario.Text)) { ErrorDNI.Visible = true; }
+        }
+
+        private void TxtDNIUsuario_KeyUp(object sender, KeyEventArgs e)
+        {
+            ErrorDNI.Visible = false;
+        }
+
+        private void TxtNombreUsuario_Leave(object sender, EventArgs e)
+        {
+            if(String.IsNullOrEmpty(TxtNombreUsuario.Text)) { ErrorNombre.Visible = true; }
+        }
+
+        private void TxtNombreUsuario_KeyUp(object sender, KeyEventArgs e)
+        {
+            ErrorNombre.Visible = false;
+        }
+
+        private void TxtMail_Leave(object sender, EventArgs e)
+        {
+            string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if(!Regex.IsMatch(TxtMail.Text, patron)) { ErrorCorreo.Visible = true; }
+            
+        }
+
+        private void TxtMail_KeyUp(object sender, KeyEventArgs e)
+        {
+            ErrorCorreo.Visible = false;
+        }
+
+        private void TxtFechaNacimiento_Leave(object sender, EventArgs e)
+        {
+            string patron = @"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$";
+            if(!Regex.IsMatch(TxtFechaNacimiento.Text, patron)) { ErrorFecha.Visible = true; }
+            
+        }
+
+        private void TxtFechaNacimiento_KeyUp(object sender, KeyEventArgs e)
+        {
+            ErrorFecha.Visible = false;
+        }
+
+        private void TxtTelefonoUsuario_Leave(object sender, EventArgs e)
+        {
+            string patron = @"^\d{10}$";
+            if(!Regex.IsMatch(TxtTelefonoUsuario.Text, patron)) { ErrorTelefono.Visible = true; }
+        }
+
+        private void TxtTelefonoUsuario_KeyUp(object sender, KeyEventArgs e)
+        {
+            ErrorTelefono.Visible = false;
+        }
+
+        private void CbRol_Leave(object sender, EventArgs e)
+        {
+            if(CbRol.SelectedItem == null) { ErrorRol.Visible = true; }
+        }
+
+        private void CbRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ErrorRol.Visible = false;
+        }
+
+        private void CbIdioma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ErrorIdioma.Visible = false;
+        }
+
+        private void CbIdioma_Leave(object sender, EventArgs e)
+        {
+            if(CbIdioma.SelectedItem == null) { ErrorIdioma.Visible=true; }
         }
     }
 }

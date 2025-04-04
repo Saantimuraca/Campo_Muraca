@@ -26,6 +26,7 @@ namespace GUI
         public Menu()
         {
             InitializeComponent();
+            sesion.ConfigurarIdioma(sesion.ObtenerIdiomaSesion());
             CbIdioma.SelectedItem = sesion.ObtenerIdiomaSesion();
             label2.Text += $" {sesion.ObtenerUsuarioActual().Idioma}";
             label3.Text += $" {sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso()}";

@@ -35,7 +35,7 @@ namespace Servicios
                 Sesion sesion = Sesion.INSTANCIA;
                 ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             }
-            catch { ActualizarIdioma("Español"); }
+            catch { ActualizarIdioma("Español");}
         }
 
         public void ActualizarIdioma(string idioma)

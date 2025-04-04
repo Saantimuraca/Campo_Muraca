@@ -35,7 +35,7 @@ namespace GUI
                 Bitacora bitacora = new Bitacora();
                 string nombreUsuario = TxtNombreUsuario.Text;
                 string contraseñaUsuario = TxtContraseña.Text;
-                if (!bllUsuario.ExisteUsuario(nombreUsuario)) throw new Exception("Credenciales incorrectas!!!");
+                if (!bllUsuario.ExisteUsuario(nombreUsuario, 0, "")) throw new Exception("Credenciales incorrectas!!!");
                 if (!bllUsuario.Login(nombreUsuario, contraseñaUsuario))
                 {
                     bllUsuario.AumentarIntentos(nombreUsuario);
@@ -50,6 +50,7 @@ namespace GUI
                 }
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Iniciar sesión"));
                 a.Definir_Estado(new EstadoMenu());
+                
             }
             catch(Exception ex) { MessageBox.Show(ex.Message);}
             
