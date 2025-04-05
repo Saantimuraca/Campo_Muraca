@@ -13,12 +13,14 @@ namespace GUI
 {
     public partial class GUIBitacroa_ : Form
     {
-        
+        Traductor traductor = Traductor.INSTANCIA;
         public GUIBitacroa_()
         {
             InitializeComponent();
             Dgv.DataSource = null;
             Dgv.DataSource = LinqBitacora();
+            Dgv.Columns[0].HeaderText = "Fecha y hora";
+            label1.Text = traductor.Traducir("BITÁCORA", "");
         }
 
         public object LinqBitacora()

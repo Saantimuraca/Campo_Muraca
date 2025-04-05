@@ -74,28 +74,37 @@ namespace GUI
         {
             try
             {
-                if (!Information.IsDate(TxtFechaNacimiento.Text)) throw new Exception(traductor.Traducir("Fecha invalida!!!", Sesion.ObtenerIdiomaSesion()));
-                if (CbRol.SelectedItem == null) throw new Exception(traductor.Traducir("Debe seleccionar un rol para el usuario!!!", Sesion.ObtenerIdiomaSesion()));
-                if (CbIdioma.SelectedItem == null) throw new Exception(traductor.Traducir("Debe seleccionar un idioma para el usuario!!!", Sesion.ObtenerIdiomaSesion()));
-                bllUsuario.AgregarUsuario(bllUsuario.CrearUsuario(TxtDNIUsuario.Text, TxtNombreUsuario.Text, TxtMail.Text, TxtFechaNacimiento.Text, TxtTelefonoUsuario.Text, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), 0));
-                Mostrar(DgvUsuarios, LinqUsuarios());
-                TraducirDgv();
-                string destinatario = TxtMail.Text;
-                BE_Usuario usuarioCreado = bllUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == TxtDNIUsuario.Text);
-                string asunto = traductor.Traducir("Registro exitoso!!!", Sesion.ObtenerIdiomaSesion());
-                string usuario = usuarioCreado.Nombre_Usuario;
-                string plantilla = traductor.Traducir("Mensaje mail", Sesion.ObtenerIdiomaSesion());
-                string cuerpo = plantilla.Replace("{usuario}", usuario);
-                string emailOrigen = "saantimuraca12@gmail.com";
-                string contraseña = "sdrjuqddpkdzwsph";
-                string[] vectorMail = TxtMail.Text.Split('@');
-                MessageBox.Show(traductor.Traducir("Usuario creado exitosamente!!!", Sesion.ObtenerIdiomaSesion()));
-                if (vectorMail[1].ToLower() == "gmail.com")
+                bool isVisible = false;
+                foreach (Label l in listaLabels)
                 {
-                    mail.EnviarCorreo(destinatario, asunto, cuerpo, emailOrigen, contraseña);
+                    if (l.Visible) { isVisible = true; }
                 }
-                RefrescarControles();
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Agregar usuario"));
+                if(!isVisible)
+                {
+                    if (!Information.IsDate(TxtFechaNacimiento.Text)) throw new Exception(traductor.Traducir("Fecha invalida!!!", Sesion.ObtenerIdiomaSesion()));
+                    if (CbRol.SelectedItem == null) throw new Exception(traductor.Traducir("Debe seleccionar un rol para el usuario!!!", Sesion.ObtenerIdiomaSesion()));
+                    if (CbIdioma.SelectedItem == null) throw new Exception(traductor.Traducir("Debe seleccionar un idioma para el usuario!!!", Sesion.ObtenerIdiomaSesion()));
+                    bllUsuario.AgregarUsuario(bllUsuario.CrearUsuario(TxtDNIUsuario.Text, TxtNombreUsuario.Text, TxtMail.Text, TxtFechaNacimiento.Text, TxtTelefonoUsuario.Text, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), 0));
+                    Mostrar(DgvUsuarios, LinqUsuarios());
+                    TraducirDgv();
+                    string destinatario = TxtMail.Text;
+                    BE_Usuario usuarioCreado = bllUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == TxtDNIUsuario.Text);
+                    string asunto = traductor.Traducir("Registro exitoso!!!", Sesion.ObtenerIdiomaSesion());
+                    string usuario = usuarioCreado.Nombre_Usuario;
+                    string plantilla = traductor.Traducir("Mensaje mail", Sesion.ObtenerIdiomaSesion());
+                    string cuerpo = plantilla.Replace("{usuario}", usuario);
+                    string emailOrigen = "saantimuraca12@gmail.com";
+                    string contraseña = "sdrjuqddpkdzwsph";
+                    string[] vectorMail = TxtMail.Text.Split('@');
+                    MessageBox.Show(traductor.Traducir("Usuario creado exitosamente!!!", Sesion.ObtenerIdiomaSesion()));
+                    if (vectorMail[1].ToLower() == "gmail.com")
+                    {
+                        mail.EnviarCorreo(destinatario, asunto, cuerpo, emailOrigen, contraseña);
+                    }
+                    RefrescarControles();
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Agregar usuario"));
+                }
+                
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }

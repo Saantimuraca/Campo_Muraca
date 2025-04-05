@@ -65,7 +65,6 @@
     <Compile Include="ServicioMail.cs" />
     <Compile Include="Sesion.cs" />
     <Compile Include="Traductor.cs" />
-    <Compile Include="Validador_Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

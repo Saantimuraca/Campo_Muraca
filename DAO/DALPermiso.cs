@@ -13,6 +13,7 @@ namespace ORM
 {
     public class DALPermiso
     {
+        
         Gestor_Datos dao = Gestor_Datos.INSTANCIA;
         public List<BE_Permiso> DevolverPermisosArbol()
         {
@@ -33,7 +34,7 @@ namespace ORM
                 }
                 else
                 {
-                    //Sino es compuesto, lo agrego solo a la lista de permisos simples.
+                    //Sino es compuesto, lo agrego solo a la lista de permisos.
                     BEPermisoSimple permisoSimple = new BEPermisoSimple(nombrePermiso);
                     listaPermisos.Add(permisoSimple);
                 }

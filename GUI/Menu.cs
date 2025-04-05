@@ -20,13 +20,11 @@ namespace GUI
         Sesion sesion = Sesion.INSTANCIA;
         Bitacora bitacora = new Bitacora();
         Traductor traductor = Traductor.INSTANCIA;
-        ABM_Usuarios guiABMUsuarios = new ABM_Usuarios();
-        GestionRolesUsuarios guiGestionRolesUsuarios = new GestionRolesUsuarios();
-        GUIIdiomas guiIdiomas = new GUIIdiomas();
         public Menu()
         {
             InitializeComponent();
             sesion.ConfigurarIdioma(sesion.ObtenerIdiomaSesion());
+            traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             CbIdioma.SelectedItem = sesion.ObtenerIdiomaSesion();
             label2.Text += $" {sesion.ObtenerUsuarioActual().Idioma}";
             label3.Text += $" {sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso()}";
@@ -35,6 +33,7 @@ namespace GUI
             traductor.Suscribir(this);
             traductor.Notificar();
             CargarIdiomas();
+            
         }
 
         public void CargarIdiomas()
@@ -47,20 +46,10 @@ namespace GUI
             }
         }
 
-        public void SuscribirFormularios()
-        {
-            traductor.Suscribir(this);
-            traductor.Suscribir(guiABMUsuarios);
-            traductor.Suscribir(guiGestionRolesUsuarios);
-            traductor.Suscribir(guiIdiomas);
-        }
-
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
            Environment.Exit(0);
         }
-
-        
 
         private void BtnCerrarSesion_Click(object sender, EventArgs e)
         {
