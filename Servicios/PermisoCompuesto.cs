@@ -9,18 +9,14 @@ namespace BLL
 {
     public class PermisoCompuesto : Permiso
     {
-
         public override void Agregar(BE_Permiso pPermiso, BEPermisoCompuesto pPermisoCompuesto)
         {
             pPermisoCompuesto.DevolverListaPermisos().Add(pPermiso);
         }
-
         public override void Eliminar(BE_Permiso pPermiso, BEPermisoCompuesto pPermisoCompuesto)
         {
             pPermisoCompuesto.DevolverListaPermisos().Remove(pPermiso);
         }
-
-
         public bool VerificarPermisoIncluido(BE_Permiso permisoActual, string permiso)
         {
             //Verifico si el objeto permiso que le mando es el permiso que estoy buscando.
@@ -42,7 +38,5 @@ namespace BLL
             //Si el permiso no se encontró en todo el árbol se retorna false.
             return false;
         }
-
-        
     }
 }

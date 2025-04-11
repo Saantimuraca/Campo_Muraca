@@ -1,5 +1,4 @@
 ﻿using BE;
-using FluentValidation;
 using Microsoft.VisualBasic;
 using ORM;
 using Servicios;
@@ -11,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
 
 namespace BLL
 {
