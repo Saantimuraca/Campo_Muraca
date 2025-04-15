@@ -187,7 +187,8 @@ namespace GUI
             {
                 traductor.ActualizarIdioma(CbIdiomas.SelectedItem.ToString());
                 string traduccion = traductor.Traducir(DgvIdiomaActual.SelectedRows[0].Cells[0].Value.ToString(), "");
-                TxtTraduccion.Text = !string.IsNullOrEmpty(traduccion) ? traduccion : traductor.Traducir("Sin traducción", "");
+                if (string.IsNullOrEmpty(traduccion)) TxtTraduccion.Text = traductor.Traducir("Sin traducción", "");
+                else TxtTraduccion.Text = traduccion;
                 traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             }
         }
@@ -249,6 +250,11 @@ namespace GUI
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar idioma"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }   
+        }
+
+        private void DgvIdiomaActual_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
