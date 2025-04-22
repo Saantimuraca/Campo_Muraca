@@ -3,42 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BE;
-using DAO;
+using DAL;
+using Servicios.Entidades;
+using Servicios.Datos;
 
-namespace BLL
+namespace Servicios.Logica
 {
-    public class BLLTraduccion
+    public class LogicaTraduccion
     {
         DALTraductor dalTraductor = new DALTraductor();
-        public List<BETraduccion> ListaTraduccion()
+        public List<EntidadTraduccion> ListaTraduccion()
         {
             return dalTraductor.ListaTraducciones();
         }
 
-        public List<BETraduccion> ListaIncremental(string consulta, string idioma)
+        public List<EntidadTraduccion> ListaIncremental(string consulta, string idioma)
         {
             return dalTraductor.ListaIncremental(consulta, idioma);
         }
 
-        public void ModificarTraduccion(BETraduccion pTraduccion)
+        public void ModificarTraduccion(EntidadTraduccion pTraduccion)
         {
             dalTraductor.ModificarTraduccion(pTraduccion);
         }
 
-        public void AgregarTraduccion(BETraduccion traduccion)
+        public void AgregarTraduccion(EntidadTraduccion traduccion)
         {
             dalTraductor.AgregarTraduccion(traduccion);
         }
 
-        public void EliminarTraduccion(BETraduccion pTraduccion)
+        public void EliminarTraduccion(EntidadTraduccion pTraduccion)
         {
             dalTraductor.EliminarTraduccion(pTraduccion);
         }
 
-        public void ModificarIdiomaTraduccion(BEIdioma pIdioma, BEIdioma pIdiomaViejo)
+        public void ModificarIdiomaTraduccion(EntidadIdioma pIdioma, EntidadIdioma pIdiomaViejo)
         {
-            foreach(BETraduccion traduccion in ListaTraduccion())
+            foreach(EntidadTraduccion traduccion in ListaTraduccion())
             {
                 if(traduccion.idioma == pIdiomaViejo.idioma)
                 {

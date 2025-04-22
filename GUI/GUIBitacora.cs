@@ -1,4 +1,5 @@
 ﻿using Servicios;
+using Servicios.Logica;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +28,7 @@ namespace GUI
 
         public object LinqBitacora()
         {
-            Bitacora bitacora = new Bitacora();
+            LogicaBitacora bitacora = new LogicaBitacora();
             return (from b in bitacora.ListaBitacora() select new { FECHA_HORA = b.fechaHora, USUARIO = b.usuario.Nombre_Usuario, ACCION = b.accion }).ToList();
         }
 

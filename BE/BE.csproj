@@ -41,13 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BEIdioma.cs" />
-    <Compile Include="BEPermiso.cs" />
-    <Compile Include="BEPermisoCompuesto.cs" />
-    <Compile Include="BEPermisoSimple.cs" />
-    <Compile Include="BETraduccion.cs" />
-    <Compile Include="BE_Usuario.cs" />
-    <Compile Include="BEBitacora.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

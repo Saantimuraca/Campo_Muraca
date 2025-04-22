@@ -1,12 +1,13 @@
-﻿using BE;
+﻿using Servicios.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
 
-namespace DAO
+namespace Servicios.Datos
 {
     public class DALTraductor
     {
@@ -24,33 +25,33 @@ namespace DAO
             return d;
         }
 
-        public List<BETraduccion> ListaTraducciones()
+        public List<EntidadTraduccion> ListaTraducciones()
         {
-            List<BETraduccion> lista = new List<BETraduccion>();   
+            List<EntidadTraduccion> lista = new List<EntidadTraduccion>();   
             foreach(DataRowView drv in gd.DevolverTabla("Traduccion").DefaultView)
             {
-                BETraduccion traduccion = new BETraduccion(drv[0].ToString(), drv[1].ToString(), drv[2].ToString());
+                EntidadTraduccion traduccion = new EntidadTraduccion(drv[0].ToString(), drv[1].ToString(), drv[2].ToString());
                 lista.Add(traduccion);
             }
             return lista;
         }
 
-        public List<BETraduccion> ListaIncremental(string consulta, string idioma)
+        public List<EntidadTraduccion> ListaIncremental(string consulta, string idioma)
         {
-            List<BETraduccion> lista = new List<BETraduccion>();
+            List<EntidadTraduccion> lista = new List<EntidadTraduccion>();
             DataView dv = new DataView(gd.DevolverTabla("Traduccion"), consulta, "", DataViewRowState.Unchanged);
             foreach (DataRowView drv in dv)
             {
                 if (drv[1].ToString() == idioma)
                 {
-                    BETraduccion traduccion = new BETraduccion(drv[0].ToString(), drv[1].ToString(), drv[2].ToString());
+                    EntidadTraduccion traduccion = new EntidadTraduccion(drv[0].ToString(), drv[1].ToString(), drv[2].ToString());
                     lista.Add(traduccion);
                 }
             }
             return lista;
         }
 
-        public void ModificarTraduccion(BETraduccion pTraduccion)
+        public void ModificarTraduccion(EntidadTraduccion pTraduccion)
         {
             string[] clave = { pTraduccion.textoTraducir, pTraduccion.idioma };
             DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(clave);
@@ -58,7 +59,7 @@ namespace DAO
             gd.ActualizarPorTabla("Traduccion");
         }
 
-        public void AgregarTraduccion(BETraduccion pTraduccion)
+        public void AgregarTraduccion(EntidadTraduccion pTraduccion)
         {
             DataRow dr = gd.DevolverTabla("Traduccion").NewRow();
             dr["textoTraducir"] = pTraduccion.textoTraducir;
@@ -68,7 +69,7 @@ namespace DAO
             gd.ActualizarPorTabla("Traduccion");
         }
 
-        public void EliminarTraduccion(BETraduccion pTraduccion)
+        public void EliminarTraduccion(EntidadTraduccion pTraduccion)
         {
             string[] clave = {pTraduccion.textoTraducir, pTraduccion.idioma};
             DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(clave);
@@ -76,7 +77,7 @@ namespace DAO
             gd.ActualizarPorTabla("Traduccion");
         }
 
-        public void ModificarIdiomaTraduccion(BETraduccion pTraduccion, BEIdioma pIdioma, BEIdioma pIdiomaNuevo)
+        public void ModificarIdiomaTraduccion(EntidadTraduccion pTraduccion, EntidadIdioma pIdioma, EntidadIdioma pIdiomaNuevo)
         {
             string[] clave = {pTraduccion.textoTraducir, pTraduccion.idioma};
             DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(clave);

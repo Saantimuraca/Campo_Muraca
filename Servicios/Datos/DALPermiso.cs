@@ -6,20 +6,20 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BE;
-using DAO;
+using DAL;
+using Servicios.Entidades;
 
-namespace ORM
+namespace Servicios.Datos
 {
     public class DALPermiso
     {
         
         Gestor_Datos dao = Gestor_Datos.INSTANCIA;
-        public List<BE_Permiso> DevolverPermisosArbol()
+        public List<EntidadPermiso> DevolverPermisosArbol()
         {
             //Primero creamos una lista para los permisos simples y otra para los compuestos.
-            List<BE_Permiso> listaPermisos = new List<BE_Permiso>();
-            List<BE_Permiso> listaPermisosCompuestos = new List<BE_Permiso>();
+            List<EntidadPermiso> listaPermisos = new List<EntidadPermiso>();
+            List<EntidadPermiso> listaPermisosCompuestos = new List<EntidadPermiso>();
             //Recorremos cada permiso en la tabla permisos.
             foreach(DataRowView row in dao.DevolverTabla("Permiso").DefaultView)
             {
@@ -28,14 +28,14 @@ namespace ORM
                 if(tipoPermiso == "Compuesto")
                 {
                     //Si el permiso es compuesto, lo creo y agrego a ambas listas.
-                    BEPermisoCompuesto permisoCompuesto = new BEPermisoCompuesto(nombrePermiso);
+                    EntidadPermisoCompuesto permisoCompuesto = new EntidadPermisoCompuesto(nombrePermiso);
                     listaPermisosCompuestos.Add(permisoCompuesto);   
                     listaPermisos.Add(permisoCompuesto);
                 }
                 else
                 {
                     //Sino es compuesto, lo agrego solo a la lista de permisos.
-                    BEPermisoSimple permisoSimple = new BEPermisoSimple(nombrePermiso);
+                    EntidadPermisoSimple permisoSimple = new EntidadPermisoSimple(nombrePermiso);
                     listaPermisos.Add(permisoSimple);
                 }
             }
@@ -45,9 +45,9 @@ namespace ORM
                 string nombrePermisoCompuesto = row[0].ToString();
                 string nombrePermisoIncluido = row[1].ToString();
                 //Encontramos el permiso compuesto al que le queremos agregar el permiso simple.
-                BEPermisoCompuesto permisoCompuesto = listaPermisosCompuestos.FirstOrDefault(x => x.DevolverNombrePermiso() == nombrePermisoCompuesto) as BEPermisoCompuesto;
+                EntidadPermisoCompuesto permisoCompuesto = listaPermisosCompuestos.FirstOrDefault(x => x.DevolverNombrePermiso() == nombrePermisoCompuesto) as EntidadPermisoCompuesto;
                 //Encontramos el permiso simple que se quiere agregar y lo agregamos
-                BEPermisoSimple permisoIncluido = listaPermisos.FirstOrDefault(x => x.DevolverNombrePermiso() == nombrePermisoIncluido) as BEPermisoSimple;
+                EntidadPermisoSimple permisoIncluido = listaPermisos.FirstOrDefault(x => x.DevolverNombrePermiso() == nombrePermisoIncluido) as EntidadPermisoSimple;
                 permisoCompuesto.DevolverListaPermisos().Add(permisoIncluido);
             }
             //Una vez que tenemos todos los permisos compuestos por los permisos simples retornamos la lista.
@@ -76,32 +76,32 @@ namespace ORM
             catch { return false; }
         }
 
-        public List<BE_Permiso> DevolverPermisos(string tipo)
+        public List<EntidadPermiso> DevolverPermisos(string tipo)
         {
-            List<BE_Permiso> lista = new List<BE_Permiso>();
+            List<EntidadPermiso> lista = new List<EntidadPermiso>();
             foreach (DataRowView row in dao.DevolverTabla("Permiso").DefaultView)
             {
                 if (tipo == "Todos excepto roles" && bool.Parse(row[2].ToString()) == false)
                 {
                     if (row[1].ToString() == "Compuesto")
                     {
-                        BEPermisoCompuesto permisoCompuesto = new BEPermisoCompuesto(row[0].ToString());
+                        EntidadPermisoCompuesto permisoCompuesto = new EntidadPermisoCompuesto(row[0].ToString());
                         lista.Add(permisoCompuesto);
                     }
                     else
                     {
-                        BEPermisoSimple permisoSimple = new BEPermisoSimple(row[0].ToString());
+                        EntidadPermisoSimple permisoSimple = new EntidadPermisoSimple(row[0].ToString());
                         lista.Add(permisoSimple);
                     }
                 }
                 if(tipo == "Compuestos" && row[1].ToString() == "Compuesto")
                 {
-                    BEPermisoCompuesto permisoCompuesto = new BEPermisoCompuesto(row[0].ToString());
+                    EntidadPermisoCompuesto permisoCompuesto = new EntidadPermisoCompuesto(row[0].ToString());
                     lista.Add(permisoCompuesto);
                 }
                 if(tipo == "Roles" && bool.Parse(row[2].ToString()) == true)
                 {
-                    BEPermisoCompuesto permisoCompuesto = new BEPermisoCompuesto(row[0].ToString());
+                    EntidadPermisoCompuesto permisoCompuesto = new EntidadPermisoCompuesto(row[0].ToString());
                     lista.Add(permisoCompuesto);
                 }
             }
@@ -117,7 +117,7 @@ namespace ORM
             return false;
         }
 
-        public bool AgregarPermiso(BE_Permiso pNuevoPermiso, bool isRol)
+        public bool AgregarPermiso(EntidadPermiso pNuevoPermiso, bool isRol)
         {
             try
             {
@@ -152,30 +152,30 @@ namespace ORM
             }
         }
 
-        public List<BE_Permiso> DevolverPermsisosArbol()
+        public List<EntidadPermiso> DevolverPermsisosArbol()
         {
             //Primero agregamos los permisos a sus lista correspondientes.
-            List<BE_Permiso> listaCompuestos = new List<BE_Permiso>();
-            List<BE_Permiso> listaPermisos = new List<BE_Permiso>();
+            List<EntidadPermiso> listaCompuestos = new List<EntidadPermiso>();
+            List<EntidadPermiso> listaPermisos = new List<EntidadPermiso>();
             foreach (DataRowView row in dao.DevolverTabla("Permiso").DefaultView)
             {
                 if (row[1].ToString() == "Compuesto")
                 {
-                    BEPermisoCompuesto permisoCompuesto = new BEPermisoCompuesto(row[0].ToString());
+                    EntidadPermisoCompuesto permisoCompuesto = new EntidadPermisoCompuesto(row[0].ToString());
                     listaCompuestos.Add(permisoCompuesto);
                     listaPermisos.Add(permisoCompuesto);
                 }
                 else
                 {
-                    BEPermisoSimple permisoSimple = new BEPermisoSimple(row[0].ToString());
+                    EntidadPermisoSimple permisoSimple = new EntidadPermisoSimple(row[0].ToString());
                     listaPermisos.Add(permisoSimple);
                 }
             }
             //Ahora trabajamos con las relaciones agregando los permisos simples a los permisos compuestos que correspondan.
             foreach (DataRowView row in dao.DevolverTabla("RelacionPermisos").DefaultView)
             {
-                BEPermisoCompuesto permisoCompuesto = (BEPermisoCompuesto)listaCompuestos.Find(x => x.DevolverNombrePermiso() == row[0].ToString());
-                BEPermisoSimple permisoSimple = (BEPermisoSimple)listaPermisos.Find(x => x.DevolverNombrePermiso() == row[1].ToString());
+                EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)listaCompuestos.Find(x => x.DevolverNombrePermiso() == row[0].ToString());
+                EntidadPermisoSimple permisoSimple = (EntidadPermisoSimple)listaPermisos.Find(x => x.DevolverNombrePermiso() == row[1].ToString());
                 permisoCompuesto.DevolverListaPermisos().Add(permisoSimple);
             }
             return listaCompuestos;

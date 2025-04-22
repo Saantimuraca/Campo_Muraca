@@ -1,6 +1,6 @@
-﻿using BLL;
-using DAO;
+﻿using DAL;
 using Newtonsoft.Json;
+using Servicios.Datos;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,11 +42,8 @@ namespace Servicios
         {
             d = dt.CargarTraduccion(idioma);
         }
-
         List<IObserver> listFormularios = new List<IObserver>();
-        
-
-
+      
         public void Notificar()
         {
             foreach(IObserver form in listFormularios)
@@ -59,8 +56,6 @@ namespace Servicios
         {
             this.listFormularios.Add(pNuevoOberserver);
         }
-
-
         public string Traducir(string textoTraducir, string pIdioma)
         {
             try

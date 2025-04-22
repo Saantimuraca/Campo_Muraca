@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BE
+namespace Servicios.Entidades
 {
-    public class BEIdioma
+    public class EntidadIdioma
     {
         public int idIdioma {  get; set; }
 
         public string idioma { get; set; }
 
-        public BEIdioma(string pIdioma)
+        public EntidadIdioma(string pIdioma)
         {
             idIdioma = 0;
             idioma = pIdioma;
         }
 
-        public BEIdioma(string pIdioma, int id)
+        public EntidadIdioma(string pIdioma, int id)
         {
             idIdioma = id;
             idioma = pIdioma;

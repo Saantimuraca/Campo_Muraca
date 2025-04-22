@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BE
+namespace Servicios.Entidades
 {
-    public class BE_Usuario
+    public class EntidadUsuario
     {
         public string Dni_Usuario {  get; set; }
 
@@ -26,14 +26,14 @@ namespace BE
 
         public bool Estado_Usuario { get; set; }
 
-        public BEPermisoCompuesto Rol {  get; set; }
+        public EntidadPermisoCompuesto Rol {  get; set; }
 
         public string Idioma {  get; set; }
 
         public int Intentos {  get; set; }
 
 
-        public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, BEPermisoCompuesto rol, string idioma, int intentos)
+        public EntidadUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, EntidadPermisoCompuesto rol, string idioma, int intentos)
         {
             Dni_Usuario = pDniUsuario;
             Nombre_Usuario = pNombreUsuario;
@@ -49,7 +49,7 @@ namespace BE
         }
 
 
-        public BE_Usuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, BEPermisoCompuesto rol, string idioma, int intentos)
+        public EntidadUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pContraseñaUsuario, DateTime pFechaNacimientoUsuario, int pEdadUsuario, DateTime pFechaCreacionUsuario, string pTelefonoUsuario, bool pEstadoUsuario, EntidadPermisoCompuesto rol, string idioma, int intentos)
         {
             Dni_Usuario = pDniUsuario;
             Nombre_Usuario = pNombreUsuario;

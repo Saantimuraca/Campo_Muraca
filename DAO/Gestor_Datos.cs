@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace DAO
+namespace DAL
 {
     public class Gestor_Datos
     {

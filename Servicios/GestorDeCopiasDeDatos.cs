@@ -1,5 +1,4 @@
-﻿using DAO;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -26,7 +25,6 @@ namespace Servicios
                 }
             }
         }
-
         public void HacerRespaldo()
         {
             using (SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True"))

@@ -1,6 +1,4 @@
-﻿using BE;
-using BLL;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -12,19 +10,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Servicios;
-using static System.Collections.Specialized.BitVector32;
 using System.Text.RegularExpressions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using Servicios.Logica;
+using Servicios.Entidades;
 
 namespace GUI
 {
     public partial class ABM_Usuarios : Form, IObserver
     {
-        BLL_Usuario bllUsuario = new BLL_Usuario();
+        LogicaUsuario bllUsuario = new LogicaUsuario();
         GestorPermisos gp = new GestorPermisos();
         ServicioMail mail = new ServicioMail();
         Sesion Sesion = Sesion.INSTANCIA;
-        Bitacora bitacora = new Bitacora();
+        LogicaBitacora bitacora = new LogicaBitacora();
         Traductor traductor = Traductor.INSTANCIA;
         List<Label> listaLabels = new List<Label>();
 
@@ -63,8 +61,8 @@ namespace GUI
 
         private void CargarIdiomas()
         {
-            BLLIdioma bllIdioma = new BLLIdioma();
-            foreach(BEIdioma idioma in bllIdioma.ListaIdiomas())
+            LogicaIdioma bllIdioma = new LogicaIdioma();
+            foreach(EntidadIdioma idioma in bllIdioma.ListaIdiomas())
             {
                 CbIdioma.Items.Add(idioma.idioma); 
             }
@@ -88,7 +86,7 @@ namespace GUI
                     Mostrar(DgvUsuarios, LinqUsuarios());
                     TraducirDgv();
                     string destinatario = TxtMail.Text;
-                    BE_Usuario usuarioCreado = bllUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == TxtDNIUsuario.Text);
+                    EntidadUsuario usuarioCreado = bllUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == TxtDNIUsuario.Text);
                     string asunto = traductor.Traducir("Registro exitoso!!!", Sesion.ObtenerIdiomaSesion());
                     string usuario = usuarioCreado.Nombre_Usuario;
                     string plantilla = traductor.Traducir("Mensaje mail", Sesion.ObtenerIdiomaSesion());
@@ -136,7 +134,7 @@ namespace GUI
             CbRol.SelectedIndex = -1;
             CbRol.SelectedItem = null;
             CbRol.Items.Clear();
-            foreach (BEPermisoCompuesto rol in gp.ObtenerPermisos("Roles"))
+            foreach (EntidadPermisoCompuesto rol in gp.ObtenerPermisos("Roles"))
             {
                 CbRol.Items.Add(rol.DevolverNombrePermiso());
             }
@@ -185,7 +183,7 @@ namespace GUI
                 string nuevafechaNacimiento = TxtFechaNacimiento.Text;
                 if (!Information.IsDate(nuevafechaNacimiento)) throw new Exception(traductor.Traducir("La fecha de nacimiento es invalida!!!", Sesion.ObtenerIdiomaSesion()));
                 string nuevoTelefonoUsuario = TxtTelefonoUsuario.Text;
-                BE_Usuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+                EntidadUsuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
                 bllUsuario.ModificarUsuario(bllUsuario.CrearUsuario(usuarioSeleccionado.Dni_Usuario, nuevoNombreUsuario, nuevoMailUsuario, nuevafechaNacimiento, nuevoTelefonoUsuario, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), 1));
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
@@ -212,7 +210,7 @@ namespace GUI
 
         private void DgvUsuarios_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            BE_Usuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+            EntidadUsuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
             TxtDNIUsuario.Text = usuarioSeleccionado.Dni_Usuario;
             TxtDNIUsuario.Enabled = false;
             TxtNombreUsuario.Text = usuarioSeleccionado.Nombre_Usuario;
@@ -241,9 +239,7 @@ namespace GUI
                     ctrl.Text = traductor.Traducir(ctrl.Name, Sesion.ObtenerIdiomaSesion());
                 }
             }
-            //TraducirDgv();
         }
-
         private void ABM_Usuarios_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.OpenForms["Menu"].Show();

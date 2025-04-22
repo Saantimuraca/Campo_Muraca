@@ -1,7 +1,7 @@
-﻿using BE;
-using BLL;
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using Servicios;
+using Servicios.Entidades;
+using Servicios.Logica;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +17,7 @@ namespace GUI
 {
     public partial class GestionRolesUsuarios : Form, IObserver
     {
-        Bitacora bitacora = new Bitacora();
+        LogicaBitacora bitacora = new LogicaBitacora();
         Sesion sesion = Sesion.INSTANCIA;
         Traductor traductor = Traductor.INSTANCIA;
         public GestionRolesUsuarios()
@@ -88,9 +88,9 @@ namespace GUI
             if(CbRolesGrupos.SelectedItem != null )
             {
                 GestorPermisos gp = new GestorPermisos();
-                List<BE_Permiso> permisoRaiz = gp.ObtenerPermisosArbol();
-                BE_Permiso permisoSeleccionado = permisoRaiz.Find(x => x.DevolverNombrePermiso() == CbRolesGrupos.SelectedItem.ToString());
-                if(permisoSeleccionado is BEPermisoCompuesto pPermisoCompuesto)
+                List<EntidadPermiso> permisoRaiz = gp.ObtenerPermisosArbol();
+                EntidadPermiso permisoSeleccionado = permisoRaiz.Find(x => x.DevolverNombrePermiso() == CbRolesGrupos.SelectedItem.ToString());
+                if(permisoSeleccionado is EntidadPermisoCompuesto pPermisoCompuesto)
                 {
                     CheckearPermisosenLista(pPermisoCompuesto);
                 }
@@ -105,11 +105,11 @@ namespace GUI
             }
         }
 
-        public void CheckearPermisosenLista(BEPermisoCompuesto permisoRaiz)
+        public void CheckearPermisosenLista(EntidadPermisoCompuesto permisoRaiz)
         {
             if(permisoRaiz.DevolverNombrePermiso() != "Administrador")
             {
-                foreach (BE_Permiso p in permisoRaiz.DevolverListaPermisos())
+                foreach (EntidadPermiso p in permisoRaiz.DevolverListaPermisos())
                 {
                     int index = ListaPermisos.Items.Cast<object>()
                     .ToList()
@@ -119,7 +119,7 @@ namespace GUI
                         ListaPermisos.SetItemChecked(index, true);
 
                     }
-                    if (p is BEPermisoCompuesto pPermisoCompuesto)
+                    if (p is EntidadPermisoCompuesto pPermisoCompuesto)
                     {
                         CheckearPermisosenLista(pPermisoCompuesto);
                     }
@@ -190,7 +190,6 @@ namespace GUI
                 }  
             }
         }
-
         private void GestionRolesUsuarios_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.OpenForms["Menu"].Show();

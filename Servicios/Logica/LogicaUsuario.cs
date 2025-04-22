@@ -1,6 +1,4 @@
-﻿using BE;
-using Microsoft.VisualBasic;
-using ORM;
+﻿using Microsoft.VisualBasic;
 using Servicios;
 using System;
 using System.CodeDom;
@@ -10,29 +8,31 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Servicios.Datos;
+using Servicios.Entidades;
 
-namespace BLL
+namespace Servicios.Logica
 {
-    public class BLL_Usuario
+    public class LogicaUsuario
     {
         
         DALUsuario  ormUsuario = new DALUsuario();
         Encriptador encriptador = new Encriptador();
         GestorPermisos gp = new GestorPermisos();
         Traductor traductor = Traductor.INSTANCIA;
-        public void AgregarUsuario(BE_Usuario pUsuario)
+        public void AgregarUsuario(EntidadUsuario pUsuario)
         {
             ormUsuario.AgregarUsuario(pUsuario);
         }
 
-        public void ModificarUsuario(BE_Usuario pUsuario)
+        public void ModificarUsuario(EntidadUsuario pUsuario)
         {
             ormUsuario.ModificarUsuario(pUsuario);
         }
 
         public bool Login(string pNombreUsuario, string pContraseñaIngresada)
         {
-            BE_Usuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
+            EntidadUsuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
             if (usuario.Estado_Usuario == false) throw new Exception("Usuario bloqueado!!!");
             if(VerificarContraseña(pContraseñaIngresada, usuario.Contraseña_Usuario))
             {
@@ -45,7 +45,7 @@ namespace BLL
             return false;
         }
 
-        public void CambiarIdioma(BE_Usuario pUsuario, string pNuevoIdioma)
+        public void CambiarIdioma(EntidadUsuario pUsuario, string pNuevoIdioma)
         {
             pUsuario.Idioma = pNuevoIdioma;
             ormUsuario.CambiarIdioma(pUsuario);
@@ -63,7 +63,7 @@ namespace BLL
             {
                 if (ListaNombresUsuarios().Find(x => x == pNombreUsuario) != null)
                 {
-                   foreach(BE_Usuario usuario in ListaUsuarios())
+                   foreach(EntidadUsuario usuario in ListaUsuarios())
                    {
                         if(pNombreUsuario == usuario.Nombre_Usuario && pDNI != usuario.Dni_Usuario)
                         {
@@ -78,7 +78,7 @@ namespace BLL
 
         public void AumentarIntentos(string pNombreUsuario)
         {
-            BE_Usuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
+            EntidadUsuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
             ormUsuario.AumentarIntentos(usuario);
             if(usuario.Intentos >= 3)
             {
@@ -88,7 +88,7 @@ namespace BLL
 
         public void BloquearUsuario(string pNombreUsuario)
         {
-            BE_Usuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
+            EntidadUsuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
             ormUsuario.DeshabilitarUsuario(usuario);
         }
 
@@ -100,7 +100,7 @@ namespace BLL
 
         public void HabilitarUsuario(string pNombreUsuario)
         {
-            BE_Usuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
+            EntidadUsuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
             ormUsuario.HabilitarUsuario(usuario);
         }
 
@@ -110,12 +110,12 @@ namespace BLL
         }
 
 
-        public BE_Usuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario, string pRol, string pIdioma, int pTipo)
+        public EntidadUsuario CrearUsuario(string pDniUsuario, string pNombreUsuario, string pMailUsuario, string pFechaNacimiento, string pTelefonoUsuario, string pRol, string pIdioma, int pTipo)
         {
             if(pTipo == 0) { if (DNIRepetido(pDniUsuario)) throw new Exception(traductor.Traducir("Ya existe un usuario asociado al DNI ingresado!!!", "")); }
             if (ExisteUsuario(pNombreUsuario, pTipo, pDniUsuario)) throw new Exception(traductor.Traducir("Usuario existente!!!", ""));
-            BEPermisoCompuesto rol = (BEPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == pRol);
-            BE_Usuario nuevo_usuario = new BE_Usuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), $"{pDniUsuario}{pNombreUsuario.ToUpper()}s", DateTime.Parse(pFechaNacimiento).Date, DateTime.Now, pTelefonoUsuario, true, rol, pIdioma, 0);
+            EntidadPermisoCompuesto rol = (EntidadPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == pRol);
+            EntidadUsuario nuevo_usuario = new EntidadUsuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), $"{pDniUsuario}{pNombreUsuario.ToUpper()}s", DateTime.Parse(pFechaNacimiento).Date, DateTime.Now, pTelefonoUsuario, true, rol, pIdioma, 0);
             nuevo_usuario.Contraseña_Usuario = encriptador.GenerarHash($"{pDniUsuario}{pNombreUsuario}");
             return nuevo_usuario;
         }
@@ -123,42 +123,39 @@ namespace BLL
         public List<string> ListaDNIs()
         {
             List<string> lista = new List<string>();   
-            foreach(BE_Usuario usuario in ListaUsuarios())
+            foreach(EntidadUsuario usuario in ListaUsuarios())
             {
                 lista.Add(usuario.Dni_Usuario);
             }
             return lista;
         }
-
-        
-
         public List<string> ListaNombresUsuarios()
         {
             List<string> lista = new List<string>();
-            foreach(BE_Usuario usuario in ListaUsuarios())
+            foreach(EntidadUsuario usuario in ListaUsuarios())
             {
                 lista.Add(usuario.Nombre_Usuario);
             }
             return lista;
         }
 
-        public List<BE_Usuario> ListaUsuarios()
+        public List<EntidadUsuario> ListaUsuarios()
         {
             return ormUsuario.ListaUsuarios();
         }
 
-        public void ReestablecerIntentos(BE_Usuario usuario)
+        public void ReestablecerIntentos(EntidadUsuario usuario)
         {
             ormUsuario.ReestablecerIntentos(usuario);
         }
 
-        public void CerrarSesion(BE_Usuario pUsuario)
+        public void CerrarSesion(EntidadUsuario pUsuario)
         {
             Sesion sesion = Sesion.INSTANCIA;
             sesion.CerrarSesion();
         }
 
-        public void CambiarContraseña(BE_Usuario pUsuario, string pNuevaContraseña)
+        public void CambiarContraseña(EntidadUsuario pUsuario, string pNuevaContraseña)
         {
             pUsuario.Contraseña_Usuario = encriptador.GenerarHash(pNuevaContraseña);
             ormUsuario.CambiarContraseña(pUsuario);

@@ -1,11 +1,12 @@
-﻿using BE;
-using ORM;
-using Servicios;
+﻿using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicios.Entidades;
+using Servicios.Datos;
+using Servicios.Logica;
 
 namespace Servicios
 {
@@ -26,21 +27,21 @@ namespace Servicios
         private string usuarioSesion = "";
         private string idiomaSesion = "Español";
         private string rolsesion = "";
-        private BEPermisoCompuesto PermisosSesion;
+        private EntidadPermisoCompuesto PermisosSesion;
 
         PermisoCompuesto PermisoCompuesto = new PermisoCompuesto();
         DALUsuario DALUsuario = new DALUsuario();
 
-        public void IniciarSesion(BE_Usuario usuario)
+        public void IniciarSesion(EntidadUsuario usuario)
         {
             usuarioSesion = usuario.Nombre_Usuario;
             idiomaSesion = usuario.Idioma;
             rolsesion = usuario.Rol.DevolverNombrePermiso();
             GestorPermisos gp = new GestorPermisos();
-            PermisosSesion = (BEPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == rolsesion);
+            PermisosSesion = (EntidadPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == rolsesion);
         }
 
-        public BE_Usuario ObtenerUsuarioActual()
+        public EntidadUsuario ObtenerUsuarioActual()
         {
             return DALUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == usuarioSesion);
         }

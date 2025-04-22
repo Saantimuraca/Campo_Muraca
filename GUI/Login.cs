@@ -1,6 +1,6 @@
-﻿using BE;
-using BLL;
-using Servicios;
+﻿using Servicios;
+using Servicios.Entidades;
+using Servicios.Logica;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +17,7 @@ namespace GUI
     {
         public bool islogueado = false;
         Admin_Forms a = Admin_Forms.INSTANCIA;
-        BLL_Usuario bllUsuario = new BLL_Usuario();
+        LogicaUsuario bllUsuario = new LogicaUsuario();
         Sesion sesion = Sesion.INSTANCIA;
         private bool contraseñaVisible = false;
         public Login()
@@ -32,14 +32,14 @@ namespace GUI
         {
             try
             {
-                Bitacora bitacora = new Bitacora();
+                LogicaBitacora bitacora = new LogicaBitacora();
                 string nombreUsuario = TxtNombreUsuario.Text;
                 string contraseñaUsuario = TxtContraseña.Text;
                 if (!bllUsuario.ExisteUsuario(nombreUsuario, 0, "")) throw new Exception("Credenciales incorrectas!!!");
                 if (!bllUsuario.Login(nombreUsuario, contraseñaUsuario))
                 {
                     bllUsuario.AumentarIntentos(nombreUsuario);
-                    BE_Usuario usuario = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == nombreUsuario);
+                    EntidadUsuario usuario = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == nombreUsuario);
                     switch (usuario.Intentos)
                     {
                         case 1: MessageBox.Show("Le quedan 2 intentos antes de que se bloquee el usuario!!!"); break;

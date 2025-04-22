@@ -1,19 +1,21 @@
-﻿using BE;
-using DAO;
+﻿using DAL;
+using Servicios.Entidades;
+using Servicios.Logica;
+using Servicios.Datos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace Servicios.Logica
 {
-    public class BLLIdioma
+    public class LogicaIdioma
     {
         DALIdioma dalIdioma = new DALIdioma();
-        BLLTraduccion bllTraduccion = new BLLTraduccion();  
+        LogicaTraduccion bllTraduccion = new LogicaTraduccion();  
 
-        public List<BEIdioma> ListaIdiomas()
+        public List<EntidadIdioma> ListaIdiomas()
         {
             return dalIdioma.ListaIdiomas();
         }
@@ -23,22 +25,22 @@ namespace BLL
             return ListaIdiomas().Find(x => x.idioma == pIdioma) == null ? false : true;
         }
 
-        public void AgregarIdioma(BEIdioma pIdioma)
+        public void AgregarIdioma(EntidadIdioma pIdioma)
         {
             dalIdioma.Agregar(pIdioma);
-            foreach(BETraduccion traduccion in bllTraduccion.ListaTraduccion())
+            foreach(EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion())
             {
                 if(traduccion.idioma == "Español")
                 {
-                    BETraduccion t = new BETraduccion(traduccion.textoTraducir, pIdioma.idioma, "");
+                    EntidadTraduccion t = new EntidadTraduccion(traduccion.textoTraducir, pIdioma.idioma, "");
                     bllTraduccion.AgregarTraduccion(t);
                 }
             }
         }
 
-        public void EliminarIdioma(BEIdioma pIdioma)
+        public void EliminarIdioma(EntidadIdioma pIdioma)
         {
-            foreach (BETraduccion traduccion in bllTraduccion.ListaTraduccion())
+            foreach (EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion())
             {
                 if(traduccion.idioma == pIdioma.idioma)
                 {
@@ -48,7 +50,7 @@ namespace BLL
             dalIdioma.Eliminar(pIdioma);
         }
 
-        public void ModificarIdioma(BEIdioma pIdiomaModificar, BEIdioma pIdiomaModificado)
+        public void ModificarIdioma(EntidadIdioma pIdiomaModificar, EntidadIdioma pIdiomaModificado)
         {
             dalIdioma.Modificar(pIdiomaModificar, pIdiomaModificado);
             bllTraduccion.ModificarIdiomaTraduccion(pIdiomaModificado, pIdiomaModificar);

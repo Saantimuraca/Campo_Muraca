@@ -1,7 +1,7 @@
-﻿using BE;
-using BLL;
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using Servicios;
+using Servicios.Entidades;
+using Servicios.Logica;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +18,7 @@ namespace GUI
     {
         Admin_Forms a = Admin_Forms.INSTANCIA;
         Sesion sesion = Sesion.INSTANCIA;
-        Bitacora bitacora = new Bitacora();
+        LogicaBitacora bitacora = new LogicaBitacora();
         Traductor traductor = Traductor.INSTANCIA;
         public Menu()
         {
@@ -39,8 +39,8 @@ namespace GUI
         public void CargarIdiomas()
         {
             CbIdioma.Items.Clear(); 
-            BLLIdioma bllIdioma = new BLLIdioma();
-            foreach(BEIdioma idioma in bllIdioma.ListaIdiomas())
+            LogicaIdioma bllIdioma = new LogicaIdioma();
+            foreach(EntidadIdioma idioma in bllIdioma.ListaIdiomas())
             {
                 CbIdioma.Items.Add(idioma.idioma);
             }
@@ -53,7 +53,7 @@ namespace GUI
 
         private void BtnCerrarSesion_Click(object sender, EventArgs e)
         {
-            BLL_Usuario bllUsuario = new BLL_Usuario();
+            LogicaUsuario bllUsuario = new LogicaUsuario();
             Sesion sesion = Sesion.INSTANCIA;
             bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cerrar sesión"));
             bllUsuario.CerrarSesion(sesion.ObtenerUsuarioActual());
@@ -69,7 +69,7 @@ namespace GUI
                 string nuevaContraseña = Interaction.InputBox(traductor.Traducir("Ingrese la nueva contrasena:", sesion.ObtenerIdiomaSesion()));
                 string confirmarContraseña = Interaction.InputBox(traductor.Traducir("Confirme la contrasena:", sesion.ObtenerIdiomaSesion()));
                 if (nuevaContraseña != confirmarContraseña) throw new Exception(traductor.Traducir("La contrasena no coincide!!!", sesion.ObtenerIdiomaSesion()));
-                BLL_Usuario bllUsuario = new BLL_Usuario();
+                LogicaUsuario bllUsuario = new LogicaUsuario();
                 bllUsuario.CambiarContraseña(sesion.ObtenerUsuarioActual(), nuevaContraseña);
                 MessageBox.Show(traductor.Traducir("Contrasena cambiada exitosamente!!!", sesion.ObtenerIdiomaSesion()));
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cambiar contraseña"));
@@ -187,7 +187,7 @@ namespace GUI
         {
             try
             {
-                BLL_Usuario bllUsuario = new BLL_Usuario();
+                LogicaUsuario bllUsuario = new LogicaUsuario();
                 bllUsuario.CambiarIdioma(sesion.ObtenerUsuarioActual(), CbIdioma.SelectedItem.ToString());
                 Traductor traductor = Traductor.INSTANCIA;
                 traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());

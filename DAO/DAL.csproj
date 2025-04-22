@@ -41,12 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DALBitacora.cs" />
-    <Compile Include="DALIdioma.cs" />
-    <Compile Include="DALTraductor.cs" />
     <Compile Include="Gestor_Datos.cs" />
-    <Compile Include="DALPermiso.cs" />
-    <Compile Include="DALUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

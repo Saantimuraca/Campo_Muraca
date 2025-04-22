@@ -1,7 +1,7 @@
-﻿using BE;
-using BLL;
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using Servicios;
+using Servicios.Entidades;
+using Servicios.Logica;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,12 +20,12 @@ namespace GUI
 {
     public partial class GUIIdiomas : Form, IObserver
     {
-        BLLIdioma bllIdioma = new BLLIdioma();
+        LogicaIdioma bllIdioma = new LogicaIdioma();
         Sesion sesion = Sesion.INSTANCIA;
         Traductor traductor = Traductor.INSTANCIA;
-        BLLTraduccion bllTraduccion = new BLLTraduccion();
-        List<BETraduccion> listaAux = new List<BETraduccion>();
-        Bitacora b = new Bitacora();
+        LogicaTraduccion bllTraduccion = new LogicaTraduccion();
+        List<EntidadTraduccion> listaAux = new List<EntidadTraduccion>();
+        LogicaBitacora b = new LogicaBitacora();
         public GUIIdiomas()
         {
             InitializeComponent();
@@ -54,7 +54,7 @@ namespace GUI
         private void CargarCb()
         {
             CbIdiomas.Items.Clear();
-            foreach(BEIdioma idioma in bllIdioma.ListaIdiomas())
+            foreach(EntidadIdioma idioma in bllIdioma.ListaIdiomas())
             {
                 CbIdiomas.Items.Add(idioma.idioma);
             }
@@ -81,8 +81,8 @@ namespace GUI
 
         private object LinqIdiomaActual()
         {
-            List<BETraduccion> lista = new List<BETraduccion>();
-            foreach(BETraduccion traduccion in bllTraduccion.ListaTraduccion())
+            List<EntidadTraduccion> lista = new List<EntidadTraduccion>();
+            foreach(EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion())
             {
                 if(traduccion.idioma == sesion.ObtenerIdiomaSesion())
                 {
@@ -105,8 +105,8 @@ namespace GUI
 
         private object LinqIdiomaSeleccionado(string pIdioma)
         {
-            List<BETraduccion> lista = new List<BETraduccion>();
-            foreach (BETraduccion traduccion in bllTraduccion.ListaTraduccion())
+            List<EntidadTraduccion> lista = new List<EntidadTraduccion>();
+            foreach (EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion())
             {
                 if(traduccion.idioma == pIdioma)
                 {
@@ -125,9 +125,9 @@ namespace GUI
                 if (DgvIdiomas.SelectedRows.Count != 0)
                 {
                  traductor.ActualizarIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
-                foreach (BETraduccion traduccion in bllTraduccion.ListaIncremental(consulta, sesion.ObtenerIdiomaSesion()))
+                foreach (EntidadTraduccion traduccion in bllTraduccion.ListaIncremental(consulta, sesion.ObtenerIdiomaSesion()))
                 {
-                        BETraduccion nt = new BETraduccion(traduccion.textoTraducir, DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString(), traductor.Traducir(traduccion.textoTraducir, DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString()));
+                        EntidadTraduccion nt = new EntidadTraduccion(traduccion.textoTraducir, DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString(), traductor.Traducir(traduccion.textoTraducir, DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString()));
                         listaAux.Add(nt);
                 }
                     Mostrar(DgvIdiomaSeleccionado, LinqIncremental(consulta, listaAux));
@@ -137,14 +137,14 @@ namespace GUI
             TxtTraduccion.Text = "";
         }
 
-        private object LinqIncremental(string consulta, List<BETraduccion> lista)
+        private object LinqIncremental(string consulta, List<EntidadTraduccion> lista)
         {
             return (from i in lista select new { CODIGO = i.textoTraducir, TEXTO = i.textoTraducido }).ToList();
         }
 
         private void BtnModificarTraduccion_Click(object sender, EventArgs e)
         {
-            BETraduccion traduccion = new BETraduccion(DgvIdiomaActual.SelectedRows[0].Cells[0].Value.ToString(), CbIdiomas.SelectedItem.ToString(), TxtTraduccion.Text);
+            EntidadTraduccion traduccion = new EntidadTraduccion(DgvIdiomaActual.SelectedRows[0].Cells[0].Value.ToString(), CbIdiomas.SelectedItem.ToString(), TxtTraduccion.Text);
             bllTraduccion.ModificarTraduccion(traduccion);
             traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             traductor.Notificar();
@@ -160,7 +160,6 @@ namespace GUI
             LBL_IdiomaSeleccionado.Visible = false;
             LBL_Seleccion.Visible = false;
         }
-
         private void TxtTraduccion_TextChanged(object sender, EventArgs e)
         {
             if(TxtTraduccion.Text.Length > 0)
@@ -172,22 +171,22 @@ namespace GUI
                 BtnModificarTraduccion.Enabled = false;
             }
         }
-
         private void GUIIdiomas_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.OpenForms["Menu"].Show();
 
         }
-
-        
-
         private void DgvIdiomaActual_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if(CbIdiomas.SelectedItem != null)
             {
                 traductor.ActualizarIdioma(CbIdiomas.SelectedItem.ToString());
                 string traduccion = traductor.Traducir(DgvIdiomaActual.SelectedRows[0].Cells[0].Value.ToString(), "");
-                if (string.IsNullOrEmpty(traduccion)) TxtTraduccion.Text = traductor.Traducir("Sin traducción", "");
+                if (string.IsNullOrEmpty(traduccion))
+                {
+                    traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
+                    TxtTraduccion.Text = traductor.Traducir("Sin traducción", "");
+                }
                 else TxtTraduccion.Text = traduccion;
                 traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             }
@@ -199,7 +198,7 @@ namespace GUI
             {
                 string idioma = Interaction.InputBox(traductor.Traducir("Idioma:", ""));
                 if (bllIdioma.IsRepetido(idioma)) throw new Exception(traductor.Traducir("El idioma ingresado ya se encuentra registrado!!!", ""));
-                BEIdioma nuevoIdioma = new BEIdioma(idioma);
+                EntidadIdioma nuevoIdioma = new EntidadIdioma(idioma);
                 bllIdioma.AgregarIdioma(nuevoIdioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 Mostrar(DgvIdiomaActual, LinqIdiomaActual());
@@ -217,7 +216,7 @@ namespace GUI
                 if (DgvIdiomas.SelectedRows.Count == 0) throw new Exception(traductor.Traducir("Debe seleccionar un idioma!!!", ""));
                 if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Español" || DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Ingles") throw new Exception(traductor.Traducir("No se pueden eliminar los idiomas principales del sistema!!!", ""));
                 if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == sesion.ObtenerIdiomaSesion()) throw new Exception(traductor.Traducir("No puede eliminar el idioma utilizado actualmente!!!", ""));
-                BEIdioma idioma = new BEIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
+                EntidadIdioma idioma = new EntidadIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
                 bllIdioma.EliminarIdioma(idioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 DgvIdiomaSeleccionado.DataSource = null;
@@ -238,8 +237,8 @@ namespace GUI
                 if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Español" || DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Ingles") throw new Exception(traductor.Traducir("No se pueden modificar los idiomas principales del sistema!!!", ""));
                 if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == sesion.ObtenerIdiomaSesion()) throw new Exception(traductor.Traducir("No puede modificar el idioma utilizado actualmente!!!", ""));
                 string nuevoNombre = Interaction.InputBox(traductor.Traducir("Nuevo nombre", ""));
-                BEIdioma idioma = new BEIdioma(nuevoNombre);
-                BEIdioma idiomaModificar = new BEIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
+                EntidadIdioma idioma = new EntidadIdioma(nuevoNombre);
+                EntidadIdioma idiomaModificar = new EntidadIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
                 bllIdioma.ModificarIdioma(idiomaModificar, idioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 DgvIdiomaSeleccionado.DataSource = null;
@@ -253,6 +252,11 @@ namespace GUI
         }
 
         private void DgvIdiomaActual_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void DgvIdiomaActual_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
         }

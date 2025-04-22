@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicios.Entidades;
 
-namespace BE
+namespace Servicios.Entidades
 {
-    public class BEPermisoCompuesto : BE_Permiso
+    public class EntidadPermisoCompuesto : EntidadPermiso
     {
-        public BEPermisoCompuesto(string pNombre) : base(pNombre) { }
+        public EntidadPermisoCompuesto(string pNombre) : base(pNombre) { }
 
-        public List<BE_Permiso> listaPermisos = new List<BE_Permiso>();
+        public List<EntidadPermiso> listaPermisos = new List<EntidadPermiso>();
 
-        public List<BE_Permiso> DevolverListaPermisos()
+        public List<EntidadPermiso> DevolverListaPermisos()
         {
             return listaPermisos;
         }

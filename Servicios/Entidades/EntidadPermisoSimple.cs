@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicios.Entidades;
 
-namespace BE
+namespace Servicios.Entidades
 {
-    public class BEPermisoSimple : BE_Permiso
+    public class EntidadPermisoSimple : EntidadPermiso
     {
-        public BEPermisoSimple(string pNombre) : base(pNombre)
+        public EntidadPermisoSimple(string pNombre) : base(pNombre)
         {
 
         }

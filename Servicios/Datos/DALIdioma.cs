@@ -1,17 +1,18 @@
-﻿using BE;
+﻿using Servicios.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
 
-namespace DAO
+namespace Servicios.Datos
 {
     public class DALIdioma
     {
         Gestor_Datos gd = Gestor_Datos.INSTANCIA;
-        public void Agregar(BEIdioma pIdioma)
+        public void Agregar(EntidadIdioma pIdioma)
         {
             DataRow dr = gd.DevolverTabla("Idioma").NewRow();
             dr["idIdioma"] = pIdioma.idIdioma;
@@ -20,7 +21,7 @@ namespace DAO
             gd.ActualizarPorTabla("Idioma");
         }
 
-        public void Eliminar(BEIdioma pIdioma)
+        public void Eliminar(EntidadIdioma pIdioma)
         {
             DataRow dr;
             foreach(DataRowView row in gd.DevolverTabla("Idioma").DefaultView)
@@ -34,7 +35,7 @@ namespace DAO
             gd.ActualizarPorTabla("Idioma");
         }
 
-        public void Modificar(BEIdioma pIdiomaModificar, BEIdioma pIdiomaModificado)
+        public void Modificar(EntidadIdioma pIdiomaModificar, EntidadIdioma pIdiomaModificado)
         {
             DataRow dr;
             foreach (DataRowView row in gd.DevolverTabla("Idioma").DefaultView)
@@ -48,12 +49,12 @@ namespace DAO
             gd.ActualizarPorTabla("Idioma");
         }
 
-        public List<BEIdioma> ListaIdiomas()
+        public List<EntidadIdioma> ListaIdiomas()
         {
-            List<BEIdioma> lista = new List<BEIdioma>();
+            List<EntidadIdioma> lista = new List<EntidadIdioma>();
             foreach (DataRowView row in gd.DevolverTabla("Idioma").DefaultView)
             {
-                BEIdioma idioma = new BEIdioma(row[1].ToString());
+                EntidadIdioma idioma = new EntidadIdioma(row[1].ToString());
                 lista.Add(idioma);
             }
             return lista;

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BE
+namespace Servicios.Entidades
 {
-    public abstract class BE_Permiso
+    public abstract class EntidadPermiso
     {
         private string Nombre;
 
-        public BE_Permiso(string nombre)
+        public EntidadPermiso(string nombre)
         {
             Nombre = nombre;
         }

@@ -55,16 +55,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitacora.cs" />
+    <Compile Include="Datos\DALBitacora.cs" />
+    <Compile Include="Datos\DALIdioma.cs" />
+    <Compile Include="Datos\DALPermiso.cs" />
+    <Compile Include="Datos\DALTraductor.cs" />
+    <Compile Include="Datos\DALUsuario.cs" />
+    <Compile Include="Entidades\EntidadPermisoSimple.cs" />
+    <Compile Include="Entidades\EntidadPermisoCompuesto.cs" />
+    <Compile Include="Entidades\EntidadPermiso.cs" />
+    <Compile Include="Entidades\EntidadUsuario.cs" />
+    <Compile Include="Entidades\EntidadBitacora.cs" />
+    <Compile Include="Entidades\EntidadIdioma.cs" />
+    <Compile Include="Entidades\EntidadTraduccion.cs" />
     <Compile Include="GestorDeCopiasDeDatos.cs" />
     <Compile Include="IObserver.cs" />
-    <Compile Include="PermisoCompuesto.cs" />
-    <Compile Include="Pemiso.cs" />
-    <Compile Include="Encriptador.cs" />
-    <Compile Include="GestorPermisos.cs" />
+    <Compile Include="Logica\LogicaUsuario.cs" />
+    <Compile Include="Logica\LogicaBitacora.cs" />
+    <Compile Include="Logica\LogicaIdioma.cs" />
+    <Compile Include="Logica\LogicaTraduccion.cs" />
+    <Compile Include="Logica\PermisoCompuesto.cs" />
+    <Compile Include="Logica\Pemiso.cs" />
+    <Compile Include="Logica\Encriptador.cs" />
+    <Compile Include="Logica\GestorPermisos.cs" />
     <Compile Include="ServicioMail.cs" />
     <Compile Include="Sesion.cs" />
-    <Compile Include="Traductor.cs" />
+    <Compile Include="Logica\Traductor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

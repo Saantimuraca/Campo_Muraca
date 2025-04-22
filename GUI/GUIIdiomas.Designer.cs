@@ -171,7 +171,7 @@
             this.DgvIdiomaActual.ReadOnly = true;
             this.DgvIdiomaActual.Size = new System.Drawing.Size(240, 349);
             this.DgvIdiomaActual.TabIndex = 11;
-            this.DgvIdiomaActual.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvIdiomaActual_CellContentClick);
+            this.DgvIdiomaActual.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvIdiomaActual_CellContentClick_1);
             this.DgvIdiomaActual.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvIdiomaActual_RowHeaderMouseClick);
             // 
             // DgvIdiomaSeleccionado

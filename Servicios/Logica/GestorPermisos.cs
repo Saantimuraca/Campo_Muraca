@@ -1,12 +1,13 @@
-﻿using BE;
-using ORM;
+﻿using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Servicios.Datos;
+using Servicios.Entidades;
 
-namespace Servicios
+namespace Servicios.Logica
 {
     public class GestorPermisos
     {
@@ -27,23 +28,23 @@ namespace Servicios
             return ormPermiso.EliminarPermiso(pNombre);
         }
 
-        public List<BE_Permiso> ObtenerPermisos(string tipo)
+        public List<EntidadPermiso> ObtenerPermisos(string tipo)
         {
             return ormPermiso.DevolverPermisos(tipo);
         }
         public bool AgregarPermisoCompuesto(string pNombre, List<string> permisos, bool isRol)
         {
             // Crear un nuevo permiso compuesto con el nombre dado
-            BE_Permiso permiso = new BEPermisoCompuesto(pNombre);
+            EntidadPermiso permiso = new EntidadPermisoCompuesto(pNombre);
 
             // Obtener la lista de permisos existentes en una estructura de árbol
-            List<BE_Permiso> lista = ormPermiso.DevolverPermisosArbol();
+            List<EntidadPermiso> lista = ormPermiso.DevolverPermisosArbol();
 
             // Verificar si alguno de los permisos en la lista generaría un ciclo
             foreach (string p in permisos)
             {
                 // Buscar el permiso en la lista y convertirlo a tipo BEPermisoCompuesto
-                BEPermisoCompuesto permisoCompuesto = (BEPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == p);
+                EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == p);
 
                 // Si el permiso a agregar ya existe en la jerarquía, cancelar la operación
                 if (BuscarPermiso(pNombre, permisoCompuesto)) return false;
@@ -67,7 +68,7 @@ namespace Servicios
             return true;
         }
 
-        public bool BuscarPermiso(string pNombrePermiso, BEPermisoCompuesto pPermisoCompuesto)
+        public bool BuscarPermiso(string pNombrePermiso, EntidadPermisoCompuesto pPermisoCompuesto)
         {
             //Buscar si el permiso que se quiere agregar ya se encuentra registrado
             if(pPermisoCompuesto == null) return false;
@@ -77,26 +78,26 @@ namespace Servicios
                 if(permiso.DevolverNombrePermiso() == pNombrePermiso) return true;
                 else if(permiso.isComposite())
                 {
-                    if (BuscarPermisoRecursivo(pNombrePermiso, (BEPermisoCompuesto)permiso)) return true;
+                    if (BuscarPermisoRecursivo(pNombrePermiso, (EntidadPermisoCompuesto)permiso)) return true;
                 }
             }
             return false;
         }
 
-        public bool BuscarPermisoRecursivo(string pNombrePermiso, BEPermisoCompuesto pPermisoCompuesto)
+        public bool BuscarPermisoRecursivo(string pNombrePermiso, EntidadPermisoCompuesto pPermisoCompuesto)
         {
             foreach(var permiso in pPermisoCompuesto.DevolverListaPermisos())
             {
                 if (permiso.DevolverNombrePermiso() == pNombrePermiso) return true;
                 else if (permiso.isComposite())
                 {
-                    if (BuscarPermisoRecursivo(pNombrePermiso, (BEPermisoCompuesto)permiso)) return true;
+                    if (BuscarPermisoRecursivo(pNombrePermiso, (EntidadPermisoCompuesto)permiso)) return true;
                 }
             }
             return false;
         }
 
-        public List<BE_Permiso> ObtenerPermisosArbol()
+        public List<EntidadPermiso> ObtenerPermisosArbol()
         {
             return ormPermiso.DevolverPermsisosArbol();
         }

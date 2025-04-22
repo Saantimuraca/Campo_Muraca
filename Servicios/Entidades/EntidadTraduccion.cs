@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BE
+namespace Servicios.Entidades
 {
-    public class BETraduccion
+    public class EntidadTraduccion
     {
         public string textoTraducir {  get; set; }
 
@@ -14,7 +14,7 @@ namespace BE
 
         public string textoTraducido { get; set; }
 
-        public BETraduccion(string textoTraducir, string idioma, string textoTraducido)
+        public EntidadTraduccion(string textoTraducir, string idioma, string textoTraducido)
         {
             this.textoTraducir = textoTraducir;
             this.idioma = idioma;
