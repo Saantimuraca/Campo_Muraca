@@ -16,7 +16,7 @@ namespace Servicios.Logica
     public class LogicaUsuario
     {
         
-        DALUsuario  ormUsuario = new DALUsuario();
+        DatosUsuario  ormUsuario = new DatosUsuario();
         Encriptador encriptador = new Encriptador();
         GestorPermisos gp = new GestorPermisos();
         Traductor traductor = Traductor.INSTANCIA;

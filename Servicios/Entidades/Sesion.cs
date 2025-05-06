@@ -29,8 +29,8 @@ namespace Servicios
         private string rolsesion = "";
         private EntidadPermisoCompuesto PermisosSesion;
 
-        PermisoCompuesto PermisoCompuesto = new PermisoCompuesto();
-        DALUsuario DALUsuario = new DALUsuario();
+        LogicaPermisoCompuesto PermisoCompuesto = new LogicaPermisoCompuesto();
+        DatosUsuario DALUsuario = new DatosUsuario();
 
         public void IniciarSesion(EntidadUsuario usuario)
         {

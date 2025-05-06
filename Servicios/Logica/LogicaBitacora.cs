@@ -11,7 +11,7 @@ namespace Servicios.Logica
 {
     public class LogicaBitacora
     {
-        DALBitacora dalBitacora = new DALBitacora();
+        DatosBitacora dalBitacora = new DatosBitacora();
         public void RegistrarBitacora(EntidadBitacora pBitacora)
         {
             dalBitacora.RegistrarBitacora(pBitacora);

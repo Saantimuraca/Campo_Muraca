@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Logica
 {
-    public class PermisoCompuesto : Permiso
+    public class LogicaPermisoCompuesto : Permiso
     {
         public override void Agregar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto)
         {

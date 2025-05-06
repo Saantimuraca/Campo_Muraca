@@ -13,7 +13,7 @@ namespace Servicios
 {
     public class Traductor
     {
-        DALTraductor dt = new DALTraductor();
+        DatosTraduccion dt = new DatosTraduccion();
         Dictionary<string, string> d;
         private static Traductor instancia;
         public static Traductor INSTANCIA

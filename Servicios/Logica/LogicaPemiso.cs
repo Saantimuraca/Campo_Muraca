@@ -12,10 +12,5 @@ namespace Servicios.Logica
         public virtual void Agregar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto) { }
 
         public virtual void Eliminar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto) { }
-
-        public virtual bool isComposite()
-        {
-            return false;
-        }
     }
 }

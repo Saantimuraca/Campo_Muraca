@@ -11,7 +11,7 @@ using Servicios.Entidades;
 
 namespace Servicios.Datos
 {
-    public class DALPermiso
+    public class DatosPermiso
     {
         
         Gestor_Datos dao = Gestor_Datos.INSTANCIA;

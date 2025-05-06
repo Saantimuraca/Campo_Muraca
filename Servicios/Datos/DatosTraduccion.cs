@@ -9,7 +9,7 @@ using DAL;
 
 namespace Servicios.Datos
 {
-    public class DALTraductor
+    public class DatosTraduccion
     {
         Gestor_Datos gd = Gestor_Datos.INSTANCIA;
         public Dictionary<string, string> CargarTraduccion(string idioma)

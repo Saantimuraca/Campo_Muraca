@@ -36,6 +36,8 @@
             this.BtnCrearGrupoPermisos = new System.Windows.Forms.Button();
             this.ListaPermisos = new System.Windows.Forms.CheckedListBox();
             this.LBLE_ListaPermisos = new System.Windows.Forms.Label();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.LBLJerarquia = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // CbRolesGrupos
@@ -129,12 +131,30 @@
             this.LBLE_ListaPermisos.TabIndex = 8;
             this.LBLE_ListaPermisos.Text = "Lista de permisos";
             // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(467, 36);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(221, 349);
+            this.treeView1.TabIndex = 9;
+            // 
+            // LBLJerarquia
+            // 
+            this.LBLJerarquia.AutoSize = true;
+            this.LBLJerarquia.Location = new System.Drawing.Point(464, 20);
+            this.LBLJerarquia.Name = "LBLJerarquia";
+            this.LBLJerarquia.Size = new System.Drawing.Size(35, 13);
+            this.LBLJerarquia.TabIndex = 10;
+            this.LBLJerarquia.Text = "label1";
+            // 
             // GestionRolesUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(455, 409);
+            this.ClientSize = new System.Drawing.Size(723, 409);
+            this.Controls.Add(this.LBLJerarquia);
+            this.Controls.Add(this.treeView1);
             this.Controls.Add(this.LBLE_ListaPermisos);
             this.Controls.Add(this.ListaPermisos);
             this.Controls.Add(this.BtnCrearGrupoPermisos);
@@ -161,5 +181,7 @@
         private System.Windows.Forms.Button BtnCrearGrupoPermisos;
         private System.Windows.Forms.CheckedListBox ListaPermisos;
         private System.Windows.Forms.Label LBLE_ListaPermisos;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Label LBLJerarquia;
     }
 }

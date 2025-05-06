@@ -11,7 +11,7 @@ namespace Servicios.Logica
 {
     public class LogicaTraduccion
     {
-        DALTraductor dalTraductor = new DALTraductor();
+        DatosTraduccion dalTraductor = new DatosTraduccion();
         public List<EntidadTraduccion> ListaTraduccion()
         {
             return dalTraductor.ListaTraducciones();

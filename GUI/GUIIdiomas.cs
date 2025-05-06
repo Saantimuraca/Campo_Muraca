@@ -44,13 +44,11 @@ namespace GUI
             CargarCb();
             DgvIdiomaActual.Columns[1].HeaderText = traductor.Traducir("TEXTO", "");
         }
-
         private void Mostrar(DataGridView dgv, object obj)
         {
             dgv.DataSource = null;
             dgv.DataSource = obj;
         }
-
         private void CargarCb()
         {
             CbIdiomas.Items.Clear();
@@ -59,12 +57,10 @@ namespace GUI
                 CbIdiomas.Items.Add(idioma.idioma);
             }
         }
-
         public object LinqIdiomas()
         {
             return (from i in bllIdioma.ListaIdiomas() select new {IDIOMA = i.idioma}).ToList();
         }
-
         void IObserver.ActualizarLenguaje()
         {
             foreach (Control ctrl in this.Controls)
@@ -72,13 +68,10 @@ namespace GUI
               ctrl.Text = traductor.Traducir(ctrl.Name, sesion.ObtenerIdiomaSesion());  
             }
         }
-
         private void TraducirDgvs()
         {
             DgvIdiomas.Columns[0].HeaderText = traductor.Traducir("IDIOMA", sesion.ObtenerIdiomaSesion());
         }
-
-
         private object LinqIdiomaActual()
         {
             List<EntidadTraduccion> lista = new List<EntidadTraduccion>();
@@ -91,7 +84,6 @@ namespace GUI
             }
             return (from i in lista select new { CODIGO = i.textoTraducir, TEXTO = i.textoTraducido }).ToList();
         }
-
         private void DgvIdiomas_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             Mostrar(DgvIdiomaSeleccionado, LinqIdiomaSeleccionado(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString()));
@@ -102,7 +94,6 @@ namespace GUI
             LBL_Seleccion.Visible = true;
             DgvIdiomaSeleccionado.Columns[1].HeaderText = traductor.Traducir("TEXTO", "");
         }
-
         private object LinqIdiomaSeleccionado(string pIdioma)
         {
             List<EntidadTraduccion> lista = new List<EntidadTraduccion>();
@@ -115,7 +106,6 @@ namespace GUI
             }
             return (from i in lista select new { CODIGO = i.textoTraducir, TEXTO = i.textoTraducido }).ToList();
         }
-
         private void TxtBusqueda_TextChanged(object sender, EventArgs e)
         {
                 listaAux.Clear();
@@ -136,7 +126,6 @@ namespace GUI
                 }
             TxtTraduccion.Text = "";
         }
-
         private object LinqIncremental(string consulta, List<EntidadTraduccion> lista)
         {
             return (from i in lista select new { CODIGO = i.textoTraducir, TEXTO = i.textoTraducido }).ToList();
@@ -191,7 +180,6 @@ namespace GUI
                 traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             }
         }
-
         private void BtnAgregarIdioma_Click(object sender, EventArgs e)
         {
             try
@@ -208,7 +196,6 @@ namespace GUI
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
         private void BtnEliminarIdioma_Click(object sender, EventArgs e)
         {
             try
@@ -228,7 +215,6 @@ namespace GUI
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
-
         private void BtnModificarIdioma_Click(object sender, EventArgs e)
         {
             try
@@ -249,11 +235,6 @@ namespace GUI
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar idioma"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }   
-        }
-
-        private void DgvIdiomaActual_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void DgvIdiomaActual_CellContentClick_1(object sender, DataGridViewCellEventArgs e)

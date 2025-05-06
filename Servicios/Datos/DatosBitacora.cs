@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Servicios.Datos
 {
-    public class DALBitacora
+    public class DatosBitacora
     {
         Gestor_Datos gpbd = Gestor_Datos.INSTANCIA;
-        DALUsuario dalUsuario = new DALUsuario();
+        DatosUsuario dalUsuario = new DatosUsuario();
         public void RegistrarBitacora(EntidadBitacora pBitacora)
         {
             DataRow drBitacora = gpbd.DevolverTabla("Bitacora").NewRow();

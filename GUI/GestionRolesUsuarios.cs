@@ -26,6 +26,32 @@ namespace GUI
             RefrescarControles();
             traductor.Suscribir(this);
             traductor.Notificar();
+            CargarPermisosArbol();
+        }
+
+        private void CargarPermisosArbol()
+        {
+            treeView1.Nodes.Clear();
+            GestorPermisos gp = new GestorPermisos();
+            foreach (var permiso in gp.ObtenerPermisosArbol())
+            {
+                TreeNode nodo = CrearNodo(permiso);
+                treeView1.Nodes.Add(nodo);
+            }
+        }
+
+        private TreeNode CrearNodo(EntidadPermiso pPermiso)
+        {
+            TreeNode nodo = new TreeNode(pPermiso.DevolverNombrePermiso());
+            if(pPermiso.isComposite())
+            {
+                EntidadPermisoCompuesto permisoCompuesto = pPermiso as EntidadPermisoCompuesto;
+                foreach(var permiso in permisoCompuesto.listaPermisos)
+                {
+                    nodo.Nodes.Add(CrearNodo(permiso));
+                }
+            }
+                return nodo;
         }
 
         private void BtnCrearRol_Click(object sender, EventArgs e)

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Servicios.Datos
 {
-    public class DALUsuario
+    public class DatosUsuario
     {
 
         private Gestor_Datos gestorDatos = Gestor_Datos.INSTANCIA;
-        DALPermiso ormPermiso = new DALPermiso();
+        DatosPermiso ormPermiso = new DatosPermiso();
 
         public void AgregarUsuario(EntidadUsuario pUsuario)
         {

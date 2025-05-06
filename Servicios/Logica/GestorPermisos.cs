@@ -11,7 +11,7 @@ namespace Servicios.Logica
 {
     public class GestorPermisos
     {
-        DALPermiso ormPermiso = new DALPermiso();
+        DatosPermiso ormPermiso = new DatosPermiso();
         public bool Configurar_Control(string tag)
         {
             Sesion sesion = Sesion.INSTANCIA;

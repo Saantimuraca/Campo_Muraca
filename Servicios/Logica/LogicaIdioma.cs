@@ -12,7 +12,7 @@ namespace Servicios.Logica
 {
     public class LogicaIdioma
     {
-        DALIdioma dalIdioma = new DALIdioma();
+        DatosIdioma dalIdioma = new DatosIdioma();
         LogicaTraduccion bllTraduccion = new LogicaTraduccion();  
 
         public List<EntidadIdioma> ListaIdiomas()

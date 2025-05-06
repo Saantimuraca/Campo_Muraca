@@ -9,7 +9,7 @@ using DAL;
 
 namespace Servicios.Datos
 {
-    public class DALIdioma
+    public class DatosIdioma
     {
         Gestor_Datos gd = Gestor_Datos.INSTANCIA;
         public void Agregar(EntidadIdioma pIdioma)
