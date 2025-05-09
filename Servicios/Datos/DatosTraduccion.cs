@@ -14,12 +14,22 @@ namespace Servicios.Datos
         Gestor_Datos gd = Gestor_Datos.INSTANCIA;
         public Dictionary<string, string> CargarTraduccion(string idioma)
         {
-            Dictionary<string, string> d = new Dictionary<string, string>();
-            foreach (DataRowView drv in gd.DevolverTabla("Traduccion").DefaultView)
+            int idIdioma = 0;
+            foreach(DataRowView drv in gd.DevolverTabla("Idioma").DefaultView)
             {
                 if (drv[1].ToString() == idioma)
                 {
-                    d.Add(drv[0].ToString(), drv[2].ToString());   
+                   idIdioma = int.Parse(drv[0].ToString());
+                }
+            }
+            Dictionary<string, string> d = new Dictionary<string, string>();
+            foreach (DataRowView drv in gd.DevolverTabla("Traduccion").DefaultView)
+            {
+                DataRow dr = gd.DevolverTabla("Etiqueta").Rows.Find(int.Parse(drv[0].ToString()));
+                string textoTraducir = dr[1].ToString();
+                if (int.Parse(drv[1].ToString()) == idIdioma)
+                {
+                    d.Add(textoTraducir, drv[2].ToString());   
                 }
             }
             return d;
@@ -30,7 +40,9 @@ namespace Servicios.Datos
             List<EntidadTraduccion> lista = new List<EntidadTraduccion>();   
             foreach(DataRowView drv in gd.DevolverTabla("Traduccion").DefaultView)
             {
-                EntidadTraduccion traduccion = new EntidadTraduccion(drv[0].ToString(), drv[1].ToString(), drv[2].ToString());
+                DataRow drEtiqueta = gd.DevolverTabla("Etiqueta").Rows.Find(int.Parse(drv[0].ToString()));
+                DataRow drIdioma = gd.DevolverTabla("Idioma").Rows.Find(int.Parse(drv[1].ToString()));
+                EntidadTraduccion traduccion = new EntidadTraduccion(drEtiqueta[1].ToString(), drIdioma[1].ToString(), drv[2].ToString());
                 lista.Add(traduccion);
             }
             return lista;
@@ -42,9 +54,11 @@ namespace Servicios.Datos
             DataView dv = new DataView(gd.DevolverTabla("Traduccion"), consulta, "", DataViewRowState.Unchanged);
             foreach (DataRowView drv in dv)
             {
-                if (drv[1].ToString() == idioma)
+                DataRow drIdioma = gd.DevolverTabla("Idioma").Rows.Find(int.Parse(drv[1].ToString()));
+                if (drIdioma[1].ToString() == idioma)
                 {
-                    EntidadTraduccion traduccion = new EntidadTraduccion(drv[0].ToString(), drv[1].ToString(), drv[2].ToString());
+                    DataRow drEtiqueta = gd.DevolverTabla("Etiqueta").Rows.Find(int.Parse(drv[0].ToString()));
+                    EntidadTraduccion traduccion = new EntidadTraduccion(drEtiqueta[1].ToString(), drIdioma[1].ToString(), drv[2].ToString());
                     lista.Add(traduccion);
                 }
             }
@@ -53,6 +67,7 @@ namespace Servicios.Datos
 
         public void ModificarTraduccion(EntidadTraduccion pTraduccion)
         {
+
             string[] clave = { pTraduccion.textoTraducir, pTraduccion.idioma };
             DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(clave);
             dr[2] = pTraduccion.textoTraducido;

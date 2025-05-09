@@ -17,6 +17,7 @@ namespace Servicios.Datos
             DataRow dr = gd.DevolverTabla("Idioma").NewRow();
             dr["idIdioma"] = pIdioma.idIdioma;
             dr["nombre"] = pIdioma.idioma;
+            dr["isDisponible"] = pIdioma.isDisponible;
             gd.DevolverTabla("Idioma").Rows.Add(dr);
             gd.ActualizarPorTabla("Idioma");
         }
@@ -54,7 +55,7 @@ namespace Servicios.Datos
             List<EntidadIdioma> lista = new List<EntidadIdioma>();
             foreach (DataRowView row in gd.DevolverTabla("Idioma").DefaultView)
             {
-                EntidadIdioma idioma = new EntidadIdioma(row[1].ToString());
+                EntidadIdioma idioma = new EntidadIdioma(row[1].ToString(), int.Parse(row[0].ToString()), bool.Parse(row[2].ToString()));
                 lista.Add(idioma);
             }
             return lista;

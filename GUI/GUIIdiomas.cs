@@ -33,15 +33,14 @@ namespace GUI
             traductor.Notificar();
             Mostrar(DgvIdiomas, LinqIdiomas());
             TraducirDgvs();
-            Mostrar(DgvIdiomaActual, LinqIdiomaActual());
-            DgvIdiomaActual.Columns[0].Visible = false;
             TxtBusqueda.Text = "";
             TxtTraduccion.Text = "";
             BtnModificarTraduccion.Enabled = false;
             LBL_IdiomaActual.Text = sesion.ObtenerIdiomaSesion();
             LBL_IdiomaSeleccionado.Visible = false;
-            LBL_Seleccion.Visible = false;
+            LBL_Seleccion.Visible = true;
             CargarCb();
+            Mostrar(DgvIdiomaActual, LinqIdiomaActual());
             DgvIdiomaActual.Columns[1].HeaderText = traductor.Traducir("TEXTO", "");
         }
         private void Mostrar(DataGridView dgv, object obj)
@@ -77,17 +76,17 @@ namespace GUI
             List<EntidadTraduccion> lista = new List<EntidadTraduccion>();
             foreach(EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion())
             {
-                if(traduccion.idioma == sesion.ObtenerIdiomaSesion())
+                if (traduccion.idioma == sesion.ObtenerIdiomaSesion())
                 {
                     lista.Add(traduccion);
                 }
             }
             return (from i in lista select new { CODIGO = i.textoTraducir, TEXTO = i.textoTraducido }).ToList();
         }
+        
         private void DgvIdiomas_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             Mostrar(DgvIdiomaSeleccionado, LinqIdiomaSeleccionado(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString()));
-            DgvIdiomaSeleccionado.Columns[0].Visible = false;
             TxtTraduccion.Text = "";
             LBL_IdiomaSeleccionado.Visible = true;
             LBL_IdiomaSeleccionado.Text = DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString();
@@ -111,17 +110,16 @@ namespace GUI
                 listaAux.Clear();
                 string consulta = $"textoTraducido LIKE '{TxtBusqueda.Text}%'";
                 Mostrar(DgvIdiomaActual, LinqIncremental(consulta, bllTraduccion.ListaIncremental(consulta, sesion.ObtenerIdiomaSesion())));
-                DgvIdiomaActual.Columns[0].Visible = false;
                 if (DgvIdiomas.SelectedRows.Count != 0)
                 {
                  traductor.ActualizarIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
-                foreach (EntidadTraduccion traduccion in bllTraduccion.ListaIncremental(consulta, sesion.ObtenerIdiomaSesion()))
-                {
+
+                   foreach (EntidadTraduccion traduccion in bllTraduccion.ListaIncremental(consulta, sesion.ObtenerIdiomaSesion()))
+                   {
                         EntidadTraduccion nt = new EntidadTraduccion(traduccion.textoTraducir, DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString(), traductor.Traducir(traduccion.textoTraducir, DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString()));
                         listaAux.Add(nt);
-                }
+                   }
                     Mostrar(DgvIdiomaSeleccionado, LinqIncremental(consulta, listaAux));
-                    DgvIdiomaSeleccionado.Columns[0].Visible = false;
                     traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
                 }
             TxtTraduccion.Text = "";
@@ -138,11 +136,9 @@ namespace GUI
             traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             traductor.Notificar();
             Mostrar(DgvIdiomaActual, LinqIdiomaActual());
-            DgvIdiomaActual.Columns[0].Visible = false;
             if(DgvIdiomaSeleccionado.SelectedRows.Count != 0)
             {
                 Mostrar(DgvIdiomaSeleccionado, LinqIdiomaSeleccionado(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString()));
-                DgvIdiomaSeleccionado.Columns[0].Visible = false;
             } 
             TxtBusqueda.Text = "";
             b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar traducción"));
@@ -165,21 +161,6 @@ namespace GUI
             Application.OpenForms["Menu"].Show();
 
         }
-        private void DgvIdiomaActual_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if(CbIdiomas.SelectedItem != null)
-            {
-                traductor.ActualizarIdioma(CbIdiomas.SelectedItem.ToString());
-                string traduccion = traductor.Traducir(DgvIdiomaActual.SelectedRows[0].Cells[0].Value.ToString(), "");
-                if (string.IsNullOrEmpty(traduccion))
-                {
-                    traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
-                    TxtTraduccion.Text = traductor.Traducir("Sin traducción", "");
-                }
-                else TxtTraduccion.Text = traduccion;
-                traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
-            }
-        }
         private void BtnAgregarIdioma_Click(object sender, EventArgs e)
         {
             try
@@ -190,7 +171,6 @@ namespace GUI
                 bllIdioma.AgregarIdioma(nuevoIdioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 Mostrar(DgvIdiomaActual, LinqIdiomaActual());
-                DgvIdiomaActual.Columns[0].Visible = false;
                 CargarCb();
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Agregar idioma"));
             }
@@ -237,9 +217,20 @@ namespace GUI
             catch(Exception ex) { MessageBox.Show(ex.Message); }   
         }
 
-        private void DgvIdiomaActual_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        private void DgvIdiomaActual_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-
+            if (CbIdiomas.SelectedItem != null)
+            {
+                traductor.ActualizarIdioma(CbIdiomas.SelectedItem.ToString());
+                string traduccion = traductor.Traducir(DgvIdiomaActual.SelectedRows[0].Cells[0].Value.ToString(), "");
+                if (string.IsNullOrEmpty(traduccion))
+                {
+                    traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
+                    TxtTraduccion.Text = traductor.Traducir("Sin traducción", "");
+                }
+                else TxtTraduccion.Text = traduccion;
+                traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
+            }
         }
     }
 }

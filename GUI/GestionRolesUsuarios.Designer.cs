@@ -69,20 +69,20 @@
             this.BtnEliminarPermisosSeleccionados.Name = "BtnEliminarPermisosSeleccionados";
             this.BtnEliminarPermisosSeleccionados.Size = new System.Drawing.Size(123, 37);
             this.BtnEliminarPermisosSeleccionados.TabIndex = 2;
-            this.BtnEliminarPermisosSeleccionados.Text = "ELIMINAR SELECCIONADO";
+            this.BtnEliminarPermisosSeleccionados.Text = "🗑️";
             this.BtnEliminarPermisosSeleccionados.UseVisualStyleBackColor = false;
             this.BtnEliminarPermisosSeleccionados.Click += new System.EventHandler(this.BtnEliminarPermisosSeleccionados_Click);
             // 
             // BtnModificarNombre
             // 
-            this.BtnModificarNombre.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BtnModificarNombre.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.BtnModificarNombre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnModificarNombre.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnModificarNombre.Location = new System.Drawing.Point(15, 106);
             this.BtnModificarNombre.Name = "BtnModificarNombre";
             this.BtnModificarNombre.Size = new System.Drawing.Size(123, 37);
             this.BtnModificarNombre.TabIndex = 3;
-            this.BtnModificarNombre.Text = "MODIFICAR NOMBRE";
+            this.BtnModificarNombre.Text = "✏️";
             this.BtnModificarNombre.UseVisualStyleBackColor = false;
             this.BtnModificarNombre.Click += new System.EventHandler(this.BtnModificarNombre_Click);
             // 
@@ -141,9 +141,10 @@
             // LBLJerarquia
             // 
             this.LBLJerarquia.AutoSize = true;
+            this.LBLJerarquia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLJerarquia.Location = new System.Drawing.Point(464, 20);
             this.LBLJerarquia.Name = "LBLJerarquia";
-            this.LBLJerarquia.Size = new System.Drawing.Size(35, 13);
+            this.LBLJerarquia.Size = new System.Drawing.Size(41, 13);
             this.LBLJerarquia.TabIndex = 10;
             this.LBLJerarquia.Text = "label1";
             // 
