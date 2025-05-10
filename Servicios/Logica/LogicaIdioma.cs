@@ -28,14 +28,7 @@ namespace Servicios.Logica
         public void AgregarIdioma(EntidadIdioma pIdioma)
         {
             dalIdioma.Agregar(pIdioma);
-            foreach(EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion())
-            {
-                if(traduccion.idioma == "Español")
-                {
-                    EntidadTraduccion t = new EntidadTraduccion(traduccion.textoTraducir, pIdioma.idioma, "");
-                    bllTraduccion.AgregarTraduccion(t);
-                }
-            }
+            bllTraduccion.AgregarTraduccion(ListaIdiomas().Find(x => x.idioma == pIdioma.idioma).idIdioma);
         }
 
         public void EliminarIdioma(EntidadIdioma pIdioma)

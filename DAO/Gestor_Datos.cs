@@ -62,6 +62,10 @@ namespace DAL
                 //Este If chequea los casos cuando sea una Tabla Normal y Una Tabla Intermedia.
                 if (CantidadCollumnas == 2 || $"{Row["TABLE_NAME"]}" == "Traduccion")
                 {
+                    if($"{Row["TABLE_NAME"]}" == "Traduccion")
+                    {
+                        adapter.UpdateBatchSize = 100;
+                    }
                     if($"{Row["TABLE_NAME"]}" != "Idioma" && $"{Row["TABLE_NAME"]}" != "Etiqueta")
                     {
                         BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].PrimaryKey = new DataColumn[] { BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[0], BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[1] };
@@ -115,6 +119,11 @@ namespace DAL
         public void RechazarPorRegistro(DataRow Registro)
         {
             Registro.RejectChanges();
+        }
+
+        public SqlConnection DevolverConexion()
+        {
+            return cone;
         }
     }
 }

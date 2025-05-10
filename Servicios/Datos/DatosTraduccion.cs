@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using System.Data.SqlClient;
 
 namespace Servicios.Datos
 {
@@ -65,25 +66,57 @@ namespace Servicios.Datos
             return lista;
         }
 
-        public void ModificarTraduccion(EntidadTraduccion pTraduccion)
+        public int DevolverIdTraduccion(string pEtiqueta)
         {
-
-            string[] clave = { pTraduccion.textoTraducir, pTraduccion.idioma };
-            DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(clave);
-            dr[2] = pTraduccion.textoTraducido;
-            gd.ActualizarPorTabla("Traduccion");
+            foreach(DataRowView row in gd.DevolverTabla("Etiqueta").DefaultView)
+            {
+                if(row[1].ToString() == pEtiqueta)
+                {
+                    return int.Parse(row[0].ToString());
+                }
+            }
+            return 0;
         }
 
-        public void AgregarTraduccion(EntidadTraduccion pTraduccion)
+        public void ModificarTraduccion(Dictionary<string, string> cambios, int idIdioma)
         {
-            DataRow dr = gd.DevolverTabla("Traduccion").NewRow();
-            dr["textoTraducir"] = pTraduccion.textoTraducir;
-            dr["idioma"] = pTraduccion.idioma;
-            dr["textoTraducido"] = pTraduccion.textoTraducido;
-            gd.DevolverTabla("Traduccion").Rows.Add(dr);
-            gd.ActualizarPorTabla("Traduccion");
+            foreach(var par in cambios)
+            {
+                string key = par.Key;
+                DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(new object[] { DevolverIdTraduccion(key), idIdioma });
+                dr["textoTraducido"] = par.Value;
+                gd.ActualizarPorTabla("Traduccion");
+            }
         }
 
+        public void AgregarTraduccion(int idIdioma)
+        {
+            gd.DevolverConexion().Open();
+            using (SqlBulkCopy bulk = new SqlBulkCopy(gd.DevolverConexion()))
+            {
+                bulk.DestinationTableName = "Traduccion"; 
+                bulk.WriteToServer(CrearDataTableTemporal(idIdioma));
+            }
+        }
+
+        private DataTable CrearDataTableTemporal(int idIdioma)
+        {
+            DataTable tabla = new DataTable();
+            tabla.Columns.Add("textoTraducir", typeof(int));
+            tabla.Columns.Add("idioma", typeof(int));
+            tabla.Columns.Add("textoTraducido", typeof(string));
+            tabla.PrimaryKey = new DataColumn[] { tabla.Columns[0], tabla.Columns[1] };
+            foreach(DataRowView row in gd.DevolverTabla("Etiqueta").DefaultView)
+            {
+                DataRow dr = tabla.NewRow();
+                dr["textoTraducir"] = int.Parse(row[0].ToString());
+                dr["idioma"] = idIdioma;
+                dr["textoTraducido"] = "";
+                tabla.Rows.Add(dr); 
+            }
+            return tabla;
+        }
+        //CAMBIAR
         public void EliminarTraduccion(EntidadTraduccion pTraduccion)
         {
             string[] clave = {pTraduccion.textoTraducir, pTraduccion.idioma};
@@ -91,7 +124,8 @@ namespace Servicios.Datos
             dr.Delete();
             gd.ActualizarPorTabla("Traduccion");
         }
-
+        
+        //CAMBIAR
         public void ModificarIdiomaTraduccion(EntidadTraduccion pTraduccion, EntidadIdioma pIdioma, EntidadIdioma pIdiomaNuevo)
         {
             string[] clave = {pTraduccion.textoTraducir, pTraduccion.idioma};

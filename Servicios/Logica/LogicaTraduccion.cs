@@ -22,14 +22,14 @@ namespace Servicios.Logica
             return dalTraductor.ListaIncremental(consulta, idioma);
         }
 
-        public void ModificarTraduccion(EntidadTraduccion pTraduccion)
+        public void ModificarTraduccion(Dictionary<string, string> cambios, int idIdioma)
         {
-            dalTraductor.ModificarTraduccion(pTraduccion);
+            dalTraductor.ModificarTraduccion(cambios, idIdioma);
         }
 
-        public void AgregarTraduccion(EntidadTraduccion traduccion)
+        public void AgregarTraduccion(int idIdioma)
         {
-            dalTraductor.AgregarTraduccion(traduccion);
+            dalTraductor.AgregarTraduccion(idIdioma);
         }
 
         public void EliminarTraduccion(EntidadTraduccion pTraduccion)
