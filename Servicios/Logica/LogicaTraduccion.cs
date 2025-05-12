@@ -17,11 +17,6 @@ namespace Servicios.Logica
             return dalTraductor.ListaTraducciones();
         }
 
-        public List<EntidadTraduccion> ListaIncremental(string consulta, string idioma)
-        {
-            return dalTraductor.ListaIncremental(consulta, idioma);
-        }
-
         public void ModificarTraduccion(Dictionary<string, string> cambios, int idIdioma)
         {
             dalTraductor.ModificarTraduccion(cambios, idIdioma);
@@ -35,17 +30,6 @@ namespace Servicios.Logica
         public void EliminarTraduccion(EntidadTraduccion pTraduccion)
         {
             dalTraductor.EliminarTraduccion(pTraduccion);
-        }
-
-        public void ModificarIdiomaTraduccion(EntidadIdioma pIdioma, EntidadIdioma pIdiomaViejo)
-        {
-            foreach(EntidadTraduccion traduccion in ListaTraduccion())
-            {
-                if(traduccion.idioma == pIdiomaViejo.idioma)
-                {
-                    dalTraductor.ModificarIdiomaTraduccion(traduccion, pIdiomaViejo, pIdioma);
-                }
-            }
         }
     }
 }

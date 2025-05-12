@@ -83,7 +83,7 @@ namespace GUI
             EntidadIdioma idiomaSeleccionado = bllIdioma.ListaIdiomas().Find(x => x.idioma == DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
             bllTraduccion.ModificarTraduccion(cambios, idiomaSeleccionado.idIdioma);
             cambios.Clear();
-            //b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar traducción"));
+            b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar traducción"));
         }
         private void AgregarColumna(string pIdioma)
         {
@@ -140,6 +140,7 @@ namespace GUI
                 EntidadIdioma idioma = new EntidadIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
                 bllIdioma.EliminarIdioma(idioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
+                Mostrar(DgvTraducciones, LinqTraducciones());
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar idioma"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }

@@ -116,22 +116,22 @@ namespace Servicios.Datos
             }
             return tabla;
         }
-        //CAMBIAR
         public void EliminarTraduccion(EntidadTraduccion pTraduccion)
         {
-            string[] clave = {pTraduccion.textoTraducir, pTraduccion.idioma};
-            DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(clave);
+            int idIdioma = 0;
+            int idEtiqueta = 0;
+            foreach(DataRowView row in gd.DevolverTabla("Idioma").DefaultView)
+            {
+                if(pTraduccion.idioma == row[1].ToString()) idIdioma = int.Parse(row[0].ToString()); continue;
+            }
+            foreach(DataRowView row in gd.DevolverTabla("Etiqueta").DefaultView)
+            {
+                if(pTraduccion.textoTraducir == row[1].ToString()) idEtiqueta = int.Parse(row[0].ToString()); continue;
+            }
+            DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(new object[] {idEtiqueta, idIdioma});
             dr.Delete();
             gd.ActualizarPorTabla("Traduccion");
         }
         
-        //CAMBIAR
-        public void ModificarIdiomaTraduccion(EntidadTraduccion pTraduccion, EntidadIdioma pIdioma, EntidadIdioma pIdiomaNuevo)
-        {
-            string[] clave = {pTraduccion.textoTraducir, pTraduccion.idioma};
-            DataRow dr = gd.DevolverTabla("Traduccion").Rows.Find(clave);
-            dr[1] = pIdiomaNuevo.idioma;
-            gd.ActualizarPorTabla("Traduccion");
-        }
     }
 }

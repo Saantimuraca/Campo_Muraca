@@ -46,7 +46,7 @@ namespace Servicios.Logica
         public void ModificarIdioma(EntidadIdioma pIdiomaModificar, EntidadIdioma pIdiomaModificado)
         {
             dalIdioma.Modificar(pIdiomaModificar, pIdiomaModificado);
-            bllTraduccion.ModificarIdiomaTraduccion(pIdiomaModificado, pIdiomaModificar);
+            
         }
     }
 }
