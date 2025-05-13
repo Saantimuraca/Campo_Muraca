@@ -36,6 +36,15 @@ namespace Servicios.Datos
             return d;
         }
 
+        public bool EvaluarDisponibilidad()
+        {
+            foreach(DataRowView row in gd.DevolverTabla("Traduccion").DefaultView)
+            {
+                if (row[2].ToString() == "") return false;
+            }
+            return true;
+        }
+
         public List<EntidadTraduccion> ListaTraducciones()
         {
             List<EntidadTraduccion> lista = new List<EntidadTraduccion>();   

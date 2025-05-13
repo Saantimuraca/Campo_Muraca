@@ -42,7 +42,7 @@ namespace GUI
             LogicaIdioma bllIdioma = new LogicaIdioma();
             foreach(EntidadIdioma idioma in bllIdioma.ListaIdiomas())
             {
-                CbIdioma.Items.Add(idioma.idioma);
+                if(idioma.isDisponible) CbIdioma.Items.Add(idioma.idioma);
             }
         }
 
@@ -199,10 +199,14 @@ namespace GUI
 
         private void idiomasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            GUIIdiomas gUIIdiomas = new GUIIdiomas();
-            gUIIdiomas.ShowDialog();
-            CargarIdiomas();
+            try
+            {
+                this.Hide();
+                GUIIdiomas gUIIdiomas = new GUIIdiomas();
+                gUIIdiomas.ShowDialog();
+                CargarIdiomas();
+            }
+            catch { }
         }
 
         private void Menu_Shown(object sender, EventArgs e)

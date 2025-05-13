@@ -56,11 +56,14 @@ namespace GUI
        
         private object LinqTraducciones()
         {
+
             return bllTraduccion.ListaTraduccion()
            .Where(t => t.idioma == sesion.ObtenerIdiomaSesion())
            .OrderBy(t => t.textoTraducir)
            .ToList();
         }
+
+        
         public object LinqIdiomas()
         {
             return (from i in bllIdioma.ListaIdiomas() select new {IDIOMA = i.idioma}).ToList();
@@ -83,13 +86,15 @@ namespace GUI
             EntidadIdioma idiomaSeleccionado = bllIdioma.ListaIdiomas().Find(x => x.idioma == DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
             bllTraduccion.ModificarTraduccion(cambios, idiomaSeleccionado.idIdioma);
             cambios.Clear();
+            EntidadIdioma idiomaEvaluar = bllIdioma.ListaIdiomas().Find(x => x.idioma == idiomaSeleccionado.idioma);
+            bllIdioma.ModificarDisponibilidad(idiomaEvaluar, bllTraduccion.EvaluarDisponibilidad());
             b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar traducción"));
         }
         private void AgregarColumna(string pIdioma)
         {
             if(DgvTraducciones.Columns.Count > 3) DgvTraducciones.Columns.Remove("nuevaColumna");
             DgvTraducciones.Columns.Add("nuevaColumna", pIdioma);
-            List<EntidadTraduccion> lista = bllTraduccion.ListaTraduccion().Where(x => x.idioma == pIdioma).ToList();
+            List<EntidadTraduccion> lista = bllTraduccion.ListaTraduccion().Where(x => x.idioma.Equals(pIdioma)).ToList();
             int indexLista = 0;
             lista = lista.OrderBy(x => x.textoTraducir).ToList();
             foreach (DataGridViewRow fila in DgvTraducciones.Rows)
@@ -98,19 +103,15 @@ namespace GUI
 
                 var celda = fila.Cells["nuevaColumna"];
                 // Si está vacía, la completamos con la lista
-                if (celda.Value == null || string.IsNullOrWhiteSpace(celda.Value.ToString()))
+                if (indexLista < lista.Count)
                 {
-                    if (indexLista < lista.Count)
-                    {
-                        celda.Value = lista[indexLista].textoTraducido;
-                        indexLista++;
-                    }
+                    celda.Value = lista[indexLista].textoTraducido;
+                    indexLista++;
                 }
             }
             traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             traductor.Notificar();
             DgvTraducciones.Columns[3].HeaderText = traductor.Traducir(pIdioma,"");
-            //if(pIdioma != "Español" && pIdioma != "Ingles") DgvTraducciones.Columns[3].ReadOnly = false;
         }
         private void GUIIdiomas_FormClosed(object sender, FormClosedEventArgs e)
         {

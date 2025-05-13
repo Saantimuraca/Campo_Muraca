@@ -22,6 +22,13 @@ namespace Servicios.Datos
             gd.ActualizarPorTabla("Idioma");
         }
 
+        public void ModificarDisponibilidad(EntidadIdioma pIdioma, bool pDisponibilidad)
+        {
+            DataRow dr = gd.DevolverTabla("Idioma").Rows.Find(pIdioma.idIdioma);
+            dr["isDisponible"] = pDisponibilidad;
+            gd.ActualizarPorTabla("Idioma");
+        }
+
         public void Eliminar(EntidadIdioma pIdioma)
         {
             DataRow dr;

@@ -20,6 +20,11 @@ namespace Servicios.Logica
             return dalIdioma.ListaIdiomas();
         }
 
+        public void ModificarDisponibilidad(EntidadIdioma pIdioma, bool pDisponibilidad)
+        {
+            dalIdioma.ModificarDisponibilidad(pIdioma, pDisponibilidad);
+        }
+
         public bool IsRepetido(string pIdioma)
         {
             return ListaIdiomas().Find(x => x.idioma == pIdioma) == null ? false : true;

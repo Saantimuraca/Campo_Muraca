@@ -64,7 +64,7 @@ namespace GUI
             LogicaIdioma bllIdioma = new LogicaIdioma();
             foreach(EntidadIdioma idioma in bllIdioma.ListaIdiomas())
             {
-                CbIdioma.Items.Add(idioma.idioma); 
+                if(idioma.isDisponible) CbIdioma.Items.Add(idioma.idioma); 
             }
         }
 
@@ -136,7 +136,7 @@ namespace GUI
             CbRol.Items.Clear();
             foreach (EntidadPermisoCompuesto rol in gp.ObtenerPermisos("Roles"))
             {
-                CbRol.Items.Add(rol.DevolverNombrePermiso());
+                if(rol.DevolverNombrePermiso() != "Administrador") CbRol.Items.Add(rol.DevolverNombrePermiso());
             }
         }
 

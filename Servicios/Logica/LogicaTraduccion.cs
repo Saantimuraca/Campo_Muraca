@@ -17,6 +17,11 @@ namespace Servicios.Logica
             return dalTraductor.ListaTraducciones();
         }
 
+        public bool EvaluarDisponibilidad()
+        {
+            return dalTraductor.EvaluarDisponibilidad();
+        }
+
         public void ModificarTraduccion(Dictionary<string, string> cambios, int idIdioma)
         {
             dalTraductor.ModificarTraduccion(cambios, idIdioma);
