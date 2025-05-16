@@ -58,23 +58,6 @@ namespace Servicios.Datos
             return lista;
         }
 
-        public List<EntidadTraduccion> ListaIncremental(string consulta, string idioma)
-        {
-            List<EntidadTraduccion> lista = new List<EntidadTraduccion>();
-            DataView dv = new DataView(gd.DevolverTabla("Traduccion"), consulta, "", DataViewRowState.Unchanged);
-            foreach (DataRowView drv in dv)
-            {
-                DataRow drIdioma = gd.DevolverTabla("Idioma").Rows.Find(int.Parse(drv[1].ToString()));
-                if (drIdioma[1].ToString() == idioma)
-                {
-                    DataRow drEtiqueta = gd.DevolverTabla("Etiqueta").Rows.Find(int.Parse(drv[0].ToString()));
-                    EntidadTraduccion traduccion = new EntidadTraduccion(drEtiqueta[1].ToString(), drIdioma[1].ToString(), drv[2].ToString());
-                    lista.Add(traduccion);
-                }
-            }
-            return lista;
-        }
-
         public int DevolverIdTraduccion(string pEtiqueta)
         {
             foreach(DataRowView row in gd.DevolverTabla("Etiqueta").DefaultView)

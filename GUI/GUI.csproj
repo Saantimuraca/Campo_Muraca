@@ -85,6 +85,18 @@
     <Compile Include="GUIIdiomas.Designer.cs">
       <DependentUpon>GUIIdiomas.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUIRegistrarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIRegistrarCliente.Designer.cs">
+      <DependentUpon>GUIRegistrarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIRegistrarPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIRegistrarPedido.Designer.cs">
+      <DependentUpon>GUIRegistrarPedido.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +122,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIIdiomas.resx">
       <DependentUpon>GUIIdiomas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIRegistrarCliente.resx">
+      <DependentUpon>GUIRegistrarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIRegistrarPedido.resx">
+      <DependentUpon>GUIRegistrarPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
