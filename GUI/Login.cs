@@ -23,8 +23,8 @@ namespace GUI
         public Login()
         {
             InitializeComponent();
-            TxtNombreUsuario.Text = "Saantimuraca";
-            TxtContraseña.Text = "123Hola";
+            /*TxtNombreUsuario.Text = "Saantimuraca";
+            TxtContraseña.Text = "123Hola";*/
 
         }
 

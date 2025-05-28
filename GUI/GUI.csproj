@@ -79,6 +79,18 @@
     <Compile Include="GUIBitacora.Designer.cs">
       <DependentUpon>GUIBitacora.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUICobrarPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUICobrarPedido.Designer.cs">
+      <DependentUpon>GUICobrarPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIConfirmarPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIConfirmarPedido.Designer.cs">
+      <DependentUpon>GUIConfirmarPedido.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIIdiomas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +131,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIBitacora.resx">
       <DependentUpon>GUIBitacora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUICobrarPedido.resx">
+      <DependentUpon>GUICobrarPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIConfirmarPedido.resx">
+      <DependentUpon>GUIConfirmarPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIIdiomas.resx">
       <DependentUpon>GUIIdiomas.cs</DependentUpon>

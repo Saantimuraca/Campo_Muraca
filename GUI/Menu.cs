@@ -67,12 +67,18 @@ namespace GUI
             {
                 Sesion sesion = Sesion.INSTANCIA;
                 string nuevaContraseña = Interaction.InputBox(traductor.Traducir("Ingrese la nueva contrasena:", sesion.ObtenerIdiomaSesion()));
-                string confirmarContraseña = Interaction.InputBox(traductor.Traducir("Confirme la contrasena:", sesion.ObtenerIdiomaSesion()));
-                if (nuevaContraseña != confirmarContraseña) throw new Exception(traductor.Traducir("La contrasena no coincide!!!", sesion.ObtenerIdiomaSesion()));
-                LogicaUsuario bllUsuario = new LogicaUsuario();
-                bllUsuario.CambiarContraseña(sesion.ObtenerUsuarioActual(), nuevaContraseña);
-                MessageBox.Show(traductor.Traducir("Contrasena cambiada exitosamente!!!", sesion.ObtenerIdiomaSesion()));
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cambiar contraseña"));
+                if(nuevaContraseña != "")
+                {
+                    string confirmarContraseña = Interaction.InputBox(traductor.Traducir("Confirme la contrasena:", sesion.ObtenerIdiomaSesion()));
+                    if(confirmarContraseña != "")
+                    {
+                        if (nuevaContraseña != confirmarContraseña) throw new Exception(traductor.Traducir("La contrasena no coincide!!!", sesion.ObtenerIdiomaSesion()));
+                        LogicaUsuario bllUsuario = new LogicaUsuario();
+                        bllUsuario.CambiarContraseña(sesion.ObtenerUsuarioActual(), nuevaContraseña);
+                        MessageBox.Show(traductor.Traducir("Contrasena cambiada exitosamente!!!", sesion.ObtenerIdiomaSesion()));
+                        bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cambiar contraseña"));
+                    }
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }   
         }

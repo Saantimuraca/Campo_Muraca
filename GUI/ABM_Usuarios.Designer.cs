@@ -124,6 +124,7 @@
             // 
             this.LBLE_Nombre.AutoSize = true;
             this.LBLE_Nombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_Nombre.ForeColor = System.Drawing.Color.White;
             this.LBLE_Nombre.Location = new System.Drawing.Point(676, 144);
             this.LBLE_Nombre.Name = "LBLE_Nombre";
             this.LBLE_Nombre.Size = new System.Drawing.Size(113, 13);
@@ -156,6 +157,7 @@
             // 
             this.LBLE_Correo.AutoSize = true;
             this.LBLE_Correo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_Correo.ForeColor = System.Drawing.Color.White;
             this.LBLE_Correo.Location = new System.Drawing.Point(676, 205);
             this.LBLE_Correo.Name = "LBLE_Correo";
             this.LBLE_Correo.Size = new System.Drawing.Size(111, 13);
@@ -175,6 +177,7 @@
             // 
             this.LBLE_Nacimiento.AutoSize = true;
             this.LBLE_Nacimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_Nacimiento.ForeColor = System.Drawing.Color.White;
             this.LBLE_Nacimiento.Location = new System.Drawing.Point(676, 264);
             this.LBLE_Nacimiento.Name = "LBLE_Nacimiento";
             this.LBLE_Nacimiento.Size = new System.Drawing.Size(125, 13);
@@ -185,6 +188,7 @@
             // 
             this.LBLE_Telefono.AutoSize = true;
             this.LBLE_Telefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_Telefono.ForeColor = System.Drawing.Color.White;
             this.LBLE_Telefono.Location = new System.Drawing.Point(676, 318);
             this.LBLE_Telefono.Name = "LBLE_Telefono";
             this.LBLE_Telefono.Size = new System.Drawing.Size(57, 13);
@@ -213,6 +217,7 @@
             // 
             this.LBLE_DNI.AutoSize = true;
             this.LBLE_DNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_DNI.ForeColor = System.Drawing.Color.White;
             this.LBLE_DNI.Location = new System.Drawing.Point(676, 84);
             this.LBLE_DNI.Name = "LBLE_DNI";
             this.LBLE_DNI.Size = new System.Drawing.Size(29, 13);
@@ -235,6 +240,7 @@
             // 
             this.LBLE_Rol.AutoSize = true;
             this.LBLE_Rol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_Rol.ForeColor = System.Drawing.Color.White;
             this.LBLE_Rol.Location = new System.Drawing.Point(679, 377);
             this.LBLE_Rol.Name = "LBLE_Rol";
             this.LBLE_Rol.Size = new System.Drawing.Size(26, 13);
@@ -245,6 +251,7 @@
             // 
             this.LBLE_Idioma.AutoSize = true;
             this.LBLE_Idioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_Idioma.ForeColor = System.Drawing.Color.White;
             this.LBLE_Idioma.Location = new System.Drawing.Point(679, 434);
             this.LBLE_Idioma.Name = "LBLE_Idioma";
             this.LBLE_Idioma.Size = new System.Drawing.Size(44, 13);
@@ -357,7 +364,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1089, 537);
             this.Controls.Add(this.ErrorIdioma);
             this.Controls.Add(this.ErrorRol);
@@ -386,6 +393,7 @@
             this.Controls.Add(this.BtnModificarUsuario);
             this.Controls.Add(this.BtnBajaUsuario);
             this.Controls.Add(this.BtnAgregarUsuario);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Name = "ABM_Usuarios";
             this.Text = "ABM_Usuarios";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ABM_Usuarios_FormClosed);
