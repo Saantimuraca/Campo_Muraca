@@ -119,7 +119,7 @@
             this.BtnModificarTraduccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnModificarTraduccion.Location = new System.Drawing.Point(742, 431);
             this.BtnModificarTraduccion.Name = "BtnModificarTraduccion";
-            this.BtnModificarTraduccion.Size = new System.Drawing.Size(101, 34);
+            this.BtnModificarTraduccion.Size = new System.Drawing.Size(101, 23);
             this.BtnModificarTraduccion.TabIndex = 16;
             this.BtnModificarTraduccion.Text = "MODIFICAR";
             this.BtnModificarTraduccion.UseVisualStyleBackColor = false;

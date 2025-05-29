@@ -83,12 +83,17 @@ namespace Servicios.Datos
 
         public void AgregarTraduccion(int idIdioma)
         {
-            gd.DevolverConexion().Open();
-            using (SqlBulkCopy bulk = new SqlBulkCopy(gd.DevolverConexion()))
+            SqlConnection conn = gd.DevolverConexion();
+
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+
+            using (SqlBulkCopy bulk = new SqlBulkCopy(conn))
             {
-                bulk.DestinationTableName = "Traduccion"; 
+                bulk.DestinationTableName = "Traduccion";
                 bulk.WriteToServer(CrearDataTableTemporal(idIdioma));
             }
+            gd.ActualizarPorTabla("Traduccion");
         }
 
         private DataTable CrearDataTableTemporal(int idIdioma)

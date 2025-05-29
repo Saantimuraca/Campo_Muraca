@@ -25,7 +25,6 @@ namespace GUI
             InitializeComponent();
             /*TxtNombreUsuario.Text = "Saantimuraca";
             TxtContraseña.Text = "123Hola";*/
-
         }
 
         private void BtnIniciarSesion_Click(object sender, EventArgs e)
@@ -48,9 +47,11 @@ namespace GUI
                     }
                     if(usuario.Estado_Usuario != false) throw new Exception("Credenciales incorrectas!!!");
                 }
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Iniciar sesión"));
-                a.Definir_Estado(new EstadoMenu());
-                
+                else
+                {
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Iniciar sesión"));
+                    a.Definir_Estado(new EstadoMenu());
+                }
             }
             catch(Exception ex) { MessageBox.Show(ex.Message);}
             

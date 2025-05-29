@@ -11,15 +11,21 @@ namespace DAL
 {
     public class Gestor_Datos
     {
-        //Aplicamos El Patrón Creacional Singleton Para Asegurar La Unicidad De La Clase.
         private static Gestor_Datos instancia;
+        private static readonly object _lock = new object();
         public static Gestor_Datos INSTANCIA
         {
             get
             {
                 if (instancia == null)
                 {
-                    instancia = new Gestor_Datos();
+                    lock (_lock)
+                    {
+                        if(instancia == null)
+                        {
+                            instancia = new Gestor_Datos();
+                        }
+                    }
                 }
                 return instancia;
             }
@@ -87,8 +93,6 @@ namespace DAL
         {
             return BaseDeDatosEnMemoria.Tables[NombreTabla];
         }
-        //En el caso de las funciones actualizar se realiza el debido update y luego se "recargan" los adaptadores
-        //para que posean los valores correctos provenientes de la base de datos
         public void ActualizarGeneral()
         {
             foreach (KeyValuePair<string, SqlDataAdapter> ClaveValor in DiccionarioDeAdaptadores)

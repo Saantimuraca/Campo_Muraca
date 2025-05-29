@@ -38,7 +38,7 @@ namespace Servicios.Logica
 
         public void EliminarIdioma(EntidadIdioma pIdioma)
         {
-            foreach (EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion())
+            foreach (EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion().Where(x => x.idioma == pIdioma.idioma))
             {
                 if(traduccion.idioma == pIdioma.idioma)
                 {

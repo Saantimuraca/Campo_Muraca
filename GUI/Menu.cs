@@ -69,6 +69,8 @@ namespace GUI
                 string nuevaContraseña = Interaction.InputBox(traductor.Traducir("Ingrese la nueva contrasena:", sesion.ObtenerIdiomaSesion()));
                 if(nuevaContraseña != "")
                 {
+                    Encriptador encriptador = new Encriptador();
+                    if (sesion.ObtenerUsuarioActual().Contraseña_Usuario == encriptador.GenerarHash(nuevaContraseña)) throw new Exception(traductor.Traducir("La nueva contraseña no puede ser identica a la actual", ""));
                     string confirmarContraseña = Interaction.InputBox(traductor.Traducir("Confirme la contrasena:", sesion.ObtenerIdiomaSesion()));
                     if(confirmarContraseña != "")
                     {
@@ -80,7 +82,7 @@ namespace GUI
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }   
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }   
         }
 
         private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)

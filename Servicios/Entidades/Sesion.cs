@@ -13,13 +13,20 @@ namespace Servicios
     public class Sesion
     {
         private static Sesion instancia;
+        private static readonly object _lock = new object();
         public static Sesion INSTANCIA
         {
             get
             {
                 if (instancia == null)
                 {
-                    instancia = new Sesion();
+                    lock (_lock)
+                    {
+                        if(instancia == null)
+                        {
+                            instancia = new Sesion();
+                        }
+                    }
                 }
                 return instancia;
             }

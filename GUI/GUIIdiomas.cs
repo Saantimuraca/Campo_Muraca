@@ -3,6 +3,7 @@ using Servicios;
 using Servicios.Entidades;
 using Servicios.Logica;
 using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,21 +34,25 @@ namespace GUI
             InitializeComponent();
             traductor.Suscribir(this);
             traductor.Notificar();
-            Mostrar(DgvIdiomas, LinqIdiomas());
-            TraducirDgvs();
-            BtnModificarTraduccion.Enabled = false;
-            Mostrar(DgvTraducciones, LinqTraducciones());
+
+            this.Shown += (s, e) =>
+            {
+                Mostrar(DgvIdiomas, LinqIdiomas());
+                TraducirDgvs();
+                BtnModificarTraduccion.Enabled = false;
+                Mostrar(DgvTraducciones, LinqTraducciones());
+            };
         }
-        private void Mostrar(DataGridView dgv, object obj)
+        private void Mostrar(DataGridView dgv, object obj, int pOpcion = 0)
         {
             dgv.DataSource = null;
             dgv.DataSource = obj;
-            if(dgv.Name == DgvTraducciones.Name)
+            if (dgv.Name == DgvTraducciones.Name)
             {
                 dgv.Columns[0].Visible = false;
                 dgv.Columns[1].Visible = false;
-                dgv.Columns[2].HeaderText = traductor.Traducir(sesion.ObtenerIdiomaSesion(), "");
-                for(int i=0; i<dgv.Columns.Count;i++)
+                dgv.Columns["textoTraducido"].HeaderText = traductor.Traducir(sesion.ObtenerIdiomaSesion(), "");
+                for (int i = 0; i < dgv.Columns.Count; i++)
                 {
                     if (dgv.Columns[i].Name != "nuevaColumna") dgv.Columns[i].ReadOnly = true;
                 }
@@ -123,13 +128,14 @@ namespace GUI
             try
             {
                 string idioma = Interaction.InputBox(traductor.Traducir("Idioma:", ""));
+                if (idioma == "") throw new Exception("Idioma inválido");
                 if (bllIdioma.IsRepetido(idioma)) throw new Exception(traductor.Traducir("El idioma ingresado ya se encuentra registrado!!!", ""));
                 EntidadIdioma nuevoIdioma = new EntidadIdioma(idioma);
                 bllIdioma.AgregarIdioma(nuevoIdioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Agregar idioma"));
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
         }
         private void BtnEliminarIdioma_Click(object sender, EventArgs e)
         {
@@ -142,7 +148,12 @@ namespace GUI
                 bllIdioma.EliminarIdioma(idioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 Mostrar(DgvTraducciones, LinqTraducciones());
+
+                if (DgvTraducciones.Columns.Contains("nuevaColumna"))
+                    DgvTraducciones.Columns.Remove("nuevaColumna");
+
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar idioma"));
+                DgvTraducciones.Columns[1].Visible = false;
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -182,8 +193,8 @@ namespace GUI
             if(e.RowIndex >= 0)
             {
                 DataGridViewRow fila = DgvTraducciones.Rows[e.RowIndex];
-                string textoTraducir = fila.Cells[0].Value?.ToString();
-                string textoTraducido = fila.Cells[3].Value?.ToString();
+                string textoTraducir = fila.Cells["textoTraducir"].Value?.ToString();
+                string textoTraducido = fila.Cells["nuevaColumna"].Value?.ToString();
                 cambios.Add(textoTraducir, textoTraducido);
             }
         }
