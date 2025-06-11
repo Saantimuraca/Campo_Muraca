@@ -248,5 +248,24 @@ namespace GUI
                 MessageBox.Show(traductor.Traducir("Respaldo exitoso!!!", ""));
             }
         }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aBMClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GUIRegistrarCliente gui = new GUIRegistrarCliente();
+            gui.ShowDialog();
+        }
+
+        private void registrarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GUIRegistrarPedido gui = new GUIRegistrarPedido();
+            gui.ShowDialog();
+        }
     }
 }

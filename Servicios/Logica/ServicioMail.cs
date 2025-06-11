@@ -23,7 +23,7 @@ namespace Servicios.Logica
             //Crear mensaje.
             MailMessage mensaje = new MailMessage
             {
-                From = new MailAddress(pEmisor), 
+                From = new MailAddress(pEmisor, "TecnoSoft"), 
                 Subject = pAsunto,
                 Body = pCuerpo,
             };

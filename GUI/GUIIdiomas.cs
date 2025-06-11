@@ -121,7 +121,6 @@ namespace GUI
         private void GUIIdiomas_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.OpenForms["Menu"].Show();
-
         }
         private void BtnAgregarIdioma_Click(object sender, EventArgs e)
         {
@@ -190,13 +189,24 @@ namespace GUI
 
         private void DgvTraducciones_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0)
+            try
             {
-                DataGridViewRow fila = DgvTraducciones.Rows[e.RowIndex];
-                string textoTraducir = fila.Cells["textoTraducir"].Value?.ToString();
-                string textoTraducido = fila.Cells["nuevaColumna"].Value?.ToString();
-                cambios.Add(textoTraducir, textoTraducido);
+                if (e.RowIndex >= 0)
+                {
+                    if (!DgvTraducciones.Columns.Contains("textoTraducir") ||
+                        !DgvTraducciones.Columns.Contains("nuevaColumna"))
+                        return;
+
+                    DataGridViewRow fila = DgvTraducciones.Rows[e.RowIndex];
+
+                    string textoTraducir = fila.Cells["textoTraducir"].Value?.ToString();
+                    string textoTraducido = fila.Cells["nuevaColumna"].Value?.ToString();
+
+                    if (!string.IsNullOrWhiteSpace(textoTraducir))
+                        cambios[textoTraducir] = textoTraducido;
+                }
             }
+            catch (Exception) { };
         }
     }
 }
