@@ -55,6 +55,7 @@
     <Compile Include="BLLCarrito.cs" />
     <Compile Include="BLLCategoria.cs" />
     <Compile Include="BLLCliente.cs" />
+    <Compile Include="BLLPedido.cs" />
     <Compile Include="BLLProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

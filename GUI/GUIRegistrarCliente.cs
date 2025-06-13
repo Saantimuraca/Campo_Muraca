@@ -20,7 +20,8 @@ namespace GUI
         BLLCliente bllCliente = new BLLCliente();
         bool isHabilitado = false;
         int opcion = 0;
-        public GUIRegistrarCliente(int pOpcion = 0)
+        GUIRegistrarPedido form;
+        public GUIRegistrarCliente(int pOpcion = 0, GUIRegistrarPedido pForm = null)
         {
             InitializeComponent();
             Traductor.INSTANCIA.Suscribir(this);
@@ -37,6 +38,7 @@ namespace GUI
             CargarCB();
             DgvClientes.Focus();
             opcion = pOpcion;
+            form = pForm;
         }
 
         private void Mostrar(DataGridView dgv, object obj)
@@ -229,6 +231,7 @@ namespace GUI
         private void GUIRegistrarCliente_FormClosed(object sender, FormClosedEventArgs e)
         {
             if(opcion == 0) { Application.OpenForms["Menu"].Show(); }
+            else { form.CargarClientes(); }
         }
 
         public void ActualizarLenguaje()

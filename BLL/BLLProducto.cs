@@ -19,22 +19,14 @@ namespace BLL
             return dal.ListarProductos();
         }
 
-        public List<BEProducto> ListaClonada()
+        public void ModificarStock(int id, int cantidad)
         {
-            if(clonada == null)
-            {
-                clonada = ListarProductos().Select(p => new BEProducto
-                {
-                    nombre = p.nombre,
-                    precio = p.precio,
-                    descripcion = p.descripcion,
-                    stock = p.stock,
-                    categoria = p.categoria,
-                    estado = p.estado,
-                    idProducto = p.idProducto
-                }).ToList();
-            }
-            return clonada;
+            dal.ModificarStock(id, cantidad);
+        }
+
+        public void NotificarBajoStock(int id)
+        {
+            dal.CambiarEstadoStock(id, true);
         }
     }
 }

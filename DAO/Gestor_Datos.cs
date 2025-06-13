@@ -66,7 +66,7 @@ namespace DAL
                 int CantidadCollumnas = BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns.Count;
 
                 //Este If chequea los casos cuando sea una Tabla Normal y Una Tabla Intermedia.
-                if (CantidadCollumnas == 2 || $"{Row["TABLE_NAME"]}" == "Traduccion")
+                if (CantidadCollumnas == 2 || $"{Row["TABLE_NAME"]}" == "Traduccion" || $"{Row["TABLE_NAME"]}" == "ItemPedido")
                 {
                     if($"{Row["TABLE_NAME"]}" == "Traduccion")
                     {

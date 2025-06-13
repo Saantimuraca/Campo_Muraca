@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BE;
+using DAL;
+
+namespace DAO
+{
+    public class DALPedido
+    {
+        DALCliente dalCliente = new DALCliente();
+        public void Agregar(BEPedido pPedido)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").NewRow();
+            dr["idPedido"] = pPedido.id;
+            dr["dniCliente"] = pPedido.cliente.dni;
+            dr["estado"] = pPedido.estado;
+            dr["fecha"] = pPedido.fecha;
+            dr["total"] = pPedido.total;
+            dr["dniVendedor"] = pPedido.dniVendedor;
+            Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Add(dr);
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pedido");
+        }
+
+        public void AgregarItemPedido(int pIdPedido, int pIdProducto, int pCantidad)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").NewRow();
+            dr["idPedido"] = pIdPedido;
+            dr["idProducto"] = pIdProducto;
+            dr["cantidad"] = pCantidad;
+            Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").Rows.Add(dr);
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("ItemPedido");
+        }
+
+        public List<BEPedido> ListarPedido()
+        {
+            List<BEPedido> lista = new List<BEPedido>();
+            foreach(DataRowView row in Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").DefaultView)
+            {
+                BECliente cliente = dalCliente.ListaClientes().Find(x => x.dni == row[1].ToString());
+                BEPedido pedido = new BEPedido(cliente, row[2].ToString(), DateTime.Parse(row[3].ToString()), decimal.Parse(row[4].ToString()), row[5].ToString(), int.Parse(row[0].ToString()));
+                lista.Add(pedido);
+            }
+            return lista;
+        }
+    }
+}

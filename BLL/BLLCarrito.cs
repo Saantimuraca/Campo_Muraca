@@ -11,7 +11,6 @@ namespace BLL
 {
     public class BLLCarrito
     {
-        BLLProducto bllProducto = new BLLProducto();
         public bool ProductoAgregado(int id)
         {
             return BECarrito.INSTANCIA.d.ContainsKey(id);
@@ -30,6 +29,11 @@ namespace BLL
         public void ModificarCantidadProducto(int id, int cantidad)
         {
             BECarrito.INSTANCIA.d[id] = cantidad;
+        }
+
+        public void VaciarCarrito()
+        {
+           BECarrito.INSTANCIA.d.Clear();
         }
     }
 }

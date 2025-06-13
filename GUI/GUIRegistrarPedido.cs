@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BE;
 using BLL;
+using Servicios;
 
 namespace GUI
 {
@@ -18,10 +19,10 @@ namespace GUI
         BLLCliente bllCliente = new BLLCliente();
         BLLProducto bllProducto = new BLLProducto();
         BLLCarrito bllCarrito = new BLLCarrito();
+        BLLPedido bllPedido = new BLLPedido();
         public GUIRegistrarPedido()
         {
             InitializeComponent();
-            ErrorCantidad.Visible = false;
             ErrorSeleccionCliente.Visible = false;
             CargarClientes();
             Mostrar(DgvProductos, LinqProductos());
@@ -30,10 +31,13 @@ namespace GUI
             BtnEliminarProductoCarrito.Enabled = false;
             BtnModificarCantidad.Enabled = false;
             BtnNotificarBajoStock.Enabled = false;
+            BtnVaciarCarrito.Enabled=false;
+            BtnRegistrarPedido.Enabled=false;
         }
 
-        private void CargarClientes()
+        public void CargarClientes()
         {
+            comboBox1.Items.Clear();
             foreach (BECliente cliente in bllCliente.ListaClientes())
             {
                 comboBox1.Items.Add($"{cliente.dni}, {cliente.nombre}");
@@ -93,6 +97,7 @@ namespace GUI
                 BtnNotificarBajoStock.Enabled = false;
                 dgv.Columns["stockeado"].Visible = false;
             }
+            
         }
 
         private object LinqProductos()
@@ -102,7 +107,7 @@ namespace GUI
 
         private void BtnNuevoCliente_Click(object sender, EventArgs e)
         {
-            GUIRegistrarCliente gui = new GUIRegistrarCliente(1);
+            GUIRegistrarCliente gui = new GUIRegistrarCliente(1, this);
             gui.Show(); 
         }
 
@@ -113,7 +118,8 @@ namespace GUI
 
         private void comboBox1_Leave(object sender, EventArgs e)
         {
-            if(comboBox1.SelectedItem == null) { ErrorSeleccionCliente.Visible = true; }
+            if(comboBox1.SelectedItem == null) { ErrorSeleccionCliente.Visible = true; BtnAgregarCarrito.Enabled = false; BtnEliminarProductoCarrito.Enabled = false;
+                BtnNotificarBajoStock.Enabled = false;}
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -127,7 +133,7 @@ namespace GUI
             numericUpDown1.Minimum = 1;
             numericUpDown1.Value = 1;
             numericUpDown1.Maximum = int.Parse(DgvProductos.SelectedRows[0].Cells[4].Value.ToString());
-            if (int.Parse(DgvProductos.SelectedRows[0].Cells[0].Value.ToString()) == 0) { BtnAgregarCarrito.Enabled = false; }
+            if (int.Parse(DgvProductos.SelectedRows[0].Cells[0].Value.ToString()) == 0 || comboBox1.SelectedItem == null) { BtnAgregarCarrito.Enabled = false; }
             else { BtnAgregarCarrito.Enabled = true; }
             BtnNotificarBajoStock.Enabled = true;
         }
@@ -162,6 +168,8 @@ namespace GUI
             BtnEliminarProductoCarrito.Enabled = false;
             BtnModificarCantidad.Enabled = false;
             numericUpDown1.Enabled = false;
+            if(DgvCarrito.Rows.Count > 0) { BtnVaciarCarrito.Enabled = true; BtnRegistrarPedido.Enabled = true; }
+            else { BtnVaciarCarrito.Enabled = false; BtnRegistrarPedido.Enabled = false; }
         }
 
         private decimal CalcularTotalGeneral()
@@ -199,14 +207,56 @@ namespace GUI
 
         private void BtnModificarCantidad_Click(object sender, EventArgs e)
         {
-            bllCarrito.ModificarCantidadProducto(int.Parse(DgvCarrito.SelectedRows[0].Cells[0].Value.ToString()), int.Parse(numericUpDown1.Value.ToString()));
-            ActualizarCarrito();
-            LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+            try
+            {
+                if (int.Parse(numericUpDown1.Value.ToString()) == int.Parse(DgvCarrito.SelectedRows[0].Cells[2].Value.ToString())) throw new Exception("Esta es la cantidad actual");
+                bllCarrito.ModificarCantidadProducto(int.Parse(DgvCarrito.SelectedRows[0].Cells[0].Value.ToString()), int.Parse(numericUpDown1.Value.ToString()));
+                ActualizarCarrito();
+                LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+            }
+            catch (Exception ex) {MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void BtnNotificarBajoStock_Click(object sender, EventArgs e)
         {
+            bllProducto.NotificarBajoStock(int.Parse(DgvProductos.SelectedRows[0].Cells[0].Value.ToString()));
+            Mostrar(DgvProductos, LinqProductos());
+        }
 
+        private void DgvProductos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in DgvProductos.Rows)
+            {
+                if (bool.Parse(row.Cells[6].Value.ToString()))
+                {
+                    row.DefaultCellStyle.BackColor = Color.MistyRose;
+                }
+            }
+            DgvProductos.ColumnHeadersDefaultCellStyle.BackColor = Color.IndianRed;
+            DgvProductos.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DgvProductos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+        }
+
+        private void BtnVaciarCarrito_Click(object sender, EventArgs e)
+        {
+            bllCarrito.VaciarCarrito();
+            ActualizarCarrito();
+            LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+        }
+
+        private void BtnRegistrarPedido_Click(object sender, EventArgs e)
+        {
+            string[] vectorCb = comboBox1.SelectedItem.ToString().Split(',');
+            BECliente cliente = bllCliente.ListaClientes().Find(x => x.dni == vectorCb[0]);
+            string estado = CalcularTotalGeneral() > 5000000 ? "En evaluación" : "Confirmado";
+            BEPedido pedido = new BEPedido(cliente, estado, DateTime.Now, CalcularTotalGeneral(), Sesion.INSTANCIA.ObtenerUsuarioActual().Dni_Usuario);
+            bllPedido.Agregar(pedido, BECarrito.INSTANCIA.d);
+            MessageBox.Show("Pedido registrado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            bllCarrito.VaciarCarrito();
+            ActualizarCarrito();
+            LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+            Mostrar(DgvProductos, LinqProductos());
+            numericUpDown1.Value = 1;
         }
     }
 }

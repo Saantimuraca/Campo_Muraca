@@ -38,5 +38,26 @@ namespace DAO
             }
             return lista;
         }
+
+        public void CambiarEstadoStock(int id, bool estado)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(id);
+            dr["isBajoStock"] = estado;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
+        }
+
+        public void ModificarStock(int idProducto, int cantidad)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(idProducto);
+            dr["stock"] = cantidad;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
+        }
+
+        public void CambiarEstado(bool pEstado, int idProducto)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(idProducto);
+            dr["estado"] = pEstado;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
+        }
     }
 }
