@@ -14,7 +14,7 @@ using Servicios;
 
 namespace GUI
 {
-    public partial class GUIRegistrarPedido : Form
+    public partial class GUIRegistrarPedido : Form, IObserver
     {
         BLLCliente bllCliente = new BLLCliente();
         BLLProducto bllProducto = new BLLProducto();
@@ -25,6 +25,8 @@ namespace GUI
             InitializeComponent();
             ErrorSeleccionCliente.Visible = false;
             CargarClientes();
+            Traductor.INSTANCIA.Suscribir(this);
+            Traductor.INSTANCIA.Notificar();
             Mostrar(DgvProductos, LinqProductos());
             numericUpDown1.Enabled = false;
             BtnAgregarCarrito.Enabled = false;
@@ -33,6 +35,9 @@ namespace GUI
             BtnNotificarBajoStock.Enabled = false;
             BtnVaciarCarrito.Enabled=false;
             BtnRegistrarPedido.Enabled=false;
+            DgvCarrito.Columns[1].HeaderText = Traductor.INSTANCIA.Traducir("Producto", "");
+            DgvCarrito.Columns[2].HeaderText = Traductor.INSTANCIA.Traducir("Cantidad", "");
+            DgvCarrito.Columns[3].HeaderText = Traductor.INSTANCIA.Traducir("Precio unitario", "");
         }
 
         public void CargarClientes()
@@ -96,6 +101,12 @@ namespace GUI
                 BtnAgregarCarrito.Enabled = false;
                 BtnNotificarBajoStock.Enabled = false;
                 dgv.Columns["stockeado"].Visible = false;
+                dgv.Columns[0].HeaderText = Traductor.INSTANCIA.Traducir("CODIGO", "");
+                dgv.Columns[1].HeaderText = Traductor.INSTANCIA.Traducir("NOMBRE", "");
+                dgv.Columns[2].HeaderText = Traductor.INSTANCIA.Traducir("DESCRIPCIÓN", "");
+                dgv.Columns[3].HeaderText = Traductor.INSTANCIA.Traducir("PRECIO", "");
+                dgv.Columns[4].HeaderText = Traductor.INSTANCIA.Traducir("STOCK", "");
+                dgv.Columns[5].HeaderText = Traductor.INSTANCIA.Traducir("CATEGORÍA", "");
             }
             
         }
@@ -113,6 +124,7 @@ namespace GUI
 
         private void GUIRegistrarPedido_FormClosed(object sender, FormClosedEventArgs e)
         {
+            BECarrito.INSTANCIA.BorrarCarrito();
             Application.OpenForms["Menu"].Show();
         }
 
@@ -148,13 +160,14 @@ namespace GUI
         {
             try
             {
-                if (bllCarrito.ProductoAgregado(int.Parse(DgvProductos.SelectedRows[0].Cells[0].Value.ToString()))) throw new Exception("Este producto ya se encuentra en el carrito");
+                if (bllCarrito.ProductoAgregado(int.Parse(DgvProductos.SelectedRows[0].Cells[0].Value.ToString()))) throw new Exception(Traductor.INSTANCIA.Traducir("Este producto ya se encuentra en el carrito", ""));
                 bllCarrito.AgregarProductoCarrito(int.Parse(DgvProductos.SelectedRows[0].Cells[0].Value.ToString()), int.Parse(numericUpDown1.Value.ToString()));
                 ActualizarCarrito();
                 Mostrar(DgvProductos, LinqProductos());
-                LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+                LBLTotal.Text = Traductor.INSTANCIA.Traducir("Total: ${calculoTotal}", "");
+                LBLTotal.Text = LBLTotal.Text.Replace("{calculoTotal}", CalcularTotalGeneral().ToString());
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
         }
 
         private void ActualizarCarrito()
@@ -202,7 +215,8 @@ namespace GUI
         {
             bllCarrito.EliminarProductoCarrito(int.Parse(DgvCarrito.SelectedRows[0].Cells[0].Value.ToString()));
             ActualizarCarrito();
-            LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+            LBLTotal.Text = Traductor.INSTANCIA.Traducir("Total: ${calculoTotal}", "");
+            LBLTotal.Text = LBLTotal.Text.Replace("{calculoTotal}", CalcularTotalGeneral().ToString());
         }
 
         private void BtnModificarCantidad_Click(object sender, EventArgs e)
@@ -212,9 +226,10 @@ namespace GUI
                 if (int.Parse(numericUpDown1.Value.ToString()) == int.Parse(DgvCarrito.SelectedRows[0].Cells[2].Value.ToString())) throw new Exception("Esta es la cantidad actual");
                 bllCarrito.ModificarCantidadProducto(int.Parse(DgvCarrito.SelectedRows[0].Cells[0].Value.ToString()), int.Parse(numericUpDown1.Value.ToString()));
                 ActualizarCarrito();
-                LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+                LBLTotal.Text = Traductor.INSTANCIA.Traducir("Total: ${calculoTotal}", "");
+                LBLTotal.Text = LBLTotal.Text.Replace("{calculoTotal}", CalcularTotalGeneral().ToString());
             }
-            catch (Exception ex) {MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch (Exception ex) {MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void BtnNotificarBajoStock_Click(object sender, EventArgs e)
@@ -241,7 +256,8 @@ namespace GUI
         {
             bllCarrito.VaciarCarrito();
             ActualizarCarrito();
-            LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+            LBLTotal.Text = Traductor.INSTANCIA.Traducir("Total: ${calculoTotal}", "");
+            LBLTotal.Text = LBLTotal.Text.Replace("{calculoTotal}", CalcularTotalGeneral().ToString());
         }
 
         private void BtnRegistrarPedido_Click(object sender, EventArgs e)
@@ -251,12 +267,24 @@ namespace GUI
             string estado = CalcularTotalGeneral() > 5000000 ? "En evaluación" : "Confirmado";
             BEPedido pedido = new BEPedido(cliente, estado, DateTime.Now, CalcularTotalGeneral(), Sesion.INSTANCIA.ObtenerUsuarioActual().Dni_Usuario);
             bllPedido.Agregar(pedido, BECarrito.INSTANCIA.d);
-            MessageBox.Show("Pedido registrado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Traductor.INSTANCIA.Traducir("Pedido registrado", ""), Traductor.INSTANCIA.Traducir("Información", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
             bllCarrito.VaciarCarrito();
             ActualizarCarrito();
-            LBLTotal.Text = $"Total: ${CalcularTotalGeneral().ToString()}";
+            LBLTotal.Text = Traductor.INSTANCIA.Traducir("Total: ${calculoTotal}", "");
+            LBLTotal.Text = LBLTotal.Text.Replace("{calculoTotal}", CalcularTotalGeneral().ToString());
             Mostrar(DgvProductos, LinqProductos());
             numericUpDown1.Value = 1;
+        }
+
+        public void ActualizarLenguaje()
+        {
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Label || ctrl is Button)
+                {
+                    ctrl.Text = Traductor.INSTANCIA.Traducir(ctrl.Name, Sesion.INSTANCIA.ObtenerIdiomaSesion());
+                }
+            }
         }
     }
 }

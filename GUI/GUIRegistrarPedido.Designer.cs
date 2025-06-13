@@ -97,10 +97,9 @@
             // 
             // BtnNuevoCliente
             // 
-            this.BtnNuevoCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.BtnNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BtnNuevoCliente.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.BtnNuevoCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnNuevoCliente.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.BtnNuevoCliente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.BtnNuevoCliente.Location = new System.Drawing.Point(41, 63);
             this.BtnNuevoCliente.Margin = new System.Windows.Forms.Padding(2);
             this.BtnNuevoCliente.Name = "BtnNuevoCliente";

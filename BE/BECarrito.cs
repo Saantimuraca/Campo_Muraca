@@ -30,6 +30,7 @@ namespace BE
 
         public void BorrarCarrito()
         {
+            d.Clear();
             instancia = null;
         }
 
