@@ -20,6 +20,8 @@ namespace BE
 
         public string dniVendedor { get; set; }
 
+        public string Motivo { get; set; }
+
         public BEPedido(BECliente pCliente, string pEstado, DateTime pFecha, decimal pTotal, string pDniVendedor, int pId = 0)
         {
             cliente = pCliente;

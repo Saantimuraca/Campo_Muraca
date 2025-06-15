@@ -33,5 +33,18 @@ namespace BLL
         {
             return dalPedido.ListarPedido().Last().id;
         }
+
+        public void CambiarEstado(string pEstado, int pId, string pMotivo = "")
+        {
+            dalPedido.CambiarEstado(pEstado, pId, pMotivo);
+            if(pEstado == "Rechazado")
+            {
+                foreach (var par in dalPedido.DetallePedido(pId))
+                {
+                    int cantidad = bllProducto.ListarProductos().Find(x => x.idProducto == par.Key).stock + par.Value;
+                    bllProducto.ModificarStock(par.Key, cantidad);
+                }
+            }
+        }
     }
 }

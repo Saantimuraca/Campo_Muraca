@@ -267,5 +267,12 @@ namespace GUI
             GUIRegistrarPedido gui = new GUIRegistrarPedido();
             gui.ShowDialog();
         }
+
+        private void supervisarPedidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GUIConfirmarPedido gui = new GUIConfirmarPedido();
+            gui.ShowDialog();
+        }
     }
 }

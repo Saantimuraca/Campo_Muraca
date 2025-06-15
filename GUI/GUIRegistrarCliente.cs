@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using BE;
 using BLL;
 using Servicios;
+using Servicios.Logica;
 
 namespace GUI
 {
@@ -21,6 +22,7 @@ namespace GUI
         bool isHabilitado = false;
         int opcion = 0;
         GUIRegistrarPedido form;
+        ServicioMail mail = new ServicioMail();
         public GUIRegistrarCliente(int pOpcion = 0, GUIRegistrarPedido pForm = null)
         {
             InitializeComponent();
@@ -118,6 +120,13 @@ namespace GUI
                     if (bllCliente.ExisteCliente(TxtDNI.Text)) throw new Exception(Traductor.INSTANCIA.Traducir("Cliente ya registrado", ""));
                     BECliente cliente = new BECliente(TxtDNI.Text, TxtCorreo.Text, TxtNombre.Text, comboBox1.SelectedItem.ToString(), true, TxtTelefono.Text);
                     bllCliente.Agregar(cliente);
+                    string asunto = "¡Te hemos registrado como cliente en TecnoSoft!";
+                    string plantilla = "Hola {cliente},\\r\\n\\r\\nQueremos informarte que hemos registrado tus datos en nuestro sistema como nuevo cliente.\\r\\n\\r\\nA partir de ahora, vas a poder disfrutar de una atención más personalizada y recibir nuestras novedades, promociones y beneficios.\\r\\n\\r\\nDatos registrados:\\r\\n\\r\\n📛 Nombre: {nombre}\\r\\n\\r\\n📧 Email: {correo}\\r\\n\\r\\n📞 Teléfono: {telefono}\\r\\n\\r\\n\U0001f9fe Condición frente al IVA: {iva}\\r\\n\\r\\nSi alguno de estos datos es incorrecto, por favor comunicate con nosotros para actualizarlo.\\r\\n\\r\\n\"";
+                    string cuerpo = plantilla.Replace("{cliente}", cliente.nombre).Replace("{nombre}", cliente.nombre).Replace("{correo}", cliente.mail).Replace("{telefono}", cliente.telefono).Replace("{iva}", cliente.condicionIVA);
+                    string mailOrigen = "Saantimuraca12@gmail.com";
+                    string contraseña = "sdrjuqddpkdzwsph";
+                    string[] vectorMail = cliente.mail.Split('@');
+                    if (vectorMail[1].ToLower() == "gmail.com") { mail.EnviarCorreo(cliente.mail, asunto, cuerpo, mailOrigen, contraseña); }
                     Mostrar(DgvClientes, LinqClientes(RbActivos.Checked));
                     MessageBox.Show(Traductor.INSTANCIA.Traducir("Cliente registrado exitosamente", ""), Traductor.INSTANCIA.Traducir("Operación exitosa", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarControles();
@@ -165,10 +174,10 @@ namespace GUI
 
         private void CargarCB()
         {
-            comboBox1.Items.Add(Traductor.INSTANCIA.Traducir("Responsable inscripto", ""));
-            comboBox1.Items.Add(Traductor.INSTANCIA.Traducir("Monotributista", ""));
-            comboBox1.Items.Add(Traductor.INSTANCIA.Traducir("Exento de IVA", ""));
-            comboBox1.Items.Add(Traductor.INSTANCIA.Traducir("No responsable", ""));
+            comboBox1.Items.Add("Responsable inscripto");
+            comboBox1.Items.Add("Monotributista");
+            comboBox1.Items.Add("Exento de IVA");
+            comboBox1.Items.Add("No responsable");
         }
 
         private void BtnCambiarEstadoCliente_Click(object sender, EventArgs e)

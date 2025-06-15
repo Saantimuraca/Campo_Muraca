@@ -40,14 +40,15 @@
             this.respaldoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aBMClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarPedidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnCerrarSesion = new System.Windows.Forms.Button();
             this.BtnCambiarContrasena = new System.Windows.Forms.Button();
             this.BtnCambiarIdioma = new System.Windows.Forms.Button();
             this.CbIdioma = new System.Windows.Forms.ComboBox();
-            this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarPedidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.supervisarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,6 +156,22 @@
             this.aBMClientesToolStripMenuItem.Text = "ABM Clientes";
             this.aBMClientesToolStripMenuItem.Click += new System.EventHandler(this.aBMClientesToolStripMenuItem_Click);
             // 
+            // pedidosToolStripMenuItem
+            // 
+            this.pedidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registrarPedidoToolStripMenuItem,
+            this.supervisarPedidosToolStripMenuItem});
+            this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
+            this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.pedidosToolStripMenuItem.Text = "Pedidos";
+            // 
+            // registrarPedidoToolStripMenuItem
+            // 
+            this.registrarPedidoToolStripMenuItem.Name = "registrarPedidoToolStripMenuItem";
+            this.registrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.registrarPedidoToolStripMenuItem.Text = "Registrar pedido";
+            this.registrarPedidoToolStripMenuItem.Click += new System.EventHandler(this.registrarPedidoToolStripMenuItem_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -227,20 +244,12 @@
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
             // 
-            // pedidosToolStripMenuItem
+            // supervisarPedidosToolStripMenuItem
             // 
-            this.pedidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.registrarPedidoToolStripMenuItem});
-            this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
-            this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.pedidosToolStripMenuItem.Text = "Pedidos";
-            // 
-            // registrarPedidoToolStripMenuItem
-            // 
-            this.registrarPedidoToolStripMenuItem.Name = "registrarPedidoToolStripMenuItem";
-            this.registrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.registrarPedidoToolStripMenuItem.Text = "Registrar pedido";
-            this.registrarPedidoToolStripMenuItem.Click += new System.EventHandler(this.registrarPedidoToolStripMenuItem_Click);
+            this.supervisarPedidosToolStripMenuItem.Name = "supervisarPedidosToolStripMenuItem";
+            this.supervisarPedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.supervisarPedidosToolStripMenuItem.Text = "Supervisar pedidos";
+            this.supervisarPedidosToolStripMenuItem.Click += new System.EventHandler(this.supervisarPedidosToolStripMenuItem_Click);
             // 
             // Menu
             // 
@@ -291,5 +300,6 @@
         private System.Windows.Forms.ToolStripMenuItem aBMClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarPedidoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem supervisarPedidosToolStripMenuItem;
     }
 }

@@ -264,7 +264,7 @@ namespace GUI
         {
             string[] vectorCb = comboBox1.SelectedItem.ToString().Split(',');
             BECliente cliente = bllCliente.ListaClientes().Find(x => x.dni == vectorCb[0]);
-            string estado = CalcularTotalGeneral() > 5000000 ? "En evaluación" : "Confirmado";
+            string estado = CalcularTotalGeneral() > 5000000 ? "En evaluación" : "Aprobado";
             BEPedido pedido = new BEPedido(cliente, estado, DateTime.Now, CalcularTotalGeneral(), Sesion.INSTANCIA.ObtenerUsuarioActual().Dni_Usuario);
             bllPedido.Agregar(pedido, BECarrito.INSTANCIA.d);
             MessageBox.Show(Traductor.INSTANCIA.Traducir("Pedido registrado", ""), Traductor.INSTANCIA.Traducir("Información", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
