@@ -25,6 +25,15 @@ namespace Servicios.Logica
             ormUsuario.AgregarUsuario(pUsuario);
         }
 
+        public bool RolIsInUso(string pNombre)
+        {
+            foreach (EntidadUsuario usuario in ListaUsuarios())
+            {
+                if (usuario.Rol.DevolverNombrePermiso() == pNombre) { return true; }
+            }
+            return false;
+        }
+
         public void ModificarUsuario(EntidadUsuario pUsuario)
         {
             ormUsuario.ModificarUsuario(pUsuario);
@@ -115,7 +124,7 @@ namespace Servicios.Logica
             if(pTipo == 0) { if (DNIRepetido(pDniUsuario)) throw new Exception(traductor.Traducir("Ya existe un usuario asociado al DNI ingresado!!!", "")); }
             if (ExisteUsuario(pNombreUsuario, pTipo, pDniUsuario)) throw new Exception(traductor.Traducir("Usuario existente!!!", ""));
             EntidadPermisoCompuesto rol = (EntidadPermisoCompuesto)gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == pRol);
-            EntidadUsuario nuevo_usuario = new EntidadUsuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), $"{pDniUsuario}{pNombreUsuario.ToUpper()}s", DateTime.Parse(pFechaNacimiento).Date, DateTime.Now, pTelefonoUsuario, true, rol, pIdioma, 0);
+            EntidadUsuario nuevo_usuario = new EntidadUsuario(pDniUsuario, pNombreUsuario, pMailUsuario.ToLower(), $"{pDniUsuario}{pNombreUsuario}", DateTime.Parse(pFechaNacimiento).Date, DateTime.Now, pTelefonoUsuario, true, rol, pIdioma, 0);
             nuevo_usuario.Contraseña_Usuario = encriptador.GenerarHash($"{pDniUsuario}{pNombreUsuario}");
             return nuevo_usuario;
         }

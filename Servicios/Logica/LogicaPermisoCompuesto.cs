@@ -1,4 +1,5 @@
-﻿using Servicios.Entidades;
+﻿using Servicios.Datos;
+using Servicios.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Servicios.Logica
 {
-    public class LogicaPermisoCompuesto : Permiso
+    public class LogicaPermisoCompuesto
     {
-        public override void Agregar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto)
+        DatosPermiso dp = new DatosPermiso();
+        public void Agregar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto)
         {
             pPermisoCompuesto.DevolverListaPermisos().Add(pPermiso);
         }
-        public override void Eliminar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto)
+        public void Eliminar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto)
         {
             pPermisoCompuesto.DevolverListaPermisos().Remove(pPermiso);
         }
@@ -28,7 +30,8 @@ namespace Servicios.Logica
                 {
                     //Si es compuesto aplicamos la funcion de verificar si es el permiso que buscamos en cada permiso de ese permiso compuesto.
                     //De esta forma nos aseguramos de verificar en cada permiso del árbol.
-                    foreach(EntidadPermiso p in (permisoActual as EntidadPermisoCompuesto).DevolverListaPermisos())
+                    List<EntidadPermiso> lista = (dp.DevolverPermisosArbol().Find(x => x.DevolverNombrePermiso() == permisoActual.DevolverNombrePermiso()) as EntidadPermisoCompuesto).listaPermisos;
+                    foreach (EntidadPermiso p in lista)
                     {
                         //Si el pemiso que buscamos esta dentro del permiso compuesto que estamos analizando retorna true.
                         if (VerificarPermisoIncluido(p, permiso)) return true;

@@ -31,8 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentValidation, Version=11.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentValidation.11.11.0\lib\netstandard2.0\FluentValidation.dll</HintPath>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -47,6 +50,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,10 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datos\DatosBitacora.cs" />
+    <Compile Include="Datos\DatosFactura.cs" />
     <Compile Include="Datos\DatosIdioma.cs" />
     <Compile Include="Datos\DatosPermiso.cs" />
     <Compile Include="Datos\DatosTraduccion.cs" />
     <Compile Include="Datos\DatosUsuario.cs" />
+    <Compile Include="Entidades\EntidadFactura.cs" />
     <Compile Include="Entidades\EntidadPermisoSimple.cs" />
     <Compile Include="Entidades\EntidadPermisoCompuesto.cs" />
     <Compile Include="Entidades\EntidadPermiso.cs" />
@@ -67,6 +73,7 @@
     <Compile Include="Entidades\EntidadBitacora.cs" />
     <Compile Include="Entidades\EntidadIdioma.cs" />
     <Compile Include="Entidades\EntidadTraduccion.cs" />
+    <Compile Include="Logica\GeneradorFactura.cs" />
     <Compile Include="Logica\GestorDeCopiasDeDatos.cs" />
     <Compile Include="Logica\IObserver.cs" />
     <Compile Include="Logica\LogicaUsuario.cs" />
@@ -74,7 +81,6 @@
     <Compile Include="Logica\LogicaIdioma.cs" />
     <Compile Include="Logica\LogicaTraduccion.cs" />
     <Compile Include="Logica\LogicaPermisoCompuesto.cs" />
-    <Compile Include="Logica\LogicaPemiso.cs" />
     <Compile Include="Logica\Encriptador.cs" />
     <Compile Include="Logica\GestorPermisos.cs" />
     <Compile Include="Logica\ServicioMail.cs" />

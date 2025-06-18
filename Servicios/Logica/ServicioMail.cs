@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using iTextSharp.text;
 
 namespace Servicios.Logica
 {
@@ -12,7 +13,7 @@ namespace Servicios.Logica
     {
         public event EventHandler EmailEnviado;
 
-        public void EnviarCorreo(string PDestinatario, string pAsunto, string pCuerpo, string pEmisor, string pContraseña)
+        public void EnviarCorreo(string PDestinatario, string pAsunto, string pCuerpo, string pEmisor, string pContraseña, string doc = "")
         {
             //Configurar el cliente.
             SmtpClient client = new SmtpClient();
@@ -28,6 +29,8 @@ namespace Servicios.Logica
                 Body = pCuerpo,
             };
             mensaje.To.Add(PDestinatario);
+            //Adjuntar archivo si es necesario
+            if (doc != "") { mensaje.Attachments.Add(new Attachment(doc)); }
             //Enviar correo.
             client.Send(mensaje);
             //Disparar evento.

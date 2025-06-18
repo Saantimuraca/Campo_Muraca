@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using BE;
 using DAL;
 
@@ -70,6 +71,29 @@ namespace DAO
                 }
             }
             return d;
+        }
+
+        public List<string[]> ItemsFactura(int pId)
+        {
+            List<string[]> lista = new List<string[]>();
+            foreach(DataRowView row in Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").DefaultView)
+            {
+                if (int.Parse(row[0].ToString()) == pId)
+                {
+                    DataRow drProducto = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(int.Parse(row[1].ToString()));
+                    string[] vector = new string[] { drProducto[1].ToString(), row[2].ToString(), drProducto[3].ToString() };
+                    lista.Add(vector);
+                }
+            }
+            return lista;   
+        }
+
+        public void AdjuntarFactura(int nroFactura, int idPedido)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Find(idPedido);
+            dr["nroFactura"] = nroFactura;
+            dr["estado"] = "Facturado";
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pedido");
         }
     }
 }

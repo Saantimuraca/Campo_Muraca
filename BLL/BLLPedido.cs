@@ -20,6 +20,7 @@ namespace BLL
                 dalPedido.AgregarItemPedido(DevolverUltimoId(), par.Key, par.Value);
                 int stock = bllProducto.ListarProductos().Find(x => x.idProducto == par.Key).stock;
                 int cantidad = stock - par.Value;
+                if(cantidad < 0) { cantidad = 0; }
                 bllProducto.ModificarStock(par.Key, cantidad);
             }
         }

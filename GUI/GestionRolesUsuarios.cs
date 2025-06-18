@@ -11,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Collections.Specialized.BitVector32;
 
 namespace GUI
 {
@@ -20,6 +19,7 @@ namespace GUI
         LogicaBitacora bitacora = new LogicaBitacora();
         Sesion sesion = Sesion.INSTANCIA;
         Traductor traductor = Traductor.INSTANCIA;
+        LogicaUsuario lu = new LogicaUsuario();
         public GestionRolesUsuarios()
         {
             InitializeComponent();
@@ -35,8 +35,14 @@ namespace GUI
             GestorPermisos gp = new GestorPermisos();
             foreach (var permiso in gp.ObtenerPermisosArbol())
             {
-                TreeNode nodo = CrearNodo(permiso);
-                treeView1.Nodes.Add(nodo);
+                foreach(var p in gp.ObtenerPermisos("Roles"))
+                {
+                    if(permiso.DevolverNombrePermiso() == p.DevolverNombrePermiso())
+                    {
+                        TreeNode nodo = CrearNodo(permiso);
+                        treeView1.Nodes.Add(nodo);
+                    }
+                }
             }
         }
 
@@ -64,6 +70,7 @@ namespace GUI
                 CrearPermisoCompuesto(nombrePermiso, true);
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Crear rol"));
                 RefrescarControles();
+                CargarPermisosArbol();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -79,7 +86,7 @@ namespace GUI
         {
             CbRolesGrupos.Items.Clear();
             GestorPermisos gp = new GestorPermisos();
-            var permisoscompuestos = gp.ObtenerPermisos("Compuestos");
+            var permisoscompuestos = gp.ObtenerPermisos("Compuestos").Where(x => x.DevolverNombrePermiso() != "Administrador");
             CbRolesGrupos.Items.AddRange(permisoscompuestos.ToArray());
         }
 
@@ -165,6 +172,7 @@ namespace GUI
             if(CbRolesGrupos.SelectedIndex != -1)
             {
                 GestorPermisos gp = new GestorPermisos();
+                if (lu.RolIsInUso(CbRolesGrupos.SelectedItem.ToString())) throw new Exception(Traductor.INSTANCIA.Traducir("Este rol se encuentra en uso", ""));
                 if (gp.EliminarPermiso(CbRolesGrupos.SelectedItem.ToString())) MessageBox.Show(traductor.Traducir("Se ha eliminado el permiso con exito!!!", sesion.ObtenerIdiomaSesion()));
                 RefrescarControles();
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar permiso"));
@@ -200,6 +208,7 @@ namespace GUI
                 GestorPermisos gp = new GestorPermisos();
                 CrearPermisoCompuesto(nombreGrupo, false);
                 RefrescarControles();
+                CargarPermisosArbol();
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Crear permiso"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }

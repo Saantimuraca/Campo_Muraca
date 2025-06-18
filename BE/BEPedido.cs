@@ -22,6 +22,8 @@ namespace BE
 
         public string Motivo { get; set; }
 
+        public int nroFactura { get; set; }
+
         public BEPedido(BECliente pCliente, string pEstado, DateTime pFecha, decimal pTotal, string pDniVendedor, int pId = 0)
         {
             cliente = pCliente;

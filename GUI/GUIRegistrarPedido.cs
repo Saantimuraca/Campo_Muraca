@@ -113,7 +113,7 @@ namespace GUI
 
         private object LinqProductos()
         {
-            return (from p in bllProducto.ListarProductos() where p.estado == true select new { ID = p.idProducto, Nombre = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, stockeado = p.isBajoStock }).ToList();
+            return (from p in bllProducto.ListarProductos() where p.estado == true && p.stock > 0 select new { ID = p.idProducto, Nombre = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, stockeado = p.isBajoStock }).ToList();
         }
 
         private void BtnNuevoCliente_Click(object sender, EventArgs e)

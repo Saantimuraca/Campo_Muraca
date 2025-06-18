@@ -62,6 +62,13 @@ namespace Servicios.Logica
                 {
                     ormPermiso.AgregarRelaciones(pNombre, p);
                 }
+                if(!isRol)
+                {
+                    foreach (string p in permisos)
+                    {
+                        ormPermiso.AgregarRelaciones("Administrador", p);
+                    }
+                }
             }
 
             // Si todo salió bien, devolver true para indicar que el permiso se creó correctamente

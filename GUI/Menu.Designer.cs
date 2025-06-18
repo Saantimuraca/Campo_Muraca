@@ -42,13 +42,14 @@
             this.aBMClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarPedidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.supervisarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cobrarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnCerrarSesion = new System.Windows.Forms.Button();
             this.BtnCambiarContrasena = new System.Windows.Forms.Button();
             this.BtnCambiarIdioma = new System.Windows.Forms.Button();
             this.CbIdioma = new System.Windows.Forms.ComboBox();
-            this.supervisarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,13 +94,15 @@
             // 
             this.gestionDeUsuariosToolStripMenuItem.Name = "gestionDeUsuariosToolStripMenuItem";
             this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.gestionDeUsuariosToolStripMenuItem.Text = "Gestión de Usuarios";
+            this.gestionDeUsuariosToolStripMenuItem.Tag = "ABM Usuarios";
+            this.gestionDeUsuariosToolStripMenuItem.Text = "Gestionar Usuarios";
             this.gestionDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeUsuariosToolStripMenuItem_Click);
             // 
             // gestionDeRolesYPermisosToolStripMenuItem
             // 
             this.gestionDeRolesYPermisosToolStripMenuItem.Name = "gestionDeRolesYPermisosToolStripMenuItem";
             this.gestionDeRolesYPermisosToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.gestionDeRolesYPermisosToolStripMenuItem.Tag = "Administrar Roles y Permisos";
             this.gestionDeRolesYPermisosToolStripMenuItem.Text = "Gestión de Roles y Permisos";
             this.gestionDeRolesYPermisosToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeRolesYPermisosToolStripMenuItem_Click);
             // 
@@ -107,6 +110,7 @@
             // 
             this.bitacoraToolStripMenuItem.Name = "bitacoraToolStripMenuItem";
             this.bitacoraToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.bitacoraToolStripMenuItem.Tag = "Ver Bitácora";
             this.bitacoraToolStripMenuItem.Text = "Bitácora";
             this.bitacoraToolStripMenuItem.Click += new System.EventHandler(this.bitácoraToolStripMenuItem_Click);
             // 
@@ -114,6 +118,7 @@
             // 
             this.idiomasToolStripMenuItem.Name = "idiomasToolStripMenuItem";
             this.idiomasToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.idiomasToolStripMenuItem.Tag = "Administrar Idiomas";
             this.idiomasToolStripMenuItem.Text = "Idiomas";
             this.idiomasToolStripMenuItem.Click += new System.EventHandler(this.idiomasToolStripMenuItem_Click);
             // 
@@ -131,6 +136,7 @@
             // 
             this.Backup.Name = "Backup";
             this.Backup.Size = new System.Drawing.Size(122, 22);
+            this.Backup.Tag = "Hacer BackUp";
             this.Backup.Text = "Backup";
             this.Backup.Click += new System.EventHandler(this.Backup_Click);
             // 
@@ -138,6 +144,7 @@
             // 
             this.respaldoToolStripMenuItem.Name = "respaldoToolStripMenuItem";
             this.respaldoToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.respaldoToolStripMenuItem.Tag = "Hacer Respaldo";
             this.respaldoToolStripMenuItem.Text = "Respaldo";
             this.respaldoToolStripMenuItem.Click += new System.EventHandler(this.respaldoToolStripMenuItem_Click);
             // 
@@ -147,12 +154,14 @@
             this.aBMClientesToolStripMenuItem});
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
             this.clientesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.clientesToolStripMenuItem.Tag = "";
             this.clientesToolStripMenuItem.Text = "Clientes";
             // 
             // aBMClientesToolStripMenuItem
             // 
             this.aBMClientesToolStripMenuItem.Name = "aBMClientesToolStripMenuItem";
             this.aBMClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aBMClientesToolStripMenuItem.Tag = "ABM Cliente";
             this.aBMClientesToolStripMenuItem.Text = "ABM Clientes";
             this.aBMClientesToolStripMenuItem.Click += new System.EventHandler(this.aBMClientesToolStripMenuItem_Click);
             // 
@@ -160,17 +169,36 @@
             // 
             this.pedidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.registrarPedidoToolStripMenuItem,
-            this.supervisarPedidosToolStripMenuItem});
+            this.supervisarPedidosToolStripMenuItem,
+            this.cobrarPedidosToolStripMenuItem});
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
             this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.pedidosToolStripMenuItem.Tag = "";
             this.pedidosToolStripMenuItem.Text = "Pedidos";
             // 
             // registrarPedidoToolStripMenuItem
             // 
             this.registrarPedidoToolStripMenuItem.Name = "registrarPedidoToolStripMenuItem";
             this.registrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.registrarPedidoToolStripMenuItem.Tag = "Registrar Pedido";
             this.registrarPedidoToolStripMenuItem.Text = "Registrar pedido";
             this.registrarPedidoToolStripMenuItem.Click += new System.EventHandler(this.registrarPedidoToolStripMenuItem_Click);
+            // 
+            // supervisarPedidosToolStripMenuItem
+            // 
+            this.supervisarPedidosToolStripMenuItem.Name = "supervisarPedidosToolStripMenuItem";
+            this.supervisarPedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.supervisarPedidosToolStripMenuItem.Tag = "Supervisar Pedido";
+            this.supervisarPedidosToolStripMenuItem.Text = "Supervisar pedidos";
+            this.supervisarPedidosToolStripMenuItem.Click += new System.EventHandler(this.supervisarPedidosToolStripMenuItem_Click);
+            // 
+            // cobrarPedidosToolStripMenuItem
+            // 
+            this.cobrarPedidosToolStripMenuItem.Name = "cobrarPedidosToolStripMenuItem";
+            this.cobrarPedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cobrarPedidosToolStripMenuItem.Tag = "Cobrar Pedido";
+            this.cobrarPedidosToolStripMenuItem.Text = "Cobrar pedidos";
+            this.cobrarPedidosToolStripMenuItem.Click += new System.EventHandler(this.cobrarPedidosToolStripMenuItem_Click);
             // 
             // label2
             // 
@@ -244,13 +272,6 @@
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
             // 
-            // supervisarPedidosToolStripMenuItem
-            // 
-            this.supervisarPedidosToolStripMenuItem.Name = "supervisarPedidosToolStripMenuItem";
-            this.supervisarPedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.supervisarPedidosToolStripMenuItem.Text = "Supervisar pedidos";
-            this.supervisarPedidosToolStripMenuItem.Click += new System.EventHandler(this.supervisarPedidosToolStripMenuItem_Click);
-            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -301,5 +322,6 @@
         private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarPedidoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem supervisarPedidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cobrarPedidosToolStripMenuItem;
     }
 }

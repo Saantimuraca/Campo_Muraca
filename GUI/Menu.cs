@@ -114,18 +114,18 @@ namespace GUI
 
         public void ChequearAccesibilidadRecursiva(Control.ControlCollection controles, GestorPermisos gp)
         {
-            foreach(Control ctrl in controles)
+            foreach (Control ctrl in controles)
             {
-                //Verificar la accesibilidad del control actual.
                 ChequearAccesibilidad(ctrl, gp);
-                //Si el control tiene controles hijos, se llama recursivamente para recorrer los mismos.
-                if(ctrl.HasChildren)
+
+                if (ctrl.HasChildren)
                 {
                     ChequearAccesibilidadRecursiva(ctrl.Controls, gp);
                 }
-                if(ctrl is MenuStrip)
+
+                if (ctrl is MenuStrip menuStrip)
                 {
-                    foreach (ToolStripMenuItem item in menuStrip1.Items)
+                    foreach (ToolStripMenuItem item in menuStrip.Items)
                     {
                         ChequearAccesibilidadItemMenuStrip(item, gp);
                     }
@@ -138,9 +138,19 @@ namespace GUI
             control.Enabled = gp.Configurar_Control(control.Tag?.ToString());
         }
 
-        public void ChequearAccesibilidadItemMenuStrip(ToolStripMenuItem pItem, GestorPermisos gp)
+        public void ChequearAccesibilidadItemMenuStrip(ToolStripMenuItem item, GestorPermisos gp)
         {
-            pItem.Enabled = gp.Configurar_Control(pItem.Tag?.ToString());
+            if (!string.IsNullOrEmpty(item.Tag?.ToString()))
+                item.Enabled = gp.Configurar_Control(item.Tag.ToString());
+
+            // Recorre recursivamente los subitems
+            foreach (ToolStripItem subItem in item.DropDownItems)
+            {
+                if (subItem is ToolStripMenuItem subMenuItem)
+                {
+                    ChequearAccesibilidadItemMenuStrip(subMenuItem, gp);
+                }
+            }
         }
 
         public void ActualizarLenguaje()
@@ -272,6 +282,13 @@ namespace GUI
         {
             this.Hide();
             GUIConfirmarPedido gui = new GUIConfirmarPedido();
+            gui.ShowDialog();
+        }
+
+        private void cobrarPedidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GUICobrarPedido gui = new GUICobrarPedido();
             gui.ShowDialog();
         }
     }

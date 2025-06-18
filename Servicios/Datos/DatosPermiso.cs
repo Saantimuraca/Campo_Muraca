@@ -171,12 +171,27 @@ namespace Servicios.Datos
                     listaPermisos.Add(permisoSimple);
                 }
             }
-            //Ahora trabajamos con las relaciones agregando los permisos simples a los permisos compuestos que correspondan.
+            //Ahora trabajamos con las relaciones agregando los permisos simples o compuestos a los permisos compuestos que correspondan.
             foreach (DataRowView row in dao.DevolverTabla("RelacionPermisos").DefaultView)
             {
-                EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)listaCompuestos.Find(x => x.DevolverNombrePermiso() == row[0].ToString());
-                EntidadPermisoSimple permisoSimple = (EntidadPermisoSimple)listaPermisos.Find(x => x.DevolverNombrePermiso() == row[1].ToString());
-                permisoCompuesto.DevolverListaPermisos().Add(permisoSimple);
+                string nombrePadre = row[0].ToString();
+                string nombreHijo = row[1].ToString();
+
+                //Buscar el permiso compuesto (padre)
+                EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)listaCompuestos.Find(x => x.DevolverNombrePermiso() == nombrePadre);
+
+                if (permisoCompuesto == null)
+                {
+                    continue;
+                }
+                //Buscar el permiso hijo en la lista general (puede ser simple o compuesto)
+                var resultado = listaPermisos.Find(x => x.DevolverNombrePermiso() == nombreHijo);
+                if (resultado == null)
+                {
+                    continue;
+                }
+                //Agregar hijo si es válido
+                permisoCompuesto.DevolverListaPermisos().Add(resultado);
             }
             return listaCompuestos;
         }
