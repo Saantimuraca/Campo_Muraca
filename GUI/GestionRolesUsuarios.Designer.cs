@@ -38,6 +38,8 @@
             this.LBLE_ListaPermisos = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.LBLJerarquia = new System.Windows.Forms.Label();
+            this.BtnModificarPermisos = new System.Windows.Forms.Button();
+            this.BtnEliminarSeleccion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CbRolesGrupos
@@ -148,12 +150,34 @@
             this.LBLJerarquia.TabIndex = 10;
             this.LBLJerarquia.Text = "label1";
             // 
+            // BtnModificarPermisos
+            // 
+            this.BtnModificarPermisos.Location = new System.Drawing.Point(15, 149);
+            this.BtnModificarPermisos.Name = "BtnModificarPermisos";
+            this.BtnModificarPermisos.Size = new System.Drawing.Size(123, 37);
+            this.BtnModificarPermisos.TabIndex = 11;
+            this.BtnModificarPermisos.Text = "Modificar Permisos";
+            this.BtnModificarPermisos.UseVisualStyleBackColor = true;
+            this.BtnModificarPermisos.Click += new System.EventHandler(this.BtnModificarPermisos_Click);
+            // 
+            // BtnEliminarSeleccion
+            // 
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(245, 391);
+            this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
+            this.BtnEliminarSeleccion.Size = new System.Drawing.Size(102, 30);
+            this.BtnEliminarSeleccion.TabIndex = 12;
+            this.BtnEliminarSeleccion.Text = "Eliminar Selección";
+            this.BtnEliminarSeleccion.UseVisualStyleBackColor = true;
+            this.BtnEliminarSeleccion.Click += new System.EventHandler(this.BtnEliminarSeleccion_Click);
+            // 
             // GestionRolesUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(723, 409);
+            this.ClientSize = new System.Drawing.Size(723, 433);
+            this.Controls.Add(this.BtnEliminarSeleccion);
+            this.Controls.Add(this.BtnModificarPermisos);
             this.Controls.Add(this.LBLJerarquia);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.LBLE_ListaPermisos);
@@ -184,5 +208,7 @@
         private System.Windows.Forms.Label LBLE_ListaPermisos;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Label LBLJerarquia;
+        private System.Windows.Forms.Button BtnModificarPermisos;
+        private System.Windows.Forms.Button BtnEliminarSeleccion;
     }
 }

@@ -43,10 +43,12 @@ namespace Servicios.Logica
         {
             EntidadUsuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
             if (usuario.Estado_Usuario == false) throw new Exception("Usuario bloqueado!!!");
+            GestorPermisos gp = new GestorPermisos();
+            if (!gp.BuscarPermiso("LogIn", usuario.Rol)) throw new Exception("Este usuario no posee permisos para ingresar");
             if(VerificarContraseña(pContraseñaIngresada, usuario.Contraseña_Usuario))
             {
                 Sesion sesion = Sesion.INSTANCIA;
-                if (!usuario.Estado_Usuario) throw new Exception("Su usuario se encuentra bloqueado, contactese con el administrador para que lo desbloquee!!!");
+                if (!usuario.Estado_Usuario) throw new Exception("Su usuario se encuentra bloqueado, contactese con el administrador para que lo desbloquee");
                 sesion.IniciarSesion(usuario);
                 ReestablecerIntentos(usuario);
                 return true;

@@ -15,7 +15,8 @@ namespace Servicios.Datos
     {
         
         Gestor_Datos dao = Gestor_Datos.INSTANCIA;
-        public List<EntidadPermiso> DevolverPermisosArbol()
+
+        /*public List<EntidadPermiso> DevolverPermisosArbol()
         {
             //Primero creamos una lista para los permisos simples y otra para los compuestos.
             List<EntidadPermiso> listaPermisos = new List<EntidadPermiso>();
@@ -52,7 +53,7 @@ namespace Servicios.Datos
             }
             //Una vez que tenemos todos los permisos compuestos por los permisos simples retornamos la lista.
             return listaPermisosCompuestos;
-        }
+        }*/
 
         public bool EliminarPermiso(string pNombre)
         {
@@ -171,13 +172,13 @@ namespace Servicios.Datos
                     listaPermisos.Add(permisoSimple);
                 }
             }
-            //Ahora trabajamos con las relaciones agregando los permisos simples o compuestos a los permisos compuestos que correspondan.
+            //Ahora agrego los permisos simples o compuestos a los permisos compuestos que correspondan.
             foreach (DataRowView row in dao.DevolverTabla("RelacionPermisos").DefaultView)
             {
                 string nombrePadre = row[0].ToString();
                 string nombreHijo = row[1].ToString();
 
-                //Buscar el permiso compuesto (padre)
+                //Buscar el permiso compuesto
                 EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)listaCompuestos.Find(x => x.DevolverNombrePermiso() == nombrePadre);
 
                 if (permisoCompuesto == null)
@@ -211,6 +212,70 @@ namespace Servicios.Datos
             drPermiso[0] = pNuevoNombre;
             dao.ActualizarPorTabla("RelacionPermisos");
             dao.ActualizarPorTabla("Permiso");
+        }
+
+        public void ActualizarPermisos(string pPermiso, List<string> pPermisosSeleccionados)
+        {
+            EntidadPermiso permisoSeleccionado = DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == pPermiso);
+            foreach(string nombrePermiso in pPermisosSeleccionados)
+            {
+                if(!ContienePermiso(permisoSeleccionado, nombrePermiso))
+                {
+                    DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").NewRow();
+                    dr["NombrePermisoCompuesto"] = pPermiso;
+                    dr["NombrePermisoIncluido"] = nombrePermiso;
+                    Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").Rows.Add(dr);
+                    Gestor_Datos.INSTANCIA.ActualizarPorTabla("RelacionPermisos");
+                }
+            }
+            foreach(EntidadPermiso permisoYaAgregado in (permisoSeleccionado as EntidadPermisoCompuesto).listaPermisos)
+            {
+                if (!EstaEnSeleccionados(permisoYaAgregado, pPermisosSeleccionados))
+                {
+                    string[] clave = { permisoSeleccionado.DevolverNombrePermiso(), permisoYaAgregado.DevolverNombrePermiso() };
+                    DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").Rows.Find(clave);
+                    if (dr != null)
+                    {
+                        dr.Delete();
+                    }
+                }
+            }
+        }
+
+        private bool ContienePermiso(EntidadPermiso pPermisoActual, string pNombrePermisoBuscado)
+        {
+            //Caso base
+            if(pPermisoActual.DevolverNombrePermiso() == pNombrePermisoBuscado) { return true; }
+            //Si es compuesto
+            if(pPermisoActual.isComposite())
+            {
+                foreach(EntidadPermiso hijo in (pPermisoActual as EntidadPermisoCompuesto).listaPermisos)
+                {
+                    if(ContienePermiso(hijo, pNombrePermisoBuscado)) {  return true; }
+                }
+            }
+            //Si no se encontró
+            return false;
+        }
+
+        private bool EstaEnSeleccionados(EntidadPermiso permisoEvaluado, List<string> pPermisosSeleccionados)
+        {
+            // Caso base
+            if (pPermisosSeleccionados.Contains(permisoEvaluado.DevolverNombrePermiso()))
+                return true;
+
+            // Si es compuesto, reviso los hijos
+            if (permisoEvaluado.isComposite())
+            {
+                foreach (EntidadPermiso hijo in ((EntidadPermisoCompuesto)permisoEvaluado).DevolverListaPermisos())
+                {
+                    if (EstaEnSeleccionados(hijo, pPermisosSeleccionados))
+                        return true;
+                }
+            }
+
+            // No está en la lista
+            return false;
         }
     }
 }

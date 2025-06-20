@@ -30,7 +30,7 @@ namespace Servicios.Logica
                 {
                     //Si es compuesto aplicamos la funcion de verificar si es el permiso que buscamos en cada permiso de ese permiso compuesto.
                     //De esta forma nos aseguramos de verificar en cada permiso del árbol.
-                    List<EntidadPermiso> lista = (dp.DevolverPermisosArbol().Find(x => x.DevolverNombrePermiso() == permisoActual.DevolverNombrePermiso()) as EntidadPermisoCompuesto).listaPermisos;
+                    List<EntidadPermiso> lista = (dp.DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == permisoActual.DevolverNombrePermiso()) as EntidadPermisoCompuesto).listaPermisos;
                     foreach (EntidadPermiso p in lista)
                     {
                         //Si el pemiso que buscamos esta dentro del permiso compuesto que estamos analizando retorna true.

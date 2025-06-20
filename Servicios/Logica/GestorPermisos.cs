@@ -38,7 +38,7 @@ namespace Servicios.Logica
             EntidadPermiso permiso = new EntidadPermisoCompuesto(pNombre);
 
             // Obtener la lista de permisos existentes en una estructura de árbol
-            List<EntidadPermiso> lista = ormPermiso.DevolverPermisosArbol();
+            List<EntidadPermiso> lista = ormPermiso.DevolverPermsisosArbol();
 
             // Verificar si alguno de los permisos en la lista generaría un ciclo
             foreach (string p in permisos)
@@ -79,7 +79,8 @@ namespace Servicios.Logica
         {
             //Buscar si el permiso que se quiere agregar ya se encuentra registrado
             if(pPermisoCompuesto == null) return false;
-            foreach(var permiso in pPermisoCompuesto.DevolverListaPermisos())
+            pPermisoCompuesto = ormPermiso.DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == pPermisoCompuesto.DevolverNombrePermiso()) as EntidadPermisoCompuesto;
+            foreach(var permiso in pPermisoCompuesto.listaPermisos)
             {
                 //Si el nombre del permiso, existe se devuelve true
                 if(permiso.DevolverNombrePermiso() == pNombrePermiso) return true;
@@ -112,6 +113,16 @@ namespace Servicios.Logica
         public void ModificarNombrePermiso(string pNombrePermiso, string pNuevoNombre)
         {
             ormPermiso.ModificarNombrePermiso(pNombrePermiso, pNuevoNombre);
+        }
+
+        public EntidadPermiso DevolverPermisoConHijos(string pNombre)
+        {
+            return ormPermiso.DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == pNombre);
+        }
+
+        public void ActualizarPermisos(string pPermiso, List<string> pPermisosSeleccionados)
+        {
+            ormPermiso.ActualizarPermisos(pPermiso, pPermisosSeleccionados);
         }
     }
 }

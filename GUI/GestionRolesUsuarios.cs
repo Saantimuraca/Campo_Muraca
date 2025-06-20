@@ -20,6 +20,7 @@ namespace GUI
         Sesion sesion = Sesion.INSTANCIA;
         Traductor traductor = Traductor.INSTANCIA;
         LogicaUsuario lu = new LogicaUsuario();
+        GestorPermisos gp = new GestorPermisos();
         public GestionRolesUsuarios()
         {
             InitializeComponent();
@@ -27,12 +28,12 @@ namespace GUI
             traductor.Suscribir(this);
             traductor.Notificar();
             CargarPermisosArbol();
+            BtnModificarPermisos.Enabled = false;
         }
 
         private void CargarPermisosArbol()
         {
             treeView1.Nodes.Clear();
-            GestorPermisos gp = new GestorPermisos();
             foreach (var permiso in gp.ObtenerPermisosArbol())
             {
                 foreach(var p in gp.ObtenerPermisos("Roles"))
@@ -85,7 +86,6 @@ namespace GUI
         public void CargarCbRolesGrupos()
         {
             CbRolesGrupos.Items.Clear();
-            GestorPermisos gp = new GestorPermisos();
             var permisoscompuestos = gp.ObtenerPermisos("Compuestos").Where(x => x.DevolverNombrePermiso() != "Administrador");
             CbRolesGrupos.Items.AddRange(permisoscompuestos.ToArray());
         }
@@ -93,7 +93,6 @@ namespace GUI
         public void CrearPermisoCompuesto(string pNombrePermiso, bool isRol)
         {
             List<string> items = GenerarLista();
-            GestorPermisos gp = new GestorPermisos();
             gp.AgregarPermisoCompuesto(pNombrePermiso, items, isRol);
         }
 
@@ -110,7 +109,6 @@ namespace GUI
         public void CargarPermisos()
         {
             ListaPermisos.Items.Clear();
-            GestorPermisos gp = new GestorPermisos();
             var permisos = gp.ObtenerPermisos("Todos excepto roles");
             ListaPermisos.Items.AddRange(permisos.ToArray());
         }
@@ -120,13 +118,13 @@ namespace GUI
             LimpiarSeleccionPermisos();
             if(CbRolesGrupos.SelectedItem != null )
             {
-                GestorPermisos gp = new GestorPermisos();
                 List<EntidadPermiso> permisoRaiz = gp.ObtenerPermisosArbol();
                 EntidadPermiso permisoSeleccionado = permisoRaiz.Find(x => x.DevolverNombrePermiso() == CbRolesGrupos.SelectedItem.ToString());
                 if(permisoSeleccionado is EntidadPermisoCompuesto pPermisoCompuesto)
                 {
                     CheckearPermisosenLista(pPermisoCompuesto);
                 }
+                BtnModificarPermisos.Enabled = true;
             }
         }
 
@@ -171,7 +169,6 @@ namespace GUI
         {
             if(CbRolesGrupos.SelectedIndex != -1)
             {
-                GestorPermisos gp = new GestorPermisos();
                 if (lu.RolIsInUso(CbRolesGrupos.SelectedItem.ToString())) throw new Exception(Traductor.INSTANCIA.Traducir("Este rol se encuentra en uso", ""));
                 if (gp.EliminarPermiso(CbRolesGrupos.SelectedItem.ToString())) MessageBox.Show(traductor.Traducir("Se ha eliminado el permiso con exito!!!", sesion.ObtenerIdiomaSesion()));
                 RefrescarControles();
@@ -185,7 +182,6 @@ namespace GUI
             {
                 if (CbRolesGrupos.SelectedIndex != -1)
                 {
-                    GestorPermisos gp = new GestorPermisos();
                     string nuevoNombre = Interaction.InputBox(traductor.Traducir("Ingrese el nuevo nombre para el permiso:", sesion.ObtenerIdiomaSesion()), traductor.Traducir("Modificando...", sesion.ObtenerIdiomaSesion()), CbRolesGrupos.SelectedItem.ToString());
                     if (string.IsNullOrWhiteSpace(nuevoNombre)) throw new Exception(traductor.Traducir("Debe ingresar un nombre para el nuevo permiso!!!", sesion.ObtenerIdiomaSesion()));
                     gp.ModificarNombrePermiso(CbRolesGrupos.SelectedItem.ToString(), nuevoNombre);
@@ -205,7 +201,6 @@ namespace GUI
                 if (ListaPermisos.CheckedItems.Count < 2) throw new Exception(traductor.Traducir("Debe seleccionar al menos 2 permisos para crear un grupo!!!", sesion.ObtenerIdiomaSesion()));
                 string nombreGrupo = Interaction.InputBox(traductor.Traducir("Ingrese el nombre para el grupo de permisos:", sesion.ObtenerIdiomaSesion()));
                 if (string.IsNullOrWhiteSpace(nombreGrupo)) throw new Exception(traductor.Traducir("Debe ingresar un nombre para el grupo de permisos!!!", sesion.ObtenerIdiomaSesion()));
-                GestorPermisos gp = new GestorPermisos();
                 CrearPermisoCompuesto(nombreGrupo, false);
                 RefrescarControles();
                 CargarPermisosArbol();
@@ -228,6 +223,24 @@ namespace GUI
         private void GestionRolesUsuarios_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.OpenForms["Menu"].Show();
+        }
+
+        private void BtnModificarPermisos_Click(object sender, EventArgs e)
+        {
+            List<string> permisosCheckeados = new List<string>();
+            foreach(object item in ListaPermisos.CheckedItems)
+            {
+                permisosCheckeados.Add(item.ToString());
+            }
+            gp.ActualizarPermisos(CbRolesGrupos.SelectedItem.ToString(), permisosCheckeados);
+            MessageBox.Show("Permiso actulizado exitosamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            CargarPermisosArbol();
+        }
+
+        private void BtnEliminarSeleccion_Click(object sender, EventArgs e)
+        {
+            RefrescarControles();
+            CargarPermisosArbol();
         }
     }
 }
