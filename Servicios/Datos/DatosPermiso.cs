@@ -16,45 +16,6 @@ namespace Servicios.Datos
         
         Gestor_Datos dao = Gestor_Datos.INSTANCIA;
 
-        /*public List<EntidadPermiso> DevolverPermisosArbol()
-        {
-            //Primero creamos una lista para los permisos simples y otra para los compuestos.
-            List<EntidadPermiso> listaPermisos = new List<EntidadPermiso>();
-            List<EntidadPermiso> listaPermisosCompuestos = new List<EntidadPermiso>();
-            //Recorremos cada permiso en la tabla permisos.
-            foreach(DataRowView row in dao.DevolverTabla("Permiso").DefaultView)
-            {
-                string nombrePermiso = row[0].ToString();
-                string tipoPermiso = row[1].ToString();
-                if(tipoPermiso == "Compuesto")
-                {
-                    //Si el permiso es compuesto, lo creo y agrego a ambas listas.
-                    EntidadPermisoCompuesto permisoCompuesto = new EntidadPermisoCompuesto(nombrePermiso);
-                    listaPermisosCompuestos.Add(permisoCompuesto);   
-                    listaPermisos.Add(permisoCompuesto);
-                }
-                else
-                {
-                    //Sino es compuesto, lo agrego solo a la lista de permisos.
-                    EntidadPermisoSimple permisoSimple = new EntidadPermisoSimple(nombrePermiso);
-                    listaPermisos.Add(permisoSimple);
-                }
-            }
-            //Inicio un foreach para recorrer la tabla de realaciones de permisos.
-            foreach (DataRowView row in dao.DevolverTabla("RelacionPermisos").DefaultView)
-            {
-                string nombrePermisoCompuesto = row[0].ToString();
-                string nombrePermisoIncluido = row[1].ToString();
-                //Encontramos el permiso compuesto al que le queremos agregar el permiso simple.
-                EntidadPermisoCompuesto permisoCompuesto = listaPermisosCompuestos.FirstOrDefault(x => x.DevolverNombrePermiso() == nombrePermisoCompuesto) as EntidadPermisoCompuesto;
-                //Encontramos el permiso simple que se quiere agregar y lo agregamos
-                EntidadPermisoSimple permisoIncluido = listaPermisos.FirstOrDefault(x => x.DevolverNombrePermiso() == nombrePermisoIncluido) as EntidadPermisoSimple;
-                permisoCompuesto.DevolverListaPermisos().Add(permisoIncluido);
-            }
-            //Una vez que tenemos todos los permisos compuestos por los permisos simples retornamos la lista.
-            return listaPermisosCompuestos;
-        }*/
-
         public bool EliminarPermiso(string pNombre)
         {
             try

@@ -108,7 +108,7 @@ namespace Servicios.Datos
                 DataRow dr = tabla.NewRow();
                 dr["textoTraducir"] = int.Parse(row[0].ToString());
                 dr["idioma"] = idIdioma;
-                dr["textoTraducido"] = "";
+                dr["textoTraducido"] = "Sin traducción";
                 tabla.Rows.Add(dr); 
             }
             return tabla;

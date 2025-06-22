@@ -14,6 +14,7 @@ namespace Servicios.Logica
     {
         DatosIdioma dalIdioma = new DatosIdioma();
         LogicaTraduccion bllTraduccion = new LogicaTraduccion();  
+        LogicaUsuario lu = new LogicaUsuario();
 
         public List<EntidadIdioma> ListaIdiomas()
         {
@@ -38,6 +39,10 @@ namespace Servicios.Logica
 
         public void EliminarIdioma(EntidadIdioma pIdioma)
         {
+            foreach(EntidadUsuario usuario in lu.ListaUsuarios())
+            {
+                if(usuario.Idioma == pIdioma.idioma) { lu.CambiarIdioma(usuario, "Español"); }
+            }
             foreach (EntidadTraduccion traduccion in bllTraduccion.ListaTraduccion().Where(x => x.idioma == pIdioma.idioma))
             {
                 if(traduccion.idioma == pIdioma.idioma)
@@ -51,7 +56,6 @@ namespace Servicios.Logica
         public void ModificarIdioma(EntidadIdioma pIdiomaModificar, EntidadIdioma pIdiomaModificado)
         {
             dalIdioma.Modificar(pIdiomaModificar, pIdiomaModificado);
-            
         }
     }
 }

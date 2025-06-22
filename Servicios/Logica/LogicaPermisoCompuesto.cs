@@ -11,14 +11,6 @@ namespace Servicios.Logica
     public class LogicaPermisoCompuesto
     {
         DatosPermiso dp = new DatosPermiso();
-        public void Agregar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto)
-        {
-            pPermisoCompuesto.DevolverListaPermisos().Add(pPermiso);
-        }
-        public void Eliminar(EntidadPermiso pPermiso, EntidadPermisoCompuesto pPermisoCompuesto)
-        {
-            pPermisoCompuesto.DevolverListaPermisos().Remove(pPermiso);
-        }
         public bool VerificarPermisoIncluido(EntidadPermiso permisoActual, string permiso)
         {
             //Verifico si el objeto permiso que le mando es el permiso que estoy buscando.

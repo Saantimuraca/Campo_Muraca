@@ -210,6 +210,7 @@
             this.TxtDNIUsuario.Name = "TxtDNIUsuario";
             this.TxtDNIUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtDNIUsuario.TabIndex = 15;
+            this.TxtDNIUsuario.TextChanged += new System.EventHandler(this.TxtDNIUsuario_TextChanged);
             this.TxtDNIUsuario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtDNIUsuario_KeyUp);
             this.TxtDNIUsuario.Leave += new System.EventHandler(this.TxtDNIUsuario_Leave);
             // 

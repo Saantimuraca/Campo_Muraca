@@ -42,7 +42,7 @@ namespace GUI
             LogicaIdioma bllIdioma = new LogicaIdioma();
             foreach(EntidadIdioma idioma in bllIdioma.ListaIdiomas())
             {
-                if(idioma.isDisponible) CbIdioma.Items.Add(idioma.idioma);
+                CbIdioma.Items.Add(idioma.idioma);
             }
         }
 

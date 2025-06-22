@@ -171,7 +171,5 @@ namespace Servicios.Logica
             pUsuario.Contraseña_Usuario = encriptador.GenerarHash(pNuevaContraseña);
             ormUsuario.CambiarContraseña(pUsuario);
         }
-
-        
     }
 }

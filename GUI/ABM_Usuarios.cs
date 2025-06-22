@@ -63,7 +63,7 @@ namespace GUI
             LogicaIdioma bllIdioma = new LogicaIdioma();
             foreach(EntidadIdioma idioma in bllIdioma.ListaIdiomas())
             {
-                if(idioma.isDisponible) CbIdioma.Items.Add(idioma.idioma); 
+                CbIdioma.Items.Add(idioma.idioma); 
             }
         }
 
@@ -248,6 +248,7 @@ namespace GUI
         {
             Regex r = new Regex(@"^\d{7,8}$");
             if (!r.IsMatch(TxtDNIUsuario.Text)) { ErrorDNI.Visible = true; }
+
         }
 
         private void TxtDNIUsuario_KeyUp(object sender, KeyEventArgs e)
@@ -318,6 +319,11 @@ namespace GUI
         private void CbIdioma_Leave(object sender, EventArgs e)
         {
             if(CbIdioma.SelectedItem == null) { ErrorIdioma.Visible=true; }
+        }
+
+        private void TxtDNIUsuario_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

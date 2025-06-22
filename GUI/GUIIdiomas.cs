@@ -153,6 +153,7 @@ namespace GUI
 
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar idioma"));
                 DgvTraducciones.Columns[1].Visible = false;
+                BtnModificarTraduccion.Enabled = false;
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
