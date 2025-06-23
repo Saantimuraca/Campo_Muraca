@@ -32,7 +32,7 @@
             this.BtnConfirmarPedido = new System.Windows.Forms.Button();
             this.BtnRechazar = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.LblEstadoPedido = new System.Windows.Forms.Label();
+            this.LblSeleccionEstadoPedido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DgvPedidos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,16 +88,16 @@
             this.comboBox1.TabIndex = 3;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // LblEstadoPedido
+            // LblSeleccionEstadoPedido
             // 
-            this.LblEstadoPedido.AutoSize = true;
-            this.LblEstadoPedido.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblEstadoPedido.ForeColor = System.Drawing.Color.White;
-            this.LblEstadoPedido.Location = new System.Drawing.Point(1050, 39);
-            this.LblEstadoPedido.Name = "LblEstadoPedido";
-            this.LblEstadoPedido.Size = new System.Drawing.Size(189, 13);
-            this.LblEstadoPedido.TabIndex = 4;
-            this.LblEstadoPedido.Text = "Seleccione el estado del pedido";
+            this.LblSeleccionEstadoPedido.AutoSize = true;
+            this.LblSeleccionEstadoPedido.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblSeleccionEstadoPedido.ForeColor = System.Drawing.Color.White;
+            this.LblSeleccionEstadoPedido.Location = new System.Drawing.Point(1050, 39);
+            this.LblSeleccionEstadoPedido.Name = "LblSeleccionEstadoPedido";
+            this.LblSeleccionEstadoPedido.Size = new System.Drawing.Size(189, 13);
+            this.LblSeleccionEstadoPedido.TabIndex = 4;
+            this.LblSeleccionEstadoPedido.Text = "Seleccione el estado del pedido";
             // 
             // GUIConfirmarPedido
             // 
@@ -105,7 +105,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1251, 450);
-            this.Controls.Add(this.LblEstadoPedido);
+            this.Controls.Add(this.LblSeleccionEstadoPedido);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.BtnRechazar);
             this.Controls.Add(this.BtnConfirmarPedido);
@@ -126,6 +126,6 @@
         private System.Windows.Forms.Button BtnConfirmarPedido;
         private System.Windows.Forms.Button BtnRechazar;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label LblEstadoPedido;
+        private System.Windows.Forms.Label LblSeleccionEstadoPedido;
     }
 }

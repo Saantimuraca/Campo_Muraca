@@ -15,7 +15,7 @@ using Servicios.Logica;
 
 namespace GUI
 {
-    public partial class GUICobrarPedido : Form
+    public partial class GUICobrarPedido : Form, IObserver
     {
         BLLPedido bllPedido = new BLLPedido();
         LogicaUsuario logicaUsuario = new LogicaUsuario();
@@ -26,6 +26,8 @@ namespace GUI
             BtnCobrarPedido.Enabled = false;
             BtnRealizarFactura.Enabled = false;
             BtnVerFactura.Enabled = false;
+            Traductor.INSTANCIA.Suscribir(this);
+            Traductor.INSTANCIA.Notificar();
         }
 
         private void GUICobrarPedido_Load(object sender, EventArgs e)
@@ -37,6 +39,16 @@ namespace GUI
         {
             dgv.DataSource = null;
             dgv.DataSource = obj;
+            dgv.Columns["ID"].HeaderText = Traductor.INSTANCIA.Traducir("CODIGO", "");
+            dgv.Columns["Cliente"].HeaderText = Traductor.INSTANCIA.Traducir("CLIENTE", "");
+            dgv.Columns["FECHA"].HeaderText = Traductor.INSTANCIA.Traducir("FECHA", "");
+            dgv.Columns["TOTAL"].HeaderText = Traductor.INSTANCIA.Traducir("TOTAL", "");
+            dgv.Columns["VENDEDOR"].HeaderText = Traductor.INSTANCIA.Traducir("VENDEDOR", "");
+            if (comboBox2.SelectedItem.ToString() == "Rechazado" || comboBox2.SelectedItem.ToString() == "Todos")
+            {
+                dgv.Columns["MOTIVO"].HeaderText = Traductor.INSTANCIA.Traducir("MOTIVO", "");
+                if (comboBox2.SelectedItem.ToString() == "Todos") { dgv.Columns["ESTADO"].HeaderText = Traductor.INSTANCIA.Traducir("ESTADO", ""); }
+            }
         }
 
         private object LinqAprobados()
@@ -103,8 +115,8 @@ namespace GUI
         {
             try
             {
-                if (DgvPedidos.SelectedRows.Count == 0) throw new Exception("Debe seleccionar un pedido");
-                if (comboBox1.SelectedItem == null) throw new Exception("Debe seleccionar un método de pago");
+                if (DgvPedidos.SelectedRows.Count == 0) throw new Exception(Traductor.INSTANCIA.Traducir("Debe seleccionar un pedido", ""));
+                if (comboBox1.SelectedItem == null) throw new Exception(Traductor.INSTANCIA.Traducir("Debe seleccionar un método de pago", ""));
                 BEPedido pedido = bllPedido.ListarPedidos().Find(x => x.id == int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()));
                 gf.GenerarFactura(pedido, comboBox1.SelectedItem.ToString());
                 Mostrar(DgvPedidos, LinqAprobados());
@@ -112,7 +124,7 @@ namespace GUI
                 string[] vectorMail = pedido.cliente.mail.Split('@');
                 if (vectorMail[1] == "gmail.com") { MessageBox.Show(Traductor.INSTANCIA.Traducir("La factura fue enviada al cliente", "")); }
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch(Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void GUICobrarPedido_FormClosed(object sender, FormClosedEventArgs e)
@@ -155,6 +167,18 @@ namespace GUI
                 Mostrar(DgvPedidos, LinqFacturados());
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);}
+        }
+
+        public void ActualizarLenguaje()
+        {
+            Traductor traductor = Traductor.INSTANCIA;
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Button || ctrl is Label)
+                {
+                    ctrl.Text = traductor.Traducir(ctrl.Name, Sesion.INSTANCIA.ObtenerIdiomaSesion());
+                }
+            }
         }
     }
 }

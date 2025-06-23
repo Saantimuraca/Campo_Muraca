@@ -12,6 +12,7 @@ using Servicios;
 using System.Text.RegularExpressions;
 using Servicios.Logica;
 using Servicios.Entidades;
+using System.Runtime.Remoting.Messaging;
 
 namespace GUI
 {
@@ -37,6 +38,26 @@ namespace GUI
             traductor.Notificar();
             EnlistarLabels();
             OcultarLabels();
+            ChequearAccesibilidadControles();
+        }
+
+        private void ChequearAccesibilidadControles()
+        {
+            ChequearAccesibilidadRescursiva(this.Controls);
+        }
+
+        private void ChequearAccesibilidadRescursiva(Control.ControlCollection  controls)
+        {
+            foreach(Control ctrl in controls)
+            {
+                ChequearAccesibilidad(ctrl);
+                if(ctrl.HasChildren) { ChequearAccesibilidadRescursiva(ctrl.Controls); }
+            }
+        }
+
+        private void ChequearAccesibilidad(Control ctrl)
+        {
+            ctrl.Enabled = gp.Configurar_Control(ctrl.Tag?.ToString());
         }
 
         private void EnlistarLabels()

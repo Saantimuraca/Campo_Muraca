@@ -67,6 +67,7 @@
             this.BtnAgregarUsuario.Name = "BtnAgregarUsuario";
             this.BtnAgregarUsuario.Size = new System.Drawing.Size(96, 28);
             this.BtnAgregarUsuario.TabIndex = 0;
+            this.BtnAgregarUsuario.Tag = "Agregar Usuario";
             this.BtnAgregarUsuario.Text = "NUEVO";
             this.BtnAgregarUsuario.UseVisualStyleBackColor = false;
             this.BtnAgregarUsuario.Click += new System.EventHandler(this.BtnAgregarUsuario_Click);
@@ -80,6 +81,7 @@
             this.BtnBajaUsuario.Name = "BtnBajaUsuario";
             this.BtnBajaUsuario.Size = new System.Drawing.Size(96, 30);
             this.BtnBajaUsuario.TabIndex = 1;
+            this.BtnBajaUsuario.Tag = "Deshabilitar Usuario";
             this.BtnBajaUsuario.Text = "DESHABILITAR";
             this.BtnBajaUsuario.UseVisualStyleBackColor = false;
             this.BtnBajaUsuario.Click += new System.EventHandler(this.BtnBajaUsuario_Click);
@@ -93,6 +95,7 @@
             this.BtnModificarUsuario.Name = "BtnModificarUsuario";
             this.BtnModificarUsuario.Size = new System.Drawing.Size(96, 30);
             this.BtnModificarUsuario.TabIndex = 2;
+            this.BtnModificarUsuario.Tag = "Modificar Usuario";
             this.BtnModificarUsuario.Text = "MODIFICAR";
             this.BtnModificarUsuario.UseVisualStyleBackColor = false;
             this.BtnModificarUsuario.Click += new System.EventHandler(this.BtnModificarUsuario_Click);
@@ -140,6 +143,7 @@
             this.BtnHabilitarUsuario.Name = "BtnHabilitarUsuario";
             this.BtnHabilitarUsuario.Size = new System.Drawing.Size(96, 30);
             this.BtnHabilitarUsuario.TabIndex = 6;
+            this.BtnHabilitarUsuario.Tag = "Habilitar Usuario";
             this.BtnHabilitarUsuario.Text = "HABILITAR";
             this.BtnHabilitarUsuario.UseVisualStyleBackColor = false;
             this.BtnHabilitarUsuario.Click += new System.EventHandler(this.BtnHabilitarUsuario_Click);

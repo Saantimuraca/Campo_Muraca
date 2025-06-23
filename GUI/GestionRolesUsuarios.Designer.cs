@@ -122,6 +122,8 @@
             this.ListaPermisos.Name = "ListaPermisos";
             this.ListaPermisos.Size = new System.Drawing.Size(235, 349);
             this.ListaPermisos.TabIndex = 6;
+            this.ListaPermisos.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.ListaPermisos_ItemCheck);
+            this.ListaPermisos.SelectedIndexChanged += new System.EventHandler(this.ListaPermisos_SelectedIndexChanged);
             // 
             // LBLE_ListaPermisos
             // 
@@ -162,9 +164,9 @@
             // 
             // BtnEliminarSeleccion
             // 
-            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(245, 391);
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(230, 391);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
-            this.BtnEliminarSeleccion.Size = new System.Drawing.Size(102, 30);
+            this.BtnEliminarSeleccion.Size = new System.Drawing.Size(123, 37);
             this.BtnEliminarSeleccion.TabIndex = 12;
             this.BtnEliminarSeleccion.Text = "Eliminar Selección";
             this.BtnEliminarSeleccion.UseVisualStyleBackColor = true;

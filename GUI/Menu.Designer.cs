@@ -94,7 +94,7 @@
             // 
             this.gestionDeUsuariosToolStripMenuItem.Name = "gestionDeUsuariosToolStripMenuItem";
             this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.gestionDeUsuariosToolStripMenuItem.Tag = "ABM Usuarios";
+            this.gestionDeUsuariosToolStripMenuItem.Tag = "ABM Usuario";
             this.gestionDeUsuariosToolStripMenuItem.Text = "Gestionar Usuarios";
             this.gestionDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeUsuariosToolStripMenuItem_Click);
             // 
@@ -102,7 +102,7 @@
             // 
             this.gestionDeRolesYPermisosToolStripMenuItem.Name = "gestionDeRolesYPermisosToolStripMenuItem";
             this.gestionDeRolesYPermisosToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.gestionDeRolesYPermisosToolStripMenuItem.Tag = "Administrar Roles y Permisos";
+            this.gestionDeRolesYPermisosToolStripMenuItem.Tag = "Gestión de Roles y Permisos";
             this.gestionDeRolesYPermisosToolStripMenuItem.Text = "Gestión de Roles y Permisos";
             this.gestionDeRolesYPermisosToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeRolesYPermisosToolStripMenuItem_Click);
             // 

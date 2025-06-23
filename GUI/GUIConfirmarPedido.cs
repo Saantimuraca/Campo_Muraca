@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using Microsoft.VisualBasic;
+using Servicios;
 using Servicios.Logica;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GUI
 {
-    public partial class GUIConfirmarPedido : Form
+    public partial class GUIConfirmarPedido : Form, IObserver
     {
         BLLPedido bllPedido = new BLLPedido();
         LogicaUsuario logicaUsuario = new LogicaUsuario();
@@ -22,6 +24,8 @@ namespace GUI
             InitializeComponent();
             BtnConfirmarPedido.Visible = false;
             BtnRechazar.Visible = false;
+            Traductor.INSTANCIA.Suscribir(this);
+            Traductor.INSTANCIA.Notificar();
         }
 
         private void GUIConfirmarPedido_Load(object sender, EventArgs e)
@@ -47,6 +51,16 @@ namespace GUI
         {
             dgv.DataSource = null;
             dgv.DataSource = obj;
+            dgv.Columns["ID"].HeaderText = Traductor.INSTANCIA.Traducir("CODIGO", "");
+            dgv.Columns["Cliente"].HeaderText = Traductor.INSTANCIA.Traducir("CLIENTE", "");
+            dgv.Columns["FECHA"].HeaderText = Traductor.INSTANCIA.Traducir("FECHA", "");
+            dgv.Columns["TOTAL"].HeaderText = Traductor.INSTANCIA.Traducir("TOTAL", "");
+            dgv.Columns["VENDEDOR"].HeaderText = Traductor.INSTANCIA.Traducir("VENDEDOR", "");
+            if (comboBox1.SelectedItem.ToString() == "Rechazado" || comboBox1.SelectedItem.ToString() == "Todos")
+            {
+                dgv.Columns["MOTIVO"].HeaderText = Traductor.INSTANCIA.Traducir("MOTIVO", "");
+                if (comboBox1.SelectedItem.ToString() == "Todos") { dgv.Columns["ESTADO"].HeaderText = Traductor.INSTANCIA.Traducir("ESTADO", ""); }
+            }
         }
 
         private object LinqAprobados()
@@ -104,24 +118,29 @@ namespace GUI
         {
             try
             {
-                if (DgvPedidos.SelectedRows.Count == 0) throw new Exception("Debe seleccionar un pedido");
+                if (DgvPedidos.SelectedRows.Count == 0) throw new Exception(Traductor.INSTANCIA.Traducir("Debe seleccionar un pedido", ""));
                 bllPedido.CambiarEstado("Aprobado", int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()));
                 Mostrar(DgvPedidos, LinqEnEvaluacion());
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void BtnRechazar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (DgvPedidos.SelectedRows.Count == 0) throw new Exception("Debe seleccionar un pedido");
-                string motivo = Interaction.InputBox("Ingrese el motivo", "Motivo");
-                if (string.IsNullOrWhiteSpace(motivo)) throw new Exception("Debe indicar el motivo de rechazo del pedido");
+                if (DgvPedidos.SelectedRows.Count == 0) throw new Exception(Traductor.INSTANCIA.Traducir("Debe seleccionar un pedido", ""));
+                string motivo = Interaction.InputBox(Traductor.INSTANCIA.Traducir("Ingrese el motivo", ""), Traductor.INSTANCIA.Traducir("Motivo2", ""));
+                if (string.IsNullOrWhiteSpace(motivo)) throw new Exception(Traductor.INSTANCIA.Traducir("Debe indicar el motivo de rechazo del pedido", ""));
                 bllPedido.CambiarEstado("Rechazado", int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()), motivo);
                 Mostrar(DgvPedidos, LinqEnEvaluacion());
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+        }
+
+        public void ActualizarLenguaje()
+        {
+            throw new NotImplementedException();
         }
     }
 }

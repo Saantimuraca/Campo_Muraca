@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using iTextSharp.text;
+using Microsoft.VisualBasic;
 using Servicios;
 using Servicios.Entidades;
 using Servicios.Logica;
@@ -21,6 +22,7 @@ namespace GUI
         Traductor traductor = Traductor.INSTANCIA;
         LogicaUsuario lu = new LogicaUsuario();
         GestorPermisos gp = new GestorPermisos();
+        List<string> lista;
         public GestionRolesUsuarios()
         {
             InitializeComponent();
@@ -29,6 +31,7 @@ namespace GUI
             traductor.Notificar();
             CargarPermisosArbol();
             BtnModificarPermisos.Enabled = false;
+            lista = new List<string>();
         }
 
         private void CargarPermisosArbol()
@@ -93,7 +96,8 @@ namespace GUI
         public void CrearPermisoCompuesto(string pNombrePermiso, bool isRol)
         {
             List<string> items = GenerarLista();
-            gp.AgregarPermisoCompuesto(pNombrePermiso, items, isRol);
+            string error = isRol ? "Rol existente" : "Permiso existente";
+            if(!gp.AgregarPermisoCompuesto(pNombrePermiso, items, isRol)) { MessageBox.Show(error, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         public List<string> GenerarLista()
@@ -125,6 +129,7 @@ namespace GUI
                     CheckearPermisosenLista(pPermisoCompuesto);
                 }
                 BtnModificarPermisos.Enabled = true;
+
             }
         }
 
@@ -148,11 +153,7 @@ namespace GUI
                     if (index != -1)
                     {
                         ListaPermisos.SetItemChecked(index, true);
-
-                    }
-                    if (p is EntidadPermisoCompuesto pPermisoCompuesto)
-                    {
-                        CheckearPermisosenLista(pPermisoCompuesto);
+                        lista.Add(p.DevolverNombrePermiso()); 
                     }
                 }
             }
@@ -167,13 +168,18 @@ namespace GUI
 
         private void BtnEliminarPermisosSeleccionados_Click(object sender, EventArgs e)
         {
-            if(CbRolesGrupos.SelectedIndex != -1)
+            try
             {
-                if (lu.RolIsInUso(CbRolesGrupos.SelectedItem.ToString())) throw new Exception(Traductor.INSTANCIA.Traducir("Este rol se encuentra en uso", ""));
-                if (gp.EliminarPermiso(CbRolesGrupos.SelectedItem.ToString())) MessageBox.Show(traductor.Traducir("Se ha eliminado el permiso con exito!!!", sesion.ObtenerIdiomaSesion()));
-                RefrescarControles();
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar permiso"));
+                if (CbRolesGrupos.SelectedIndex != -1)
+                {
+                    if (lu.RolIsInUso(CbRolesGrupos.SelectedItem.ToString())) throw new Exception(Traductor.INSTANCIA.Traducir("Este rol se encuentra en uso", ""));
+                    if (gp.EliminarPermiso(CbRolesGrupos.SelectedItem.ToString())) MessageBox.Show(traductor.Traducir("Se ha eliminado el permiso con exito!!!", sesion.ObtenerIdiomaSesion()));
+                    RefrescarControles();
+                    CargarPermisosArbol();
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar permiso"));
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void BtnModificarNombre_Click(object sender, EventArgs e)
@@ -184,13 +190,14 @@ namespace GUI
                 {
                     string nuevoNombre = Interaction.InputBox(traductor.Traducir("Ingrese el nuevo nombre para el permiso:", sesion.ObtenerIdiomaSesion()), traductor.Traducir("Modificando...", sesion.ObtenerIdiomaSesion()), CbRolesGrupos.SelectedItem.ToString());
                     if (string.IsNullOrWhiteSpace(nuevoNombre)) throw new Exception(traductor.Traducir("Debe ingresar un nombre para el nuevo permiso!!!", sesion.ObtenerIdiomaSesion()));
+                    if (gp.ExistePermiso(nuevoNombre)) throw new Exception(traductor.Traducir("Permiso o rol existente", ""));
                     gp.ModificarNombrePermiso(CbRolesGrupos.SelectedItem.ToString(), nuevoNombre);
                     MessageBox.Show("Se ha modificado el permiso con éxito!!!");
                     RefrescarControles();
                     bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar permiso"));
                 }
             }
-            catch(Exception ex) {MessageBox.Show(ex.Message); } 
+            catch(Exception ex) {MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); } 
             
         }
 
@@ -227,20 +234,54 @@ namespace GUI
 
         private void BtnModificarPermisos_Click(object sender, EventArgs e)
         {
-            List<string> permisosCheckeados = new List<string>();
-            foreach(object item in ListaPermisos.CheckedItems)
+            try
             {
-                permisosCheckeados.Add(item.ToString());
+                List<string> permisosCheckeados = new List<string>();
+                foreach (object item in ListaPermisos.CheckedItems)
+                {
+                    permisosCheckeados.Add(item.ToString());
+                }
+                var diferencia = permisosCheckeados.Where(u => !lista.Any(x => x == u)).ToList();
+                gp.ActualizarPermisos(CbRolesGrupos.SelectedItem.ToString(), permisosCheckeados, diferencia);
+                MessageBox.Show(traductor.Traducir("Permiso actualizado exitosamente", ""), traductor.Traducir("Información", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarPermisosArbol();
             }
-            gp.ActualizarPermisos(CbRolesGrupos.SelectedItem.ToString(), permisosCheckeados);
-            MessageBox.Show("Permiso actulizado exitosamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            CargarPermisosArbol();
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void BtnEliminarSeleccion_Click(object sender, EventArgs e)
         {
             RefrescarControles();
             CargarPermisosArbol();
+        }
+
+        private void ListaPermisos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListaPermisos_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            // Obtener el permiso sobre el que se hace click
+            /*EntidadPermiso permisoSeleccionado = gp.DevolverPermisoConHijos(ListaPermisos.Items[e.Index].ToString());
+
+            // Si es compuesto...
+            if (permisoSeleccionado != null && permisoSeleccionado.isComposite())
+            {
+                // Esperar que termine el cambio actual
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    // Recorremos sus hijos
+                    foreach (EntidadPermiso hijo in ((EntidadPermisoCompuesto)permisoSeleccionado).DevolverListaPermisos())
+                    {
+                        int indexHijo = ListaPermisos.Items.IndexOf(hijo.DevolverNombrePermiso());
+                        if (indexHijo != -1)
+                        {
+                            ListaPermisos.SetItemChecked(indexHijo, e.NewValue == CheckState.Checked);
+                        }
+                    }
+                });
+            }*/
         }
     }
 }

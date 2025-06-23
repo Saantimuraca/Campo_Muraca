@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Servicios.Datos;
 using Servicios.Entidades;
+using System.Xml.Linq;
 
 namespace Servicios.Logica
 {
@@ -75,15 +76,15 @@ namespace Servicios.Logica
             return true;
         }
 
-        public bool BuscarPermiso(string pNombrePermiso, EntidadPermisoCompuesto pPermisoCompuesto)
+        public bool BuscarPermiso(string pNombrePermiso, EntidadPermiso pPermisoCompuesto)
         {
             //Buscar si el permiso que se quiere agregar ya se encuentra registrado
             if(pPermisoCompuesto == null) return false;
             pPermisoCompuesto = ormPermiso.DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == pPermisoCompuesto.DevolverNombrePermiso()) as EntidadPermisoCompuesto;
-            foreach(var permiso in pPermisoCompuesto.listaPermisos)
+            foreach(var permiso in (pPermisoCompuesto as EntidadPermisoCompuesto).listaPermisos)
             {
                 //Si el nombre del permiso, existe se devuelve true
-                if(permiso.DevolverNombrePermiso() == pNombrePermiso) return true;
+                if(permiso.DevolverNombrePermiso().Equals(pNombrePermiso, StringComparison.OrdinalIgnoreCase)) return true;
                 else if(permiso.isComposite())
                 {
                     if (BuscarPermisoRecursivo(pNombrePermiso, (EntidadPermisoCompuesto)permiso)) return true;
@@ -120,9 +121,39 @@ namespace Servicios.Logica
             return ormPermiso.DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == pNombre);
         }
 
-        public void ActualizarPermisos(string pPermiso, List<string> pPermisosSeleccionados)
+        public void ActualizarPermisos(string pPermiso, List<string> pPermisosSeleccionados, List<string> listaValidaciones)
         {
-            ormPermiso.ActualizarPermisos(pPermiso, pPermisosSeleccionados);
+            EntidadPermiso p = new EntidadPermisoCompuesto(pPermiso);
+            List<EntidadPermiso> lista = ormPermiso.DevolverPermsisosArbol();
+            EntidadPermiso permisoEvaluar = DevolverPermisoConHijos(pPermiso);
+            foreach(string permiso in listaValidaciones)
+            {
+                if (BuscarPermiso(permiso, permisoEvaluar))
+                {
+                    string aux = Traductor.INSTANCIA.Traducir("{permiso} ya se encuentra en la jerarquía", "");
+                    string excepcion = aux.Replace("{permiso}", permiso);
+                    throw new Exception(excepcion);
+                }
+            }
+            foreach (string permiso in pPermisosSeleccionados)
+            {
+                EntidadPermisoCompuesto compuesto = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == permiso);
+                if(BuscarPermiso(pPermiso, compuesto)) { throw new Exception(Traductor.INSTANCIA.Traducir("Dependencia circular", "")); }
+            }
+            if(pPermisosSeleccionados.Contains(pPermiso)) { throw new Exception(Traductor.INSTANCIA.Traducir("No puede agregar un permiso a si mismo", "")); }
+            else
+            {
+                ormPermiso.EliminarRelaciones(pPermiso);
+                foreach(string permiso in pPermisosSeleccionados)
+                {
+                    ormPermiso.AgregarRelaciones(pPermiso, permiso);
+                }
+            }
+        }
+
+        public bool ExistePermiso(string pNombrePermiso)
+        {
+            return ormPermiso.ExistePermiso(pNombrePermiso);
         }
     }
 }

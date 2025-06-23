@@ -28,7 +28,7 @@ namespace Servicios.Logica
 
         public bool IsRepetido(string pIdioma)
         {
-            return ListaIdiomas().Find(x => x.idioma == pIdioma) == null ? false : true;
+            return ListaIdiomas().Find(x => x.idioma.Equals(pIdioma, StringComparison.OrdinalIgnoreCase)) == null ? false : true;
         }
 
         public void AgregarIdioma(EntidadIdioma pIdioma)

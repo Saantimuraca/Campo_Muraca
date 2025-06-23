@@ -62,11 +62,13 @@ namespace Servicios.Logica
                 decimal precio = 0;
                 decimal ivaItem = 0;
                 decimal totalIVA = 0;
-                PdfPTable tabla = (tipo == "A") ? new PdfPTable(4) : new PdfPTable(3);
+                decimal subtotalProducto = 0;
+                decimal subtotalIVA = 0;
+                PdfPTable tabla = (tipo == "A") ? new PdfPTable(5) : new PdfPTable(3);
                 tabla.WidthPercentage = 100;
 
                 if (tipo == "A")
-                    tabla.SetWidths(new float[] { 40f, 20f, 20f, 20f });
+                    tabla.SetWidths(new float[] { 40f, 20f, 20f, 20f , 20f});
                 else
                     tabla.SetWidths(new float[] { 50f, 25f, 25f });
 
@@ -74,8 +76,9 @@ namespace Servicios.Logica
                 tabla.AddCell("Producto");
                 tabla.AddCell("Cantidad");
                 tabla.AddCell("Precio Unitario");
+                tabla.AddCell("Subtotal");
 
-                if (tipo == "A") tabla.AddCell("IVA");
+                if (tipo == "A") tabla.AddCell("Subtotal c/IVA");
 
                 // 3. Filas del detalle
                 foreach (string[] detalle in dalPedido.ItemsFactura(pPedido.id))
@@ -86,10 +89,14 @@ namespace Servicios.Logica
                     precio = decimal.Parse(detalle[2]);
                     tabla.AddCell($"${precio:N2}");
 
+                    subtotalProducto = precio * int.Parse(detalle[1]);
+                    tabla.AddCell($"${subtotalProducto:N2}");
+
                     if (tipo == "A")
                     {
                         ivaItem = Math.Round(precio * 0.21m, 2);
-                        tabla.AddCell($"${ivaItem:N2}"); //IVA
+                        subtotalIVA = ivaItem * int.Parse(detalle[1]);
+                        tabla.AddCell($"${subtotalIVA:N2}"); //IVA
                         totalIVA += ivaItem * int.Parse(detalle[1]);
                     }
 

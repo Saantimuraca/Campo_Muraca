@@ -128,13 +128,13 @@ namespace GUI
             {
                 string idioma = Interaction.InputBox(traductor.Traducir("Idioma:", ""));
                 if (idioma == "") throw new Exception("Idioma inválido");
-                if (bllIdioma.IsRepetido(idioma)) throw new Exception(traductor.Traducir("El idioma ingresado ya se encuentra registrado!!!", ""));
+                if (bllIdioma.IsRepetido(idioma)) throw new Exception(traductor.Traducir("El idioma ingresado ya se encuentra registrado", ""));
                 EntidadIdioma nuevoIdioma = new EntidadIdioma(idioma);
                 bllIdioma.AgregarIdioma(nuevoIdioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Agregar idioma"));
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
         private void BtnEliminarIdioma_Click(object sender, EventArgs e)
         {
@@ -147,15 +147,13 @@ namespace GUI
                 bllIdioma.EliminarIdioma(idioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 Mostrar(DgvTraducciones, LinqTraducciones());
-
                 if (DgvTraducciones.Columns.Contains("nuevaColumna"))
                     DgvTraducciones.Columns.Remove("nuevaColumna");
-
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar idioma"));
                 DgvTraducciones.Columns[1].Visible = false;
                 BtnModificarTraduccion.Enabled = false;
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message); }
+            catch(Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
         private void BtnModificarIdioma_Click(object sender, EventArgs e)
         {
@@ -165,13 +163,14 @@ namespace GUI
                 if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Español" || DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Ingles") throw new Exception(traductor.Traducir("No se pueden modificar los idiomas principales del sistema!!!", ""));
                 if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == sesion.ObtenerIdiomaSesion()) throw new Exception(traductor.Traducir("No puede modificar el idioma utilizado actualmente!!!", ""));
                 string nuevoNombre = Interaction.InputBox(traductor.Traducir("Nuevo nombre", ""));
+                if (bllIdioma.IsRepetido(nuevoNombre)) throw new Exception(traductor.Traducir("El idioma ingresado ya se encuentra registrado", ""));
                 EntidadIdioma idioma = new EntidadIdioma(nuevoNombre);
                 EntidadIdioma idiomaModificar = new EntidadIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
                 bllIdioma.ModificarIdioma(idiomaModificar, idioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar idioma"));
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message); }   
+            catch(Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }   
         }
 
         private void DgvIdiomas_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

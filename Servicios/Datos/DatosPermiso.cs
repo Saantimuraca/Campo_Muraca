@@ -38,6 +38,19 @@ namespace Servicios.Datos
             catch { return false; }
         }
 
+        public void EliminarRelaciones(string pNombrePermiso)
+        {
+            foreach (DataRowView row in dao.DevolverTabla("RelacionPermisos").DefaultView)
+            {
+                if (row[0].ToString() == pNombrePermiso)
+                {
+                    object[] claveCompuesta = { row[0], row[1] };
+                    DataRow drRelacionPermisos = dao.DevolverTabla("RelacionPermisos").Rows.Find(claveCompuesta);
+                    drRelacionPermisos.Delete();
+                }
+            }
+        }
+
         public List<EntidadPermiso> DevolverPermisos(string tipo)
         {
             List<EntidadPermiso> lista = new List<EntidadPermiso>();
@@ -74,7 +87,7 @@ namespace Servicios.Datos
         {
             foreach (DataRowView row in dao.DevolverTabla("Permiso").DefaultView)
             {
-                if (row[0].ToString() == pNombrePermiso) { return true; }
+                if (row[0].ToString().Equals(pNombrePermiso, StringComparison.OrdinalIgnoreCase)) { return true; }
             }
             return false;
         }
@@ -173,70 +186,6 @@ namespace Servicios.Datos
             drPermiso[0] = pNuevoNombre;
             dao.ActualizarPorTabla("RelacionPermisos");
             dao.ActualizarPorTabla("Permiso");
-        }
-
-        public void ActualizarPermisos(string pPermiso, List<string> pPermisosSeleccionados)
-        {
-            EntidadPermiso permisoSeleccionado = DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == pPermiso);
-            foreach(string nombrePermiso in pPermisosSeleccionados)
-            {
-                if(!ContienePermiso(permisoSeleccionado, nombrePermiso))
-                {
-                    DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").NewRow();
-                    dr["NombrePermisoCompuesto"] = pPermiso;
-                    dr["NombrePermisoIncluido"] = nombrePermiso;
-                    Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").Rows.Add(dr);
-                    Gestor_Datos.INSTANCIA.ActualizarPorTabla("RelacionPermisos");
-                }
-            }
-            foreach(EntidadPermiso permisoYaAgregado in (permisoSeleccionado as EntidadPermisoCompuesto).listaPermisos)
-            {
-                if (!EstaEnSeleccionados(permisoYaAgregado, pPermisosSeleccionados))
-                {
-                    string[] clave = { permisoSeleccionado.DevolverNombrePermiso(), permisoYaAgregado.DevolverNombrePermiso() };
-                    DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").Rows.Find(clave);
-                    if (dr != null)
-                    {
-                        dr.Delete();
-                    }
-                }
-            }
-        }
-
-        private bool ContienePermiso(EntidadPermiso pPermisoActual, string pNombrePermisoBuscado)
-        {
-            //Caso base
-            if(pPermisoActual.DevolverNombrePermiso() == pNombrePermisoBuscado) { return true; }
-            //Si es compuesto
-            if(pPermisoActual.isComposite())
-            {
-                foreach(EntidadPermiso hijo in (pPermisoActual as EntidadPermisoCompuesto).listaPermisos)
-                {
-                    if(ContienePermiso(hijo, pNombrePermisoBuscado)) {  return true; }
-                }
-            }
-            //Si no se encontró
-            return false;
-        }
-
-        private bool EstaEnSeleccionados(EntidadPermiso permisoEvaluado, List<string> pPermisosSeleccionados)
-        {
-            // Caso base
-            if (pPermisosSeleccionados.Contains(permisoEvaluado.DevolverNombrePermiso()))
-                return true;
-
-            // Si es compuesto, reviso los hijos
-            if (permisoEvaluado.isComposite())
-            {
-                foreach (EntidadPermiso hijo in ((EntidadPermisoCompuesto)permisoEvaluado).DevolverListaPermisos())
-                {
-                    if (EstaEnSeleccionados(hijo, pPermisosSeleccionados))
-                        return true;
-                }
-            }
-
-            // No está en la lista
-            return false;
-        }
+        }   
     }
 }
