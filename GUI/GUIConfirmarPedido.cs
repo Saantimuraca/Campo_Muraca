@@ -11,7 +11,7 @@ using BLL;
 using Microsoft.VisualBasic;
 using Servicios;
 using Servicios.Logica;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace GUI
 {
@@ -140,7 +140,13 @@ namespace GUI
 
         public void ActualizarLenguaje()
         {
-            throw new NotImplementedException();
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Label || ctrl is Button)
+                {
+                    ctrl.Text = Traductor.INSTANCIA.Traducir(ctrl.Name, Sesion.INSTANCIA.ObtenerIdiomaSesion());
+                }
+            }
         }
     }
 }

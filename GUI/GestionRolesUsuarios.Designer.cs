@@ -56,6 +56,7 @@
             // 
             this.LBLE_RolesGrupos.AutoSize = true;
             this.LBLE_RolesGrupos.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_RolesGrupos.ForeColor = System.Drawing.Color.White;
             this.LBLE_RolesGrupos.Location = new System.Drawing.Point(12, 20);
             this.LBLE_RolesGrupos.Name = "LBLE_RolesGrupos";
             this.LBLE_RolesGrupos.Size = new System.Drawing.Size(84, 13);
@@ -64,8 +65,7 @@
             // 
             // BtnEliminarPermisosSeleccionados
             // 
-            this.BtnEliminarPermisosSeleccionados.BackColor = System.Drawing.Color.IndianRed;
-            this.BtnEliminarPermisosSeleccionados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEliminarPermisosSeleccionados.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarPermisosSeleccionados.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEliminarPermisosSeleccionados.Location = new System.Drawing.Point(15, 63);
             this.BtnEliminarPermisosSeleccionados.Name = "BtnEliminarPermisosSeleccionados";
@@ -77,8 +77,7 @@
             // 
             // BtnModificarNombre
             // 
-            this.BtnModificarNombre.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.BtnModificarNombre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnModificarNombre.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificarNombre.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnModificarNombre.Location = new System.Drawing.Point(15, 106);
             this.BtnModificarNombre.Name = "BtnModificarNombre";
@@ -90,12 +89,11 @@
             // 
             // BtnCrearRol
             // 
-            this.BtnCrearRol.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.BtnCrearRol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCrearRol.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnCrearRol.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCrearRol.Location = new System.Drawing.Point(15, 290);
+            this.BtnCrearRol.Location = new System.Drawing.Point(15, 269);
             this.BtnCrearRol.Name = "BtnCrearRol";
-            this.BtnCrearRol.Size = new System.Drawing.Size(123, 31);
+            this.BtnCrearRol.Size = new System.Drawing.Size(123, 36);
             this.BtnCrearRol.TabIndex = 4;
             this.BtnCrearRol.Tag = "Crear Rol";
             this.BtnCrearRol.Text = "CREAR ROL";
@@ -104,8 +102,7 @@
             // 
             // BtnCrearGrupoPermisos
             // 
-            this.BtnCrearGrupoPermisos.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.BtnCrearGrupoPermisos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCrearGrupoPermisos.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnCrearGrupoPermisos.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCrearGrupoPermisos.Location = new System.Drawing.Point(15, 337);
             this.BtnCrearGrupoPermisos.Name = "BtnCrearGrupoPermisos";
@@ -129,6 +126,7 @@
             // 
             this.LBLE_ListaPermisos.AutoSize = true;
             this.LBLE_ListaPermisos.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLE_ListaPermisos.ForeColor = System.Drawing.Color.White;
             this.LBLE_ListaPermisos.Location = new System.Drawing.Point(174, 20);
             this.LBLE_ListaPermisos.Name = "LBLE_ListaPermisos";
             this.LBLE_ListaPermisos.Size = new System.Drawing.Size(97, 13);
@@ -146,6 +144,7 @@
             // 
             this.LBLJerarquia.AutoSize = true;
             this.LBLJerarquia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBLJerarquia.ForeColor = System.Drawing.Color.White;
             this.LBLJerarquia.Location = new System.Drawing.Point(464, 20);
             this.LBLJerarquia.Name = "LBLJerarquia";
             this.LBLJerarquia.Size = new System.Drawing.Size(41, 13);
@@ -154,29 +153,33 @@
             // 
             // BtnModificarPermisos
             // 
+            this.BtnModificarPermisos.BackColor = System.Drawing.Color.SlateBlue;
+            this.BtnModificarPermisos.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnModificarPermisos.Location = new System.Drawing.Point(15, 149);
             this.BtnModificarPermisos.Name = "BtnModificarPermisos";
             this.BtnModificarPermisos.Size = new System.Drawing.Size(123, 37);
             this.BtnModificarPermisos.TabIndex = 11;
             this.BtnModificarPermisos.Text = "Modificar Permisos";
-            this.BtnModificarPermisos.UseVisualStyleBackColor = true;
+            this.BtnModificarPermisos.UseVisualStyleBackColor = false;
             this.BtnModificarPermisos.Click += new System.EventHandler(this.BtnModificarPermisos_Click);
             // 
             // BtnEliminarSeleccion
             // 
+            this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
+            this.BtnEliminarSeleccion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEliminarSeleccion.Location = new System.Drawing.Point(230, 391);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
             this.BtnEliminarSeleccion.Size = new System.Drawing.Size(123, 37);
             this.BtnEliminarSeleccion.TabIndex = 12;
             this.BtnEliminarSeleccion.Text = "Eliminar Selección";
-            this.BtnEliminarSeleccion.UseVisualStyleBackColor = true;
+            this.BtnEliminarSeleccion.UseVisualStyleBackColor = false;
             this.BtnEliminarSeleccion.Click += new System.EventHandler(this.BtnEliminarSeleccion_Click);
             // 
             // GestionRolesUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(723, 433);
             this.Controls.Add(this.BtnEliminarSeleccion);
             this.Controls.Add(this.BtnModificarPermisos);

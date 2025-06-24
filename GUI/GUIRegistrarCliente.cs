@@ -23,6 +23,7 @@ namespace GUI
         int opcion = 0;
         GUIRegistrarPedido form;
         ServicioMail mail = new ServicioMail();
+        GestorPermisos gp = new GestorPermisos();
         public GUIRegistrarCliente(int pOpcion = 0, GUIRegistrarPedido pForm = null)
         {
             InitializeComponent();
@@ -41,6 +42,26 @@ namespace GUI
             DgvClientes.Focus();
             opcion = pOpcion;
             form = pForm;
+            ChequearAccesibilidadControles();
+        }
+
+        private void ChequearAccesibilidadControles()
+        {
+            ChequearAccesibilidadRescursiva(this.Controls);
+        }
+
+        private void ChequearAccesibilidadRescursiva(Control.ControlCollection controls)
+        {
+            foreach (Control ctrl in controls)
+            {
+                ChequearAccesibilidad(ctrl);
+                if (ctrl.HasChildren) { ChequearAccesibilidadRescursiva(ctrl.Controls); }
+            }
+        }
+
+        private void ChequearAccesibilidad(Control ctrl)
+        {
+            ctrl.Enabled = gp.Configurar_Control(ctrl.Tag?.ToString());
         }
 
         private void Mostrar(DataGridView dgv, object obj)

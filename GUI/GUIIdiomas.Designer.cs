@@ -65,8 +65,7 @@
             // 
             // BtnAgregarIdioma
             // 
-            this.BtnAgregarIdioma.BackColor = System.Drawing.Color.OliveDrab;
-            this.BtnAgregarIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAgregarIdioma.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnAgregarIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAgregarIdioma.Location = new System.Drawing.Point(12, 226);
             this.BtnAgregarIdioma.Name = "BtnAgregarIdioma";
@@ -78,8 +77,7 @@
             // 
             // BtnEliminarIdioma
             // 
-            this.BtnEliminarIdioma.BackColor = System.Drawing.Color.IndianRed;
-            this.BtnEliminarIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEliminarIdioma.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEliminarIdioma.Location = new System.Drawing.Point(108, 226);
             this.BtnEliminarIdioma.Name = "BtnEliminarIdioma";
@@ -91,8 +89,7 @@
             // 
             // BtnModificarIdioma
             // 
-            this.BtnModificarIdioma.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BtnModificarIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnModificarIdioma.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificarIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnModificarIdioma.Location = new System.Drawing.Point(210, 226);
             this.BtnModificarIdioma.Name = "BtnModificarIdioma";
@@ -114,12 +111,11 @@
             // 
             // BtnModificarTraduccion
             // 
-            this.BtnModificarTraduccion.BackColor = System.Drawing.Color.Yellow;
-            this.BtnModificarTraduccion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnModificarTraduccion.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificarTraduccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnModificarTraduccion.Location = new System.Drawing.Point(742, 431);
             this.BtnModificarTraduccion.Name = "BtnModificarTraduccion";
-            this.BtnModificarTraduccion.Size = new System.Drawing.Size(101, 23);
+            this.BtnModificarTraduccion.Size = new System.Drawing.Size(101, 34);
             this.BtnModificarTraduccion.TabIndex = 16;
             this.BtnModificarTraduccion.Text = "MODIFICAR";
             this.BtnModificarTraduccion.UseVisualStyleBackColor = false;
@@ -141,6 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(1242, 477);
             this.Controls.Add(this.DgvTraducciones);
             this.Controls.Add(this.BtnModificarTraduccion);

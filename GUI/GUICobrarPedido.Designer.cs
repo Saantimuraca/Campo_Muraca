@@ -53,14 +53,15 @@
             // 
             // BtnCobrarPedido
             // 
+            this.BtnCobrarPedido.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnCobrarPedido.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCobrarPedido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BtnCobrarPedido.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnCobrarPedido.Location = new System.Drawing.Point(1000, 208);
             this.BtnCobrarPedido.Name = "BtnCobrarPedido";
             this.BtnCobrarPedido.Size = new System.Drawing.Size(79, 42);
             this.BtnCobrarPedido.TabIndex = 2;
             this.BtnCobrarPedido.Text = "Cobrar";
-            this.BtnCobrarPedido.UseVisualStyleBackColor = true;
+            this.BtnCobrarPedido.UseVisualStyleBackColor = false;
             this.BtnCobrarPedido.Click += new System.EventHandler(this.BtnCobrarPedido_Click);
             // 
             // comboBox1
@@ -93,26 +94,28 @@
             // 
             // BtnVerFactura
             // 
+            this.BtnVerFactura.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnVerFactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnVerFactura.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BtnVerFactura.ForeColor = System.Drawing.SystemColors.Desktop;
             this.BtnVerFactura.Location = new System.Drawing.Point(1000, 160);
             this.BtnVerFactura.Name = "BtnVerFactura";
             this.BtnVerFactura.Size = new System.Drawing.Size(79, 42);
             this.BtnVerFactura.TabIndex = 5;
             this.BtnVerFactura.Text = "Ver factura";
-            this.BtnVerFactura.UseVisualStyleBackColor = true;
+            this.BtnVerFactura.UseVisualStyleBackColor = false;
             this.BtnVerFactura.Click += new System.EventHandler(this.BtnVerFactura_Click);
             // 
             // BtnRealizarFactura
             // 
+            this.BtnRealizarFactura.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnRealizarFactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRealizarFactura.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BtnRealizarFactura.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnRealizarFactura.Location = new System.Drawing.Point(1000, 112);
             this.BtnRealizarFactura.Name = "BtnRealizarFactura";
             this.BtnRealizarFactura.Size = new System.Drawing.Size(79, 42);
             this.BtnRealizarFactura.TabIndex = 6;
             this.BtnRealizarFactura.Text = "Realizar factura";
-            this.BtnRealizarFactura.UseVisualStyleBackColor = true;
+            this.BtnRealizarFactura.UseVisualStyleBackColor = false;
             this.BtnRealizarFactura.Click += new System.EventHandler(this.BtnRealizarFactura_Click);
             // 
             // LblSeleccionEstadoPedido

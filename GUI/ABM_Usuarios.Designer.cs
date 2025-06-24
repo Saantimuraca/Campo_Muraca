@@ -60,9 +60,9 @@
             // 
             // BtnAgregarUsuario
             // 
-            this.BtnAgregarUsuario.BackColor = System.Drawing.Color.OliveDrab;
-            this.BtnAgregarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnAgregarUsuario.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnAgregarUsuario.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAgregarUsuario.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnAgregarUsuario.Location = new System.Drawing.Point(12, 44);
             this.BtnAgregarUsuario.Name = "BtnAgregarUsuario";
             this.BtnAgregarUsuario.Size = new System.Drawing.Size(96, 28);
@@ -74,9 +74,9 @@
             // 
             // BtnBajaUsuario
             // 
-            this.BtnBajaUsuario.BackColor = System.Drawing.Color.IndianRed;
-            this.BtnBajaUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnBajaUsuario.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnBajaUsuario.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnBajaUsuario.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnBajaUsuario.Location = new System.Drawing.Point(382, 44);
             this.BtnBajaUsuario.Name = "BtnBajaUsuario";
             this.BtnBajaUsuario.Size = new System.Drawing.Size(96, 30);
@@ -88,9 +88,9 @@
             // 
             // BtnModificarUsuario
             // 
-            this.BtnModificarUsuario.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BtnModificarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnModificarUsuario.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificarUsuario.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnModificarUsuario.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnModificarUsuario.Location = new System.Drawing.Point(577, 44);
             this.BtnModificarUsuario.Name = "BtnModificarUsuario";
             this.BtnModificarUsuario.Size = new System.Drawing.Size(96, 30);
@@ -136,9 +136,9 @@
             // 
             // BtnHabilitarUsuario
             // 
-            this.BtnHabilitarUsuario.BackColor = System.Drawing.Color.Yellow;
-            this.BtnHabilitarUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnHabilitarUsuario.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnHabilitarUsuario.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnHabilitarUsuario.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnHabilitarUsuario.Location = new System.Drawing.Point(195, 44);
             this.BtnHabilitarUsuario.Name = "BtnHabilitarUsuario";
             this.BtnHabilitarUsuario.Size = new System.Drawing.Size(96, 30);
@@ -277,12 +277,12 @@
             // 
             // BtnEliminarSeleccion
             // 
-            this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.Orange;
-            this.BtnEliminarSeleccion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarSeleccion.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(305, 492);
+            this.BtnEliminarSeleccion.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(291, 492);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
-            this.BtnEliminarSeleccion.Size = new System.Drawing.Size(77, 36);
+            this.BtnEliminarSeleccion.Size = new System.Drawing.Size(106, 36);
             this.BtnEliminarSeleccion.TabIndex = 21;
             this.BtnEliminarSeleccion.Text = "ELIMINAR SELECCIÓN";
             this.BtnEliminarSeleccion.UseVisualStyleBackColor = false;

@@ -97,7 +97,7 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.comboBox1.BackColor = System.Drawing.Color.White;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(844, 28);
             this.comboBox1.Name = "comboBox1";
@@ -169,32 +169,38 @@
             // 
             // BtnAgregar
             // 
+            this.BtnAgregar.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnAgregar.Location = new System.Drawing.Point(1037, 76);
             this.BtnAgregar.Name = "BtnAgregar";
-            this.BtnAgregar.Size = new System.Drawing.Size(90, 23);
+            this.BtnAgregar.Size = new System.Drawing.Size(90, 30);
             this.BtnAgregar.TabIndex = 13;
+            this.BtnAgregar.Tag = "Agregar Cliente";
             this.BtnAgregar.Text = "Agregar";
-            this.BtnAgregar.UseVisualStyleBackColor = true;
+            this.BtnAgregar.UseVisualStyleBackColor = false;
             this.BtnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
             // BtnCambiarEstadoCliente
             // 
-            this.BtnCambiarEstadoCliente.Location = new System.Drawing.Point(1037, 229);
+            this.BtnCambiarEstadoCliente.BackColor = System.Drawing.Color.SlateBlue;
+            this.BtnCambiarEstadoCliente.Location = new System.Drawing.Point(1037, 228);
             this.BtnCambiarEstadoCliente.Name = "BtnCambiarEstadoCliente";
-            this.BtnCambiarEstadoCliente.Size = new System.Drawing.Size(90, 27);
+            this.BtnCambiarEstadoCliente.Size = new System.Drawing.Size(90, 30);
             this.BtnCambiarEstadoCliente.TabIndex = 14;
+            this.BtnCambiarEstadoCliente.Tag = "Deshabilitar Cliente";
             this.BtnCambiarEstadoCliente.Text = "Deshabilitar";
-            this.BtnCambiarEstadoCliente.UseVisualStyleBackColor = true;
+            this.BtnCambiarEstadoCliente.UseVisualStyleBackColor = false;
             this.BtnCambiarEstadoCliente.Click += new System.EventHandler(this.BtnCambiarEstadoCliente_Click);
             // 
             // BtnModificar
             // 
+            this.BtnModificar.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificar.Location = new System.Drawing.Point(1037, 411);
             this.BtnModificar.Name = "BtnModificar";
             this.BtnModificar.Size = new System.Drawing.Size(90, 27);
             this.BtnModificar.TabIndex = 15;
+            this.BtnModificar.Tag = "Modificar Cliente";
             this.BtnModificar.Text = "Modificar";
-            this.BtnModificar.UseVisualStyleBackColor = true;
+            this.BtnModificar.UseVisualStyleBackColor = false;
             this.BtnModificar.Click += new System.EventHandler(this.BtnModificar_Click);
             // 
             // contextMenuStrip2
@@ -306,12 +312,13 @@
             // 
             // BtnEliminarSeleccion
             // 
+            this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarSeleccion.Location = new System.Drawing.Point(428, 444);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
             this.BtnEliminarSeleccion.Size = new System.Drawing.Size(121, 36);
             this.BtnEliminarSeleccion.TabIndex = 23;
             this.BtnEliminarSeleccion.Text = "Eliminar seleccion";
-            this.BtnEliminarSeleccion.UseVisualStyleBackColor = true;
+            this.BtnEliminarSeleccion.UseVisualStyleBackColor = false;
             this.BtnEliminarSeleccion.Click += new System.EventHandler(this.BtnEliminarSeleccion_Click);
             // 
             // GUIRegistrarCliente

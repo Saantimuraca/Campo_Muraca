@@ -96,7 +96,7 @@ namespace GUI
         public void CrearPermisoCompuesto(string pNombrePermiso, bool isRol)
         {
             List<string> items = GenerarLista();
-            string error = isRol ? "Rol existente" : "Permiso existente";
+            string error = $"Ocurrió un error";
             if(!gp.AgregarPermisoCompuesto(pNombrePermiso, items, isRol)) { MessageBox.Show(error, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
@@ -205,7 +205,7 @@ namespace GUI
         {
             try
             {
-                if (ListaPermisos.CheckedItems.Count < 2) throw new Exception(traductor.Traducir("Debe seleccionar al menos 2 permisos para crear un grupo!!!", sesion.ObtenerIdiomaSesion()));
+                if (ListaPermisos.CheckedItems.Count < 1) throw new Exception(traductor.Traducir("Debe seleccionar al menos 2 permisos para crear un grupo!!!", sesion.ObtenerIdiomaSesion()));
                 string nombreGrupo = Interaction.InputBox(traductor.Traducir("Ingrese el nombre para el grupo de permisos:", sesion.ObtenerIdiomaSesion()));
                 if (string.IsNullOrWhiteSpace(nombreGrupo)) throw new Exception(traductor.Traducir("Debe ingresar un nombre para el grupo de permisos!!!", sesion.ObtenerIdiomaSesion()));
                 CrearPermisoCompuesto(nombreGrupo, false);
@@ -237,16 +237,36 @@ namespace GUI
             try
             {
                 List<string> permisosCheckeados = new List<string>();
+                List<string> permisosCheckeadosNivel1 = new List<string>();
                 foreach (object item in ListaPermisos.CheckedItems)
                 {
                     permisosCheckeados.Add(item.ToString());
+                    permisosCheckeadosNivel1.Add(item.ToString());
+                    EntidadPermiso permiso = gp.ObtenerPermisosArbol().Find(x => x.DevolverNombrePermiso() == item.ToString());
+                    if (permiso != null && permiso.isComposite())
+                    {
+                        AgregarHijosRecursivos((EntidadPermisoCompuesto)permiso, permisosCheckeados);
+                    }
                 }
                 var diferencia = permisosCheckeados.Where(u => !lista.Any(x => x == u)).ToList();
-                gp.ActualizarPermisos(CbRolesGrupos.SelectedItem.ToString(), permisosCheckeados, diferencia);
+                gp.ActualizarPermisos(CbRolesGrupos.SelectedItem.ToString(), permisosCheckeadosNivel1, diferencia);
                 MessageBox.Show(traductor.Traducir("Permiso actualizado exitosamente", ""), traductor.Traducir("Información", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarPermisosArbol();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void AgregarHijosRecursivos(EntidadPermisoCompuesto compuesto, List<string> lista)
+        {
+            foreach (EntidadPermiso hijo in compuesto.DevolverListaPermisos())
+            {
+                string nombreHijo = hijo.DevolverNombrePermiso();
+                if (!lista.Contains(nombreHijo))
+                    lista.Add(nombreHijo);
+
+                if (hijo is EntidadPermisoCompuesto hijoCompuesto)
+                    AgregarHijosRecursivos(hijoCompuesto, lista);
+            }
         }
 
         private void BtnEliminarSeleccion_Click(object sender, EventArgs e)

@@ -66,7 +66,7 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.menuStrip1.BackColor = System.Drawing.Color.SlateBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.opcion1ToolStripMenuItem,
             this.clientesToolStripMenuItem,
@@ -179,7 +179,7 @@
             // registrarPedidoToolStripMenuItem
             // 
             this.registrarPedidoToolStripMenuItem.Name = "registrarPedidoToolStripMenuItem";
-            this.registrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.registrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.registrarPedidoToolStripMenuItem.Tag = "Registrar Pedido";
             this.registrarPedidoToolStripMenuItem.Text = "Registrar pedido";
             this.registrarPedidoToolStripMenuItem.Click += new System.EventHandler(this.registrarPedidoToolStripMenuItem_Click);
@@ -187,7 +187,7 @@
             // supervisarPedidosToolStripMenuItem
             // 
             this.supervisarPedidosToolStripMenuItem.Name = "supervisarPedidosToolStripMenuItem";
-            this.supervisarPedidosToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.supervisarPedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.supervisarPedidosToolStripMenuItem.Tag = "Supervisar Pedido";
             this.supervisarPedidosToolStripMenuItem.Text = "Supervisar pedidos";
             this.supervisarPedidosToolStripMenuItem.Click += new System.EventHandler(this.supervisarPedidosToolStripMenuItem_Click);
@@ -195,7 +195,7 @@
             // cobrarPedidosToolStripMenuItem
             // 
             this.cobrarPedidosToolStripMenuItem.Name = "cobrarPedidosToolStripMenuItem";
-            this.cobrarPedidosToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.cobrarPedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cobrarPedidosToolStripMenuItem.Tag = "Cobrar Pedido";
             this.cobrarPedidosToolStripMenuItem.Text = "Cobrar pedidos";
             this.cobrarPedidosToolStripMenuItem.Click += new System.EventHandler(this.cobrarPedidosToolStripMenuItem_Click);
@@ -224,8 +224,7 @@
             // 
             // BtnCerrarSesion
             // 
-            this.BtnCerrarSesion.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BtnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCerrarSesion.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnCerrarSesion.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCerrarSesion.Location = new System.Drawing.Point(571, 364);
             this.BtnCerrarSesion.Name = "BtnCerrarSesion";
@@ -237,8 +236,7 @@
             // 
             // BtnCambiarContrasena
             // 
-            this.BtnCambiarContrasena.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BtnCambiarContrasena.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCambiarContrasena.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnCambiarContrasena.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCambiarContrasena.Location = new System.Drawing.Point(571, 318);
             this.BtnCambiarContrasena.Name = "BtnCambiarContrasena";
@@ -250,10 +248,10 @@
             // 
             // BtnCambiarIdioma
             // 
-            this.BtnCambiarIdioma.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.BtnCambiarIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCambiarIdioma.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnCambiarIdioma.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCambiarIdioma.Location = new System.Drawing.Point(571, 272);
+            this.BtnCambiarIdioma.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnCambiarIdioma.Location = new System.Drawing.Point(578, 60);
             this.BtnCambiarIdioma.Name = "BtnCambiarIdioma";
             this.BtnCambiarIdioma.Size = new System.Drawing.Size(97, 40);
             this.BtnCambiarIdioma.TabIndex = 7;
@@ -263,11 +261,11 @@
             // 
             // CbIdioma
             // 
-            this.CbIdioma.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.CbIdioma.BackColor = System.Drawing.Color.White;
             this.CbIdioma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CbIdioma.FormattingEnabled = true;
-            this.CbIdioma.Location = new System.Drawing.Point(571, 245);
+            this.CbIdioma.Location = new System.Drawing.Point(578, 33);
             this.CbIdioma.Name = "CbIdioma";
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
@@ -277,6 +275,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(687, 414);
             this.Controls.Add(this.CbIdioma);
             this.Controls.Add(this.BtnCambiarIdioma);
@@ -286,6 +285,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Menu";

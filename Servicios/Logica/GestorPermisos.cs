@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Servicios.Datos;
 using Servicios.Entidades;
 using System.Xml.Linq;
+using Org.BouncyCastle.Crypto;
+using System.Collections;
 
 namespace Servicios.Logica
 {
@@ -35,44 +37,43 @@ namespace Servicios.Logica
         }
         public bool AgregarPermisoCompuesto(string pNombre, List<string> permisos, bool isRol)
         {
-            // Crear un nuevo permiso compuesto con el nombre dado
+            string tipo = isRol ? "rol" : "permiso";
             EntidadPermiso permiso = new EntidadPermisoCompuesto(pNombre);
-
-            // Obtener la lista de permisos existentes en una estructura de árbol
             List<EntidadPermiso> lista = ormPermiso.DevolverPermsisosArbol();
-
             // Verificar si alguno de los permisos en la lista generaría un ciclo
             foreach (string p in permisos)
             {
-                // Buscar el permiso en la lista y convertirlo a tipo BEPermisoCompuesto
                 EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == p);
-
-                // Si el permiso a agregar ya existe en la jerarquía, cancelar la operación
-                if (BuscarPermiso(pNombre, permisoCompuesto)) return false;
+                if (BuscarPermiso(pNombre, permisoCompuesto))
+                {
+                    string error = $"No se puede asignar el permiso {{permisoExistente}} al nuevo {tipo} {{nuevoPermiso}} porque generaría una relación circular.";
+                    string aux = error.Replace("{permisoExistente}", p).Replace("{nuevoPermiso}", pNombre);
+                    throw new Exception(aux);
+                }
             }
-
             // Verificar si el permiso con ese nombre ya existe en la base de datos
-            if (ormPermiso.ExistePermiso(pNombre)) return false; 
+            if (ormPermiso.ExistePermiso(pNombre)) throw new Exception($"{tipo} {"existente"}");
             else
             {
-                // Agregar el nuevo permiso a la base de datos
+                //Verificar si hay redundancia
+                foreach (string p in permisos)
+                {
+                    EntidadPermisoCompuesto padre = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == p);
+                    foreach (string otro in permisos)
+                    {
+                        if (p != otro && BuscarPermiso(otro, padre))
+                        {
+                            string error = $"El permiso {{otro}} ya está contenido dentro del permiso {{p}}. No es necesario asignarlo nuevamente.";
+                            string aux = error.Replace("{otro}", otro).Replace("{p}", p);
+                        }
+                    }
+                }
                 ormPermiso.AgregarPermiso(permiso, isRol);
-
-                // Establecer las relaciones con los permisos hijos
                 foreach (string p in permisos)
                 {
                     ormPermiso.AgregarRelaciones(pNombre, p);
                 }
-                if(!isRol)
-                {
-                    foreach (string p in permisos)
-                    {
-                        ormPermiso.AgregarRelaciones("Administrador", p);
-                    }
-                }
             }
-
-            // Si todo salió bien, devolver true para indicar que el permiso se creó correctamente
             return true;
         }
 
@@ -126,7 +127,7 @@ namespace Servicios.Logica
             EntidadPermiso p = new EntidadPermisoCompuesto(pPermiso);
             List<EntidadPermiso> lista = ormPermiso.DevolverPermsisosArbol();
             EntidadPermiso permisoEvaluar = DevolverPermisoConHijos(pPermiso);
-            foreach(string permiso in listaValidaciones)
+            foreach (string permiso in listaValidaciones)
             {
                 if (BuscarPermiso(permiso, permisoEvaluar))
                 {
@@ -138,17 +139,34 @@ namespace Servicios.Logica
             foreach (string permiso in pPermisosSeleccionados)
             {
                 EntidadPermisoCompuesto compuesto = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == permiso);
-                if(BuscarPermiso(pPermiso, compuesto)) { throw new Exception(Traductor.INSTANCIA.Traducir("Dependencia circular", "")); }
+                if (BuscarPermiso(pPermiso, compuesto)) { throw new Exception(Traductor.INSTANCIA.Traducir("Dependencia circular", "")); }
+
             }
-            if(pPermisosSeleccionados.Contains(pPermiso)) { throw new Exception(Traductor.INSTANCIA.Traducir("No puede agregar un permiso a si mismo", "")); }
-            else
+            if (pPermisosSeleccionados.Contains(pPermiso)) { throw new Exception(Traductor.INSTANCIA.Traducir("No puede agregar un permiso a si mismo", "")); }
+            foreach (string permiso in pPermisosSeleccionados)
             {
-                ormPermiso.EliminarRelaciones(pPermiso);
-                foreach(string permiso in pPermisosSeleccionados)
+                if (EstaIncluidoEnOtroPermiso(permiso, pPermisosSeleccionados, lista))
                 {
-                    ormPermiso.AgregarRelaciones(pPermiso, permiso);
+                    throw new Exception($"El permiso '{permiso}' ya está contenido en otro permiso seleccionado. No es necesario agregarlo.");
                 }
             }
+            ormPermiso.EliminarRelaciones(pPermiso);
+            foreach (string permiso in pPermisosSeleccionados)
+            {
+                ormPermiso.AgregarRelaciones(pPermiso, permiso);
+            }
+        }
+
+        private bool EstaIncluidoEnOtroPermiso(string permisoEvaluado, List<string> todosLosSeleccionados, List<EntidadPermiso> arbolPermisos)
+        {
+            foreach (string otroPermiso in todosLosSeleccionados)
+            {
+                if (permisoEvaluado == otroPermiso) continue;
+
+                EntidadPermiso padre = arbolPermisos.Find(x => x.DevolverNombrePermiso() == otroPermiso);
+                if (padre != null && BuscarPermiso(permisoEvaluado, padre)) return true;
+            }
+            return false;
         }
 
         public bool ExistePermiso(string pNombrePermiso)

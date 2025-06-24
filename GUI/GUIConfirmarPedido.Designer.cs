@@ -50,30 +50,33 @@
             // 
             // BtnConfirmarPedido
             // 
+            this.BtnConfirmarPedido.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnConfirmarPedido.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnConfirmarPedido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.BtnConfirmarPedido.Location = new System.Drawing.Point(462, 29);
+            this.BtnConfirmarPedido.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnConfirmarPedido.Location = new System.Drawing.Point(436, 15);
             this.BtnConfirmarPedido.Name = "BtnConfirmarPedido";
-            this.BtnConfirmarPedido.Size = new System.Drawing.Size(75, 23);
+            this.BtnConfirmarPedido.Size = new System.Drawing.Size(85, 37);
             this.BtnConfirmarPedido.TabIndex = 1;
             this.BtnConfirmarPedido.Text = "Aceptar";
-            this.BtnConfirmarPedido.UseVisualStyleBackColor = true;
+            this.BtnConfirmarPedido.UseVisualStyleBackColor = false;
             this.BtnConfirmarPedido.Click += new System.EventHandler(this.BtnConfirmarPedido_Click);
             // 
             // BtnRechazar
             // 
+            this.BtnRechazar.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnRechazar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRechazar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.BtnRechazar.Location = new System.Drawing.Point(557, 29);
+            this.BtnRechazar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnRechazar.Location = new System.Drawing.Point(543, 15);
             this.BtnRechazar.Name = "BtnRechazar";
-            this.BtnRechazar.Size = new System.Drawing.Size(75, 23);
+            this.BtnRechazar.Size = new System.Drawing.Size(85, 37);
             this.BtnRechazar.TabIndex = 2;
             this.BtnRechazar.Text = "Rechazar";
-            this.BtnRechazar.UseVisualStyleBackColor = true;
+            this.BtnRechazar.UseVisualStyleBackColor = false;
             this.BtnRechazar.Click += new System.EventHandler(this.BtnRechazar_Click);
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Aprobado",

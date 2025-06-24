@@ -13,7 +13,6 @@ namespace BLL
     public class BLLProducto
     {
         DALProducto dal = new DALProducto();
-        List<BEProducto> clonada;
         public List<BEProducto> ListarProductos()
         {
             return dal.ListarProductos();
@@ -27,6 +26,11 @@ namespace BLL
         public void NotificarBajoStock(int id)
         {
             dal.CambiarEstadoStock(id, true);
+        }
+
+        public List<BEProducto> ListarProductosIncremental(string consulta)
+        {
+            return dal.ListarProductosIncremental(consulta);
         }
     }
 }

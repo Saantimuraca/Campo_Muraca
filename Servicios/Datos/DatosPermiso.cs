@@ -22,7 +22,7 @@ namespace Servicios.Datos
             {
                foreach(DataRowView row in dao.DevolverTabla("RelacionPermisos").DefaultView)
                {
-                    if (row[0].ToString() == pNombre)
+                    if (row[0].ToString() == pNombre || row[1].ToString() == pNombre)
                     {
                         object[] claveCompuesta = { row[0], row[1] };
                         DataRow drRelacionPermisos = dao.DevolverTabla("RelacionPermisos").Rows.Find(claveCompuesta);
@@ -40,15 +40,25 @@ namespace Servicios.Datos
 
         public void EliminarRelaciones(string pNombrePermiso)
         {
-            foreach (DataRowView row in dao.DevolverTabla("RelacionPermisos").DefaultView)
+            // Guardamos las relaciones a eliminar en una lista auxiliar
+            List<DataRow> filasAEliminar = new List<DataRow>();
+            DataTable tablaRelaciones = dao.DevolverTabla("RelacionPermisos");
+
+            foreach (DataRow fila in tablaRelaciones.Rows)
             {
-                if (row[0].ToString() == pNombrePermiso)
+                if (fila.RowState != DataRowState.Deleted && fila[0].ToString() == pNombrePermiso)
                 {
-                    object[] claveCompuesta = { row[0], row[1] };
-                    DataRow drRelacionPermisos = dao.DevolverTabla("RelacionPermisos").Rows.Find(claveCompuesta);
-                    drRelacionPermisos.Delete();
+                    filasAEliminar.Add(fila);
                 }
             }
+
+            // Eliminamos las filas fuera del foreach original para evitar errores
+            foreach (DataRow fila in filasAEliminar)
+            {
+                fila.Delete();
+            }
+
+            dao.ActualizarPorTabla("RelacionPermisos");
         }
 
         public List<EntidadPermiso> DevolverPermisos(string tipo)

@@ -244,10 +244,9 @@ namespace GUI
             {
                 if (bool.Parse(row.Cells[6].Value.ToString()))
                 {
-                    row.DefaultCellStyle.BackColor = Color.MistyRose;
+                    row.DefaultCellStyle.BackColor = Color.Gray;
                 }
             }
-            DgvProductos.ColumnHeadersDefaultCellStyle.BackColor = Color.IndianRed;
             DgvProductos.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             DgvProductos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
         }
@@ -285,6 +284,17 @@ namespace GUI
                     ctrl.Text = Traductor.INSTANCIA.Traducir(ctrl.Name, Sesion.INSTANCIA.ObtenerIdiomaSesion());
                 }
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string consulta = textBox1.Text;
+            Mostrar(DgvProductos, LinqProductosIncremental(consulta));
+        }
+
+        private object LinqProductosIncremental(string consulta)
+        {
+            return (from p in bllProducto.ListarProductosIncremental(consulta) where p.estado == true && p.stock > 0 select new { ID = p.idProducto, Nombre = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, stockeado = p.isBajoStock }).ToList();
         }
     }
 }

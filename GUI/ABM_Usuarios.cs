@@ -156,7 +156,7 @@ namespace GUI
             CbRol.Items.Clear();
             foreach (EntidadPermisoCompuesto rol in gp.ObtenerPermisos("Roles"))
             {
-                if(rol.DevolverNombrePermiso() != "Administrador") CbRol.Items.Add(rol.DevolverNombrePermiso());
+                CbRol.Items.Add(rol.DevolverNombrePermiso());
             }
         }
 

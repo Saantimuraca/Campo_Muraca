@@ -39,6 +39,23 @@ namespace DAO
             return lista;
         }
 
+        public List<BEProducto> ListarProductosIncremental(string consulta)
+        {
+            DALCategoria dAL = new DALCategoria();
+            List<BEProducto> lista = new List<BEProducto>();
+            DataTable tablaOriginal = Gestor_Datos.INSTANCIA.DevolverTabla("Producto");
+            DataView vistaFiltrada = new DataView(tablaOriginal);
+            vistaFiltrada.RowFilter = $"nombre LIKE '{consulta}%'";
+            vistaFiltrada.RowStateFilter = DataViewRowState.Unchanged;
+            foreach (DataRowView row in vistaFiltrada)
+            {
+                BECategoria categoria = dAL.ListaCategorias().Find(x => x.idCategoria == int.Parse(row[5].ToString()));
+                BEProducto producto = new BEProducto(row[1].ToString(), row[2].ToString(), decimal.Parse(row[3].ToString()), int.Parse(row[4].ToString()), categoria, bool.Parse(row[6].ToString()), int.Parse(row[0].ToString()), bool.Parse(row[7].ToString()));
+                lista.Add(producto);
+            }
+            return lista;
+        }
+
         public void CambiarEstadoStock(int id, bool estado)
         {
             DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(id);
