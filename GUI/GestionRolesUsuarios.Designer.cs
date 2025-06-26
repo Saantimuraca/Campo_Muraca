@@ -46,9 +46,9 @@
             // 
             this.CbRolesGrupos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbRolesGrupos.FormattingEnabled = true;
-            this.CbRolesGrupos.Location = new System.Drawing.Point(12, 36);
+            this.CbRolesGrupos.Location = new System.Drawing.Point(41, 36);
             this.CbRolesGrupos.Name = "CbRolesGrupos";
-            this.CbRolesGrupos.Size = new System.Drawing.Size(126, 21);
+            this.CbRolesGrupos.Size = new System.Drawing.Size(238, 21);
             this.CbRolesGrupos.TabIndex = 0;
             this.CbRolesGrupos.SelectedIndexChanged += new System.EventHandler(this.CbRolesGrupos_SelectedIndexChanged);
             // 
@@ -57,7 +57,7 @@
             this.LBLE_RolesGrupos.AutoSize = true;
             this.LBLE_RolesGrupos.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_RolesGrupos.ForeColor = System.Drawing.Color.White;
-            this.LBLE_RolesGrupos.Location = new System.Drawing.Point(12, 20);
+            this.LBLE_RolesGrupos.Location = new System.Drawing.Point(116, 20);
             this.LBLE_RolesGrupos.Name = "LBLE_RolesGrupos";
             this.LBLE_RolesGrupos.Size = new System.Drawing.Size(84, 13);
             this.LBLE_RolesGrupos.TabIndex = 1;
@@ -67,7 +67,7 @@
             // 
             this.BtnEliminarPermisosSeleccionados.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarPermisosSeleccionados.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEliminarPermisosSeleccionados.Location = new System.Drawing.Point(15, 63);
+            this.BtnEliminarPermisosSeleccionados.Location = new System.Drawing.Point(97, 70);
             this.BtnEliminarPermisosSeleccionados.Name = "BtnEliminarPermisosSeleccionados";
             this.BtnEliminarPermisosSeleccionados.Size = new System.Drawing.Size(123, 37);
             this.BtnEliminarPermisosSeleccionados.TabIndex = 2;
@@ -79,7 +79,7 @@
             // 
             this.BtnModificarNombre.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificarNombre.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnModificarNombre.Location = new System.Drawing.Point(15, 106);
+            this.BtnModificarNombre.Location = new System.Drawing.Point(97, 113);
             this.BtnModificarNombre.Name = "BtnModificarNombre";
             this.BtnModificarNombre.Size = new System.Drawing.Size(123, 37);
             this.BtnModificarNombre.TabIndex = 3;
@@ -91,7 +91,7 @@
             // 
             this.BtnCrearRol.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnCrearRol.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCrearRol.Location = new System.Drawing.Point(15, 269);
+            this.BtnCrearRol.Location = new System.Drawing.Point(97, 276);
             this.BtnCrearRol.Name = "BtnCrearRol";
             this.BtnCrearRol.Size = new System.Drawing.Size(123, 36);
             this.BtnCrearRol.TabIndex = 4;
@@ -104,7 +104,7 @@
             // 
             this.BtnCrearGrupoPermisos.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnCrearGrupoPermisos.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCrearGrupoPermisos.Location = new System.Drawing.Point(15, 337);
+            this.BtnCrearGrupoPermisos.Location = new System.Drawing.Point(97, 344);
             this.BtnCrearGrupoPermisos.Name = "BtnCrearGrupoPermisos";
             this.BtnCrearGrupoPermisos.Size = new System.Drawing.Size(123, 36);
             this.BtnCrearGrupoPermisos.TabIndex = 5;
@@ -115,7 +115,7 @@
             // ListaPermisos
             // 
             this.ListaPermisos.FormattingEnabled = true;
-            this.ListaPermisos.Location = new System.Drawing.Point(177, 36);
+            this.ListaPermisos.Location = new System.Drawing.Point(323, 36);
             this.ListaPermisos.Name = "ListaPermisos";
             this.ListaPermisos.Size = new System.Drawing.Size(235, 349);
             this.ListaPermisos.TabIndex = 6;
@@ -127,7 +127,7 @@
             this.LBLE_ListaPermisos.AutoSize = true;
             this.LBLE_ListaPermisos.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_ListaPermisos.ForeColor = System.Drawing.Color.White;
-            this.LBLE_ListaPermisos.Location = new System.Drawing.Point(174, 20);
+            this.LBLE_ListaPermisos.Location = new System.Drawing.Point(320, 20);
             this.LBLE_ListaPermisos.Name = "LBLE_ListaPermisos";
             this.LBLE_ListaPermisos.Size = new System.Drawing.Size(97, 13);
             this.LBLE_ListaPermisos.TabIndex = 8;
@@ -135,7 +135,7 @@
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(467, 36);
+            this.treeView1.Location = new System.Drawing.Point(613, 36);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(221, 349);
             this.treeView1.TabIndex = 9;
@@ -145,7 +145,7 @@
             this.LBLJerarquia.AutoSize = true;
             this.LBLJerarquia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLJerarquia.ForeColor = System.Drawing.Color.White;
-            this.LBLJerarquia.Location = new System.Drawing.Point(464, 20);
+            this.LBLJerarquia.Location = new System.Drawing.Point(610, 20);
             this.LBLJerarquia.Name = "LBLJerarquia";
             this.LBLJerarquia.Size = new System.Drawing.Size(41, 13);
             this.LBLJerarquia.TabIndex = 10;
@@ -155,7 +155,7 @@
             // 
             this.BtnModificarPermisos.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificarPermisos.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnModificarPermisos.Location = new System.Drawing.Point(15, 149);
+            this.BtnModificarPermisos.Location = new System.Drawing.Point(97, 156);
             this.BtnModificarPermisos.Name = "BtnModificarPermisos";
             this.BtnModificarPermisos.Size = new System.Drawing.Size(123, 37);
             this.BtnModificarPermisos.TabIndex = 11;
@@ -167,7 +167,7 @@
             // 
             this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarSeleccion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(230, 391);
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(376, 391);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
             this.BtnEliminarSeleccion.Size = new System.Drawing.Size(123, 37);
             this.BtnEliminarSeleccion.TabIndex = 12;
@@ -180,7 +180,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(723, 433);
+            this.ClientSize = new System.Drawing.Size(848, 433);
             this.Controls.Add(this.BtnEliminarSeleccion);
             this.Controls.Add(this.BtnModificarPermisos);
             this.Controls.Add(this.LBLJerarquia);

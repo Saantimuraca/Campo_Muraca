@@ -87,23 +87,20 @@ namespace GUI
 
         private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
             ABM_Usuarios us = new ABM_Usuarios();
-            us.ShowDialog();
+            us.Show();
         }
 
         private void gestiónDeRolesYPermisosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
             GestionRolesUsuarios roles = new GestionRolesUsuarios();
-            roles.ShowDialog();
+            roles.Show();
         }
 
         private void bitácoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
             GUIBitacroa_ gui = new GUIBitacroa_();
-            gui.ShowDialog();
+            gui.Show();
         }
 
         public void ChequearAccesibilidadDeTodosLosControles()
@@ -210,6 +207,12 @@ namespace GUI
                 Traductor traductor = Traductor.INSTANCIA;
                 traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
                 traductor.Notificar();
+                bool estaAbierto = Application.OpenForms["GUIIdiomas"] != null;
+                if (estaAbierto)
+                {
+                    GUIIdiomas f = Application.OpenForms["GUIIdiomas"] as GUIIdiomas;
+                    f.MostrarCambioMenu();
+                }
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cambiar idioma"));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -219,9 +222,8 @@ namespace GUI
         {
             try
             {
-                this.Hide();
                 GUIIdiomas gUIIdiomas = new GUIIdiomas();
-                gUIIdiomas.ShowDialog();
+                gUIIdiomas.Show();
                 CargarIdiomas();
             }
             catch { }
@@ -266,30 +268,26 @@ namespace GUI
 
         private void aBMClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
             GUIRegistrarCliente gui = new GUIRegistrarCliente();
-            gui.ShowDialog();
+            gui.Show();
         }
 
         private void registrarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
             GUIRegistrarPedido gui = new GUIRegistrarPedido();
-            gui.ShowDialog();
+            gui.Show();
         }
 
         private void supervisarPedidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
             GUIConfirmarPedido gui = new GUIConfirmarPedido();
-            gui.ShowDialog();
+            gui.Show();
         }
 
         private void cobrarPedidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
             GUICobrarPedido gui = new GUICobrarPedido();
-            gui.ShowDialog();
+            gui.Show();
         }
     }
 }

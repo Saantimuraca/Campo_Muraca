@@ -248,10 +248,27 @@ namespace GUI
                         AgregarHijosRecursivos((EntidadPermisoCompuesto)permiso, permisosCheckeados);
                     }
                 }
-                var diferencia = permisosCheckeados.Where(u => !lista.Any(x => x == u)).ToList();
+                var diferencia = permisosCheckeadosNivel1.Where(u => !lista.Any(x => x == u)).ToList();
                 gp.ActualizarPermisos(CbRolesGrupos.SelectedItem.ToString(), permisosCheckeadosNivel1, diferencia);
                 MessageBox.Show(traductor.Traducir("Permiso actualizado exitosamente", ""), traductor.Traducir("Información", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarPermisosArbol();
+                foreach(object item in ListaPermisos.Items)
+                {
+                    if(ListaPermisos.CheckedItems.Contains(item))
+                    {
+                        if(!lista.Any(x => x == item.ToString()))
+                        {
+                            lista.Add(item.ToString());
+                        }
+                    }
+                    else
+                    {
+                        if(lista.Any(x => x == item.ToString()))
+                        {
+                            lista.Remove(item.ToString());
+                        }
+                    }
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -261,7 +278,7 @@ namespace GUI
             foreach (EntidadPermiso hijo in compuesto.DevolverListaPermisos())
             {
                 string nombreHijo = hijo.DevolverNombrePermiso();
-                if (!lista.Contains(nombreHijo))
+                //if (!lista.Contains(nombreHijo))
                     lista.Add(nombreHijo);
 
                 if (hijo is EntidadPermisoCompuesto hijoCompuesto)
@@ -282,26 +299,7 @@ namespace GUI
 
         private void ListaPermisos_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            // Obtener el permiso sobre el que se hace click
-            /*EntidadPermiso permisoSeleccionado = gp.DevolverPermisoConHijos(ListaPermisos.Items[e.Index].ToString());
-
-            // Si es compuesto...
-            if (permisoSeleccionado != null && permisoSeleccionado.isComposite())
-            {
-                // Esperar que termine el cambio actual
-                this.BeginInvoke((MethodInvoker)delegate
-                {
-                    // Recorremos sus hijos
-                    foreach (EntidadPermiso hijo in ((EntidadPermisoCompuesto)permisoSeleccionado).DevolverListaPermisos())
-                    {
-                        int indexHijo = ListaPermisos.Items.IndexOf(hijo.DevolverNombrePermiso());
-                        if (indexHijo != -1)
-                        {
-                            ListaPermisos.SetItemChecked(indexHijo, e.NewValue == CheckState.Checked);
-                        }
-                    }
-                });
-            }*/
+            
         }
     }
 }

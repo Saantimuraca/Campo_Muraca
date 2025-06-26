@@ -40,7 +40,7 @@ namespace Servicios.Datos
 
         public void EliminarRelaciones(string pNombrePermiso)
         {
-            // Guardamos las relaciones a eliminar en una lista auxiliar
+            // Guardo las relaciones a eliminar en una lista auxiliar
             List<DataRow> filasAEliminar = new List<DataRow>();
             DataTable tablaRelaciones = dao.DevolverTabla("RelacionPermisos");
 
@@ -52,7 +52,7 @@ namespace Servicios.Datos
                 }
             }
 
-            // Eliminamos las filas fuera del foreach original para evitar errores
+            // Elimino las filas fuera del foreach original para evitar errores
             foreach (DataRow fila in filasAEliminar)
             {
                 fila.Delete();
@@ -139,7 +139,7 @@ namespace Servicios.Datos
 
         public List<EntidadPermiso> DevolverPermsisosArbol()
         {
-            //Primero agregamos los permisos a sus lista correspondientes.
+            //Primero agrego los permisos a sus lista correspondientes.
             List<EntidadPermiso> listaCompuestos = new List<EntidadPermiso>();
             List<EntidadPermiso> listaPermisos = new List<EntidadPermiso>();
             foreach (DataRowView row in dao.DevolverTabla("Permiso").DefaultView)
@@ -161,10 +161,7 @@ namespace Servicios.Datos
             {
                 string nombrePadre = row[0].ToString();
                 string nombreHijo = row[1].ToString();
-
-                //Buscar el permiso compuesto
                 EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)listaCompuestos.Find(x => x.DevolverNombrePermiso() == nombrePadre);
-
                 if (permisoCompuesto == null)
                 {
                     continue;

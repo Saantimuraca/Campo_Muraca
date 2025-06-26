@@ -18,7 +18,7 @@ namespace Servicios.Logica
         public bool Configurar_Control(string tag)
         {
             Sesion sesion = Sesion.INSTANCIA;
-            //Si esta funcion devuelve false, el control no estará habilitado, si devuelve true, si estará
+            //Si esta funcion devuelve false, el control no va estar habilitado, si devuelve true, si
             if (tag == null || tag == "" || sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador")
             {
                 return true;
@@ -40,7 +40,7 @@ namespace Servicios.Logica
             string tipo = isRol ? "rol" : "permiso";
             EntidadPermiso permiso = new EntidadPermisoCompuesto(pNombre);
             List<EntidadPermiso> lista = ormPermiso.DevolverPermsisosArbol();
-            // Verificar si alguno de los permisos en la lista generaría un ciclo
+            //Verificar si alguno de los permisos en la lista generaría un ciclo
             foreach (string p in permisos)
             {
                 EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == p);
@@ -51,7 +51,7 @@ namespace Servicios.Logica
                     throw new Exception(aux);
                 }
             }
-            // Verificar si el permiso con ese nombre ya existe en la base de datos
+            //Verificar si el permiso con ese nombre ya existe en la base de datos
             if (ormPermiso.ExistePermiso(pNombre)) throw new Exception($"{tipo} {"existente"}");
             else
             {
@@ -147,9 +147,12 @@ namespace Servicios.Logica
             {
                 if (EstaIncluidoEnOtroPermiso(permiso, pPermisosSeleccionados, lista))
                 {
-                    throw new Exception($"El permiso '{permiso}' ya está contenido en otro permiso seleccionado. No es necesario agregarlo.");
+                    string error = Traductor.INSTANCIA.Traducir("El permiso {permiso} ya está contenido en otro permiso seleccionado. No es necesario agregarlo.", "");
+                    string aux = error.Replace("{permiso}", permiso);
+                    throw new Exception(aux);
                 }
             }
+            if (TienenHijosCompartidos(pPermisosSeleccionados, lista)) { throw new Exception(Traductor.INSTANCIA.Traducir("Dos o más permisos seleccionados incluyen al mismo permiso hijo. Esto generaría una redundancia.", "")); }
             ormPermiso.EliminarRelaciones(pPermiso);
             foreach (string permiso in pPermisosSeleccionados)
             {
@@ -167,6 +170,40 @@ namespace Servicios.Logica
                 if (padre != null && BuscarPermiso(permisoEvaluado, padre)) return true;
             }
             return false;
+        }
+
+        private bool TienenHijosCompartidos(List<string> permisosSeleccionados, List<EntidadPermiso> arbol)
+        {
+            var hijosTotales = new HashSet<string>();
+            foreach (string permiso in permisosSeleccionados)
+            {
+                EntidadPermiso padre = arbol.Find(x => x.DevolverNombrePermiso() == permiso);
+                if (padre != null && padre.isComposite())
+                {
+                    var hijos = ObtenerTodosLosHijos((EntidadPermisoCompuesto)padre);
+                    foreach (string hijo in hijos)
+                    {
+                        if (!hijosTotales.Add(hijo))
+                        {
+                            //Redundancia
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private List<string> ObtenerTodosLosHijos(EntidadPermisoCompuesto permiso)
+        {
+            List<string> hijos = new List<string>();
+            foreach (EntidadPermiso hijo in (permiso as EntidadPermisoCompuesto).listaPermisos)
+            {
+                hijos.Add(hijo.DevolverNombrePermiso());
+                if (hijo.isComposite())
+                    hijos.AddRange(ObtenerTodosLosHijos((EntidadPermisoCompuesto)hijo));
+            }
+            return hijos;
         }
 
         public bool ExistePermiso(string pNombrePermiso)

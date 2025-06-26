@@ -58,6 +58,12 @@ namespace GUI
                 }
             }
         }
+
+        public void MostrarCambioMenu()
+        {
+            if (DgvTraducciones.Columns.Count > 3) DgvTraducciones.Columns.Remove("nuevaColumna");
+            Mostrar(DgvTraducciones, LinqTraducciones());
+        }
        
         private object LinqTraducciones()
         {
@@ -93,6 +99,8 @@ namespace GUI
             cambios.Clear();
             EntidadIdioma idiomaEvaluar = bllIdioma.ListaIdiomas().Find(x => x.idioma == idiomaSeleccionado.idioma);
             bllIdioma.ModificarDisponibilidad(idiomaEvaluar, bllTraduccion.EvaluarDisponibilidad());
+            Traductor.INSTANCIA.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
+            Traductor.INSTANCIA.Notificar();
             b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar traducción"));
         }
         private void AgregarColumna(string pIdioma)
@@ -116,11 +124,11 @@ namespace GUI
             }
             traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             traductor.Notificar();
-            DgvTraducciones.Columns[3].HeaderText = traductor.Traducir(pIdioma,"");
+            DgvTraducciones.Columns["nuevaColumna"].HeaderText = traductor.Traducir(pIdioma,"");
         }
         private void GUIIdiomas_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.OpenForms["Menu"].Show();
+            //Application.OpenForms["Menu"].Show();
         }
         private void BtnAgregarIdioma_Click(object sender, EventArgs e)
         {
@@ -132,6 +140,12 @@ namespace GUI
                 EntidadIdioma nuevoIdioma = new EntidadIdioma(idioma);
                 bllIdioma.AgregarIdioma(nuevoIdioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
+                bool estaAbierto = Application.OpenForms["GUIIdiomas"] != null;
+                if(estaAbierto)
+                {
+                    Menu m = Application.OpenForms["Menu"] as Menu;
+                    m.CargarIdiomas();
+                }
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Agregar idioma"));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -147,8 +161,13 @@ namespace GUI
                 bllIdioma.EliminarIdioma(idioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 Mostrar(DgvTraducciones, LinqTraducciones());
-                if (DgvTraducciones.Columns.Contains("nuevaColumna"))
-                    DgvTraducciones.Columns.Remove("nuevaColumna");
+                if (DgvTraducciones.Columns.Contains("nuevaColumna")) { DgvTraducciones.Columns.Remove("nuevaColumna"); }
+                bool estaAbierto = Application.OpenForms["GUIIdiomas"] != null;
+                if (estaAbierto)
+                {
+                    Menu m = Application.OpenForms["Menu"] as Menu;
+                    m.CargarIdiomas();
+                }
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar idioma"));
                 DgvTraducciones.Columns[1].Visible = false;
                 BtnModificarTraduccion.Enabled = false;
@@ -168,6 +187,12 @@ namespace GUI
                 EntidadIdioma idiomaModificar = new EntidadIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
                 bllIdioma.ModificarIdioma(idiomaModificar, idioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
+                bool estaAbierto = Application.OpenForms["GUIIdiomas"] != null;
+                if (estaAbierto)
+                {
+                    Menu m = Application.OpenForms["Menu"] as Menu;
+                    m.CargarIdiomas();
+                }
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar idioma"));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }   
