@@ -64,13 +64,13 @@ namespace Servicios.Logica
                 decimal totalIVA = 0;
                 decimal subtotalProducto = 0;
                 decimal subtotalIVA = 0;
-                PdfPTable tabla = (tipo == "A") ? new PdfPTable(5) : new PdfPTable(3);
+                PdfPTable tabla = (tipo == "A") ? new PdfPTable(5) : new PdfPTable(4);
                 tabla.WidthPercentage = 100;
 
                 if (tipo == "A")
-                    tabla.SetWidths(new float[] { 40f, 20f, 20f, 20f , 20f});
+                    tabla.SetWidths(new float[] { 40f, 20f, 20f, 20f, 20f});
                 else
-                    tabla.SetWidths(new float[] { 50f, 25f, 25f });
+                    tabla.SetWidths(new float[] { 50f, 25f, 25f, 25f });
 
                 // 2. Encabezados
                 tabla.AddCell("Producto");

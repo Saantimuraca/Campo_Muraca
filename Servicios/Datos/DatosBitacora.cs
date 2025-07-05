@@ -31,7 +31,7 @@ namespace Servicios.Datos
             {
                 if(row != null)
                 {
-                    DataRow drUsuario = gpbd.DevolverTabla("Usuario").Rows.Find(row[0].ToString());
+                    DataRow drUsuario = gpbd.DevolverTabla("Usuario").Rows.Find(row[2].ToString());
                     EntidadPermisoCompuesto rol = new EntidadPermisoCompuesto(drUsuario[9].ToString());
                     EntidadUsuario usuario = new EntidadUsuario(drUsuario[0].ToString(), drUsuario[1].ToString(), drUsuario[2].ToString(), drUsuario[3].ToString(),
                         DateTime.Parse(drUsuario[4].ToString()), DateTime.Parse(drUsuario[5].ToString()), drUsuario[6].ToString(),
