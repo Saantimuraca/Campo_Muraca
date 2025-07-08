@@ -18,7 +18,6 @@ namespace GUI
         public GUIBitacroa_()
         {
             InitializeComponent();
-            Dgv.DataSource = null;
             Dgv.DataSource = LinqBitacora();
             Dgv.Columns[0].HeaderText = traductor.Traducir("Fecha y hora", "");
             Dgv.Columns[1].HeaderText = traductor.Traducir("UsuarioB", "");
