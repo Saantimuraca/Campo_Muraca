@@ -112,7 +112,7 @@
             this.DgvUsuarios.ReadOnly = true;
             this.DgvUsuarios.Size = new System.Drawing.Size(661, 408);
             this.DgvUsuarios.TabIndex = 3;
-            this.DgvUsuarios.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvUsuarios_RowHeaderMouseClick);
+            this.DgvUsuarios.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvUsuarios_CellMouseClick);
             // 
             // TxtNombreUsuario
             // 
@@ -214,7 +214,6 @@
             this.TxtDNIUsuario.Name = "TxtDNIUsuario";
             this.TxtDNIUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtDNIUsuario.TabIndex = 15;
-            this.TxtDNIUsuario.TextChanged += new System.EventHandler(this.TxtDNIUsuario_TextChanged);
             this.TxtDNIUsuario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtDNIUsuario_KeyUp);
             this.TxtDNIUsuario.Leave += new System.EventHandler(this.TxtDNIUsuario_Leave);
             // 

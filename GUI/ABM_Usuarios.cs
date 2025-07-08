@@ -228,22 +228,6 @@ namespace GUI
             DgvUsuarios.ClearSelection();
         }
 
-        private void DgvUsuarios_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            EntidadUsuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
-            TxtDNIUsuario.Text = usuarioSeleccionado.Dni_Usuario;
-            TxtDNIUsuario.Enabled = false;
-            TxtNombreUsuario.Text = usuarioSeleccionado.Nombre_Usuario;
-            TxtMail.Text = usuarioSeleccionado.Mail_Usuario;
-            TxtFechaNacimiento.Text = usuarioSeleccionado.Fecha_Nacimiento_Usuario.ToShortDateString();
-            TxtTelefonoUsuario.Text = usuarioSeleccionado.Telefono_Usuario;
-            int index = CbRol.FindStringExact(usuarioSeleccionado.Rol.DevolverNombrePermiso());
-            CbRol.SelectedIndex = index;
-            int index2 = CbIdioma.FindStringExact(usuarioSeleccionado.Idioma);
-            CbIdioma.SelectedIndex = index2;
-            CbIdioma.Enabled = false;
-        }
-
         private void BtnEliminarSeleccion_Click(object sender, EventArgs e)
         {
             RefrescarControles();
@@ -342,9 +326,22 @@ namespace GUI
             if(CbIdioma.SelectedItem == null) { ErrorIdioma.Visible=true; }
         }
 
-        private void TxtDNIUsuario_TextChanged(object sender, EventArgs e)
+        private void DgvUsuarios_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-
+            EntidadUsuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+            TxtDNIUsuario.Text = usuarioSeleccionado.Dni_Usuario;
+            TxtDNIUsuario.Enabled = false;
+            TxtNombreUsuario.Text = usuarioSeleccionado.Nombre_Usuario;
+            TxtMail.Text = usuarioSeleccionado.Mail_Usuario;
+            TxtFechaNacimiento.Text = usuarioSeleccionado.Fecha_Nacimiento_Usuario.ToShortDateString();
+            TxtTelefonoUsuario.Text = usuarioSeleccionado.Telefono_Usuario;
+            int index = CbRol.FindStringExact(usuarioSeleccionado.Rol.DevolverNombrePermiso());
+            CbRol.SelectedIndex = index;
+            int index2 = CbIdioma.FindStringExact(usuarioSeleccionado.Idioma);
+            CbIdioma.SelectedIndex = index2;
+            CbIdioma.Enabled = false;
+            if (DgvUsuarios.SelectedRows[0].Cells[5].Value.ToString() == "Administrador") { BtnBajaUsuario.Enabled = false; }
+            else if(Sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador" && DgvUsuarios.SelectedRows[0].Cells[5].Value.ToString() != "Administrador") { BtnBajaUsuario.Enabled = true; }
         }
     }
 }
