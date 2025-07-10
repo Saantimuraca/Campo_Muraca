@@ -241,13 +241,17 @@ namespace GUI
 
         private void Backup_Click(object sender, EventArgs e)
         {
-            DialogResult resultado = MessageBox.Show(traductor.Traducir("¿Desea realizar un backup de la base de datos?", ""), traductor.Traducir("Consulta", ""), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (resultado == DialogResult.Yes)
+            try
             {
-                GestorDeCopiasDeDatos gp = new GestorDeCopiasDeDatos();
-                gp.HacerBackUp();
-                MessageBox.Show(traductor.Traducir("Backup exitoso!!!", ""));
+                DialogResult resultado = MessageBox.Show(traductor.Traducir("¿Desea realizar un backup de la base de datos?", ""), traductor.Traducir("Consulta", ""), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    GestorDeCopiasDeDatos gp = new GestorDeCopiasDeDatos();
+                    gp.HacerBackUp();
+                    MessageBox.Show(traductor.Traducir("BackUp Exitoso", ""), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
+            catch { MessageBox.Show(traductor.Traducir("Error BackUp", ""), traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void respaldoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -256,8 +260,12 @@ namespace GUI
             if (resultado == DialogResult.Yes)
             {
                 GestorDeCopiasDeDatos gp = new GestorDeCopiasDeDatos();
-                gp.HacerBackUp();
-                MessageBox.Show(traductor.Traducir("Respaldo exitoso!!!", ""));
+                try
+                {
+                    gp.HacerRespaldo();
+                    MessageBox.Show(traductor.Traducir("Respaldo exitoso!!!", ""), "",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch { MessageBox.Show(traductor.Traducir("Error Restore", ""), traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
             }
         }
 

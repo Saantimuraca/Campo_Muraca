@@ -129,7 +129,6 @@ namespace GUI
                     CheckearPermisosenLista(pPermisoCompuesto);
                 }
                 BtnModificarPermisos.Enabled = true;
-
             }
         }
 
