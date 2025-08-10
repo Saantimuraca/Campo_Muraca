@@ -20,6 +20,7 @@ namespace GUI
         BLLPedido bllPedido = new BLLPedido();
         LogicaUsuario logicaUsuario = new LogicaUsuario();
         GeneradorFactura gf = new GeneradorFactura();
+        LogicaBitacora bitacora = new LogicaBitacora();
         public GUICobrarPedido()
         {
             InitializeComponent();
@@ -44,11 +45,6 @@ namespace GUI
             dgv.Columns["FECHA"].HeaderText = Traductor.INSTANCIA.Traducir("FECHA", "");
             dgv.Columns["TOTAL"].HeaderText = Traductor.INSTANCIA.Traducir("TOTAL", "");
             dgv.Columns["VENDEDOR"].HeaderText = Traductor.INSTANCIA.Traducir("VENDEDOR", "");
-            if (comboBox2.SelectedItem.ToString() == "Rechazado" || comboBox2.SelectedItem.ToString() == "Todos")
-            {
-                dgv.Columns["MOTIVO"].HeaderText = Traductor.INSTANCIA.Traducir("MOTIVO", "");
-                if (comboBox2.SelectedItem.ToString() == "Todos") { dgv.Columns["ESTADO"].HeaderText = Traductor.INSTANCIA.Traducir("ESTADO", ""); }
-            }
         }
 
         private object LinqAprobados()
@@ -61,11 +57,6 @@ namespace GUI
             return (from p in bllPedido.ListarPedidos() where p.estado == "En evaluación" select new { ID = p.id, Cliente = $"{p.cliente.dni}, {p.cliente.nombre}", FECHA = p.fecha, TOTAL = $"${p.total}", VENDEDOR = logicaUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == p.dniVendedor).Nombre_Usuario }).ToList();
         }
 
-        private object LinqRechazados()
-        {
-            return (from p in bllPedido.ListarPedidos() where p.estado == "Rechazado" select new { ID = p.id, Cliente = $"{p.cliente.dni}, {p.cliente.nombre}", FECHA = p.fecha, TOTAL = $"${p.total}", VENDEDOR = logicaUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == p.dniVendedor).Nombre_Usuario, MOTIVO = p.Motivo }).ToList();
-        }
-
         private object LinqCobrados()
         {
             return (from p in bllPedido.ListarPedidos() where p.estado == "Cobrado" select new { ID = p.id, Cliente = $"{p.cliente.dni}, {p.cliente.nombre}", FECHA = p.fecha, TOTAL = $"${p.total}", VENDEDOR = logicaUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == p.dniVendedor).Nombre_Usuario }).ToList();
@@ -75,42 +66,17 @@ namespace GUI
         {
             return (from p in bllPedido.ListarPedidos() where p.estado == "Facturado" select new { ID = p.id, Cliente = $"{p.cliente.dni}, {p.cliente.nombre}", FECHA = p.fecha, TOTAL = $"${p.total}", VENDEDOR = logicaUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == p.dniVendedor).Nombre_Usuario }).ToList();
         }
-
-        private object LinqTodos()
-        {
-            return (from p in bllPedido.ListarPedidos() select new { ID = p.id, Cliente = $"{p.cliente.dni}, {p.cliente.nombre}", FECHA = p.fecha, TOTAL = $"${p.total}", VENDEDOR = logicaUsuario.ListaUsuarios().Find(x => x.Dni_Usuario == p.dniVendedor).Nombre_Usuario, MOTIVO = p.Motivo == "" ? "Sin motivo" : p.Motivo, ESTADO = p.estado }).ToList();
-        }
-
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBox2.SelectedItem.ToString())
             {
                 case "Aprobado": Mostrar(DgvPedidos, LinqAprobados()); BtnVerFactura.Enabled = false; BtnCobrarPedido.Enabled = false; break;
                 case "En evaluación": Mostrar(DgvPedidos, LinqEnEvaluacion()); BtnRealizarFactura.Enabled = false; BtnVerFactura.Enabled = false; BtnCobrarPedido.Enabled = false; break;
-                case "Rechazado": Mostrar(DgvPedidos, LinqRechazados()); BtnRealizarFactura.Enabled = false; BtnVerFactura.Enabled = false; BtnCobrarPedido.Enabled = false; break;
                 case "Cobrado": Mostrar(DgvPedidos, LinqCobrados()); BtnRealizarFactura.Enabled = false; BtnVerFactura.Enabled = false; BtnCobrarPedido.Enabled = false; break;
                 case "Facturado": Mostrar(DgvPedidos, LinqFacturados()); BtnRealizarFactura.Enabled = false; break;
-                case "Todos": Mostrar(DgvPedidos, LinqTodos()); PintarFilas(); BtnRealizarFactura.Enabled = false; BtnVerFactura.Enabled = false; BtnCobrarPedido.Enabled = false; break;
                 default: break;
             }
         }
-
-        private void PintarFilas()
-        {
-            foreach (DataGridViewRow row in DgvPedidos.Rows)
-            {
-                switch (row.Cells[6].Value.ToString())
-                {
-                    case "Aprobado": row.DefaultCellStyle.BackColor = Color.LightGreen; break;
-                    case "En evaluación": row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; break;
-                    case "Rechazado": row.DefaultCellStyle.BackColor = Color.LightCoral; break;
-                    case "Cobrado": row.DefaultCellStyle.BackColor = Color.LightBlue; break;
-                    case "Facturado": row.DefaultCellStyle.BackColor = Color.Lavender; break;
-                    default: break;
-                }
-            }
-        }
-
         private void BtnRealizarFactura_Click(object sender, EventArgs e)
         {
             try
@@ -123,6 +89,7 @@ namespace GUI
                 BtnRealizarFactura.Enabled = false;
                 string[] vectorMail = pedido.cliente.mail.Split('@');
                 if (vectorMail[1] == "gmail.com") { MessageBox.Show(Traductor.INSTANCIA.Traducir("La factura fue enviada al cliente", "")); }
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Generó la factura del {pedido.id} para el cliente {pedido.cliente}", 2));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
@@ -164,6 +131,7 @@ namespace GUI
             try
             {
                 bllPedido.CambiarEstado("Cobrado", int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Realizó el cobro del pedido {DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()}", 2));
                 Mostrar(DgvPedidos, LinqFacturados());
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);}

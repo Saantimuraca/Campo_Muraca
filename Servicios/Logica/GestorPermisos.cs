@@ -140,7 +140,6 @@ namespace Servicios.Logica
             {
                 EntidadPermisoCompuesto compuesto = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == permiso);
                 if (BuscarPermiso(pPermiso, compuesto)) { throw new Exception(Traductor.INSTANCIA.Traducir("Dependencia circular", "")); }
-
             }
             if (pPermisosSeleccionados.Contains(pPermiso)) { throw new Exception(Traductor.INSTANCIA.Traducir("No puede agregar un permiso a si mismo", "")); }
             foreach (string permiso in pPermisosSeleccionados)
@@ -185,7 +184,6 @@ namespace Servicios.Logica
                     {
                         if (!hijosTotales.Add(hijo))
                         {
-                            //Redundancia
                             return true;
                         }
                     }

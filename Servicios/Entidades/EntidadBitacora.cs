@@ -16,20 +16,24 @@ namespace Servicios.Entidades
 
         public string accion {  get; set; }
 
-        public EntidadBitacora(EntidadUsuario pUsuario, string pAccion)
+        public int criticidad { get; set; }
+
+        public EntidadBitacora(EntidadUsuario pUsuario, string pAccion, int pCriticidad)
         {
             idBitacora = 0;
             fechaHora = DateTime.Now;
             usuario = pUsuario;
             accion = pAccion;
+            criticidad = pCriticidad;
         }
 
-        public EntidadBitacora(int pIdBitacora, DateTime pFechaHora, EntidadUsuario pUsuario, string pAccion)
+        public EntidadBitacora(int pIdBitacora, DateTime pFechaHora, EntidadUsuario pUsuario, string pAccion, int pCriticidad)
         {
             idBitacora = pIdBitacora;
             fechaHora = pFechaHora;
             usuario = pUsuario;
             accion = pAccion;
+            criticidad = pCriticidad;
         }
     }
 }

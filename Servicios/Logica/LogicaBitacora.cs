@@ -22,10 +22,20 @@ namespace Servicios.Logica
             return dalBitacora.ListaBitacora();
         }
 
-        public EntidadBitacora CrearBitacora(EntidadUsuario pUsuario, string pAccion)
+        public EntidadBitacora CrearBitacora(EntidadUsuario pUsuario, string pAccion, int pCriticidad)
         {
-            EntidadBitacora nuevaBitacora = new EntidadBitacora(pUsuario, pAccion);
+            EntidadBitacora nuevaBitacora = new EntidadBitacora(pUsuario, pAccion, pCriticidad);
             return nuevaBitacora;
+        }
+
+        public List<EntidadBitacora> ListaBitacoraFecha(DateTime pDesde, DateTime pHasta)
+        {
+            return dalBitacora.ListaBitacora().Where(x => x.fechaHora >= pDesde).Where(x => x.fechaHora <= pHasta).ToList();
+        }
+
+        public List<EntidadBitacora> ListaBitacoraCriticidad(int pCriticidad)
+        {
+            return dalBitacora.ListaBitacora().Where(x => x.criticidad == pCriticidad).ToList();
         }
     }
 }

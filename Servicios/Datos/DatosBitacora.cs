@@ -20,6 +20,7 @@ namespace Servicios.Datos
             drBitacora["fechaHora"] = pBitacora.fechaHora;
             drBitacora["dniUsuario"] = pBitacora.usuario.Dni_Usuario;
             drBitacora["accion"] = pBitacora.accion;
+            drBitacora["criticidad"] = pBitacora.criticidad;
             gpbd.DevolverTabla("Bitacora").Rows.Add(drBitacora);
             gpbd.ActualizarPorTabla("Bitacora");
         }
@@ -36,7 +37,7 @@ namespace Servicios.Datos
                     EntidadUsuario usuario = new EntidadUsuario(drUsuario[0].ToString(), drUsuario[1].ToString(), drUsuario[2].ToString(), drUsuario[3].ToString(),
                         DateTime.Parse(drUsuario[4].ToString()), DateTime.Parse(drUsuario[5].ToString()), drUsuario[6].ToString(),
                         bool.Parse(drUsuario[7].ToString()), rol, drUsuario[9].ToString(), int.Parse(drUsuario[10].ToString()));
-                    EntidadBitacora bitacora = new EntidadBitacora(int.Parse(row[0].ToString()), DateTime.Parse(row[1].ToString()), usuario, row[3].ToString());
+                    EntidadBitacora bitacora = new EntidadBitacora(int.Parse(row[0].ToString()), DateTime.Parse(row[1].ToString()), usuario, row[3].ToString(), int.Parse(row[4].ToString()));
                     lista.Add(bitacora);
                 }
             }

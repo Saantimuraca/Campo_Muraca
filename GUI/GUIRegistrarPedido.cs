@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using BE;
 using BLL;
 using Servicios;
+using Servicios.Logica;
 
 namespace GUI
 {
@@ -20,6 +21,7 @@ namespace GUI
         BLLProducto bllProducto = new BLLProducto();
         BLLCarrito bllCarrito = new BLLCarrito();
         BLLPedido bllPedido = new BLLPedido();
+        LogicaBitacora bitacora = new LogicaBitacora();
         public GUIRegistrarPedido()
         {
             InitializeComponent();
@@ -53,28 +55,25 @@ namespace GUI
         {
             string texto = comboBox1.Text.Trim();
 
-            // Limpia los ítems actuales
             comboBox1.Items.Clear();
 
             List<BECliente> resultados;
 
             if (string.IsNullOrEmpty(texto)) return;
 
-            // Si es número busca por DNI
             if (texto.All(char.IsDigit))
             {
                 resultados = bllCliente.ListaClientes()
                     .Where(c => c.dni.ToString().StartsWith(texto))
                     .ToList();
             }
-            else // si empieza con letra busca por nombre
+            else 
             {
                 resultados = bllCliente.ListaClientes()
                     .Where(c => c.nombre.StartsWith(texto, StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
 
-            // Agrega los ítems que coinciden
             foreach (var cliente in resultados)
             {
                 comboBox1.Items.Add($"{cliente.dni}, {cliente.nombre}");
@@ -236,6 +235,7 @@ namespace GUI
         {
             bllProducto.NotificarBajoStock(int.Parse(DgvProductos.SelectedRows[0].Cells[0].Value.ToString()));
             Mostrar(DgvProductos, LinqProductos());
+            bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Notificación de bajo stock", 3));
         }
 
         private void DgvProductos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -273,7 +273,8 @@ namespace GUI
             LBLTotal.Text = LBLTotal.Text.Replace("{calculoTotal}", CalcularTotalGeneral().ToString());
             Mostrar(DgvProductos, LinqProductos());
             numericUpDown1.Value = 1;
-        }
+            bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Registró un pedido del cliente {cliente.dni} {cliente.nombre}", 2));
+        }  
 
         public void ActualizarLenguaje()
         {

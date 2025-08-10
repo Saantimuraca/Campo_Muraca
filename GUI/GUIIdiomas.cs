@@ -101,7 +101,7 @@ namespace GUI
             bllIdioma.ModificarDisponibilidad(idiomaEvaluar, bllTraduccion.EvaluarDisponibilidad());
             Traductor.INSTANCIA.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             Traductor.INSTANCIA.Notificar();
-            b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar traducción"));
+            b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificación de traduccion", 1));
         }
         private void AgregarColumna(string pIdioma)
         {
@@ -128,7 +128,7 @@ namespace GUI
         }
         private void GUIIdiomas_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //Application.OpenForms["Menu"].Show();
+
         }
         private void BtnAgregarIdioma_Click(object sender, EventArgs e)
         {
@@ -146,7 +146,7 @@ namespace GUI
                     Menu m = Application.OpenForms["Menu"] as Menu;
                     m.CargarIdiomas();
                 }
-                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Agregar idioma"));
+                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Agregó el idioma {idioma}", 1));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
@@ -159,6 +159,7 @@ namespace GUI
                 if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == sesion.ObtenerIdiomaSesion()) throw new Exception(traductor.Traducir("No puede eliminar el idioma utilizado actualmente!!!", ""));
                 EntidadIdioma idioma = new EntidadIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
                 bllIdioma.EliminarIdioma(idioma);
+                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Eliminó el idioma {idioma.idioma}", 3));
                 Mostrar(DgvIdiomas, LinqIdiomas());
                 Mostrar(DgvTraducciones, LinqTraducciones());
                 if (DgvTraducciones.Columns.Contains("nuevaColumna")) { DgvTraducciones.Columns.Remove("nuevaColumna"); }
@@ -168,7 +169,6 @@ namespace GUI
                     Menu m = Application.OpenForms["Menu"] as Menu;
                     m.CargarIdiomas();
                 }
-                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar idioma"));
                 DgvTraducciones.Columns[1].Visible = false;
                 BtnModificarTraduccion.Enabled = false;
             }
@@ -193,7 +193,7 @@ namespace GUI
                     Menu m = Application.OpenForms["Menu"] as Menu;
                     m.CargarIdiomas();
                 }
-                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar idioma"));
+                b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Modificó el idioma {idiomaModificar.idioma} a {nuevoNombre}", 1));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }   
         }

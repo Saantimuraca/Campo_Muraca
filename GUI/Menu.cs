@@ -55,7 +55,7 @@ namespace GUI
         {
             LogicaUsuario bllUsuario = new LogicaUsuario();
             Sesion sesion = Sesion.INSTANCIA;
-            bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cerrar sesión"));
+            bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cierre de sesión", 4));
             bllUsuario.CerrarSesion(sesion.ObtenerUsuarioActual());
             MessageBox.Show(traductor.Traducir("Sesión cerrada correctamente!!!", sesion.ObtenerIdiomaSesion()));
             a.Definir_Estado(new EstadoIniciarSesion());
@@ -78,7 +78,7 @@ namespace GUI
                         LogicaUsuario bllUsuario = new LogicaUsuario();
                         bllUsuario.CambiarContraseña(sesion.ObtenerUsuarioActual(), nuevaContraseña);
                         MessageBox.Show(traductor.Traducir("Contrasena cambiada exitosamente!!!", sesion.ObtenerIdiomaSesion()));
-                        bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cambiar contraseña"));
+                        bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cambio de contraseña", 1));
                     }
                 }
             }
@@ -140,7 +140,6 @@ namespace GUI
             if (!string.IsNullOrEmpty(item.Tag?.ToString()))
                 item.Enabled = gp.Configurar_Control(item.Tag.ToString());
 
-            // Recorre recursivamente los subitems
             foreach (ToolStripItem subItem in item.DropDownItems)
             {
                 if (subItem is ToolStripMenuItem subMenuItem)
@@ -157,7 +156,6 @@ namespace GUI
             {
                 if (ctrl is MenuStrip menuStrip)
                 {
-                    // Traducir elementos dentro de un MenuStrip
                     TraducirMenuStrip(menuStrip, traductor);
                 }
                 else
@@ -187,8 +185,6 @@ namespace GUI
         private void TraducirMenuItem(ToolStripMenuItem menuItem, Traductor traductor)
         {
             menuItem.Text = traductor.Traducir(menuItem.Name, sesion.ObtenerIdiomaSesion());
-
-            // Si tiene submenús, traducirlos también
             foreach (ToolStripItem subItem in menuItem.DropDownItems)
             {
                 if (subItem is ToolStripMenuItem subMenuItem)
@@ -213,7 +209,7 @@ namespace GUI
                     GUIIdiomas f = Application.OpenForms["GUIIdiomas"] as GUIIdiomas;
                     f.MostrarCambioMenu();
                 }
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cambiar idioma"));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cambio de idioma", 1));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -249,6 +245,7 @@ namespace GUI
                     GestorDeCopiasDeDatos gp = new GestorDeCopiasDeDatos();
                     gp.HacerBackUp();
                     MessageBox.Show(traductor.Traducir("BackUp Exitoso", ""), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "BackUp", 3));
                 }
             }
             catch { MessageBox.Show(traductor.Traducir("Error BackUp", ""), traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }

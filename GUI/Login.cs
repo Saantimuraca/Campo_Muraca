@@ -49,7 +49,7 @@ namespace GUI
                 }
                 else
                 {
-                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Iniciar sesión"));
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
                     a.Definir_Estado(new EstadoMenu());
                 }
             }

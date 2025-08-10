@@ -49,6 +49,7 @@
             this.DgvIdiomas.Location = new System.Drawing.Point(12, 23);
             this.DgvIdiomas.Name = "DgvIdiomas";
             this.DgvIdiomas.ReadOnly = true;
+            this.DgvIdiomas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DgvIdiomas.Size = new System.Drawing.Size(290, 197);
             this.DgvIdiomas.TabIndex = 0;
             this.DgvIdiomas.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvIdiomas_CellMouseClick);
@@ -57,6 +58,7 @@
             // 
             this.LBL_Idioma.AutoSize = true;
             this.LBL_Idioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Idioma.ForeColor = System.Drawing.Color.White;
             this.LBL_Idioma.Location = new System.Drawing.Point(115, 9);
             this.LBL_Idioma.Name = "LBL_Idioma";
             this.LBL_Idioma.Size = new System.Drawing.Size(59, 13);
@@ -103,6 +105,7 @@
             // 
             this.LBL_Traducciones.AutoSize = true;
             this.LBL_Traducciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBL_Traducciones.ForeColor = System.Drawing.Color.White;
             this.LBL_Traducciones.Location = new System.Drawing.Point(739, 9);
             this.LBL_Traducciones.Name = "LBL_Traducciones";
             this.LBL_Traducciones.Size = new System.Drawing.Size(104, 13);
@@ -137,7 +140,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gray;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1242, 477);
             this.Controls.Add(this.DgvTraducciones);
             this.Controls.Add(this.BtnModificarTraduccion);

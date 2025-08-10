@@ -72,7 +72,7 @@ namespace GUI
                 string nombrePermiso = Interaction.InputBox(traductor.Traducir("Ingrese el nombre del permiso:", sesion.ObtenerIdiomaSesion()));
                 if (nombrePermiso.Length == 0 || string.IsNullOrWhiteSpace(nombrePermiso)) throw new Exception(traductor.Traducir("Debe ingresar un nombre para el permiso!!!", sesion.ObtenerIdiomaSesion()));
                 CrearPermisoCompuesto(nombrePermiso, true);
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Crear rol"));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Creó el rol {nombrePermiso}", 3));
                 RefrescarControles();
                 CargarPermisosArbol();
             }
@@ -138,6 +138,7 @@ namespace GUI
             {
                 ListaPermisos.SetItemChecked(i, false);
             }
+            lista.Clear();
         }
 
         public void CheckearPermisosenLista(EntidadPermisoCompuesto permisoRaiz)
@@ -173,9 +174,11 @@ namespace GUI
                 {
                     if (lu.RolIsInUso(CbRolesGrupos.SelectedItem.ToString())) throw new Exception(Traductor.INSTANCIA.Traducir("Este rol se encuentra en uso", ""));
                     if (gp.EliminarPermiso(CbRolesGrupos.SelectedItem.ToString())) MessageBox.Show(traductor.Traducir("Se ha eliminado el permiso con exito!!!", sesion.ObtenerIdiomaSesion()));
+                    EntidadPermiso permiso = gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == CbRolesGrupos.SelectedItem.ToString());
+                    string aux = permiso == null ? "permiso" : "rol";
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Eliminó el {aux} {CbRolesGrupos.SelectedItem.ToString()}", 4));
                     RefrescarControles();
                     CargarPermisosArbol();
-                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Eliminar permiso"));
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -192,8 +195,10 @@ namespace GUI
                     if (gp.ExistePermiso(nuevoNombre)) throw new Exception(traductor.Traducir("Permiso o rol existente", ""));
                     gp.ModificarNombrePermiso(CbRolesGrupos.SelectedItem.ToString(), nuevoNombre);
                     MessageBox.Show("Se ha modificado el permiso con éxito!!!");
+                    EntidadPermiso permiso = gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == CbRolesGrupos.SelectedItem.ToString());
+                    string aux = permiso == null ? "permiso" : "rol";
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Cambio el nombre del {aux} {CbRolesGrupos.SelectedItem.ToString()} a {nuevoNombre}", 1));
                     RefrescarControles();
-                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificar permiso"));
                 }
             }
             catch(Exception ex) {MessageBox.Show(ex.Message, traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); } 
@@ -210,7 +215,7 @@ namespace GUI
                 CrearPermisoCompuesto(nombreGrupo, false);
                 RefrescarControles();
                 CargarPermisosArbol();
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Crear permiso"));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Creó el permiso {nombreGrupo}", 3));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -251,7 +256,10 @@ namespace GUI
                 gp.ActualizarPermisos(CbRolesGrupos.SelectedItem.ToString(), permisosCheckeadosNivel1, diferencia);
                 MessageBox.Show(traductor.Traducir("Permiso actualizado exitosamente", ""), traductor.Traducir("Información", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarPermisosArbol();
-                foreach(object item in ListaPermisos.Items)
+                EntidadPermiso p = gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == CbRolesGrupos.SelectedItem.ToString());
+                string aux = p == null ? "permiso" : "rol";
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Modificó el {aux} {CbRolesGrupos.SelectedItem.ToString()}", 4));
+                foreach (object item in ListaPermisos.Items)
                 {
                     if(ListaPermisos.CheckedItems.Contains(item))
                     {

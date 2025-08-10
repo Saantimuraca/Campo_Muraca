@@ -24,6 +24,7 @@ namespace GUI
         GUIRegistrarPedido form;
         ServicioMail mail = new ServicioMail();
         GestorPermisos gp = new GestorPermisos();
+        LogicaBitacora bitacora = new LogicaBitacora();
         public GUIRegistrarCliente(int pOpcion = 0, GUIRegistrarPedido pForm = null)
         {
             InitializeComponent();
@@ -151,6 +152,7 @@ namespace GUI
                     Mostrar(DgvClientes, LinqClientes(RbActivos.Checked));
                     MessageBox.Show(Traductor.INSTANCIA.Traducir("Cliente registrado exitosamente", ""), Traductor.INSTANCIA.Traducir("Operación exitosa", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarControles();
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Registró al cliente {cliente.dni} {cliente.nombre}", 2));
                 }
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
@@ -207,6 +209,7 @@ namespace GUI
             {
                 if (DgvClientes.SelectedRows.Count == 0) throw new Exception(Traductor.INSTANCIA.Traducir("Debe seleccionar un cliente", ""));
                 bllCliente.CambiarEstado(bllCliente.ListaClientes().Find(x => x.dni == DgvClientes.SelectedRows[0].Cells[0].Value.ToString()));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Deshabilitó al cliente {DgvClientes.SelectedRows[0].Cells[0].Value.ToString()}", 3));
                 Mostrar(DgvClientes, LinqClientes(RbActivos.Checked));
                 LimpiarControles();
             }
@@ -225,6 +228,7 @@ namespace GUI
                     bllCliente.Modificar(cliente);
                     Mostrar(DgvClientes, LinqClientes(RbActivos.Checked));
                     LimpiarControles();
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Modificó al cliente {cliente.dni}", 2));
                 }
                 
             }

@@ -136,10 +136,8 @@
             this.comboBox2.Items.AddRange(new object[] {
             "Aprobado",
             "En evaluación",
-            "Rechazado",
             "Cobrado",
-            "Facturado",
-            "Todos"});
+            "Facturado"});
             this.comboBox2.Location = new System.Drawing.Point(1000, 28);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(186, 21);

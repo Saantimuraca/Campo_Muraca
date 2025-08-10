@@ -19,6 +19,7 @@ namespace GUI
     {
         BLLPedido bllPedido = new BLLPedido();
         LogicaUsuario logicaUsuario = new LogicaUsuario();
+        LogicaBitacora bitacora = new LogicaBitacora();
         public GUIConfirmarPedido()
         {
             InitializeComponent();
@@ -120,6 +121,7 @@ namespace GUI
             {
                 if (DgvPedidos.SelectedRows.Count == 0) throw new Exception(Traductor.INSTANCIA.Traducir("Debe seleccionar un pedido", ""));
                 bllPedido.CambiarEstado("Aprobado", int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Confirmó el pedido {DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()}", 2));
                 Mostrar(DgvPedidos, LinqEnEvaluacion());
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -133,6 +135,7 @@ namespace GUI
                 string motivo = Interaction.InputBox(Traductor.INSTANCIA.Traducir("Ingrese el motivo", ""), Traductor.INSTANCIA.Traducir("Motivo2", ""));
                 if (string.IsNullOrWhiteSpace(motivo)) throw new Exception(Traductor.INSTANCIA.Traducir("Debe indicar el motivo de rechazo del pedido", ""));
                 bllPedido.CambiarEstado("Rechazado", int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()), motivo);
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Rechazó el pedido {DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()} porque {motivo}", 2));
                 Mostrar(DgvPedidos, LinqEnEvaluacion());
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }

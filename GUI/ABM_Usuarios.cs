@@ -120,7 +120,7 @@ namespace GUI
                         mail.EnviarCorreo(destinatario, asunto, cuerpo, emailOrigen, contraseña);
                     }
                     RefrescarControles();
-                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Agregar usuario"));
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Agregó al usuario {usuario}", 4));
                 }
                 
             }
@@ -174,7 +174,7 @@ namespace GUI
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
                 RefrescarControles();
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Habilitar usuario"));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Habilitó al usuario {DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString()}", 4));
             }
             catch (Exception ex) {MessageBox.Show(ex.Message); }    
         }
@@ -188,7 +188,7 @@ namespace GUI
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
                 RefrescarControles();
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Baja usuario"));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Deshabilitó al usuario {DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString()}", 4));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -205,10 +205,10 @@ namespace GUI
                 string nuevoTelefonoUsuario = TxtTelefonoUsuario.Text;
                 EntidadUsuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
                 bllUsuario.ModificarUsuario(bllUsuario.CrearUsuario(usuarioSeleccionado.Dni_Usuario, nuevoNombreUsuario, nuevoMailUsuario, nuevafechaNacimiento, nuevoTelefonoUsuario, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), 1));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Modificó el usuario {DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString()}", 4));
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
                 RefrescarControles();
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), "Modificar Usuario"));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
