@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datos\DatosBitacora.cs" />
+    <Compile Include="Datos\DatosDV.cs" />
     <Compile Include="Datos\DatosFactura.cs" />
     <Compile Include="Datos\DatosIdioma.cs" />
     <Compile Include="Datos\DatosPermiso.cs" />

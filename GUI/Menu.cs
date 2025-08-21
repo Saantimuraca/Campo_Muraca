@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -259,8 +260,11 @@ namespace GUI
                 GestorDeCopiasDeDatos gp = new GestorDeCopiasDeDatos();
                 try
                 {
-                    gp.HacerRespaldo();
-                    MessageBox.Show(traductor.Traducir("Respaldo exitoso!!!", ""), "",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if(gp.HacerRespaldo()) { MessageBox.Show(traductor.Traducir("Respaldo exitoso!!!", ""), "", MessageBoxButtons.OK, MessageBoxIcon.Information); var exe = Application.ExecutablePath;
+                        Process.Start(exe);
+                        Environment.Exit(0);
+                    }
+                    else { throw new Exception(); }
                 }
                 catch { MessageBox.Show(traductor.Traducir("Error Restore", ""), traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
             }

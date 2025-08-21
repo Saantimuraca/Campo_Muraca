@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BE;
 using DAO;
+using Servicios.Datos;
 
 namespace BLL
 {
@@ -15,9 +16,13 @@ namespace BLL
         public void Agregar(BEPedido pPedido, Dictionary<int, int> d)
         {
             dalPedido.Agregar(pPedido);
-            foreach(var par in d)
+            dalPedido.AgregarDvhPedido(dalPedido.DevolverRowPedido(DevolverUltimoId()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalPedido.DevolverRowPedido(DevolverUltimoId())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Pedido");
+            foreach (var par in d)
             {
                 dalPedido.AgregarItemPedido(DevolverUltimoId(), par.Key, par.Value);
+                dalPedido.AgregarDvhItemPedido(dalPedido.DevolverRowItemPedido(DevolverUltimoId(), par.Key), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalPedido.DevolverRowItemPedido(DevolverUltimoId(), par.Key)));
+                DatosDV.INSTANCIA.CalcularDvvTabla("ItemPedido");
                 int stock = bllProducto.ListarProductos().Find(x => x.idProducto == par.Key).stock;
                 int cantidad = stock - par.Value;
                 if(cantidad < 0) { cantidad = 0; }
@@ -38,7 +43,9 @@ namespace BLL
         public void CambiarEstado(string pEstado, int pId, string pMotivo = "")
         {
             dalPedido.CambiarEstado(pEstado, pId, pMotivo);
-            if(pEstado == "Rechazado")
+            dalPedido.AgregarDvhPedido(dalPedido.DevolverRowPedido(DevolverUltimoId()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalPedido.DevolverRowPedido(DevolverUltimoId())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Pedido");
+            if (pEstado == "Rechazado")
             {
                 foreach (var par in dalPedido.DetallePedido(pId))
                 {

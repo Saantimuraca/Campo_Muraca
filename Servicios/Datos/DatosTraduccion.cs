@@ -7,11 +7,24 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using System.Data.SqlClient;
+using DAO;
 
 namespace Servicios.Datos
 {
-    public class DatosTraduccion
+    public class DatosTraduccion : IIntegridadRepositorio
     {
+        private static DatosTraduccion instancia;
+        public static DatosTraduccion INSTANCIA
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new DatosTraduccion();
+                }
+                return instancia;
+            }
+        }
         Gestor_Datos gd = Gestor_Datos.INSTANCIA;
         public Dictionary<string, string> CargarTraduccion(string idioma)
         {
@@ -34,6 +47,38 @@ namespace Servicios.Datos
                 }
             }
             return d;
+        }
+
+        public void AgregarDvh(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Traduccion");
+        }
+
+        public DataRow DevolverRow(string pTextoTraducir, int pIdioma)
+        {
+            int idTextoTraducir = DevolverIdTextoTraducir(pTextoTraducir);
+            object[] clave = { idTextoTraducir, pIdioma };
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Rows.Find(clave);
+            return dr;
+        }
+
+        private int DevolverIdTextoTraducir(string pTextoTraducir)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Select($"nombre = '{pTextoTraducir}'").FirstOrDefault();
+            return int.Parse(dr[1].ToString());
+        }
+
+        public int DevolverUltimoId()
+        {
+            int maxId = 0;
+            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Rows)
+            {
+                int id = int.Parse(row["idIdioma"].ToString());
+                if (id > maxId)
+                    maxId = id;
+            }
+            return maxId;
         }
 
         public bool EvaluarDisponibilidad()
@@ -96,6 +141,16 @@ namespace Servicios.Datos
             gd.ActualizarPorTabla("Traduccion");
         }
 
+        public List<DataRow> ColeccionDataRow(int pIdIdioma)
+        {
+            List<DataRow> lista = new List<DataRow>();
+            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Rows)
+            {
+                if(pIdIdioma == int.Parse(row[1].ToString())) { lista.Add(row); }
+            }
+            return lista;
+        }
+
         private DataTable CrearDataTableTemporal(int idIdioma)
         {
             DataTable tabla = new DataTable();
@@ -129,6 +184,11 @@ namespace Servicios.Datos
             dr.Delete();
             gd.ActualizarPorTabla("Traduccion");
         }
-        
+
+        public IEnumerable<DataRow> ObtenerEntidades()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Rows.Cast<DataRow>().Concat(Gestor_Datos.INSTANCIA.DevolverTabla("Etiqueta").Rows.Cast<DataRow>());
+        }
+
     }
 }

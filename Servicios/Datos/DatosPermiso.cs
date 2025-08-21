@@ -7,13 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using DAO;
 using Servicios.Entidades;
 
 namespace Servicios.Datos
 {
-    public class DatosPermiso
+    public class DatosPermiso : IIntegridadRepositorio
     {
-        
+        private static DatosPermiso instancia;
+        public static DatosPermiso INSTANCIA
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new DatosPermiso();
+                }
+                return instancia;
+            }
+        }
         Gestor_Datos dao = Gestor_Datos.INSTANCIA;
 
         public bool EliminarPermiso(string pNombre)
@@ -38,9 +50,33 @@ namespace Servicios.Datos
             catch { return false; }
         }
 
+        public void AgregarDvhPermiso(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Permiso");
+        }
+
+        public void AgregarDvhRelacionPermiso(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("RelacionPermisos");
+        }
+
+        public DataRow DevolverRowPermiso(string pNombrePermiso)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Permiso").Rows.Find(pNombrePermiso);
+            return dr;
+        }
+
+        public DataRow DevolverRowRelacionPermisos(string pPermisoPadre, string pPermisoHijo)
+        {
+            object[] clave = { pPermisoPadre, pPermisoHijo };
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").Rows.Find(clave);
+            return dr;
+        }
+
         public void EliminarRelaciones(string pNombrePermiso)
         {
-            // Guardo las relaciones a eliminar en una lista auxiliar
             List<DataRow> filasAEliminar = new List<DataRow>();
             DataTable tablaRelaciones = dao.DevolverTabla("RelacionPermisos");
 
@@ -52,7 +88,6 @@ namespace Servicios.Datos
                 }
             }
 
-            // Elimino las filas fuera del foreach original para evitar errores
             foreach (DataRow fila in filasAEliminar)
             {
                 fila.Delete();
@@ -139,7 +174,6 @@ namespace Servicios.Datos
 
         public List<EntidadPermiso> DevolverPermsisosArbol()
         {
-            //Primero agrego los permisos a sus lista correspondientes.
             List<EntidadPermiso> listaCompuestos = new List<EntidadPermiso>();
             List<EntidadPermiso> listaPermisos = new List<EntidadPermiso>();
             foreach (DataRowView row in dao.DevolverTabla("Permiso").DefaultView)
@@ -156,7 +190,6 @@ namespace Servicios.Datos
                     listaPermisos.Add(permisoSimple);
                 }
             }
-            //Ahora agrego los permisos simples o compuestos a los permisos compuestos que correspondan.
             foreach (DataRowView row in dao.DevolverTabla("RelacionPermisos").DefaultView)
             {
                 string nombrePadre = row[0].ToString();
@@ -166,13 +199,11 @@ namespace Servicios.Datos
                 {
                     continue;
                 }
-                //Buscar el permiso hijo en la lista general (puede ser simple o compuesto)
                 var resultado = listaPermisos.Find(x => x.DevolverNombrePermiso() == nombreHijo);
                 if (resultado == null)
                 {
                     continue;
                 }
-                //Agregar hijo si es válido
                 permisoCompuesto.DevolverListaPermisos().Add(resultado);
             }
             return listaCompuestos;
@@ -193,6 +224,11 @@ namespace Servicios.Datos
             drPermiso[0] = pNuevoNombre;
             dao.ActualizarPorTabla("RelacionPermisos");
             dao.ActualizarPorTabla("Permiso");
-        }   
+        }
+
+        public IEnumerable<DataRow> ObtenerEntidades()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Permiso").Rows.Cast<DataRow>().Concat(Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").Rows.Cast<DataRow>());
+        }
     }
 }

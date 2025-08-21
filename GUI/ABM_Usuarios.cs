@@ -39,6 +39,13 @@ namespace GUI
             EnlistarLabels();
             OcultarLabels();
             ChequearAccesibilidadControles();
+            if(!BtnAgregarUsuario.Enabled)
+            {
+                foreach(Control ctrl in this.Controls)
+                {
+                    if(ctrl is TextBox || ctrl is ComboBox) { ctrl.Enabled = false; }
+                }
+            }
         }
 
         private void ChequearAccesibilidadControles()

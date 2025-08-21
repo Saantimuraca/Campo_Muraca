@@ -23,6 +23,8 @@ namespace Servicios.Logica
         public void AgregarUsuario(EntidadUsuario pUsuario)
         {
             ormUsuario.AgregarUsuario(pUsuario);
+            ormUsuario.AgregarDvh(ormUsuario.DevolverRow(pUsuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(pUsuario.Dni_Usuario)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
         }
 
         public bool RolIsInUso(string pNombre)
@@ -37,6 +39,8 @@ namespace Servicios.Logica
         public void ModificarUsuario(EntidadUsuario pUsuario)
         {
             ormUsuario.ModificarUsuario(pUsuario);
+            ormUsuario.AgregarDvh(ormUsuario.DevolverRow(pUsuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(pUsuario.Dni_Usuario)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
         }
 
         public bool Login(string pNombreUsuario, string pContraseñaIngresada)
@@ -60,6 +64,8 @@ namespace Servicios.Logica
         {
             pUsuario.Idioma = pNuevoIdioma;
             ormUsuario.CambiarIdioma(pUsuario);
+            ormUsuario.AgregarDvh(ormUsuario.DevolverRow(pUsuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(pUsuario.Dni_Usuario)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
             Sesion sesion = Sesion.INSTANCIA;
             sesion.ConfigurarIdioma(pNuevoIdioma);
         }
@@ -95,12 +101,16 @@ namespace Servicios.Logica
             {
                 BloquearUsuario(usuario.Nombre_Usuario);
             }
+            ormUsuario.AgregarDvh(ormUsuario.DevolverRow(usuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(usuario.Dni_Usuario)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
         }
 
         public void BloquearUsuario(string pNombreUsuario)
         {
             EntidadUsuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
             ormUsuario.DeshabilitarUsuario(usuario);
+            ormUsuario.AgregarDvh(ormUsuario.DevolverRow(usuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(usuario.Dni_Usuario)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
         }
 
         private bool VerificarContraseña(string pContraseñaIngresada, string pHashAlmacenado)
@@ -113,6 +123,8 @@ namespace Servicios.Logica
         {
             EntidadUsuario usuario = ListaUsuarios().Find(x => x.Nombre_Usuario == pNombreUsuario);
             ormUsuario.HabilitarUsuario(usuario);
+            ormUsuario.AgregarDvh(ormUsuario.DevolverRow(usuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(usuario.Dni_Usuario)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
         }
 
         private bool DNIRepetido(string dni)
@@ -158,6 +170,8 @@ namespace Servicios.Logica
         public void ReestablecerIntentos(EntidadUsuario usuario)
         {
             ormUsuario.ReestablecerIntentos(usuario);
+            ormUsuario.AgregarDvh(ormUsuario.DevolverRow(usuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(usuario.Dni_Usuario)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
         }
 
         public void CerrarSesion(EntidadUsuario pUsuario)
@@ -170,6 +184,8 @@ namespace Servicios.Logica
         {
             pUsuario.Contraseña_Usuario = encriptador.GenerarHash(pNuevaContraseña);
             ormUsuario.CambiarContraseña(pUsuario);
+            ormUsuario.AgregarDvh(ormUsuario.DevolverRow(pUsuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(pUsuario.Dni_Usuario)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
         }
     }
 }

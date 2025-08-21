@@ -1,4 +1,5 @@
 ﻿using Servicios;
+using Servicios.Datos;
 using Servicios.Entidades;
 using Servicios.Logica;
 using System;
@@ -49,7 +50,9 @@ namespace GUI
                 }
                 else
                 {
-                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
+                    //bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
+                    /*DatosDV.INSTANCIA.Inicializar();
+                    DatosDV.INSTANCIA.VerificarIntegridadBD();*/
                     a.Definir_Estado(new EstadoMenu());
                 }
             }

@@ -53,6 +53,7 @@
     <Compile Include="DALPedido.cs" />
     <Compile Include="DALProducto.cs" />
     <Compile Include="Gestor_Datos.cs" />
+    <Compile Include="IIntegridadRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

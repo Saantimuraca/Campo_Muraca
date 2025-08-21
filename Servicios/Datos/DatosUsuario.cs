@@ -1,4 +1,5 @@
 ﻿using DAL;
+using DAO;
 using Servicios.Entidades;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,20 @@ using System.Threading.Tasks;
 
 namespace Servicios.Datos
 {
-    public class DatosUsuario
+    public class DatosUsuario : IIntegridadRepositorio
     {
-
+        private static DatosUsuario instancia;
+        public static DatosUsuario INSTANCIA
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new DatosUsuario();
+                }
+                return instancia;
+            }
+        }
         private Gestor_Datos gestorDatos = Gestor_Datos.INSTANCIA;
         DatosPermiso ormPermiso = new DatosPermiso();
 
@@ -31,6 +43,18 @@ namespace Servicios.Datos
             drUsuario[10] = pUsuario.Intentos;
             gestorDatos.DevolverTabla("Usuario").Rows.Add(drUsuario);
             gestorDatos.ActualizarPorTabla("Usuario");
+        }
+
+        public void AgregarDvh(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Usuario");
+        }
+
+        public DataRow DevolverRow(string pDni)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Usuario").Rows.Find(pDni);
+            return dr;
         }
 
         public void AumentarIntentos(EntidadUsuario pUsuario)
@@ -93,7 +117,6 @@ namespace Servicios.Datos
             DateTime fechaActual = DateTime.Now;
             int edad = fechaActual.Year - pFechaNacimientoUsuario.Year;
 
-            // Ajustar la edad si la persona no ha cumplido años este año
             if (fechaActual < pFechaNacimientoUsuario.AddYears(edad))
             {
                 edad--;
@@ -110,6 +133,11 @@ namespace Servicios.Datos
                 drUsuario["ContraseñaUsuario"] = pUsuario.Contraseña_Usuario;
             }
             gestorDatos.ActualizarPorTabla("Usuario");
+        }
+
+        public IEnumerable<DataRow> ObtenerEntidades()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Usuario").Rows.Cast<DataRow>();
         }
     }
 }

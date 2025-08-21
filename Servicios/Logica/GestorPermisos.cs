@@ -40,7 +40,6 @@ namespace Servicios.Logica
             string tipo = isRol ? "rol" : "permiso";
             EntidadPermiso permiso = new EntidadPermisoCompuesto(pNombre);
             List<EntidadPermiso> lista = ormPermiso.DevolverPermsisosArbol();
-            //Verificar si alguno de los permisos en la lista generaría un ciclo
             foreach (string p in permisos)
             {
                 EntidadPermisoCompuesto permisoCompuesto = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == p);
@@ -51,11 +50,9 @@ namespace Servicios.Logica
                     throw new Exception(aux);
                 }
             }
-            //Verificar si el permiso con ese nombre ya existe en la base de datos
             if (ormPermiso.ExistePermiso(pNombre)) throw new Exception($"{tipo} {"existente"}");
             else
             {
-                //Verificar si hay redundancia
                 foreach (string p in permisos)
                 {
                     EntidadPermisoCompuesto padre = (EntidadPermisoCompuesto)lista.Find(x => x.DevolverNombrePermiso() == p);
@@ -69,9 +66,13 @@ namespace Servicios.Logica
                     }
                 }
                 ormPermiso.AgregarPermiso(permiso, isRol);
+                ormPermiso.AgregarDvhPermiso(ormPermiso.DevolverRowPermiso(permiso.DevolverNombrePermiso()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormPermiso.DevolverRowPermiso(permiso.DevolverNombrePermiso())));
+                DatosDV.INSTANCIA.CalcularDvvTabla("Permiso");
                 foreach (string p in permisos)
                 {
                     ormPermiso.AgregarRelaciones(pNombre, p);
+                    ormPermiso.AgregarDvhRelacionPermiso(ormPermiso.DevolverRowRelacionPermisos(permiso.DevolverNombrePermiso(), p), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormPermiso.DevolverRowRelacionPermisos(permiso.DevolverNombrePermiso(), p)));
+                    DatosDV.INSTANCIA.CalcularDvvTabla("RelacionPermisos");
                 }
             }
             return true;
@@ -115,6 +116,8 @@ namespace Servicios.Logica
         public void ModificarNombrePermiso(string pNombrePermiso, string pNuevoNombre)
         {
             ormPermiso.ModificarNombrePermiso(pNombrePermiso, pNuevoNombre);
+            ormPermiso.AgregarDvhPermiso(ormPermiso.DevolverRowPermiso(pNombrePermiso, DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormPermiso.DevolverRowPermiso(permiso.DevolverNombrePermiso())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Permiso");
         }
 
         public EntidadPermiso DevolverPermisoConHijos(string pNombre)
@@ -156,6 +159,8 @@ namespace Servicios.Logica
             foreach (string permiso in pPermisosSeleccionados)
             {
                 ormPermiso.AgregarRelaciones(pPermiso, permiso);
+                ormPermiso.AgregarDvhRelacionPermiso(ormPermiso.DevolverRowRelacionPermisos(pPermiso, permiso), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormPermiso.DevolverRowRelacionPermisos(permiso.DevolverNombrePermiso(), p)));
+                DatosDV.INSTANCIA.CalcularDvvTabla("RelacionPermisos");
             }
         }
 

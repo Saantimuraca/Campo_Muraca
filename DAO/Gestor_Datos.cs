@@ -32,11 +32,11 @@ namespace DAL
         }
         private DataSet BaseDeDatosEnMemoria;
         private SqlConnection cone;
-        //Se configuran todos los adaptadores que se encargaran de manipular las tablas de las entidad de una forma dinamica y centralizada
         private Dictionary<string, SqlDataAdapter> DiccionarioDeAdaptadores = new Dictionary<string, SqlDataAdapter>();
         public Gestor_Datos()
         {
             BaseDeDatosEnMemoria = new DataSet();
+            //.\\SQLEXPRESS
             cone = new SqlConnection("Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True");
             string query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'";
 
@@ -46,33 +46,25 @@ namespace DAL
 
             foreach (DataRow Row in TablaNombreDeLasTablas.Rows)
             {
-
                 if (!Regex.IsMatch(Row["TABLE_NAME"].ToString(), @"^[a-zA-Z0-9_]+$"))
                 {
                     throw new InvalidOperationException("Nombre de tabla no válido.");
                 }
-
                 string queryDiccionario = $"SELECT * FROM {Row["TABLE_NAME"]}";
-
                 SqlDataAdapter adapter = new SqlDataAdapter(queryDiccionario, cone);
                 SqlCommandBuilder ConstructorDeComando = new SqlCommandBuilder(adapter);
-
                 adapter.InsertCommand = ConstructorDeComando.GetInsertCommand();
                 adapter.DeleteCommand = ConstructorDeComando.GetDeleteCommand();
                 adapter.UpdateCommand = ConstructorDeComando.GetUpdateCommand();
-
                 adapter.Fill(BaseDeDatosEnMemoria, $"{Row["TABLE_NAME"]}");
-
                 int CantidadCollumnas = BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns.Count;
-
-                //Este If chequea los casos cuando sea una Tabla Normal y Una Tabla Intermedia.
-                if (CantidadCollumnas == 2 || $"{Row["TABLE_NAME"]}" == "Traduccion" || $"{Row["TABLE_NAME"]}" == "ItemPedido")
+                if (CantidadCollumnas == 3 || $"{Row["TABLE_NAME"]}" == "Traduccion" || $"{Row["TABLE_NAME"]}" == "ItemPedido")
                 {
                     if($"{Row["TABLE_NAME"]}" == "Traduccion")
                     {
                         adapter.UpdateBatchSize = 100;
                     }
-                    if($"{Row["TABLE_NAME"]}" != "Idioma" && $"{Row["TABLE_NAME"]}" != "Etiqueta" && $"{Row["TABLE_NAME"]}" != "CategoriaProductos")
+                    if($"{Row["TABLE_NAME"]}" != "Idioma" && $"{Row["TABLE_NAME"]}" != "Etiqueta" && $"{Row["TABLE_NAME"]}" != "CategoriaProductos" && $"{Row["TABLE_NAME"]}" != "DigitoVerificador")
                     {
                         BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].PrimaryKey = new DataColumn[] { BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[0], BaseDeDatosEnMemoria.Tables[$"{Row["TABLE_NAME"]}"].Columns[1] };
                     }

@@ -6,11 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using DAO;
 
 namespace Servicios.Datos
 {
-    public class DatosIdioma
+    public class DatosIdioma : IIntegridadRepositorio
     {
+        private static DatosIdioma instancia;
+        public static DatosIdioma INSTANCIA
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new DatosIdioma();
+                }
+                return instancia;
+            }
+        }
         Gestor_Datos gd = Gestor_Datos.INSTANCIA;
         public void Agregar(EntidadIdioma pIdioma)
         {
@@ -20,6 +33,30 @@ namespace Servicios.Datos
             dr["isDisponible"] = pIdioma.isDisponible;
             gd.DevolverTabla("Idioma").Rows.Add(dr);
             gd.ActualizarPorTabla("Idioma");
+        }
+
+        public void AgregarDvh(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Idioma");
+        }
+
+        public DataRow DevolverRow(int pId)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Idioma").Rows.Find(pId);
+            return dr;
+        }
+
+        public int DevolverUltimoId()
+        {
+            int maxId = 0;
+            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("Idioma").Rows)
+            {
+                int id = int.Parse(row["idIdioma"].ToString());
+                if (id > maxId)
+                    maxId = id;
+            }
+            return maxId;
         }
 
         public void ModificarDisponibilidad(EntidadIdioma pIdioma, bool pDisponibilidad)
@@ -68,6 +105,9 @@ namespace Servicios.Datos
             return lista;
         }
 
-        
+        public IEnumerable<DataRow> ObtenerEntidades()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Idioma").Rows.Cast<DataRow>();
+        }
     }
 }

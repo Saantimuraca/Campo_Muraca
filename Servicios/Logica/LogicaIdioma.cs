@@ -24,6 +24,8 @@ namespace Servicios.Logica
         public void ModificarDisponibilidad(EntidadIdioma pIdioma, bool pDisponibilidad)
         {
             dalIdioma.ModificarDisponibilidad(pIdioma, pDisponibilidad);
+            dalIdioma.AgregarDvh(dalIdioma.DevolverRow(dalIdioma.DevolverUltimoId()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalIdioma.DevolverRow(dalIdioma.DevolverUltimoId())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Idioma");
         }
 
         public bool IsRepetido(string pIdioma)
@@ -34,6 +36,8 @@ namespace Servicios.Logica
         public void AgregarIdioma(EntidadIdioma pIdioma)
         {
             dalIdioma.Agregar(pIdioma);
+            dalIdioma.AgregarDvh(dalIdioma.DevolverRow(dalIdioma.DevolverUltimoId()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalIdioma.DevolverRow(dalIdioma.DevolverUltimoId())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Idioma");
             bllTraduccion.AgregarTraduccion(ListaIdiomas().Find(x => x.idioma == pIdioma.idioma).idIdioma);
         }
 
@@ -51,11 +55,15 @@ namespace Servicios.Logica
                 }
             }
             dalIdioma.Eliminar(pIdioma);
+            DatosDV.INSTANCIA.CalcularDvvTabla("Idioma");
+            DatosDV.INSTANCIA.CalcularDvvTabla("Traduccion");
         }
 
         public void ModificarIdioma(EntidadIdioma pIdiomaModificar, EntidadIdioma pIdiomaModificado)
         {
             dalIdioma.Modificar(pIdiomaModificar, pIdiomaModificado);
+            dalIdioma.AgregarDvh(dalIdioma.DevolverRow(dalIdioma.DevolverUltimoId()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalIdioma.DevolverRow(dalIdioma.DevolverUltimoId())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Idioma");
         }
     }
 }

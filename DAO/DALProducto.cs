@@ -9,8 +9,32 @@ using DAL;
 
 namespace DAO
 {
-    public class DALProducto
+    public class DALProducto : IIntegridadRepositorio
     {
+        private static DALProducto instancia;
+        public static DALProducto INSTANCIA
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new DALProducto();
+                }
+                return instancia;
+            }
+        }
+
+        public void AgregarDvh(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
+        }
+
+        public DataRow DevolverRow(int pId)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(pId);
+            return dr;
+        }
         public void Agregar(BEProducto pProducto)
         {
 
@@ -75,6 +99,11 @@ namespace DAO
             DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(idProducto);
             dr["estado"] = pEstado;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
+        }
+
+        public IEnumerable<DataRow> ObtenerEntidades()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Cast<DataRow>();
         }
     }
 }

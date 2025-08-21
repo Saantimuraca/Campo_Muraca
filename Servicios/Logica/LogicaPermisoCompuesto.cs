@@ -13,24 +13,18 @@ namespace Servicios.Logica
         DatosPermiso dp = new DatosPermiso();
         public bool VerificarPermisoIncluido(EntidadPermiso permisoActual, string permiso)
         {
-            //Verifico si el objeto permiso que le mando es el permiso que estoy buscando.
             if(permisoActual.DevolverNombrePermiso() == permiso) { return true; }
             else
             {
-                //Verfificamos si el permiso es compuesto.
                 if(permisoActual.isComposite())
                 {
-                    //Si es compuesto aplicamos la funcion de verificar si es el permiso que buscamos en cada permiso de ese permiso compuesto.
-                    //De esta forma nos aseguramos de verificar en cada permiso del árbol.
                     List<EntidadPermiso> lista = (dp.DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == permisoActual.DevolverNombrePermiso()) as EntidadPermisoCompuesto).listaPermisos;
                     foreach (EntidadPermiso p in lista)
                     {
-                        //Si el pemiso que buscamos esta dentro del permiso compuesto que estamos analizando retorna true.
                         if (VerificarPermisoIncluido(p, permiso)) return true;
                     }
                 }
             }
-            //Si el permiso no se encontró en todo el árbol se retorna false.
             return false;
         }
     }

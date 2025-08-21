@@ -9,9 +9,20 @@ using DAL;
 
 namespace DAO
 {
-    public class DALCliente
+    public class DALCliente : IIntegridadRepositorio
     {
-
+        private static DALCliente instancia;
+        public static DALCliente INSTANCIA
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new DALCliente();
+                }
+                return instancia;
+            }
+        }
         public void Agregar(BECliente pCliente)
         {
             DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Cliente").NewRow();
@@ -23,6 +34,18 @@ namespace DAO
             dr["telefono"] = pCliente.telefono;
             Gestor_Datos.INSTANCIA.DevolverTabla("Cliente").Rows.Add(dr);
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Cliente");
+        }
+
+        public void AgregarDvh(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Cliente");
+        }
+
+        public DataRow DevolverRow(string pDni)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Cliente").Rows.Find(pDni);
+            return dr;
         }
 
         public void CambiarEstado(BECliente pCliente)
@@ -51,6 +74,11 @@ namespace DAO
                 lista.Add(cliente);
             }
             return lista;
+        }
+
+        public IEnumerable<DataRow> ObtenerEntidades()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Cliente").Rows.Cast<DataRow>();
         }
     }
 }

@@ -10,8 +10,20 @@ using DAL;
 
 namespace DAO
 {
-    public class DALPedido
+    public class DALPedido : IIntegridadRepositorio
     {
+        private static DALPedido instancia;
+        public static DALPedido INSTANCIA
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new DALPedido();
+                }
+                return instancia;
+            }
+        }
         DALCliente dalCliente = new DALCliente();
         public void Agregar(BEPedido pPedido)
         {
@@ -24,6 +36,31 @@ namespace DAO
             dr["dniVendedor"] = pPedido.dniVendedor;
             Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Add(dr);
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pedido");
+        }
+
+        public void AgregarDvhPedido(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pedido");
+        }
+
+        public void AgregarDvhItemPedido(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("ItemPedido");
+        }
+
+        public DataRow DevolverRowPedido(int pId)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Find(pId);
+            return dr;
+        }
+
+        public DataRow DevolverRowItemPedido(int pIdPedido, int pIdProducto)
+        {
+            object[] clave = { pIdPedido, pIdProducto };
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").Rows.Find(clave);
+            return dr;
         }
 
         public void AgregarItemPedido(int pIdPedido, int pIdProducto, int pCantidad)
@@ -94,6 +131,11 @@ namespace DAO
             dr["nroFactura"] = nroFactura;
             dr["estado"] = "Facturado";
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pedido");
+        }
+
+        public IEnumerable<DataRow> ObtenerEntidades()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Cast<DataRow>().Concat(Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").Rows.Cast<DataRow>());
         }
     }
 }

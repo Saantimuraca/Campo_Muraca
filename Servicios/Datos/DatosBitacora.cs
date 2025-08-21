@@ -1,4 +1,5 @@
 ﻿using DAL;
+using DAO;
 using Servicios.Entidades;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,21 @@ using System.Threading.Tasks;
 
 namespace Servicios.Datos
 {
-    public class DatosBitacora
+    public class DatosBitacora : IIntegridadRepositorio
     {
+        private static DatosBitacora instancia;
+        public static DatosBitacora INSTANCIA
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new DatosBitacora();
+                }
+                return instancia;
+            }
+        }
         Gestor_Datos gpbd = Gestor_Datos.INSTANCIA;
-        DatosUsuario dalUsuario = new DatosUsuario();
         public void RegistrarBitacora(EntidadBitacora pBitacora)
         {
             DataRow drBitacora = gpbd.DevolverTabla("Bitacora").NewRow();
@@ -23,6 +35,30 @@ namespace Servicios.Datos
             drBitacora["criticidad"] = pBitacora.criticidad;
             gpbd.DevolverTabla("Bitacora").Rows.Add(drBitacora);
             gpbd.ActualizarPorTabla("Bitacora");
+        }
+
+        public void AgregarDvh(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Bitacora");
+        }
+
+        public DataRow DevolverRow(int pId)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Bitacora").Rows.Find(pId);
+            return dr;
+        }
+
+        public int DevolverUltimoId()
+        {
+            int maxId = 0;
+            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("Bitacora").Rows)
+            {
+                int id = int.Parse(row["idBitacora"].ToString());
+                if (id > maxId)
+                    maxId = id;
+            }
+            return maxId;
         }
 
         public List<EntidadBitacora> ListaBitacora()
@@ -42,6 +78,11 @@ namespace Servicios.Datos
                 }
             }
             return lista;
+        }
+
+        public IEnumerable<DataRow> ObtenerEntidades()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Bitacora").Rows.Cast<DataRow>();
         }
     }
 }
