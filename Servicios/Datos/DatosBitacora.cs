@@ -82,7 +82,7 @@ namespace Servicios.Datos
 
         public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("Bitacora").Rows.Cast<DataRow>();
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Bitacora").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idBitacora"));
         }
     }
 }

@@ -228,7 +228,7 @@ namespace Servicios.Datos
 
         public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("Permiso").Rows.Cast<DataRow>().Concat(Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").Rows.Cast<DataRow>());
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Permiso").Rows.Cast<DataRow>().OrderBy(r => r.Field<string>("NombrePermiso")).Concat(Gestor_Datos.INSTANCIA.DevolverTabla("RelacionPermisos").Rows.Cast<DataRow>().OrderBy(r => r.Field<string>("NombrePermisoCompuesto")).OrderBy(r => r.Field<string>("NombrePermisoIncluido")));
         }
     }
 }

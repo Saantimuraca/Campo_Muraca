@@ -49,12 +49,15 @@ namespace Servicios.Logica
             if (usuario.Estado_Usuario == false) throw new Exception("Usuario bloqueado!!!");
             GestorPermisos gp = new GestorPermisos();
             if (!gp.BuscarPermiso("LogIn", usuario.Rol)) throw new Exception("Este usuario no posee permisos para ingresar");
-            if(VerificarContraseña(pContraseñaIngresada, usuario.Contraseña_Usuario))
+            if (VerificarContraseña(pContraseñaIngresada, usuario.Contraseña_Usuario))
             {
                 Sesion sesion = Sesion.INSTANCIA;
                 if (!usuario.Estado_Usuario) throw new Exception("Su usuario se encuentra bloqueado, contactese con el administrador para que lo desbloquee");
                 sesion.IniciarSesion(usuario);
-                ReestablecerIntentos(usuario);
+                if (DatosDV.INSTANCIA.VerificarIntegridadBD())
+                {
+                    ReestablecerIntentos(usuario);
+                }
                 return true;
             }
             return false;

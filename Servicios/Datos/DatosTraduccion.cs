@@ -187,7 +187,7 @@ namespace Servicios.Datos
 
         public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Rows.Cast<DataRow>().Concat(Gestor_Datos.INSTANCIA.DevolverTabla("Etiqueta").Rows.Cast<DataRow>());
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("textoTraducir")).OrderBy(r => r.Field<int>("idioma")).Concat(Gestor_Datos.INSTANCIA.DevolverTabla("Etiqueta").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("id")));
         }
 
     }

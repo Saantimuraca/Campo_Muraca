@@ -135,7 +135,7 @@ namespace DAO
 
         public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Cast<DataRow>().Concat(Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").Rows.Cast<DataRow>());
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idPedido")).Concat(Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idPedido")).OrderBy(r => r.Field<int>("idProducto")));
         }
     }
 }

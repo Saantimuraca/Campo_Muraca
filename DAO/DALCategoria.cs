@@ -38,7 +38,7 @@ namespace DAL
 
         public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("CategoriaProductos").Rows.Cast<DataRow>();
+            return Gestor_Datos.INSTANCIA.DevolverTabla("CategoriaProductos").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idCategoria"));
         }
     }
 }

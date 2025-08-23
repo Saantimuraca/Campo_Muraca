@@ -116,7 +116,7 @@ namespace Servicios.Logica
         public void ModificarNombrePermiso(string pNombrePermiso, string pNuevoNombre)
         {
             ormPermiso.ModificarNombrePermiso(pNombrePermiso, pNuevoNombre);
-            ormPermiso.AgregarDvhPermiso(ormPermiso.DevolverRowPermiso(pNombrePermiso, DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormPermiso.DevolverRowPermiso(permiso.DevolverNombrePermiso())));
+            ormPermiso.AgregarDvhPermiso(ormPermiso.DevolverRowPermiso(pNombrePermiso), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormPermiso.DevolverRowPermiso(pNombrePermiso)));
             DatosDV.INSTANCIA.CalcularDvvTabla("Permiso");
         }
 
@@ -159,7 +159,7 @@ namespace Servicios.Logica
             foreach (string permiso in pPermisosSeleccionados)
             {
                 ormPermiso.AgregarRelaciones(pPermiso, permiso);
-                ormPermiso.AgregarDvhRelacionPermiso(ormPermiso.DevolverRowRelacionPermisos(pPermiso, permiso), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormPermiso.DevolverRowRelacionPermisos(permiso.DevolverNombrePermiso(), p)));
+                ormPermiso.AgregarDvhRelacionPermiso(ormPermiso.DevolverRowRelacionPermisos(pPermiso, permiso), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormPermiso.DevolverRowRelacionPermisos(pPermiso, permiso)));
                 DatosDV.INSTANCIA.CalcularDvvTabla("RelacionPermisos");
             }
         }

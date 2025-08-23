@@ -247,6 +247,9 @@ namespace GUI
                     gp.HacerBackUp();
                     MessageBox.Show(traductor.Traducir("BackUp Exitoso", ""), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "BackUp", 3));
+                    var exe = Application.ExecutablePath;
+                    Process.Start(exe);
+                    Environment.Exit(0);
                 }
             }
             catch { MessageBox.Show(traductor.Traducir("Error BackUp", ""), traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }

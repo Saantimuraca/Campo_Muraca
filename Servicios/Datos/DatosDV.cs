@@ -43,7 +43,6 @@ namespace Servicios.Datos
             readers.Add(DALCliente.INSTANCIA);
             readers.Add(DALPedido.INSTANCIA);
             readers.Add(DALProducto.INSTANCIA);
-            readers.Add(DALCategoria.INSTANCIA);
             readers.Add(DatosBitacora.INSTANCIA);
             readers.Add(DatosFactura.INSTANCIA);
             readers.Add(DatosIdioma.INSTANCIA);
@@ -94,15 +93,25 @@ namespace Servicios.Datos
                     return false;
             }
             return true;
-            /*Dictionary<string, string> dvv = CalcularDVVTablas();
+            /*foreach (IIntegridadRepositorio reader in readers)
+            {
+                foreach (DataRow row in reader.ObtenerEntidades())
+                {
+                    string dvhAlmacenado = row["dvh"]?.ToString();
+                    string dvhCalculado = CalcularDVHRegistroBase64(row);
+                    row["dvh"] = dvhCalculado;
+                }
+
+            }
+            Gestor_Datos.INSTANCIA.ActualizarGeneral();
+            Dictionary<string, string> dvv = CalcularDVVTablas();
             foreach (string key in dvv.Keys)
             {
                 DataRow row = Gestor_Datos.INSTANCIA.DevolverTabla("DigitoVerificador").Rows.Find(key);
-                row["DVV"] = dvv[key];
+                row["dvv"] = dvv[key];
             }
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("DigitoVerificador");
             return true;*/
-
         }
 
         public string ObtenerStringCanonico(DataRow row)

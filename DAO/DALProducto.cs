@@ -103,7 +103,7 @@ namespace DAO
 
         public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Cast<DataRow>();
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idProducto"));
         }
     }
 }

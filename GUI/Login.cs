@@ -38,7 +38,7 @@ namespace GUI
                 if (!bllUsuario.ExisteUsuario(nombreUsuario, 0, "")) throw new Exception("Credenciales incorrectas!!!");
                 if (!bllUsuario.Login(nombreUsuario, contraseñaUsuario))
                 {
-                    bllUsuario.AumentarIntentos(nombreUsuario);
+                    if(DatosDV.INSTANCIA.VerificarIntegridadBD()) { bllUsuario.AumentarIntentos(nombreUsuario); }
                     EntidadUsuario usuario = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == nombreUsuario);
                     switch (usuario.Intentos)
                     {
@@ -50,13 +50,23 @@ namespace GUI
                 }
                 else
                 {
-                    //bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
+                    DatosDV.INSTANCIA.Inicializar();
+                    if (!DatosDV.INSTANCIA.VerificarIntegridadBD() && sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() != "Administrador")
+                    {
+                        sesion.CerrarSesion();
+                        throw new Exception("La integridad de la base de datos se vió afectada, comuniquese con el administrador del sistema");
+                    }
+                    else if(!DatosDV.INSTANCIA.VerificarIntegridadBD() && sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador")
+                    {
+                        MessageBox.Show("La integridad de la base de datos se vió afectada, por favor realice un restore inmediatamente", Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
                     /*DatosDV.INSTANCIA.Inicializar();
                     DatosDV.INSTANCIA.VerificarIntegridadBD();*/
                     a.Definir_Estado(new EstadoMenu());
                 }
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message);}
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
             
         }
 
