@@ -157,14 +157,6 @@ namespace Servicios.Datos
             return v.ToString() ?? "NULL";
         }
 
-        private static string BytesToHex(byte[] data)
-        {
-            var sb = new StringBuilder(data.Length * 2);
-            for (int i = 0; i < data.Length; i++)
-                sb.Append(data[i].ToString("X2")); // 2 dígitos hex, mayúsculas
-            return sb.ToString();
-        }
-
         static byte[] StringCanonicoHMAC(string stringCanonico, string claveSecreta)
         {
             using (var h = new HMACSHA256(Encoding.UTF8.GetBytes(claveSecreta)))

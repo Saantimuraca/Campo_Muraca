@@ -54,11 +54,11 @@ namespace GUI
                     if (!DatosDV.INSTANCIA.VerificarIntegridadBD() && sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() != "Administrador")
                     {
                         sesion.CerrarSesion();
-                        throw new Exception("La integridad de la base de datos se vió afectada, comuniquese con el administrador del sistema");
+                        throw new Exception(Traductor.INSTANCIA.Traducir("La integridad de la base de datos se vió afectada, comuniquese con el administrador del sistema", ""));
                     }
                     else if(!DatosDV.INSTANCIA.VerificarIntegridadBD() && sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador")
                     {
-                        MessageBox.Show("La integridad de la base de datos se vió afectada, por favor realice un restore inmediatamente", Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(Traductor.INSTANCIA.Traducir("La integridad de la base de datos se vió afectada, por favor realice un restore inmediatamente", ""), Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
                     /*DatosDV.INSTANCIA.Inicializar();
