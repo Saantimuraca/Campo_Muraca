@@ -59,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABMProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABMProducto.Designer.cs">
+      <DependentUpon>ABMProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM_Usuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ABMProducto.resx">
+      <DependentUpon>ABMProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM_Usuarios.resx">
       <DependentUpon>ABM_Usuarios.cs</DependentUpon>
     </EmbeddedResource>

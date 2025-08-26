@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
@@ -15,6 +16,13 @@ namespace BLL
         public List<BEProducto> ListarProductos()
         {
             return dal.ListarProductos();
+        }
+
+        public void Agregar(BEProducto pProducto)
+        {
+            dal.Agregar(pProducto);
+            dal.AgregarDvh(dal.DevolverRow(dal.DevolverUltimoId()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRow(dal.DevolverUltimoId())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
         }
 
         public void ModificarStock(int id, int cantidad)
@@ -34,6 +42,20 @@ namespace BLL
         public List<BEProducto> ListarProductosIncremental(string consulta)
         {
             return dal.ListarProductosIncremental(consulta);
+        }
+
+        public void CambiarEstado(int pId)
+        {
+            dal.CambiarEstado(pId);
+            dal.AgregarDvh(dal.DevolverRow(pId), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRow(pId)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
+        }
+
+        public void Modificar(BEProducto pProducto)
+        {
+            dal.Modificar(pProducto);
+            dal.AgregarDvh(dal.DevolverRow(pProducto.idProducto), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRow(pProducto.idProducto)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
         }
     }
 }

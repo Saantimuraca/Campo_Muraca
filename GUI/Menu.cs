@@ -301,5 +301,11 @@ namespace GUI
             GUICobrarPedido gui = new GUICobrarPedido();
             gui.Show();
         }
+
+        private void aBMProductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ABMProducto gui = new ABMProducto();
+            gui.Show();
+        }
     }
 }

@@ -50,6 +50,8 @@
             this.BtnCambiarContrasena = new System.Windows.Forms.Button();
             this.BtnCambiarIdioma = new System.Windows.Forms.Button();
             this.CbIdioma = new System.Windows.Forms.ComboBox();
+            this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aBMProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +72,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.opcion1ToolStripMenuItem,
             this.clientesToolStripMenuItem,
-            this.pedidosToolStripMenuItem});
+            this.pedidosToolStripMenuItem,
+            this.productosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(687, 24);
@@ -183,7 +186,7 @@
             // registrarPedidoToolStripMenuItem
             // 
             this.registrarPedidoToolStripMenuItem.Name = "registrarPedidoToolStripMenuItem";
-            this.registrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.registrarPedidoToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.registrarPedidoToolStripMenuItem.Tag = "Registrar Pedido";
             this.registrarPedidoToolStripMenuItem.Text = "Registrar pedido";
             this.registrarPedidoToolStripMenuItem.Click += new System.EventHandler(this.registrarPedidoToolStripMenuItem_Click);
@@ -191,7 +194,7 @@
             // supervisarPedidosToolStripMenuItem
             // 
             this.supervisarPedidosToolStripMenuItem.Name = "supervisarPedidosToolStripMenuItem";
-            this.supervisarPedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.supervisarPedidosToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.supervisarPedidosToolStripMenuItem.Tag = "Supervisar Pedido";
             this.supervisarPedidosToolStripMenuItem.Text = "Supervisar pedidos";
             this.supervisarPedidosToolStripMenuItem.Click += new System.EventHandler(this.supervisarPedidosToolStripMenuItem_Click);
@@ -199,7 +202,7 @@
             // cobrarPedidosToolStripMenuItem
             // 
             this.cobrarPedidosToolStripMenuItem.Name = "cobrarPedidosToolStripMenuItem";
-            this.cobrarPedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cobrarPedidosToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.cobrarPedidosToolStripMenuItem.Tag = "Cobrar Pedido";
             this.cobrarPedidosToolStripMenuItem.Text = "Cobrar pedidos";
             this.cobrarPedidosToolStripMenuItem.Click += new System.EventHandler(this.cobrarPedidosToolStripMenuItem_Click);
@@ -274,6 +277,22 @@
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
             // 
+            // productosToolStripMenuItem
+            // 
+            this.productosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aBMProductosToolStripMenuItem});
+            this.productosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
+            this.productosToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.productosToolStripMenuItem.Text = "Productos";
+            // 
+            // aBMProductosToolStripMenuItem
+            // 
+            this.aBMProductosToolStripMenuItem.Name = "aBMProductosToolStripMenuItem";
+            this.aBMProductosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aBMProductosToolStripMenuItem.Text = "ABM Productos";
+            this.aBMProductosToolStripMenuItem.Click += new System.EventHandler(this.aBMProductosToolStripMenuItem_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -327,5 +346,7 @@
         private System.Windows.Forms.ToolStripMenuItem registrarPedidoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem supervisarPedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cobrarPedidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aBMProductosToolStripMenuItem;
     }
 }

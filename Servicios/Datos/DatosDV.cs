@@ -145,13 +145,11 @@ namespace Servicios.Datos
                 var sql = new SqlDateTime(dto.UtcDateTime);
                 return sql.Value.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture);
             }
-            // byte[] → HEX mayúsculas sin guiones
             var bytes = v as byte[];
             if (bytes != null)
             {
                 return BitConverter.ToString(bytes).Replace("-", string.Empty);
             }
-            // IFormattable (números/decimales, etc.) con InvariantCulture
             var formattable = v as IFormattable;
             if (formattable != null) return formattable.ToString(null, CultureInfo.InvariantCulture);
             return v.ToString() ?? "NULL";

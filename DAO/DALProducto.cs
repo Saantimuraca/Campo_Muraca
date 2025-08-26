@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
@@ -37,17 +38,47 @@ namespace DAO
         }
         public void Agregar(BEProducto pProducto)
         {
-
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").NewRow();
+            dr["idProducto"] = pProducto.idProducto;
+            dr["nombre"] = pProducto.nombre;
+            dr["descripción"] = pProducto.descripcion;
+            dr["precio"] = pProducto.precio;
+            dr["stock"] = pProducto.stock;
+            dr["idCategoria"] = pProducto.categoria.idCategoria;
+            dr["estado"] = pProducto.estado;
+            dr["isBajoStock"] = pProducto.isBajoStock;
+            Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Add(dr);
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
         }
 
-        public void CambiarEstado(BEProducto pProducto)
+        public int DevolverUltimoId()
         {
+            int maxId = 0;
+            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows)
+            {
+                int id = int.Parse(row["idProducto"].ToString());
+                if (id > maxId)
+                    maxId = id;
+            }
+            return maxId;
+        }
 
+        public void CambiarEstado(int pId)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(pId);
+            bool aux = bool.Parse(dr["estado"].ToString());
+            dr["estado"] = !aux;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
         }
 
         public void Modificar(BEProducto pProducto)
         {
-
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(pProducto.idProducto);
+            dr["nombre"] = pProducto.nombre;
+            dr["descripción"] = pProducto.descripcion;
+            dr["precio"] = pProducto.precio;
+            dr["idCategoria"] = pProducto.categoria.idCategoria;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
         }
 
         public List<BEProducto> ListarProductos()
