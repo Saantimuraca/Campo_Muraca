@@ -24,7 +24,9 @@ namespace BE
 
         public bool isBajoStock { get; set; }
 
-        public BEProducto(string pNombre, string pDescripcion, decimal pPrecio, int pStock, BECategoria pCategoria, bool pestado, int pIdProducto = 0, bool pisBajoStock = false)
+        public bool resposicionAprobada { get; set; }
+
+        public BEProducto(string pNombre, string pDescripcion, decimal pPrecio, int pStock, BECategoria pCategoria, bool pestado, bool pResposicionAprobada, int pIdProducto = 0, bool pisBajoStock = false)
         {
             idProducto = pIdProducto;
             nombre = pNombre;
@@ -34,6 +36,7 @@ namespace BE
             categoria = pCategoria;
             estado = pestado;
             isBajoStock = pisBajoStock;
+            resposicionAprobada = pResposicionAprobada;
         }
 
         public BEProducto() { }

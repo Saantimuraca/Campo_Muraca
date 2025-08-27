@@ -139,7 +139,11 @@ namespace GUI
                 EvaluarHabilitación();
                 if(isHabilitado)
                 {
-                    if (bllCliente.ExisteCliente(TxtDNI.Text)) throw new Exception(Traductor.INSTANCIA.Traducir("Cliente ya registrado", ""));
+                    if (bllCliente.ExisteCliente(TxtDNI.Text))
+                    {
+                        bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Intentó registrar a un cliente que ya se encontraba en el sistema", 2));
+                        throw new Exception(Traductor.INSTANCIA.Traducir("Cliente ya registrado", ""));
+                    }
                     BECliente cliente = new BECliente(TxtDNI.Text, TxtCorreo.Text, TxtNombre.Text, comboBox1.SelectedItem.ToString(), true, TxtTelefono.Text);
                     bllCliente.Agregar(cliente);
                     string asunto = "¡Te hemos registrado como cliente en TecnoSoft!";

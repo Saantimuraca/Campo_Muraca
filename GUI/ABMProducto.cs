@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BE;
 using BLL;
+using Microsoft.VisualBasic;
+using Servicios;
 
 namespace GUI
 {
-    public partial class ABMProducto : Form
+    public partial class ABMProducto : Form, Servicios.IObserver
     {
         List<Label> labels = new List<Label>();
         BLLCategoria bllCategoria = new BLLCategoria();
@@ -20,6 +22,8 @@ namespace GUI
         public ABMProducto()
         {
             InitializeComponent();
+            Traductor.INSTANCIA.Suscribir(this);
+            Traductor.INSTANCIA.Notificar();
             labels.Clear();
             foreach(Control ctrl in this.Controls)
             {
@@ -29,6 +33,7 @@ namespace GUI
             LlenarComboBox();
             RbActivos.Checked = true;
             Mostrar(Dgv, LinqProductos());
+            BtnActualizarStock.Enabled = false;
         }
 
         private void Mostrar(DataGridView dgv, object obj)
@@ -36,11 +41,17 @@ namespace GUI
             dgv.DataSource = null;
             dgv.DataSource = obj;
             dgv.Columns[0].Visible = false;
+            dgv.Columns["ReposicionAprobada"].Visible = false;
+            dgv.Columns["Producto"].HeaderText = Traductor.INSTANCIA.Traducir("LblNombreProducto", "");
+            dgv.Columns["Descripción"].HeaderText = Traductor.INSTANCIA.Traducir("LblDescripcion", "");
+            dgv.Columns["Precio"].HeaderText = Traductor.INSTANCIA.Traducir("LblPrecio", "");
+            dgv.Columns["Stock"].HeaderText = Traductor.INSTANCIA.Traducir("LblStock", "");
+            dgv.Columns["Categoria"].HeaderText = Traductor.INSTANCIA.Traducir("LblCategoria", "");
         }
 
         private object LinqProductos()
         {
-            return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre }).ToList();
+            return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, ReposicionAprobada = p.resposicionAprobada }).ToList();
         }
 
         private void LlenarComboBox()
@@ -92,12 +103,10 @@ namespace GUI
                     decimal precio = decimal.Parse(TxtPrecio.Text);
                     int stock = int.Parse(numericUpDown1.Value.ToString());
                     BECategoria categoria = comboBox1.SelectedItem as BECategoria;
-                    BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, true);
+                    BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, true, false);
                     BLLProducto.Agregar(producto);
                     LimpiarControles();
                 }
-
-
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -128,8 +137,8 @@ namespace GUI
 
         private void RbActivos_CheckedChanged(object sender, EventArgs e)
         {
-            if(RbActivos.Checked) { BtnCambiarEstadoProducto.Text = "Deshabilitar"; }
-            else { BtnCambiarEstadoProducto.Text = "Habilitar"; }
+            if(RbActivos.Checked) { BtnCambiarEstadoProducto.Text = Traductor.INSTANCIA.Traducir("Deshabilitar", ""); }
+            else { BtnCambiarEstadoProducto.Text = Traductor.INSTANCIA.Traducir("Habilitar", ""); }
             Mostrar(Dgv, LinqProductos());
         }
 
@@ -143,6 +152,8 @@ namespace GUI
             var categoriaNombre = Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString();
             var item = comboBox1.Items.Cast<BECategoria>().FirstOrDefault(x => x.nombre == categoriaNombre);
             comboBox1.SelectedItem = item;
+            if (bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString())) { BtnActualizarStock.Enabled = true; }
+            else { BtnActualizarStock.Enabled = false; }
         }
 
         private void LimpiarControles()
@@ -166,7 +177,7 @@ namespace GUI
         {
             try
             {
-                if (ValidarInputs() == 0)
+                if (ValidarInputs() == 0 && Dgv.SelectedRows.Count != 0)
                 {
                     string nombre = TxtProducto.Text;
                     string descripcion = TxtDescripcion.Text;
@@ -174,13 +185,47 @@ namespace GUI
                     decimal precio = decimal.Parse(sinSimbolo);
                     int stock = int.Parse(numericUpDown1.Value.ToString());
                     BECategoria categoria = comboBox1.SelectedItem as BECategoria;
-                    BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, RbActivos.Checked);
+                    bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
+                    BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, RbActivos.Checked, reposicionAprobada);
                     producto.idProducto = int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString());
                     BLLProducto.Modificar(producto);    
                     LimpiarControles();
                 }
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void BtnActualizarStock_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(Dgv.SelectedRows.Count != 0)
+                {
+                    string aux = Interaction.InputBox(Traductor.INSTANCIA.Traducir("Ingrese la nueva cantidad", ""));
+                    if (!int.TryParse(aux, out int stock)) throw new Exception(Traductor.INSTANCIA.Traducir("Número inválido", ""));
+                    int id = int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString());
+                    BLLProducto.ModificarStock(id, stock);
+                    LimpiarControles();
+                }
+       
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked) { Mostrar(Dgv, LinqProductosAprobados()); }
+            else { Mostrar(Dgv, LinqProductos()); }
+        }
+
+        private object LinqProductosAprobados()
+        {
+            return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked && p.resposicionAprobada == true select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, ReposicionAprobada = p.resposicionAprobada }).ToList();
+        }
+
+        public void ActualizarLenguaje()
+        {
+            throw new NotImplementedException();
         }
     }
 }

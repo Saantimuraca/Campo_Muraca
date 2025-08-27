@@ -47,7 +47,10 @@ namespace GUI
                 DateTime hasta = dateTimePicker2.Value;
                 Mostrar(Dgv, LinqBitacoraFecha(desde, hasta));
             }
-            catch { MessageBox.Show(traductor.Traducir("No se pudo realizar la consulta", ""), traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch
+            {
+                MessageBox.Show(traductor.Traducir("No se pudo realizar la consulta", ""), traductor.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void Mostrar(DataGridView dgv, object obj)

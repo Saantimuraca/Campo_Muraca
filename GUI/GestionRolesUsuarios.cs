@@ -172,10 +172,14 @@ namespace GUI
             {
                 if (CbRolesGrupos.SelectedIndex != -1)
                 {
-                    if (lu.RolIsInUso(CbRolesGrupos.SelectedItem.ToString())) throw new Exception(Traductor.INSTANCIA.Traducir("Este rol se encuentra en uso", ""));
-                    if (gp.EliminarPermiso(CbRolesGrupos.SelectedItem.ToString())) MessageBox.Show(traductor.Traducir("Se ha eliminado el permiso con exito!!!", sesion.ObtenerIdiomaSesion()));
                     EntidadPermiso permiso = gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == CbRolesGrupos.SelectedItem.ToString());
                     string aux = permiso == null ? "permiso" : "rol";
+                    if (lu.RolIsInUso(CbRolesGrupos.SelectedItem.ToString()))
+                    {
+                        bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), $"No pudo eliminar el {aux} {CbRolesGrupos.SelectedItem.ToString()} porque estaba en uso", 4));
+                        throw new Exception(Traductor.INSTANCIA.Traducir("Este rol se encuentra en uso", ""));
+                    }
+                    if (gp.EliminarPermiso(CbRolesGrupos.SelectedItem.ToString())) MessageBox.Show(traductor.Traducir("Se ha eliminado el permiso con exito!!!", sesion.ObtenerIdiomaSesion()));
                     bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Eliminó el {aux} {CbRolesGrupos.SelectedItem.ToString()}", 4));
                     RefrescarControles();
                     CargarPermisosArbol();
@@ -192,11 +196,15 @@ namespace GUI
                 {
                     string nuevoNombre = Interaction.InputBox(traductor.Traducir("Ingrese el nuevo nombre para el permiso:", sesion.ObtenerIdiomaSesion()), traductor.Traducir("Modificando...", sesion.ObtenerIdiomaSesion()), CbRolesGrupos.SelectedItem.ToString());
                     if (string.IsNullOrWhiteSpace(nuevoNombre)) throw new Exception(traductor.Traducir("Debe ingresar un nombre para el nuevo permiso!!!", sesion.ObtenerIdiomaSesion()));
-                    if (gp.ExistePermiso(nuevoNombre)) throw new Exception(traductor.Traducir("Permiso o rol existente", ""));
-                    gp.ModificarNombrePermiso(CbRolesGrupos.SelectedItem.ToString(), nuevoNombre);
-                    MessageBox.Show("Se ha modificado el permiso con éxito!!!");
                     EntidadPermiso permiso = gp.ObtenerPermisos("Roles").Find(x => x.DevolverNombrePermiso() == CbRolesGrupos.SelectedItem.ToString());
                     string aux = permiso == null ? "permiso" : "rol";
+                    if (gp.ExistePermiso(nuevoNombre))
+                    {
+                        bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), $"No pudo agregar el {aux} porque ya existe", 1));
+                        throw new Exception(traductor.Traducir("Permiso o rol existente", ""));
+                    }
+                    gp.ModificarNombrePermiso(CbRolesGrupos.SelectedItem.ToString(), nuevoNombre);
+                    MessageBox.Show("Se ha modificado el permiso con éxito!!!");
                     bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Cambio el nombre del {aux} {CbRolesGrupos.SelectedItem.ToString()} a {nuevoNombre}", 1));
                     RefrescarControles();
                 }

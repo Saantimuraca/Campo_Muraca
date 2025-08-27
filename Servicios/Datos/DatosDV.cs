@@ -101,7 +101,6 @@ namespace Servicios.Datos
                     string dvhCalculado = CalcularDVHRegistroBase64(row);
                     row["dvh"] = dvhCalculado;
                 }
-
             }
             Gestor_Datos.INSTANCIA.ActualizarGeneral();
             Dictionary<string, string> dvv = CalcularDVVTablas();

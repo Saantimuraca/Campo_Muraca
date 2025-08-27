@@ -112,10 +112,8 @@ namespace GUI
             lista = lista.OrderBy(x => x.textoTraducir).ToList();
             foreach (DataGridViewRow fila in DgvTraducciones.Rows)
             {
-                if (fila.IsNewRow) continue; // evita la fila vacía al final
-
+                if (fila.IsNewRow) continue;
                 var celda = fila.Cells["nuevaColumna"];
-                // Si está vacía, la completamos con la lista
                 if (indexLista < lista.Count)
                 {
                     celda.Value = lista[indexLista].textoTraducido;
@@ -136,7 +134,11 @@ namespace GUI
             {
                 string idioma = Interaction.InputBox(traductor.Traducir("Idioma:", ""));
                 if (idioma == "") throw new Exception("Idioma inválido");
-                if (bllIdioma.IsRepetido(idioma)) throw new Exception(traductor.Traducir("El idioma ingresado ya se encuentra registrado", ""));
+                if (bllIdioma.IsRepetido(idioma))
+                {
+                    b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), $"No pudo agregar el idioma {idioma} porque ya existe", 1));
+                    throw new Exception(traductor.Traducir("El idioma ingresado ya se encuentra registrado", ""));
+                }
                 EntidadIdioma nuevoIdioma = new EntidadIdioma(idioma);
                 bllIdioma.AgregarIdioma(nuevoIdioma);
                 Mostrar(DgvIdiomas, LinqIdiomas());
@@ -156,8 +158,12 @@ namespace GUI
             {
                 if (DgvIdiomas.SelectedRows.Count == 0) throw new Exception(traductor.Traducir("Debe seleccionar un idioma!!!", ""));
                 if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Español" || DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Ingles") throw new Exception(traductor.Traducir("No se pueden eliminar los idiomas principales del sistema!!!", ""));
-                if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == sesion.ObtenerIdiomaSesion()) throw new Exception(traductor.Traducir("No puede eliminar el idioma utilizado actualmente!!!", ""));
                 EntidadIdioma idioma = new EntidadIdioma(DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString());
+                if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == sesion.ObtenerIdiomaSesion())
+                {
+                    b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), $"No pudo eliminar el idioma {idioma.idioma} porque es su idioma actual", 3));
+                    throw new Exception(traductor.Traducir("No puede eliminar el idioma utilizado actualmente!!!", ""));
+                }
                 bllIdioma.EliminarIdioma(idioma);
                 b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Eliminó el idioma {idioma.idioma}", 3));
                 Mostrar(DgvIdiomas, LinqIdiomas());
@@ -179,8 +185,16 @@ namespace GUI
             try
             {
                 if (DgvIdiomas.SelectedRows.Count == 0) throw new Exception(traductor.Traducir("Debe seleccionar un idioma!!!", ""));
-                if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Español" || DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Ingles") throw new Exception(traductor.Traducir("No se pueden modificar los idiomas principales del sistema!!!", ""));
-                if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == sesion.ObtenerIdiomaSesion()) throw new Exception(traductor.Traducir("No puede modificar el idioma utilizado actualmente!!!", ""));
+                if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Español" || DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == "Ingles")
+                {
+                    b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Intentó modificar uno de los idiomas principales del sistema", 1));
+                    throw new Exception(traductor.Traducir("No se pueden modificar los idiomas principales del sistema!!!", ""));
+                }
+                if (DgvIdiomas.SelectedRows[0].Cells[0].Value.ToString() == sesion.ObtenerIdiomaSesion())
+                {
+                    b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), $"Intentó modificar su idioma actual", 1));
+                    throw new Exception(traductor.Traducir("No puede modificar el idioma utilizado actualmente!!!", ""));
+                }
                 string nuevoNombre = Interaction.InputBox(traductor.Traducir("Nuevo nombre", ""));
                 if (bllIdioma.IsRepetido(nuevoNombre)) throw new Exception(traductor.Traducir("El idioma ingresado ya se encuentra registrado", ""));
                 EntidadIdioma idioma = new EntidadIdioma(nuevoNombre);

@@ -123,7 +123,7 @@ namespace GUI
                 string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
                 gf.VerFactura(rutaCompleta);
             }
-            catch { MessageBox.Show("No se pudo encontrar la factura", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch { MessageBox.Show(Traductor.INSTANCIA.Traducir("No se encontró la factura", ""), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void BtnCobrarPedido_Click(object sender, EventArgs e)
