@@ -77,7 +77,7 @@
             this.BtnBajaUsuario.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnBajaUsuario.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnBajaUsuario.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnBajaUsuario.Location = new System.Drawing.Point(382, 44);
+            this.BtnBajaUsuario.Location = new System.Drawing.Point(491, 43);
             this.BtnBajaUsuario.Name = "BtnBajaUsuario";
             this.BtnBajaUsuario.Size = new System.Drawing.Size(96, 30);
             this.BtnBajaUsuario.TabIndex = 1;
@@ -91,7 +91,7 @@
             this.BtnModificarUsuario.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificarUsuario.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnModificarUsuario.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnModificarUsuario.Location = new System.Drawing.Point(577, 44);
+            this.BtnModificarUsuario.Location = new System.Drawing.Point(691, 44);
             this.BtnModificarUsuario.Name = "BtnModificarUsuario";
             this.BtnModificarUsuario.Size = new System.Drawing.Size(96, 30);
             this.BtnModificarUsuario.TabIndex = 2;
@@ -111,13 +111,13 @@
             this.DgvUsuarios.Name = "DgvUsuarios";
             this.DgvUsuarios.ReadOnly = true;
             this.DgvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvUsuarios.Size = new System.Drawing.Size(661, 408);
+            this.DgvUsuarios.Size = new System.Drawing.Size(775, 408);
             this.DgvUsuarios.TabIndex = 3;
             this.DgvUsuarios.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvUsuarios_CellMouseClick);
             // 
             // TxtNombreUsuario
             // 
-            this.TxtNombreUsuario.Location = new System.Drawing.Point(679, 160);
+            this.TxtNombreUsuario.Location = new System.Drawing.Point(796, 159);
             this.TxtNombreUsuario.Name = "TxtNombreUsuario";
             this.TxtNombreUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtNombreUsuario.TabIndex = 4;
@@ -129,7 +129,7 @@
             this.LBLE_Nombre.AutoSize = true;
             this.LBLE_Nombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_Nombre.ForeColor = System.Drawing.Color.White;
-            this.LBLE_Nombre.Location = new System.Drawing.Point(676, 144);
+            this.LBLE_Nombre.Location = new System.Drawing.Point(793, 143);
             this.LBLE_Nombre.Name = "LBLE_Nombre";
             this.LBLE_Nombre.Size = new System.Drawing.Size(113, 13);
             this.LBLE_Nombre.TabIndex = 5;
@@ -140,7 +140,7 @@
             this.BtnHabilitarUsuario.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnHabilitarUsuario.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnHabilitarUsuario.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnHabilitarUsuario.Location = new System.Drawing.Point(195, 44);
+            this.BtnHabilitarUsuario.Location = new System.Drawing.Point(232, 44);
             this.BtnHabilitarUsuario.Name = "BtnHabilitarUsuario";
             this.BtnHabilitarUsuario.Size = new System.Drawing.Size(96, 30);
             this.BtnHabilitarUsuario.TabIndex = 6;
@@ -151,7 +151,7 @@
             // 
             // TxtMail
             // 
-            this.TxtMail.Location = new System.Drawing.Point(679, 221);
+            this.TxtMail.Location = new System.Drawing.Point(796, 220);
             this.TxtMail.Name = "TxtMail";
             this.TxtMail.Size = new System.Drawing.Size(281, 20);
             this.TxtMail.TabIndex = 7;
@@ -163,7 +163,7 @@
             this.LBLE_Correo.AutoSize = true;
             this.LBLE_Correo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_Correo.ForeColor = System.Drawing.Color.White;
-            this.LBLE_Correo.Location = new System.Drawing.Point(676, 205);
+            this.LBLE_Correo.Location = new System.Drawing.Point(793, 204);
             this.LBLE_Correo.Name = "LBLE_Correo";
             this.LBLE_Correo.Size = new System.Drawing.Size(111, 13);
             this.LBLE_Correo.TabIndex = 8;
@@ -171,7 +171,7 @@
             // 
             // TxtFechaNacimiento
             // 
-            this.TxtFechaNacimiento.Location = new System.Drawing.Point(679, 279);
+            this.TxtFechaNacimiento.Location = new System.Drawing.Point(796, 278);
             this.TxtFechaNacimiento.Name = "TxtFechaNacimiento";
             this.TxtFechaNacimiento.Size = new System.Drawing.Size(281, 20);
             this.TxtFechaNacimiento.TabIndex = 11;
@@ -183,7 +183,7 @@
             this.LBLE_Nacimiento.AutoSize = true;
             this.LBLE_Nacimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_Nacimiento.ForeColor = System.Drawing.Color.White;
-            this.LBLE_Nacimiento.Location = new System.Drawing.Point(676, 264);
+            this.LBLE_Nacimiento.Location = new System.Drawing.Point(793, 263);
             this.LBLE_Nacimiento.Name = "LBLE_Nacimiento";
             this.LBLE_Nacimiento.Size = new System.Drawing.Size(125, 13);
             this.LBLE_Nacimiento.TabIndex = 12;
@@ -194,7 +194,7 @@
             this.LBLE_Telefono.AutoSize = true;
             this.LBLE_Telefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_Telefono.ForeColor = System.Drawing.Color.White;
-            this.LBLE_Telefono.Location = new System.Drawing.Point(676, 318);
+            this.LBLE_Telefono.Location = new System.Drawing.Point(793, 317);
             this.LBLE_Telefono.Name = "LBLE_Telefono";
             this.LBLE_Telefono.Size = new System.Drawing.Size(57, 13);
             this.LBLE_Telefono.TabIndex = 14;
@@ -202,7 +202,7 @@
             // 
             // TxtTelefonoUsuario
             // 
-            this.TxtTelefonoUsuario.Location = new System.Drawing.Point(679, 333);
+            this.TxtTelefonoUsuario.Location = new System.Drawing.Point(796, 332);
             this.TxtTelefonoUsuario.Name = "TxtTelefonoUsuario";
             this.TxtTelefonoUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtTelefonoUsuario.TabIndex = 13;
@@ -211,7 +211,7 @@
             // 
             // TxtDNIUsuario
             // 
-            this.TxtDNIUsuario.Location = new System.Drawing.Point(679, 100);
+            this.TxtDNIUsuario.Location = new System.Drawing.Point(796, 99);
             this.TxtDNIUsuario.Name = "TxtDNIUsuario";
             this.TxtDNIUsuario.Size = new System.Drawing.Size(281, 20);
             this.TxtDNIUsuario.TabIndex = 15;
@@ -223,7 +223,7 @@
             this.LBLE_DNI.AutoSize = true;
             this.LBLE_DNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_DNI.ForeColor = System.Drawing.Color.White;
-            this.LBLE_DNI.Location = new System.Drawing.Point(676, 84);
+            this.LBLE_DNI.Location = new System.Drawing.Point(793, 83);
             this.LBLE_DNI.Name = "LBLE_DNI";
             this.LBLE_DNI.Size = new System.Drawing.Size(29, 13);
             this.LBLE_DNI.TabIndex = 16;
@@ -234,7 +234,7 @@
             this.CbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbRol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CbRol.FormattingEnabled = true;
-            this.CbRol.Location = new System.Drawing.Point(679, 393);
+            this.CbRol.Location = new System.Drawing.Point(796, 392);
             this.CbRol.Name = "CbRol";
             this.CbRol.Size = new System.Drawing.Size(281, 21);
             this.CbRol.TabIndex = 17;
@@ -246,7 +246,7 @@
             this.LBLE_Rol.AutoSize = true;
             this.LBLE_Rol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_Rol.ForeColor = System.Drawing.Color.White;
-            this.LBLE_Rol.Location = new System.Drawing.Point(679, 377);
+            this.LBLE_Rol.Location = new System.Drawing.Point(796, 376);
             this.LBLE_Rol.Name = "LBLE_Rol";
             this.LBLE_Rol.Size = new System.Drawing.Size(26, 13);
             this.LBLE_Rol.TabIndex = 18;
@@ -257,7 +257,7 @@
             this.LBLE_Idioma.AutoSize = true;
             this.LBLE_Idioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLE_Idioma.ForeColor = System.Drawing.Color.White;
-            this.LBLE_Idioma.Location = new System.Drawing.Point(679, 434);
+            this.LBLE_Idioma.Location = new System.Drawing.Point(796, 433);
             this.LBLE_Idioma.Name = "LBLE_Idioma";
             this.LBLE_Idioma.Size = new System.Drawing.Size(44, 13);
             this.LBLE_Idioma.TabIndex = 19;
@@ -268,7 +268,7 @@
             this.CbIdioma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CbIdioma.FormattingEnabled = true;
-            this.CbIdioma.Location = new System.Drawing.Point(679, 450);
+            this.CbIdioma.Location = new System.Drawing.Point(796, 449);
             this.CbIdioma.Name = "CbIdioma";
             this.CbIdioma.Size = new System.Drawing.Size(281, 21);
             this.CbIdioma.TabIndex = 20;
@@ -280,7 +280,7 @@
             this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarSeleccion.Font = new System.Drawing.Font("Segoe UI", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnEliminarSeleccion.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(291, 492);
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(350, 492);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
             this.BtnEliminarSeleccion.Size = new System.Drawing.Size(106, 36);
             this.BtnEliminarSeleccion.TabIndex = 21;
@@ -293,7 +293,7 @@
             this.ErrorDNI.AutoSize = true;
             this.ErrorDNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorDNI.ForeColor = System.Drawing.Color.Red;
-            this.ErrorDNI.Location = new System.Drawing.Point(679, 123);
+            this.ErrorDNI.Location = new System.Drawing.Point(796, 122);
             this.ErrorDNI.Name = "ErrorDNI";
             this.ErrorDNI.Size = new System.Drawing.Size(78, 13);
             this.ErrorDNI.TabIndex = 22;
@@ -304,7 +304,7 @@
             this.ErrorNombre.AutoSize = true;
             this.ErrorNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorNombre.ForeColor = System.Drawing.Color.Red;
-            this.ErrorNombre.Location = new System.Drawing.Point(676, 183);
+            this.ErrorNombre.Location = new System.Drawing.Point(793, 182);
             this.ErrorNombre.Name = "ErrorNombre";
             this.ErrorNombre.Size = new System.Drawing.Size(108, 13);
             this.ErrorNombre.TabIndex = 23;
@@ -315,7 +315,7 @@
             this.ErrorCorreo.AutoSize = true;
             this.ErrorCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorCorreo.ForeColor = System.Drawing.Color.Red;
-            this.ErrorCorreo.Location = new System.Drawing.Point(679, 244);
+            this.ErrorCorreo.Location = new System.Drawing.Point(796, 243);
             this.ErrorCorreo.Name = "ErrorCorreo";
             this.ErrorCorreo.Size = new System.Drawing.Size(92, 13);
             this.ErrorCorreo.TabIndex = 24;
@@ -326,7 +326,7 @@
             this.ErrorFecha.AutoSize = true;
             this.ErrorFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorFecha.ForeColor = System.Drawing.Color.Red;
-            this.ErrorFecha.Location = new System.Drawing.Point(679, 302);
+            this.ErrorFecha.Location = new System.Drawing.Point(796, 301);
             this.ErrorFecha.Name = "ErrorFecha";
             this.ErrorFecha.Size = new System.Drawing.Size(90, 13);
             this.ErrorFecha.TabIndex = 25;
@@ -337,7 +337,7 @@
             this.ErrorTelefono.AutoSize = true;
             this.ErrorTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorTelefono.ForeColor = System.Drawing.Color.Red;
-            this.ErrorTelefono.Location = new System.Drawing.Point(679, 356);
+            this.ErrorTelefono.Location = new System.Drawing.Point(796, 355);
             this.ErrorTelefono.Name = "ErrorTelefono";
             this.ErrorTelefono.Size = new System.Drawing.Size(105, 13);
             this.ErrorTelefono.TabIndex = 26;
@@ -348,7 +348,7 @@
             this.ErrorRol.AutoSize = true;
             this.ErrorRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorRol.ForeColor = System.Drawing.Color.Red;
-            this.ErrorRol.Location = new System.Drawing.Point(679, 417);
+            this.ErrorRol.Location = new System.Drawing.Point(796, 416);
             this.ErrorRol.Name = "ErrorRol";
             this.ErrorRol.Size = new System.Drawing.Size(126, 13);
             this.ErrorRol.TabIndex = 27;
@@ -359,7 +359,7 @@
             this.ErrorIdioma.AutoSize = true;
             this.ErrorIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorIdioma.ForeColor = System.Drawing.Color.Red;
-            this.ErrorIdioma.Location = new System.Drawing.Point(679, 474);
+            this.ErrorIdioma.Location = new System.Drawing.Point(796, 473);
             this.ErrorIdioma.Name = "ErrorIdioma";
             this.ErrorIdioma.Size = new System.Drawing.Size(108, 13);
             this.ErrorIdioma.TabIndex = 28;

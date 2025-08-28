@@ -44,14 +44,14 @@
             this.registrarPedidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.supervisarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cobrarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aBMProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnCerrarSesion = new System.Windows.Forms.Button();
             this.BtnCambiarContrasena = new System.Windows.Forms.Button();
             this.BtnCambiarIdioma = new System.Windows.Forms.Button();
             this.CbIdioma = new System.Windows.Forms.ComboBox();
-            this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aBMProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -207,6 +207,24 @@
             this.cobrarPedidosToolStripMenuItem.Text = "Cobrar pedidos";
             this.cobrarPedidosToolStripMenuItem.Click += new System.EventHandler(this.cobrarPedidosToolStripMenuItem_Click);
             // 
+            // productosToolStripMenuItem
+            // 
+            this.productosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aBMProductosToolStripMenuItem});
+            this.productosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
+            this.productosToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.productosToolStripMenuItem.Tag = "";
+            this.productosToolStripMenuItem.Text = "Productos";
+            // 
+            // aBMProductosToolStripMenuItem
+            // 
+            this.aBMProductosToolStripMenuItem.Name = "aBMProductosToolStripMenuItem";
+            this.aBMProductosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aBMProductosToolStripMenuItem.Tag = "ABM Productos";
+            this.aBMProductosToolStripMenuItem.Text = "ABM Productos";
+            this.aBMProductosToolStripMenuItem.Click += new System.EventHandler(this.aBMProductosToolStripMenuItem_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -276,22 +294,6 @@
             this.CbIdioma.Name = "CbIdioma";
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
-            // 
-            // productosToolStripMenuItem
-            // 
-            this.productosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aBMProductosToolStripMenuItem});
-            this.productosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
-            this.productosToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
-            this.productosToolStripMenuItem.Text = "Productos";
-            // 
-            // aBMProductosToolStripMenuItem
-            // 
-            this.aBMProductosToolStripMenuItem.Name = "aBMProductosToolStripMenuItem";
-            this.aBMProductosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.aBMProductosToolStripMenuItem.Text = "ABM Productos";
-            this.aBMProductosToolStripMenuItem.Click += new System.EventHandler(this.aBMProductosToolStripMenuItem_Click);
             // 
             // Menu
             // 

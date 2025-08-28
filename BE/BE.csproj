@@ -51,6 +51,7 @@
     <Compile Include="BECarrito.cs" />
     <Compile Include="BECategoria.cs" />
     <Compile Include="BECliente.cs" />
+    <Compile Include="BEHistoriaProducto.cs" />
     <Compile Include="BEPedido.cs" />
     <Compile Include="BEProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

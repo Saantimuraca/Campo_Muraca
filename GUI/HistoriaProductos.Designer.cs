@@ -38,11 +38,13 @@
             // 
             this.Dgv.AllowUserToAddRows = false;
             this.Dgv.AllowUserToDeleteRows = false;
+            this.Dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Dgv.Location = new System.Drawing.Point(12, 53);
             this.Dgv.Name = "Dgv";
             this.Dgv.ReadOnly = true;
-            this.Dgv.Size = new System.Drawing.Size(776, 340);
+            this.Dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.Dgv.Size = new System.Drawing.Size(1200, 340);
             this.Dgv.TabIndex = 0;
             // 
             // LblHistorial
@@ -51,7 +53,7 @@
             this.LblHistorial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.LblHistorial.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblHistorial.ForeColor = System.Drawing.Color.White;
-            this.LblHistorial.Location = new System.Drawing.Point(321, 10);
+            this.LblHistorial.Location = new System.Drawing.Point(533, 10);
             this.LblHistorial.Name = "LblHistorial";
             this.LblHistorial.Size = new System.Drawing.Size(165, 40);
             this.LblHistorial.TabIndex = 2;
@@ -61,19 +63,20 @@
             // 
             this.BtnRollBack.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnRollBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRollBack.Location = new System.Drawing.Point(360, 399);
+            this.BtnRollBack.Location = new System.Drawing.Point(568, 399);
             this.BtnRollBack.Name = "BtnRollBack";
             this.BtnRollBack.Size = new System.Drawing.Size(87, 39);
             this.BtnRollBack.TabIndex = 7;
             this.BtnRollBack.Text = "Devolver estado";
             this.BtnRollBack.UseVisualStyleBackColor = false;
+            this.BtnRollBack.Click += new System.EventHandler(this.BtnRollBack_Click);
             // 
             // HistoriaProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1224, 450);
             this.Controls.Add(this.BtnRollBack);
             this.Controls.Add(this.LblHistorial);
             this.Controls.Add(this.Dgv);

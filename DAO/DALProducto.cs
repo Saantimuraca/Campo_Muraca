@@ -134,7 +134,78 @@ namespace DAO
 
         public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idProducto"));
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idProducto")).Concat(Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaProducto").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("id")));
+        }
+
+        public void AgregarHistoria(BEProducto pProducto)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaProducto").NewRow();
+            dr["id"] = 0;
+            dr["idProducto"] = pProducto.idProducto;
+            dr["nombre"] = pProducto.nombre;
+            dr["descripcion"] = pProducto.descripcion;
+            dr["precio"] = pProducto.precio;
+            dr["stock"] = pProducto.stock;
+            dr["idCategoria"] = pProducto.categoria.idCategoria;
+            dr["estado"] = pProducto.estado;
+            dr["isBajoStock"] = pProducto.isBajoStock;
+            dr["reposicionAprobada"] = pProducto.resposicionAprobada;
+            dr["fechaModificacion"] = DateTime.Now;
+            Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaProducto").Rows.Add(dr);
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("HistoriaProducto");
+        }
+
+        public void AgregarDvhHistoria(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("HistoriaProducto");
+        }
+
+        public DataRow DevolverRowHistoria(int pId)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaProducto").Rows.Find(pId);
+            return dr;
+        }
+
+        public int DevolverUltimoIdHistoria()
+        {
+            int maxId = 0;
+            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaProducto").Rows)
+            {
+                int id = int.Parse(row["id"].ToString());
+                if (id > maxId)
+                    maxId = id;
+            }
+            return maxId;
+        }
+
+        public List<BEHistoriaProducto> ListaHistorias()
+        {
+            List<BEHistoriaProducto> lista = new List<BEHistoriaProducto>();
+            foreach(DataRowView row in Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaProducto").DefaultView)
+            {
+                DataRow drCategoria = Gestor_Datos.INSTANCIA.DevolverTabla("CategoriaProductos").Rows.Find(row["idCategoria"]);
+                BECategoria categoria = new BECategoria(drCategoria["nombre"].ToString(), int.Parse(drCategoria["idCategoria"].ToString()));
+                BEHistoriaProducto historia = new BEHistoriaProducto(int.Parse(row["id"].ToString()), int.Parse(row["idProducto"].ToString()), row["nombre"].ToString(),
+                    row["descripcion"].ToString(), decimal.Parse(row["precio"].ToString()), int.Parse(row["stock"].ToString()), categoria, bool.Parse(row["estado"].ToString()),
+                    bool.Parse(row["isBajoStock"].ToString()), bool.Parse(row["reposicionAprobada"].ToString()), DateTime.Parse(row["fechaModificacion"].ToString()));
+                lista.Add(historia);
+            }
+            return lista;
+        }
+
+        public void RollBack(BEProducto pProducto)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(pProducto.idProducto);
+            dr["nombre"] = pProducto.nombre;
+            dr["descripción"] = pProducto.descripcion;
+            dr["precio"] = pProducto.precio;
+            dr["idCategoria"] = pProducto.categoria.idCategoria;
+            dr["stock"] = pProducto.stock;
+            dr["estado"] = pProducto.estado;
+            dr["isBajoStock"] = pProducto.isBajoStock;
+            dr["reposicionAprobada"] = pProducto.resposicionAprobada;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
         }
     }
 }

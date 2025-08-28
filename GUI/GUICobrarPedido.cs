@@ -89,7 +89,7 @@ namespace GUI
                 BtnRealizarFactura.Enabled = false;
                 string[] vectorMail = pedido.cliente.mail.Split('@');
                 if (vectorMail[1] == "gmail.com") { MessageBox.Show(Traductor.INSTANCIA.Traducir("La factura fue enviada al cliente", "")); }
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Generó la factura del {pedido.id} para el cliente {pedido.cliente}", 2));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Generó la factura del {pedido.id} para el cliente {pedido.cliente.nombre}", 2));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }

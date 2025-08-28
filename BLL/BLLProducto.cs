@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
+using DAL;
 using DAO;
 using Servicios.Datos;
 
@@ -56,6 +58,30 @@ namespace BLL
             dal.Modificar(pProducto);
             dal.AgregarDvh(dal.DevolverRow(pProducto.idProducto), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRow(pProducto.idProducto)));
             DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
+        }
+
+        public void AgregarHistoria(BEProducto pProducto)
+        {
+            dal.AgregarHistoria(pProducto);
+            dal.AgregarDvhHistoria(dal.DevolverRowHistoria(dal.DevolverUltimoIdHistoria()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRowHistoria(dal.DevolverUltimoIdHistoria())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("HistoriaProducto");
+        }
+
+        public List<BEHistoriaProducto> ListaHistorias()
+        {
+            return dal.ListaHistorias();
+        }
+
+        public bool RollBack(BEProducto pProducto)
+        {
+            try
+            {
+                dal.RollBack(pProducto);
+                dal.AgregarDvh(dal.DevolverRow(pProducto.idProducto), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRow(pProducto.idProducto)));
+                DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

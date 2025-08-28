@@ -39,6 +39,7 @@ namespace Servicios.Datos
 
         public void Inicializar()
         {
+            readers.Clear();
             readers.Add(DALCategoria.INSTANCIA);
             readers.Add(DALCliente.INSTANCIA);
             readers.Add(DALPedido.INSTANCIA);

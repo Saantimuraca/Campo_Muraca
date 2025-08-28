@@ -50,7 +50,6 @@ namespace GUI
                 }
                 else
                 {
-                    DatosDV.INSTANCIA.Inicializar();
                     if (!DatosDV.INSTANCIA.VerificarIntegridadBD() && sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() != "Administrador")
                     {
                         sesion.CerrarSesion();
@@ -60,10 +59,12 @@ namespace GUI
                     {
                         MessageBox.Show(Traductor.INSTANCIA.Traducir("La integridad de la base de datos se vió afectada, por favor realice un restore inmediatamente", ""), Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
-                    /*DatosDV.INSTANCIA.Inicializar();
-                    DatosDV.INSTANCIA.VerificarIntegridadBD();*/
-                    a.Definir_Estado(new EstadoMenu());
+                    else
+                    {
+                        bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
+                    }
+                        //DatosDV.INSTANCIA.VerificarIntegridadBD();
+                        a.Definir_Estado(new EstadoMenu());
                 }
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }

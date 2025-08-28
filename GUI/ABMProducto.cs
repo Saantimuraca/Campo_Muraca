@@ -188,7 +188,14 @@ namespace GUI
                     bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
                     BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, RbActivos.Checked, reposicionAprobada);
                     producto.idProducto = int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString());
+                    string historiaNombre = Dgv.SelectedRows[0].Cells["Producto"].Value.ToString();
+                    string historiaDescripcion = Dgv.SelectedRows[0].Cells["Descripción"].Value.ToString();
+                    string sinSimbolo2 = Dgv.SelectedRows[0].Cells["Precio"].Value.ToString().Replace("$", "");
+                    decimal historiaPrecio = decimal.Parse(sinSimbolo2);
                     BLLProducto.Modificar(producto);    
+                    BECategoria historiaCategoria = bllCategoria.ListaCategoria().Find(x => x.nombre == Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString());
+                    BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, reposicionAprobada, producto.idProducto);
+                    BLLProducto.AgregarHistoria(historiaProducto);
                     LimpiarControles();
                 }
             }
@@ -204,7 +211,15 @@ namespace GUI
                     string aux = Interaction.InputBox(Traductor.INSTANCIA.Traducir("Ingrese la nueva cantidad", ""));
                     if (!int.TryParse(aux, out int stock)) throw new Exception(Traductor.INSTANCIA.Traducir("Número inválido", ""));
                     int id = int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString());
+                    string historiaNombre = Dgv.SelectedRows[0].Cells["Producto"].Value.ToString();
+                    string historiaDescripcion = Dgv.SelectedRows[0].Cells["Descripción"].Value.ToString();
+                    string sinSimbolo2 = Dgv.SelectedRows[0].Cells["Precio"].Value.ToString().Replace("$", "");
+                    decimal historiaPrecio = decimal.Parse(sinSimbolo2);
+                    bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
                     BLLProducto.ModificarStock(id, stock);
+                    BECategoria historiaCategoria = bllCategoria.ListaCategoria().Find(x => x.nombre == Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString());
+                    BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, reposicionAprobada, id);
+                    BLLProducto.AgregarHistoria(historiaProducto);
                     LimpiarControles();
                 }
        
@@ -225,7 +240,29 @@ namespace GUI
 
         public void ActualizarLenguaje()
         {
-            throw new NotImplementedException();
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Label || ctrl is Button || ctrl is CheckBox)
+                {
+                    ctrl.Text = Traductor.INSTANCIA.Traducir(ctrl.Name, Sesion.INSTANCIA.ObtenerIdiomaSesion());
+                }
+            }
+        }
+
+        private void Dgv_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            HistoriaProductos gui = new HistoriaProductos(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()));
+            gui.Show();
+        }
+
+        public void Actualizar()
+        {
+            Mostrar(Dgv, LinqProductos());
+        }
+
+        private void Dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
