@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Datos
 {
-    public class DatosBitacora : IIntegridadRepositorio
+    public class DatosBitacora
     {
         private static DatosBitacora instancia;
         public static DatosBitacora INSTANCIA
@@ -37,7 +37,7 @@ namespace Servicios.Datos
             gpbd.ActualizarPorTabla("Bitacora");
         }
 
-        public void AgregarDvh(DataRow dr, string pDvh)
+        /*public void AgregarDvh(DataRow dr, string pDvh)
         {
             dr["dvh"] = pDvh;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Bitacora");
@@ -47,7 +47,7 @@ namespace Servicios.Datos
         {
             DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Bitacora").Rows.Find(pId);
             return dr;
-        }
+        }*/
 
         public int DevolverUltimoId()
         {
@@ -80,9 +80,9 @@ namespace Servicios.Datos
             return lista;
         }
 
-        public IEnumerable<DataRow> ObtenerEntidades()
+        /*public IEnumerable<DataRow> ObtenerEntidades()
         {
             return Gestor_Datos.INSTANCIA.DevolverTabla("Bitacora").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idBitacora"));
-        }
+        }*/
     }
 }

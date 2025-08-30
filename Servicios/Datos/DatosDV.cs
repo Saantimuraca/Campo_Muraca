@@ -40,11 +40,11 @@ namespace Servicios.Datos
         public void Inicializar()
         {
             readers.Clear();
-            readers.Add(DALCategoria.INSTANCIA);
+            //readers.Add(DALCategoria.INSTANCIA);
             readers.Add(DALCliente.INSTANCIA);
-            readers.Add(DALPedido.INSTANCIA);
+            //readers.Add(DALPedido.INSTANCIA);
             readers.Add(DALProducto.INSTANCIA);
-            readers.Add(DatosBitacora.INSTANCIA);
+            //readers.Add(DatosBitacora.INSTANCIA);
             readers.Add(DatosFactura.INSTANCIA);
             readers.Add(DatosIdioma.INSTANCIA);
             readers.Add(DatosPermiso.INSTANCIA);

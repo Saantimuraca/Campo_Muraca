@@ -114,6 +114,7 @@
             this.DgvUsuarios.Size = new System.Drawing.Size(775, 408);
             this.DgvUsuarios.TabIndex = 3;
             this.DgvUsuarios.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvUsuarios_CellMouseClick);
+            this.DgvUsuarios.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvUsuarios_CellMouseDoubleClick);
             // 
             // TxtNombreUsuario
             // 

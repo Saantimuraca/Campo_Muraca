@@ -190,5 +190,32 @@ namespace Servicios.Logica
             ormUsuario.AgregarDvh(ormUsuario.DevolverRow(pUsuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(pUsuario.Dni_Usuario)));
             DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
         }
+
+        public List<EntidadHistoriaUsuario> ListaHistorias()
+        {
+            return ormUsuario.ListaHistoriaUsuario();
+        }
+
+        public bool RollBack(EntidadUsuario pUsuario)
+        {
+            try
+            {
+                ormUsuario.RollBack(pUsuario);
+                ormUsuario.AgregarDvh(ormUsuario.DevolverRow(pUsuario.Dni_Usuario), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRow(pUsuario.Dni_Usuario)));
+                DatosDV.INSTANCIA.CalcularDvvTabla("Usuario");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public void AgregarHistoria(EntidadUsuario pUsuario)
+        {
+            ormUsuario.AgregarHistoria(pUsuario);
+            /*ormUsuario.AgregarDvhHistoria(ormUsuario.DevolverRowHistoria(ormUsuario.DevolverUltimoIdHistoria()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(ormUsuario.DevolverRowHistoria(ormUsuario.DevolverUltimoIdHistoria())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("HistoriaUsuario");*/
+        }
     }
 }

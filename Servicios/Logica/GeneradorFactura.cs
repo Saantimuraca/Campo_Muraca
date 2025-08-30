@@ -125,8 +125,8 @@ namespace Servicios.Logica
                 df.AgregarDvh(df.DevolverRow(factura.nroFactura), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(df.DevolverRow(factura.nroFactura)));
                 DatosDV.INSTANCIA.CalcularDvvTabla("Factura");
                 dalPedido.AdjuntarFactura(factura.nroFactura, pPedido.id);
-                dalPedido.AgregarDvhPedido(dalPedido.DevolverRowPedido(pPedido.id), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalPedido.DevolverRowPedido(pPedido.id)));
-                DatosDV.INSTANCIA.CalcularDvvTabla("Pedido");
+                /*dalPedido.AgregarDvhPedido(dalPedido.DevolverRowPedido(pPedido.id), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalPedido.DevolverRowPedido(pPedido.id)));
+                DatosDV.INSTANCIA.CalcularDvvTabla("Pedido");*/
                 VerFactura(rutaCompleta);
                 string[] vectorMail = pPedido.cliente.mail.Split('@');
                 if (vectorMail[1] == "gmail.com")

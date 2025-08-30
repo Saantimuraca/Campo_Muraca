@@ -63,8 +63,8 @@ namespace BLL
         public void AgregarHistoria(BEProducto pProducto)
         {
             dal.AgregarHistoria(pProducto);
-            dal.AgregarDvhHistoria(dal.DevolverRowHistoria(dal.DevolverUltimoIdHistoria()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRowHistoria(dal.DevolverUltimoIdHistoria())));
-            DatosDV.INSTANCIA.CalcularDvvTabla("HistoriaProducto");
+            /*dal.AgregarDvhHistoria(dal.DevolverRowHistoria(dal.DevolverUltimoIdHistoria()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRowHistoria(dal.DevolverUltimoIdHistoria())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("HistoriaProducto");*/
         }
 
         public List<BEHistoriaProducto> ListaHistorias()

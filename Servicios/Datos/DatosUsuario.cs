@@ -139,5 +139,79 @@ namespace Servicios.Datos
         {
             return Gestor_Datos.INSTANCIA.DevolverTabla("Usuario").Rows.Cast<DataRow>().OrderBy(r => r.Field<string>("dniUsuario"));
         }
+
+        public List<EntidadHistoriaUsuario> ListaHistoriaUsuario()
+        {
+            List<EntidadHistoriaUsuario> lista = new List<EntidadHistoriaUsuario> ();
+            foreach(DataRowView row in Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaUsuario").DefaultView)
+            {
+                EntidadPermisoCompuesto rol = ormPermiso.DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == row["rol"].ToString()) as EntidadPermisoCompuesto;
+                EntidadHistoriaUsuario historia = new EntidadHistoriaUsuario(int.Parse(row["id"].ToString()), row["dniUsuario"].ToString(), row["nombre"].ToString(), row["mail"].ToString(),
+                    row["contraseña"].ToString(), DateTime.Parse(row["fechaNacimiento"].ToString()), DateTime.Parse(row["fechaCreacion"].ToString()), row["telefono"].ToString(),
+                    bool.Parse(row["estado"].ToString()), rol, row["idioma"].ToString(), DateTime.Parse(row["fechaModificacion"].ToString()));
+                lista.Add(historia);
+            }
+            return lista;
+        }
+
+        public void RollBack(EntidadUsuario pUsuario)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Usuario").Rows.Find(pUsuario.Dni_Usuario);
+            dr["dniUsuario"] = pUsuario.Dni_Usuario;
+            dr["NombreUsuario"] = pUsuario.Nombre_Usuario;
+            dr["MailUsuario"] = pUsuario.Mail_Usuario;
+            dr["ContraseñaUsuario"] = pUsuario.Contraseña_Usuario;
+            dr["FechaNacimientoUsuario"] = pUsuario.Fecha_Nacimiento_Usuario;
+            dr["FechaCreacionUsuario"] = pUsuario.Fecha_Creacion_Usuario;
+            dr["TelefonoUsuario"] = pUsuario.Telefono_Usuario;
+            dr["EstadoUsuario"] = pUsuario.Estado_Usuario;
+            dr["Rol"] = pUsuario.Rol;
+            dr["Idioma"] = pUsuario.Idioma;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Usuario");
+        }
+
+        /*public void AgregarDvhHistoria(DataRow dr, string pDvh)
+        {
+            dr["dvh"] = pDvh;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("HistoriaUsuario");
+        }
+
+        public DataRow DevolverRowHistoria(int pId)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaUsuario").Rows.Find(pId);
+            return dr;
+        }
+
+        public int DevolverUltimoIdHistoria()
+        {
+            int maxId = 0;
+            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaUsuario").Rows)
+            {
+                int id = int.Parse(row["id"].ToString());
+                if (id > maxId)
+                    maxId = id;
+            }
+            return maxId;
+        }*/
+
+        public void AgregarHistoria(EntidadUsuario pUsuario)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaUsuario").NewRow();
+            dr["id"] = 0;
+            dr["dniUsuario"] = pUsuario.Dni_Usuario;
+            dr["nombre"] = pUsuario.Nombre_Usuario;
+            dr["mail"] = pUsuario.Mail_Usuario;
+            dr["contraseña"] = pUsuario.Contraseña_Usuario;
+            dr["fechaNacimiento"] = pUsuario.Fecha_Nacimiento_Usuario;
+            dr["fechaCreacion"] = pUsuario.Fecha_Creacion_Usuario;
+            dr["telefono"] = pUsuario.Telefono_Usuario;
+            dr["estado"] = pUsuario.Estado_Usuario;
+            dr["rol"] = pUsuario.Rol.DevolverNombrePermiso();
+            dr["idioma"] = pUsuario.Idioma;
+            dr["intentos"] = pUsuario.Intentos;
+            dr["fechaModificacion"] = DateTime.Now;
+            Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaUsuario").Rows.Add(dr);
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("HistoriaUsuario");
+        }
     }
 }

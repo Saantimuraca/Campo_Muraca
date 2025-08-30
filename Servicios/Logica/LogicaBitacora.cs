@@ -15,8 +15,8 @@ namespace Servicios.Logica
         public void RegistrarBitacora(EntidadBitacora pBitacora)
         {
             dalBitacora.RegistrarBitacora(pBitacora);
-            dalBitacora.AgregarDvh(dalBitacora.DevolverRow(dalBitacora.DevolverUltimoId()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalBitacora.DevolverRow(dalBitacora.DevolverUltimoId())));
-            DatosDV.INSTANCIA.CalcularDvvTabla("Bitacora");
+            /*dalBitacora.AgregarDvh(dalBitacora.DevolverRow(dalBitacora.DevolverUltimoId()), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalBitacora.DevolverRow(dalBitacora.DevolverUltimoId())));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Bitacora");*/
         }
 
         public List<EntidadBitacora> ListaBitacora()

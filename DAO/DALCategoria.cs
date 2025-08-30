@@ -10,7 +10,7 @@ using DAO;
 
 namespace DAL
 {
-    public class DALCategoria : IIntegridadRepositorio
+    public class DALCategoria
     {
         private static DALCategoria instancia;
         public static DALCategoria INSTANCIA
@@ -34,11 +34,6 @@ namespace DAL
                 lista.Add(categoria);
             }
             return lista;
-        }
-
-        public IEnumerable<DataRow> ObtenerEntidades()
-        {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("CategoriaProductos").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idCategoria"));
         }
     }
 }

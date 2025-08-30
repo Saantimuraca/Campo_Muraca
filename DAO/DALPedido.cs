@@ -10,7 +10,7 @@ using DAL;
 
 namespace DAO
 {
-    public class DALPedido : IIntegridadRepositorio
+    public class DALPedido
     {
         private static DALPedido instancia;
         public static DALPedido INSTANCIA
@@ -38,30 +38,30 @@ namespace DAO
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pedido");
         }
 
-        public void AgregarDvhPedido(DataRow dr, string pDvh)
+        /*public void AgregarDvhPedido(DataRow dr, string pDvh)
         {
             dr["dvh"] = pDvh;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pedido");
-        }
+        }*/
 
-        public void AgregarDvhItemPedido(DataRow dr, string pDvh)
+        /*public void AgregarDvhItemPedido(DataRow dr, string pDvh)
         {
             dr["dvh"] = pDvh;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("ItemPedido");
-        }
+        }*/
 
-        public DataRow DevolverRowPedido(int pId)
+        /*public DataRow DevolverRowPedido(int pId)
         {
             DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Find(pId);
             return dr;
-        }
+        }*/
 
-        public DataRow DevolverRowItemPedido(int pIdPedido, int pIdProducto)
+        /*public DataRow DevolverRowItemPedido(int pIdPedido, int pIdProducto)
         {
             object[] clave = { pIdPedido, pIdProducto };
             DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").Rows.Find(clave);
             return dr;
-        }
+        }*/
 
         public void AgregarItemPedido(int pIdPedido, int pIdProducto, int pCantidad)
         {
@@ -133,9 +133,9 @@ namespace DAO
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pedido");
         }
 
-        public IEnumerable<DataRow> ObtenerEntidades()
+        /*public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idPedido")).Concat(Gestor_Datos.INSTANCIA.DevolverTabla("ItemPedido").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idPedido")).OrderBy(r => r.Field<int>("idProducto")));
-        }
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Pedido").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idPedido"));
+        }*/
     }
 }

@@ -14,7 +14,7 @@ using Servicios.Logica;
 
 namespace GUI
 {
-    public partial class HistoriaProductos : Form
+    public partial class HistoriaProductos : Form, IObserver
     {
         BLLProducto bllProducto = new BLLProducto();
         int idProductoSeleccionado;
@@ -23,11 +23,22 @@ namespace GUI
         public HistoriaProductos(int pIdProductoSeleccionado)
         {
             InitializeComponent();
+            Traductor.INSTANCIA.Suscribir(this);
+            Traductor.INSTANCIA.Notificar();
             idProductoSeleccionado = pIdProductoSeleccionado;
             Dgv.DataSource = null;
             Dgv.DataSource = Linq();
             Dgv.Columns[0].Visible = false;
             Dgv.Columns[1].Visible = false;
+            Dgv.Columns["Producto"].HeaderText = Traductor.INSTANCIA.Traducir("LblNombreProducto", "");
+            Dgv.Columns["Descripción"].HeaderText = Traductor.INSTANCIA.Traducir("LblDescripcion", "");
+            Dgv.Columns["Precio"].HeaderText = Traductor.INSTANCIA.Traducir("LblPrecio", "");
+            Dgv.Columns["Stock"].HeaderText = Traductor.INSTANCIA.Traducir("LblStock", "");
+            Dgv.Columns["Categoria"].HeaderText = Traductor.INSTANCIA.Traducir("LblCategoria", "");
+            Dgv.Columns["Estado"].HeaderText = Traductor.INSTANCIA.Traducir("Estado", "");
+            Dgv.Columns["StockBajo"].HeaderText = Traductor.INSTANCIA.Traducir("¿Stock bajo?", "");
+            Dgv.Columns["ReposicionAprobada"].HeaderText = Traductor.INSTANCIA.Traducir("¿Reposicion aprobada?", "");
+            Dgv.Columns["FechaModificacion"].HeaderText = Traductor.INSTANCIA.Traducir("FECHA DE MODIFICACIÓN", Sesion.INSTANCIA.ObtenerIdiomaSesion());
         }
 
         private object Linq()
@@ -54,15 +65,26 @@ namespace GUI
                 BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, estado, reposicionAprobada, id, stockBajo);
                 if(bllProducto.RollBack(producto))
                 {
-                    MessageBox.Show("RollBack exitoso");
+                    MessageBox.Show(Traductor.INSTANCIA.Traducir("RollBack exitoso", ""));
                     ABMProducto form = Application.OpenForms["ABMProducto"] as ABMProducto;
                     if (form != null) { form.Actualizar(); }
                     bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"RollBack del producto {id} {nombre}", 4));
                 }
                 else
                 {
-                    MessageBox.Show("Ocurrió un error");
-                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"No pudo realiozar el RollBack del producto {id} {nombre}", 4));
+                    MessageBox.Show(Traductor.INSTANCIA.Traducir("Ocurrió un error", ""));
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"No pudo realizar el RollBack del producto {id} {nombre}", 4));
+                }
+            }
+        }
+
+        public void ActualizarLenguaje()
+        {
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Label || ctrl is Button)
+                {
+                    ctrl.Text = Traductor.INSTANCIA.Traducir(ctrl.Name, Sesion.INSTANCIA.ObtenerIdiomaSesion());
                 }
             }
         }

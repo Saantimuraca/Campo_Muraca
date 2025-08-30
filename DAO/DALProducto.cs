@@ -134,7 +134,7 @@ namespace DAO
 
         public IEnumerable<DataRow> ObtenerEntidades()
         {
-            return Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idProducto")).Concat(Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaProducto").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("id")));
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("idProducto"));
         }
 
         public void AgregarHistoria(BEProducto pProducto)
@@ -155,7 +155,7 @@ namespace DAO
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("HistoriaProducto");
         }
 
-        public void AgregarDvhHistoria(DataRow dr, string pDvh)
+        /*public void AgregarDvhHistoria(DataRow dr, string pDvh)
         {
             dr["dvh"] = pDvh;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("HistoriaProducto");
@@ -177,7 +177,7 @@ namespace DAO
                     maxId = id;
             }
             return maxId;
-        }
+        }*/
 
         public List<BEHistoriaProducto> ListaHistorias()
         {

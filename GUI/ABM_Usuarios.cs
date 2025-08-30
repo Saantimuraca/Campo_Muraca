@@ -212,6 +212,7 @@ namespace GUI
                 string nuevoTelefonoUsuario = TxtTelefonoUsuario.Text;
                 EntidadUsuario usuarioSeleccionado = bllUsuario.ListaUsuarios().Find(x => x.Nombre_Usuario == DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
                 bllUsuario.ModificarUsuario(bllUsuario.CrearUsuario(usuarioSeleccionado.Dni_Usuario, nuevoNombreUsuario, nuevoMailUsuario, nuevafechaNacimiento, nuevoTelefonoUsuario, CbRol.SelectedItem.ToString(), CbIdioma.SelectedItem.ToString(), 1));
+                bllUsuario.AgregarHistoria(usuarioSeleccionado);
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Modificó el usuario {DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString()}", 4));
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
@@ -349,6 +350,17 @@ namespace GUI
             CbIdioma.Enabled = false;
             if (DgvUsuarios.SelectedRows[0].Cells[5].Value.ToString() == "Administrador") { BtnBajaUsuario.Enabled = false; }
             else if(Sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador" && DgvUsuarios.SelectedRows[0].Cells[5].Value.ToString() != "Administrador") { BtnBajaUsuario.Enabled = true; }
+        }
+
+        public void Actualizar()
+        {
+            Mostrar(DgvUsuarios, LinqUsuarios());
+        }
+
+        private void DgvUsuarios_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            HistoriaUsuarios gui = new HistoriaUsuarios(DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+            gui.Show();
         }
     }
 }

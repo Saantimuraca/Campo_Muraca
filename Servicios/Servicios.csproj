@@ -67,6 +67,7 @@
     <Compile Include="Datos\DatosTraduccion.cs" />
     <Compile Include="Datos\DatosUsuario.cs" />
     <Compile Include="Entidades\EntidadFactura.cs" />
+    <Compile Include="Entidades\EntidadHistoriaUsuario.cs" />
     <Compile Include="Entidades\EntidadPermisoSimple.cs" />
     <Compile Include="Entidades\EntidadPermisoCompuesto.cs" />
     <Compile Include="Entidades\EntidadPermiso.cs" />
