@@ -178,10 +178,10 @@ namespace GUI
             {
                 if (DgvUsuarios.SelectedRows.Count == 0) throw new Exception(traductor.Traducir("Debe seleccionar un usuario!!!", Sesion.ObtenerIdiomaSesion()));
                 bllUsuario.HabilitarUsuario(DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Habilitó al usuario {DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString()}", 4));
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
                 RefrescarControles();
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Habilitó al usuario {DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString()}", 4));
             }
             catch (Exception ex) {MessageBox.Show(ex.Message); }    
         }
@@ -192,10 +192,10 @@ namespace GUI
             {
                 if (DgvUsuarios.SelectedRows.Count == 0) throw new Exception(traductor.Traducir("Debe seleccionar un usuario!!!", Sesion.ObtenerIdiomaSesion()));
                 bllUsuario.BloquearUsuario(DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Deshabilitó al usuario {DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString()}", 4));
                 Mostrar(DgvUsuarios, LinqUsuarios());
                 TraducirDgv();
                 RefrescarControles();
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.ObtenerUsuarioActual(), $"Deshabilitó al usuario {DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString()}", 4));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -359,7 +359,7 @@ namespace GUI
 
         private void DgvUsuarios_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            HistoriaUsuarios gui = new HistoriaUsuarios(DgvUsuarios.SelectedRows[0].Cells[0].Value.ToString());
+            HistoriaUsuarios gui = new HistoriaUsuarios(TxtDNIUsuario.Text);
             gui.Show();
         }
     }

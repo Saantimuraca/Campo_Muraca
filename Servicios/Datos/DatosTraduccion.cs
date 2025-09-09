@@ -52,6 +52,10 @@ namespace Servicios.Datos
         public void AgregarDvh(DataRow dr, string pDvh)
         {
             dr["dvh"] = pDvh;
+        }
+
+        public void Actualizar()
+        {
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Traduccion");
         }
 
@@ -188,6 +192,11 @@ namespace Servicios.Datos
         public IEnumerable<DataRow> ObtenerEntidades()
         {
             return Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("textoTraducir")).OrderBy(r => r.Field<int>("idioma")).Concat(Gestor_Datos.INSTANCIA.DevolverTabla("Etiqueta").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("id")));
+        }
+
+        public IEnumerable<DataRow> ObtenerEntidades2()
+        {
+            return Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Rows.Cast<DataRow>().OrderBy(r => r.Field<int>("textoTraducir")).OrderBy(r => r.Field<int>("idioma"));
         }
 
     }

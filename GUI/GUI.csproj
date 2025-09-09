@@ -88,6 +88,12 @@
     <Compile Include="GUIBitacora.Designer.cs">
       <DependentUpon>GUIBitacora.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUICaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUICaja.Designer.cs">
+      <DependentUpon>GUICaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUICobrarPedido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,8 +148,20 @@
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrdenesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrdenesCompra.Designer.cs">
+      <DependentUpon>OrdenesCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevisarSolicitudes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RevisarSolicitudes.Designer.cs">
+      <DependentUpon>RevisarSolicitudes.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ABMProducto.resx">
       <DependentUpon>ABMProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIBitacora.resx">
       <DependentUpon>GUIBitacora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUICaja.resx">
+      <DependentUpon>GUICaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUICobrarPedido.resx">
       <DependentUpon>GUICobrarPedido.cs</DependentUpon>
@@ -183,10 +204,16 @@
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OrdenesCompra.resx">
+      <DependentUpon>OrdenesCompra.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RevisarSolicitudes.resx">
+      <DependentUpon>RevisarSolicitudes.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

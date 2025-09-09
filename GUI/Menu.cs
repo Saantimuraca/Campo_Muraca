@@ -59,6 +59,11 @@ namespace GUI
             bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Cierre de sesión", 4));
             bllUsuario.CerrarSesion(sesion.ObtenerUsuarioActual());
             MessageBox.Show(traductor.Traducir("Sesión cerrada correctamente!!!", sesion.ObtenerIdiomaSesion()));
+            foreach (Form frm in Application.OpenForms.Cast<Form>().ToList())
+            {
+                if (frm != this)
+                    frm.Close();
+            }
             a.Definir_Estado(new EstadoIniciarSesion());
         }
 

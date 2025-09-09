@@ -36,10 +36,11 @@ namespace Servicios.Logica
         public void AgregarTraduccion(int idIdioma)
         {
             dalTraductor.AgregarTraduccion(idIdioma);
-            foreach(DataRow row in dalTraductor.ColeccionDataRow(idIdioma))
+            foreach (DataRow row in dalTraductor.ObtenerEntidades2().Where(x => int.Parse(x["idioma"].ToString()) == idIdioma))
             {
                 dalTraductor.AgregarDvh(row, DatosDV.INSTANCIA.CalcularDVHRegistroBase64(row));
             }
+            dalTraductor.Actualizar();
             DatosDV.INSTANCIA.CalcularDvvTabla("Traduccion");
         }
 
