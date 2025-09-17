@@ -18,7 +18,6 @@ namespace Servicios.Logica
         public bool Configurar_Control(string tag)
         {
             Sesion sesion = Sesion.INSTANCIA;
-            //Si esta funcion devuelve false, el control no va estar habilitado, si devuelve true, si
             if (tag == null || tag == "" || sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador")
             {
                 return true;
@@ -28,7 +27,10 @@ namespace Servicios.Logica
 
         public bool EliminarPermiso(string pNombre)
         {
-            return ormPermiso.EliminarPermiso(pNombre);
+            bool aux = ormPermiso.EliminarPermiso(pNombre);
+            DatosDV.INSTANCIA.CalcularDvvTabla("RelacionPermisos");
+            DatosDV.INSTANCIA.CalcularDvvTabla("Permiso");
+            return aux;
         }
 
         public List<EntidadPermiso> ObtenerPermisos(string tipo)

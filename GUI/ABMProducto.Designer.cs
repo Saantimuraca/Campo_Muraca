@@ -51,6 +51,7 @@
             this.RbInactivos = new System.Windows.Forms.RadioButton();
             this.RbActivos = new System.Windows.Forms.RadioButton();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.BtnSolicitarReposición = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -264,7 +265,7 @@
             // 
             this.BtnModificar.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnModificar.Location = new System.Drawing.Point(921, 16);
+            this.BtnModificar.Location = new System.Drawing.Point(921, 15);
             this.BtnModificar.Name = "BtnModificar";
             this.BtnModificar.Size = new System.Drawing.Size(90, 30);
             this.BtnModificar.TabIndex = 18;
@@ -290,12 +291,12 @@
             // 
             this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarSeleccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(1270, 16);
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(165, 597);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
             this.BtnEliminarSeleccion.Size = new System.Drawing.Size(103, 40);
             this.BtnEliminarSeleccion.TabIndex = 20;
             this.BtnEliminarSeleccion.Tag = "";
-            this.BtnEliminarSeleccion.Text = "Eliminar Selección";
+            this.BtnEliminarSeleccion.Text = "Eliminar selección";
             this.BtnEliminarSeleccion.UseVisualStyleBackColor = false;
             this.BtnEliminarSeleccion.Click += new System.EventHandler(this.BtnEliminarSeleccion_Click);
             // 
@@ -339,12 +340,25 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // BtnSolicitarReposición
+            // 
+            this.BtnSolicitarReposición.BackColor = System.Drawing.Color.SlateBlue;
+            this.BtnSolicitarReposición.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSolicitarReposición.Location = new System.Drawing.Point(908, 597);
+            this.BtnSolicitarReposición.Name = "BtnSolicitarReposición";
+            this.BtnSolicitarReposición.Size = new System.Drawing.Size(103, 40);
+            this.BtnSolicitarReposición.TabIndex = 24;
+            this.BtnSolicitarReposición.Tag = "";
+            this.BtnSolicitarReposición.Text = "Solicitar reposición";
+            this.BtnSolicitarReposición.UseVisualStyleBackColor = false;
+            // 
             // ABMProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1380, 649);
+            this.Controls.Add(this.BtnSolicitarReposición);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.RbInactivos);
             this.Controls.Add(this.RbActivos);
@@ -402,5 +416,6 @@
         private System.Windows.Forms.RadioButton RbInactivos;
         private System.Windows.Forms.RadioButton RbActivos;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button BtnSolicitarReposición;
     }
 }

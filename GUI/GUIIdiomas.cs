@@ -102,6 +102,7 @@ namespace GUI
             Traductor.INSTANCIA.ActualizarIdioma(sesion.ObtenerIdiomaSesion());
             Traductor.INSTANCIA.Notificar();
             b.RegistrarBitacora(b.CrearBitacora(sesion.ObtenerUsuarioActual(), "Modificación de traduccion", 1));
+            MessageBox.Show("Traducciones cargadas");
         }
         private void AgregarColumna(string pIdioma)
         {

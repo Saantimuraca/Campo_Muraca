@@ -205,6 +205,7 @@ namespace GUI
             try
             {
                 LogicaUsuario bllUsuario = new LogicaUsuario();
+                //AGREGAR VALIDACIÓN SI NO ELIGE UN IDIMA
                 bllUsuario.CambiarIdioma(sesion.ObtenerUsuarioActual(), CbIdioma.SelectedItem.ToString());
                 Traductor traductor = Traductor.INSTANCIA;
                 traductor.ActualizarIdioma(sesion.ObtenerIdiomaSesion());

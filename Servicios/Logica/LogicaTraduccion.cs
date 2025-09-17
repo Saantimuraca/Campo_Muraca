@@ -30,6 +30,7 @@ namespace Servicios.Logica
             {
                 dalTraductor.AgregarDvh(dalTraductor.DevolverRow(par.Key, idIdioma), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalTraductor.DevolverRow(par.Key, idIdioma)));
             }
+            dalTraductor.Actualizar();
             DatosDV.INSTANCIA.CalcularDvvTabla("Traduccion");
         }
 

@@ -106,11 +106,23 @@
     <Compile Include="GUIConfirmarPedido.Designer.cs">
       <DependentUpon>GUIConfirmarPedido.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUIEvaluarViabilidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIEvaluarViabilidad.Designer.cs">
+      <DependentUpon>GUIEvaluarViabilidad.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIIdiomas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUIIdiomas.Designer.cs">
       <DependentUpon>GUIIdiomas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIPagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIPagos.Designer.cs">
+      <DependentUpon>GUIPagos.cs</DependentUpon>
     </Compile>
     <Compile Include="GUIRegistrarCliente.cs">
       <SubType>Form</SubType>
@@ -123,6 +135,12 @@
     </Compile>
     <Compile Include="GUIRegistrarPedido.Designer.cs">
       <DependentUpon>GUIRegistrarPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUISueldos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUISueldos.Designer.cs">
+      <DependentUpon>GUISueldos.cs</DependentUpon>
     </Compile>
     <Compile Include="HistoriaProductos.cs">
       <SubType>Form</SubType>
@@ -183,14 +201,23 @@
     <EmbeddedResource Include="GUIConfirmarPedido.resx">
       <DependentUpon>GUIConfirmarPedido.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUIEvaluarViabilidad.resx">
+      <DependentUpon>GUIEvaluarViabilidad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUIIdiomas.resx">
       <DependentUpon>GUIIdiomas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIPagos.resx">
+      <DependentUpon>GUIPagos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIRegistrarCliente.resx">
       <DependentUpon>GUIRegistrarCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIRegistrarPedido.resx">
       <DependentUpon>GUIRegistrarPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUISueldos.resx">
+      <DependentUpon>GUISueldos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HistoriaProductos.resx">
       <DependentUpon>HistoriaProductos.cs</DependentUpon>

@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.LblOrdenesCompra = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LblEstado = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.ErrorRol = new System.Windows.Forms.Label();
             this.BtnFinalizar = new System.Windows.Forms.Button();
+            this.LblOrdenesCompra = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,27 +48,16 @@
             this.dataGridView1.Size = new System.Drawing.Size(405, 416);
             this.dataGridView1.TabIndex = 0;
             // 
-            // LblOrdenesCompra
+            // LblEstado
             // 
-            this.LblOrdenesCompra.AutoSize = true;
-            this.LblOrdenesCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblOrdenesCompra.ForeColor = System.Drawing.Color.White;
-            this.LblOrdenesCompra.Location = new System.Drawing.Point(158, 6);
-            this.LblOrdenesCompra.Name = "LblOrdenesCompra";
-            this.LblOrdenesCompra.Size = new System.Drawing.Size(117, 13);
-            this.LblOrdenesCompra.TabIndex = 1;
-            this.LblOrdenesCompra.Text = "Ordenes de compra";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(423, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Seleccione un estado";
+            this.LblEstado.AutoSize = true;
+            this.LblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblEstado.ForeColor = System.Drawing.Color.White;
+            this.LblEstado.Location = new System.Drawing.Point(423, 22);
+            this.LblEstado.Name = "LblEstado";
+            this.LblEstado.Size = new System.Drawing.Size(130, 13);
+            this.LblEstado.TabIndex = 2;
+            this.LblEstado.Text = "Seleccione un estado";
             // 
             // comboBox1
             // 
@@ -102,6 +91,17 @@
             this.BtnFinalizar.Text = "FINALIZAR";
             this.BtnFinalizar.UseVisualStyleBackColor = false;
             // 
+            // LblOrdenesCompra
+            // 
+            this.LblOrdenesCompra.AutoSize = true;
+            this.LblOrdenesCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblOrdenesCompra.ForeColor = System.Drawing.Color.White;
+            this.LblOrdenesCompra.Location = new System.Drawing.Point(158, 6);
+            this.LblOrdenesCompra.Name = "LblOrdenesCompra";
+            this.LblOrdenesCompra.Size = new System.Drawing.Size(117, 13);
+            this.LblOrdenesCompra.TabIndex = 1;
+            this.LblOrdenesCompra.Text = "Ordenes de compra";
+            // 
             // OrdenesCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -111,7 +111,7 @@
             this.Controls.Add(this.BtnFinalizar);
             this.Controls.Add(this.ErrorRol);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.LblEstado);
             this.Controls.Add(this.LblOrdenesCompra);
             this.Controls.Add(this.dataGridView1);
             this.Name = "OrdenesCompra";
@@ -125,10 +125,10 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label LblOrdenesCompra;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LblEstado;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label ErrorRol;
         private System.Windows.Forms.Button BtnFinalizar;
+        private System.Windows.Forms.Label LblOrdenesCompra;
     }
 }

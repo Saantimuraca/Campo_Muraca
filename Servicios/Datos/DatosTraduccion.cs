@@ -69,8 +69,8 @@ namespace Servicios.Datos
 
         private int DevolverIdTextoTraducir(string pTextoTraducir)
         {
-            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Traduccion").Select($"nombre = '{pTextoTraducir}'").FirstOrDefault();
-            return int.Parse(dr[1].ToString());
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Etiqueta").Select($"nombre = '{pTextoTraducir}'").FirstOrDefault();
+            return int.Parse(dr[0].ToString());
         }
 
         public int DevolverUltimoId()
