@@ -34,7 +34,7 @@ namespace GUI
             traductor.Suscribir(this);
             traductor.Notificar();
             CargarIdiomas();
-            
+            CbIdioma.SelectedItem = sesion.ObtenerUsuarioActual().Idioma;
         }
 
         public void CargarIdiomas()
@@ -308,6 +308,12 @@ namespace GUI
         private void aBMProductosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ABMProducto gui = new ABMProducto();
+            gui.Show();
+        }
+
+        private void solicitudesDeReposiciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RevisarSolicitudes gui = new RevisarSolicitudes();
             gui.Show();
         }
     }

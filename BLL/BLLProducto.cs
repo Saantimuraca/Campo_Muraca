@@ -27,6 +27,7 @@ namespace BLL
             DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
         }
 
+
         public void ModificarStock(int id, int cantidad)
         {
             dal.ModificarStock(id, cantidad);

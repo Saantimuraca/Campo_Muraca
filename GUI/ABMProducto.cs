@@ -19,6 +19,7 @@ namespace GUI
         List<Label> labels = new List<Label>();
         BLLCategoria bllCategoria = new BLLCategoria();
         BLLProducto BLLProducto = new BLLProducto();
+        BLLSolicitudReposicion BLLSolicitud = new BLLSolicitudReposicion();
         public ABMProducto()
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace GUI
             RbActivos.Checked = true;
             Mostrar(Dgv, LinqProductos());
             BtnActualizarStock.Enabled = false;
+            BtnSolicitarReposición.Enabled = false;
         }
 
         private void Mostrar(DataGridView dgv, object obj)
@@ -41,7 +43,6 @@ namespace GUI
             dgv.DataSource = null;
             dgv.DataSource = obj;
             dgv.Columns[0].Visible = false;
-            dgv.Columns["ReposicionAprobada"].Visible = false;
             dgv.Columns["Producto"].HeaderText = Traductor.INSTANCIA.Traducir("LblNombreProducto", "");
             dgv.Columns["Descripción"].HeaderText = Traductor.INSTANCIA.Traducir("LblDescripcion", "");
             dgv.Columns["Precio"].HeaderText = Traductor.INSTANCIA.Traducir("LblPrecio", "");
@@ -51,7 +52,7 @@ namespace GUI
 
         private object LinqProductos()
         {
-            return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, ReposicionAprobada = p.resposicionAprobada }).ToList();
+            return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre }).ToList();
         }
 
         private void LlenarComboBox()
@@ -103,7 +104,7 @@ namespace GUI
                     decimal precio = decimal.Parse(TxtPrecio.Text);
                     int stock = int.Parse(numericUpDown1.Value.ToString());
                     BECategoria categoria = comboBox1.SelectedItem as BECategoria;
-                    BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, true, false);
+                    BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, true);
                     BLLProducto.Agregar(producto);
                     LimpiarControles();
                 }
@@ -152,8 +153,9 @@ namespace GUI
             var categoriaNombre = Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString();
             var item = comboBox1.Items.Cast<BECategoria>().FirstOrDefault(x => x.nombre == categoriaNombre);
             comboBox1.SelectedItem = item;
-            if (bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString())) { BtnActualizarStock.Enabled = true; }
-            else { BtnActualizarStock.Enabled = false; }
+            //Orden compra
+            if(Dgv.SelectedRows.Count  > 0) { BtnSolicitarReposición.Enabled = true; }
+            else { BtnSolicitarReposición.Enabled= false; }
         }
 
         private void LimpiarControles()
@@ -186,7 +188,7 @@ namespace GUI
                     int stock = int.Parse(numericUpDown1.Value.ToString());
                     BECategoria categoria = comboBox1.SelectedItem as BECategoria;
                     bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
-                    BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, RbActivos.Checked, reposicionAprobada);
+                    BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, RbActivos.Checked);
                     producto.idProducto = int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString());
                     string historiaNombre = Dgv.SelectedRows[0].Cells["Producto"].Value.ToString();
                     string historiaDescripcion = Dgv.SelectedRows[0].Cells["Descripción"].Value.ToString();
@@ -194,7 +196,7 @@ namespace GUI
                     decimal historiaPrecio = decimal.Parse(sinSimbolo2);
                     BLLProducto.Modificar(producto);    
                     BECategoria historiaCategoria = bllCategoria.ListaCategoria().Find(x => x.nombre == Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString());
-                    BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, reposicionAprobada, producto.idProducto);
+                    BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, producto.idProducto);
                     BLLProducto.AgregarHistoria(historiaProducto);
                     LimpiarControles();
                 }
@@ -218,7 +220,7 @@ namespace GUI
                     bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
                     BLLProducto.ModificarStock(id, stock);
                     BECategoria historiaCategoria = bllCategoria.ListaCategoria().Find(x => x.nombre == Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString());
-                    BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, reposicionAprobada, id);
+                    BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, id);
                     BLLProducto.AgregarHistoria(historiaProducto);
                     LimpiarControles();
                 }
@@ -235,7 +237,8 @@ namespace GUI
 
         private object LinqProductosAprobados()
         {
-            return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked && p.resposicionAprobada == true select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, ReposicionAprobada = p.resposicionAprobada }).ToList();
+            //return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked && p.resposicionAprobada == true select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, ReposicionAprobada = p.resposicionAprobada }).ToList();
+            return null;
         }
 
         public void ActualizarLenguaje()
@@ -263,6 +266,21 @@ namespace GUI
         private void Dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void BtnSolicitarReposición_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string motivo = Interaction.InputBox("Motivo");
+                if (string.IsNullOrWhiteSpace(motivo)) throw new Exception("Motivo inválido");
+                BEProducto producto = BLLProducto.ListarProductos().Find(x => x.idProducto == int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()));
+                if (BLLSolicitud.ExisteSolicitud(producto.idProducto)) throw new Exception("Ya existe una solicitud pendiente o en revisión de este producto");
+                BESolicitudReposicion solicitudReposicion = new BESolicitudReposicion(producto, DateTime.Now, motivo, "En revisión");
+                BLLSolicitud.Agregar(solicitudReposicion);
+                MessageBox.Show("Solicitud de reposición solicitada con éxito");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
     }
 }

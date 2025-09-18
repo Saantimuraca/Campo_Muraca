@@ -26,7 +26,7 @@ namespace Servicios.Datos
         }
         private Gestor_Datos gestorDatos = Gestor_Datos.INSTANCIA;
         DatosPermiso ormPermiso = new DatosPermiso();
-
+        DatosIdioma di = new DatosIdioma();
         public void AgregarUsuario(EntidadUsuario pUsuario)
         {
             DataRow drUsuario = gestorDatos.DevolverTabla("Usuario").NewRow();
@@ -146,10 +146,14 @@ namespace Servicios.Datos
             foreach(DataRowView row in Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaUsuario").DefaultView)
             {
                 EntidadPermisoCompuesto rol = ormPermiso.DevolverPermsisosArbol().Find(x => x.DevolverNombrePermiso() == row["rol"].ToString()) as EntidadPermisoCompuesto;
-                EntidadHistoriaUsuario historia = new EntidadHistoriaUsuario(int.Parse(row["id"].ToString()), row["dniUsuario"].ToString(), row["nombre"].ToString(), row["mail"].ToString(),
+                EntidadIdioma idioma = di.ListaIdiomas().Find(x => x.idioma == row["idioma"].ToString());
+                if(rol != null && idioma != null)
+                {
+                    EntidadHistoriaUsuario historia = new EntidadHistoriaUsuario(int.Parse(row["id"].ToString()), row["dniUsuario"].ToString(), row["nombre"].ToString(), row["mail"].ToString(),
                     row["contraseña"].ToString(), DateTime.Parse(row["fechaNacimiento"].ToString()), DateTime.Parse(row["fechaCreacion"].ToString()), row["telefono"].ToString(),
                     bool.Parse(row["estado"].ToString()), rol, row["idioma"].ToString(), DateTime.Parse(row["fechaModificacion"].ToString()));
-                lista.Add(historia);
+                    lista.Add(historia);
+                }
             }
             return lista;
         }

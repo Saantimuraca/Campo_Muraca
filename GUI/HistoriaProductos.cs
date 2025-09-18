@@ -62,7 +62,7 @@ namespace GUI
                 bool stockBajo = bool.Parse(Dgv.SelectedRows[0].Cells["StockBajo"].Value.ToString());
                 bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
                 DateTime fechaModificacion = DateTime.Parse(Dgv.SelectedRows[0].Cells["FechaModificacion"].Value.ToString());
-                BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, estado, reposicionAprobada, id, stockBajo);
+                BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, estado, id, stockBajo);
                 if(bllProducto.RollBack(producto))
                 {
                     MessageBox.Show(Traductor.INSTANCIA.Traducir("RollBack exitoso", ""));

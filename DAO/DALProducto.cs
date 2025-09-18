@@ -88,7 +88,7 @@ namespace DAO
             foreach(DataRowView row in Gestor_Datos.INSTANCIA.DevolverTabla("Producto").DefaultView)
             {
                 BECategoria categoria = dAL.ListaCategorias().Find(x => x.idCategoria == int.Parse(row[5].ToString()));
-                BEProducto producto = new BEProducto(row[1].ToString(), row[2].ToString(), decimal.Parse(row[3].ToString()), int.Parse(row[4].ToString()), categoria, bool.Parse(row[6].ToString()), bool.Parse(row[8].ToString()), int.Parse(row[0].ToString()), bool.Parse(row[7].ToString()));
+                BEProducto producto = new BEProducto(row[1].ToString(), row[2].ToString(), decimal.Parse(row[3].ToString()), int.Parse(row[4].ToString()), categoria, bool.Parse(row[6].ToString()), int.Parse(row[0].ToString()), bool.Parse(row[7].ToString()));
                 lista.Add(producto);
             }
             return lista;
@@ -105,7 +105,7 @@ namespace DAO
             foreach (DataRowView row in vistaFiltrada)
             {
                 BECategoria categoria = dAL.ListaCategorias().Find(x => x.idCategoria == int.Parse(row[5].ToString()));
-                BEProducto producto = new BEProducto(row[1].ToString(), row[2].ToString(), decimal.Parse(row[3].ToString()), int.Parse(row[4].ToString()), categoria, bool.Parse(row[6].ToString()), bool.Parse(row[8].ToString()), int.Parse(row[0].ToString()), bool.Parse(row[7].ToString()));
+                BEProducto producto = new BEProducto(row[1].ToString(), row[2].ToString(), decimal.Parse(row[3].ToString()), int.Parse(row[4].ToString()), categoria, bool.Parse(row[6].ToString()), int.Parse(row[0].ToString()), bool.Parse(row[7].ToString()));
                 lista.Add(producto);
             }
             return lista;
@@ -149,7 +149,6 @@ namespace DAO
             dr["idCategoria"] = pProducto.categoria.idCategoria;
             dr["estado"] = pProducto.estado;
             dr["isBajoStock"] = pProducto.isBajoStock;
-            dr["reposicionAprobada"] = pProducto.resposicionAprobada;
             dr["fechaModificacion"] = DateTime.Now;
             Gestor_Datos.INSTANCIA.DevolverTabla("HistoriaProducto").Rows.Add(dr);
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("HistoriaProducto");
@@ -204,7 +203,6 @@ namespace DAO
             dr["stock"] = pProducto.stock;
             dr["estado"] = pProducto.estado;
             dr["isBajoStock"] = pProducto.isBajoStock;
-            dr["reposicionAprobada"] = pProducto.resposicionAprobada;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
         }
     }

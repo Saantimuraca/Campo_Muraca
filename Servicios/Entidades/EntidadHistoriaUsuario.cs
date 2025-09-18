@@ -32,6 +32,8 @@ namespace Servicios.Entidades
 
         public DateTime fechaModificacion { get; set; }
 
+        public bool flag {  get; set; }
+
         public EntidadHistoriaUsuario(int pid, string pDni, string pNombre, string  pMail, string pContraseña, DateTime pFechaNacimiento, DateTime pFechaCreacion, string pTelefono, bool pEstado, EntidadPermisoCompuesto pRol, string pIdioma, DateTime pFechaModificacion)
         {
             id = pid;

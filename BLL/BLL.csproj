@@ -60,6 +60,7 @@
     <Compile Include="BLLCliente.cs" />
     <Compile Include="BLLPedido.cs" />
     <Compile Include="BLLProducto.cs" />
+    <Compile Include="BLLSolicitudReposicion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -278,7 +278,7 @@
             // 
             this.BtnActualizarStock.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnActualizarStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnActualizarStock.Location = new System.Drawing.Point(533, 597);
+            this.BtnActualizarStock.Location = new System.Drawing.Point(457, 597);
             this.BtnActualizarStock.Name = "BtnActualizarStock";
             this.BtnActualizarStock.Size = new System.Drawing.Size(103, 40);
             this.BtnActualizarStock.TabIndex = 19;
@@ -291,7 +291,7 @@
             // 
             this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnEliminarSeleccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(165, 597);
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(1265, 10);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
             this.BtnEliminarSeleccion.Size = new System.Drawing.Size(103, 40);
             this.BtnEliminarSeleccion.TabIndex = 20;
@@ -344,13 +344,14 @@
             // 
             this.BtnSolicitarReposición.BackColor = System.Drawing.Color.SlateBlue;
             this.BtnSolicitarReposición.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSolicitarReposición.Location = new System.Drawing.Point(908, 597);
+            this.BtnSolicitarReposición.Location = new System.Drawing.Point(631, 597);
             this.BtnSolicitarReposición.Name = "BtnSolicitarReposición";
             this.BtnSolicitarReposición.Size = new System.Drawing.Size(103, 40);
             this.BtnSolicitarReposición.TabIndex = 24;
             this.BtnSolicitarReposición.Tag = "";
             this.BtnSolicitarReposición.Text = "Solicitar reposición";
             this.BtnSolicitarReposición.UseVisualStyleBackColor = false;
+            this.BtnSolicitarReposición.Click += new System.EventHandler(this.BtnSolicitarReposición_Click);
             // 
             // ABMProducto
             // 

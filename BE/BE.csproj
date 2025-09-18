@@ -52,8 +52,10 @@
     <Compile Include="BECategoria.cs" />
     <Compile Include="BECliente.cs" />
     <Compile Include="BEHistoriaProducto.cs" />
+    <Compile Include="BEOrdenCompra.cs" />
     <Compile Include="BEPedido.cs" />
     <Compile Include="BEProducto.cs" />
+    <Compile Include="BESolicitudReposicion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

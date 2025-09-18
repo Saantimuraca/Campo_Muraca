@@ -52,6 +52,7 @@
             this.BtnCambiarContrasena = new System.Windows.Forms.Button();
             this.BtnCambiarIdioma = new System.Windows.Forms.Button();
             this.CbIdioma = new System.Windows.Forms.ComboBox();
+            this.solicitudesDeReposiciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,7 +167,7 @@
             // aBMClientesToolStripMenuItem
             // 
             this.aBMClientesToolStripMenuItem.Name = "aBMClientesToolStripMenuItem";
-            this.aBMClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aBMClientesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.aBMClientesToolStripMenuItem.Tag = "ABM Cliente";
             this.aBMClientesToolStripMenuItem.Text = "ABM Clientes";
             this.aBMClientesToolStripMenuItem.Click += new System.EventHandler(this.aBMClientesToolStripMenuItem_Click);
@@ -210,7 +211,8 @@
             // productosToolStripMenuItem
             // 
             this.productosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aBMProductosToolStripMenuItem});
+            this.aBMProductosToolStripMenuItem,
+            this.solicitudesDeReposiciónToolStripMenuItem});
             this.productosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
             this.productosToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
@@ -220,7 +222,7 @@
             // aBMProductosToolStripMenuItem
             // 
             this.aBMProductosToolStripMenuItem.Name = "aBMProductosToolStripMenuItem";
-            this.aBMProductosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aBMProductosToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.aBMProductosToolStripMenuItem.Tag = "ABM Productos";
             this.aBMProductosToolStripMenuItem.Text = "ABM Productos";
             this.aBMProductosToolStripMenuItem.Click += new System.EventHandler(this.aBMProductosToolStripMenuItem_Click);
@@ -295,6 +297,13 @@
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
             // 
+            // solicitudesDeReposiciónToolStripMenuItem
+            // 
+            this.solicitudesDeReposiciónToolStripMenuItem.Name = "solicitudesDeReposiciónToolStripMenuItem";
+            this.solicitudesDeReposiciónToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.solicitudesDeReposiciónToolStripMenuItem.Text = "Solicitudes de Reposición";
+            this.solicitudesDeReposiciónToolStripMenuItem.Click += new System.EventHandler(this.solicitudesDeReposiciónToolStripMenuItem_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -350,5 +359,6 @@
         private System.Windows.Forms.ToolStripMenuItem cobrarPedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aBMProductosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem solicitudesDeReposiciónToolStripMenuItem;
     }
 }
