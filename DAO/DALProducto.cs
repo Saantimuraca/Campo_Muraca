@@ -188,7 +188,7 @@ namespace DAO
                 BECategoria categoria = new BECategoria(drCategoria["nombre"].ToString(), int.Parse(drCategoria["idCategoria"].ToString()));
                 BEHistoriaProducto historia = new BEHistoriaProducto(int.Parse(row["id"].ToString()), int.Parse(row["idProducto"].ToString()), row["nombre"].ToString(),
                     row["descripcion"].ToString(), decimal.Parse(row["precio"].ToString()), int.Parse(row["stock"].ToString()), categoria, bool.Parse(row["estado"].ToString()),
-                    bool.Parse(row["isBajoStock"].ToString()), bool.Parse(row["reposicionAprobada"].ToString()), DateTime.Parse(row["fechaModificacion"].ToString()));
+                    bool.Parse(row["isBajoStock"].ToString()), DateTime.Parse(row["fechaModificacion"].ToString()));
                 lista.Add(historia);
             }
             return lista;

@@ -20,6 +20,7 @@ namespace GUI
         BLLCategoria bllCategoria = new BLLCategoria();
         BLLProducto BLLProducto = new BLLProducto();
         BLLSolicitudReposicion BLLSolicitud = new BLLSolicitudReposicion();
+        List<string> lista = new List<string>();
         public ABMProducto()
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace GUI
             Mostrar(Dgv, LinqProductos());
             BtnActualizarStock.Enabled = false;
             BtnSolicitarReposición.Enabled = false;
+            lista.Clear();
         }
 
         private void Mostrar(DataGridView dgv, object obj)
@@ -154,9 +156,15 @@ namespace GUI
             var categoriaNombre = Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString();
             var item = comboBox1.Items.Cast<BECategoria>().FirstOrDefault(x => x.nombre == categoriaNombre);
             comboBox1.SelectedItem = item;
-            //Orden compra
-            if(Dgv.SelectedRows.Count  > 0) { BtnSolicitarReposición.Enabled = true; }
-            else { BtnSolicitarReposición.Enabled= false; }
+            if (EvaluarOdenCompra(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()))) { BtnActualizarStock.Enabled = true; }
+            else { BtnActualizarStock.Enabled= false; }
+            if (Dgv.SelectedRows.Count > 0) { BtnSolicitarReposición.Enabled = true; }
+            else { BtnSolicitarReposición.Enabled = false; }
+        }
+
+        private bool EvaluarOdenCompra(int pIdProducto)
+        {
+            return BLLProducto.ListaProductosAprobados().Find(x => x.idProducto == pIdProducto) == null ? false : true;
         }
 
         private void LimpiarControles()
@@ -213,17 +221,24 @@ namespace GUI
                 {
                     string aux = Interaction.InputBox(Traductor.INSTANCIA.Traducir("Ingrese la nueva cantidad", ""));
                     if (!int.TryParse(aux, out int stock)) throw new Exception(Traductor.INSTANCIA.Traducir("Número inválido", ""));
+                    if (stock == int.Parse(Dgv.SelectedRows[0].Cells["Stock"].Value.ToString())) throw new Exception("No puede ingresar la misma cantidad de stock que el producto tiene actualmente");
                     int id = int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString());
                     string historiaNombre = Dgv.SelectedRows[0].Cells["Producto"].Value.ToString();
                     string historiaDescripcion = Dgv.SelectedRows[0].Cells["Descripción"].Value.ToString();
                     string sinSimbolo2 = Dgv.SelectedRows[0].Cells["Precio"].Value.ToString().Replace("$", "");
                     decimal historiaPrecio = decimal.Parse(sinSimbolo2);
-                    bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
                     BLLProducto.ModificarStock(id, stock);
+                    BLLProducto.CambiarEstadoStock(id, false);
                     BECategoria historiaCategoria = bllCategoria.ListaCategoria().Find(x => x.nombre == Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString());
                     BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, id);
                     BLLProducto.AgregarHistoria(historiaProducto);
                     LimpiarControles();
+                    lista.Add(historiaNombre);
+                    TxtStockActualizado.Text = "";
+                    foreach(string producto in  lista)
+                    {
+                        TxtStockActualizado.Text += producto + Environment.NewLine;
+                    }
                 }
        
             }

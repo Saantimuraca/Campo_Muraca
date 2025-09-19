@@ -35,6 +35,13 @@ namespace BLL
             DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
         }
 
+        public void CambiarEstadoStock(int id, bool estado)
+        {
+            dal.CambiarEstadoStock(id, estado);
+            dal.AgregarDvh(dal.DevolverRow(id), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRow(id)));
+            DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
+        }
+
         public void NotificarBajoStock(int id)
         {
             dal.CambiarEstadoStock(id, true);

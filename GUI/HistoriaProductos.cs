@@ -37,14 +37,13 @@ namespace GUI
             Dgv.Columns["Categoria"].HeaderText = Traductor.INSTANCIA.Traducir("LblCategoria", "");
             Dgv.Columns["Estado"].HeaderText = Traductor.INSTANCIA.Traducir("Estado", "");
             Dgv.Columns["StockBajo"].HeaderText = Traductor.INSTANCIA.Traducir("¿Stock bajo?", "");
-            Dgv.Columns["ReposicionAprobada"].HeaderText = Traductor.INSTANCIA.Traducir("¿Reposicion aprobada?", "");
             Dgv.Columns["FechaModificacion"].HeaderText = Traductor.INSTANCIA.Traducir("FECHA DE MODIFICACIÓN", Sesion.INSTANCIA.ObtenerIdiomaSesion());
         }
 
         private object Linq()
         {
             return (from h in bllProducto.ListaHistorias() where h.idProducto == idProductoSeleccionado select new {Id = h.id, Id_Producto = h.idProducto, Producto = h.nombre, Descripción = h.descripcion, Precio = $"${h.precio}", Stock = h.stock, Categoria = h.categoria.nombre,
-            Estado = h.estado, StockBajo = h.isBajoStock, ReposicionAprobada = h.reposicionAprobada, FechaModificacion = h.fechaModificacion}).ToList();
+            Estado = h.estado, StockBajo = h.isBajoStock, FechaModificacion = h.fechaModificacion}).ToList();
         }
 
         private void BtnRollBack_Click(object sender, EventArgs e)
@@ -60,7 +59,6 @@ namespace GUI
                 BECategoria categoria = bllCategoria.ListaCategoria().Find(x => x.nombre == Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString());
                 bool estado = bool.Parse(Dgv.SelectedRows[0].Cells["Estado"].Value.ToString());
                 bool stockBajo = bool.Parse(Dgv.SelectedRows[0].Cells["StockBajo"].Value.ToString());
-                bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
                 DateTime fechaModificacion = DateTime.Parse(Dgv.SelectedRows[0].Cells["FechaModificacion"].Value.ToString());
                 BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, estado, id, stockBajo);
                 if(bllProducto.RollBack(producto))

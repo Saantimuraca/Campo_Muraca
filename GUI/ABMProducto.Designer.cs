@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Dgv = new System.Windows.Forms.DataGridView();
             this.LblNombreProducto = new System.Windows.Forms.Label();
             this.TxtProducto = new System.Windows.Forms.TextBox();
@@ -52,6 +53,9 @@
             this.RbActivos = new System.Windows.Forms.RadioButton();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.BtnSolicitarReposición = new System.Windows.Forms.Button();
+            this.TxtStockActualizado = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.LblStockActualizado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -354,12 +358,39 @@
             this.BtnSolicitarReposición.UseVisualStyleBackColor = false;
             this.BtnSolicitarReposición.Click += new System.EventHandler(this.BtnSolicitarReposición_Click);
             // 
+            // TxtStockActualizado
+            // 
+            this.TxtStockActualizado.Location = new System.Drawing.Point(12, 189);
+            this.TxtStockActualizado.Multiline = true;
+            this.TxtStockActualizado.Name = "TxtStockActualizado";
+            this.TxtStockActualizado.Size = new System.Drawing.Size(147, 261);
+            this.TxtStockActualizado.TabIndex = 25;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // LblStockActualizado
+            // 
+            this.LblStockActualizado.AutoSize = true;
+            this.LblStockActualizado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.LblStockActualizado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblStockActualizado.ForeColor = System.Drawing.Color.White;
+            this.LblStockActualizado.Location = new System.Drawing.Point(15, 173);
+            this.LblStockActualizado.Name = "LblStockActualizado";
+            this.LblStockActualizado.Size = new System.Drawing.Size(144, 13);
+            this.LblStockActualizado.TabIndex = 27;
+            this.LblStockActualizado.Text = "Se actualizó el stock de";
+            // 
             // ABMProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1380, 649);
+            this.Controls.Add(this.LblStockActualizado);
+            this.Controls.Add(this.TxtStockActualizado);
             this.Controls.Add(this.BtnSolicitarReposición);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.RbInactivos);
@@ -419,5 +450,8 @@
         private System.Windows.Forms.RadioButton RbActivos;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button BtnSolicitarReposición;
+        private System.Windows.Forms.TextBox TxtStockActualizado;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Label LblStockActualizado;
     }
 }

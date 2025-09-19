@@ -26,11 +26,10 @@ namespace BE
 
         public bool isBajoStock { get; set; }
 
-        public bool reposicionAprobada { get; set; }
 
         public DateTime fechaModificacion { get; set; }
 
-        public BEHistoriaProducto(int pId, int pIdProducto, string pNombre, string pDescripcion, decimal pPrecio, int pStock, BECategoria pCategoria, bool pEstado, bool pIsBajoStock, bool pReposicionAprobada, DateTime pFechaModificacion)
+        public BEHistoriaProducto(int pId, int pIdProducto, string pNombre, string pDescripcion, decimal pPrecio, int pStock, BECategoria pCategoria, bool pEstado, bool pIsBajoStock, DateTime pFechaModificacion)
         {
             id = pId;
             idProducto = pIdProducto;
@@ -41,7 +40,6 @@ namespace BE
             categoria = pCategoria;
             estado = pEstado;
             isBajoStock = pIsBajoStock;
-            reposicionAprobada = pReposicionAprobada;
             fechaModificacion = pFechaModificacion;
         }
     }
