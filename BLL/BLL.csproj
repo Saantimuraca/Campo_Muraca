@@ -58,6 +58,7 @@
     <Compile Include="BLLCarrito.cs" />
     <Compile Include="BLLCategoria.cs" />
     <Compile Include="BLLCliente.cs" />
+    <Compile Include="BLLOrdenCompra.cs" />
     <Compile Include="BLLPedido.cs" />
     <Compile Include="BLLProducto.cs" />
     <Compile Include="BLLSolicitudReposicion.cs" />

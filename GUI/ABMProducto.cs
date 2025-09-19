@@ -43,6 +43,7 @@ namespace GUI
             dgv.DataSource = null;
             dgv.DataSource = obj;
             dgv.Columns[0].Visible = false;
+            dgv.Columns["BajoStock"].Visible = false;
             dgv.Columns["Producto"].HeaderText = Traductor.INSTANCIA.Traducir("LblNombreProducto", "");
             dgv.Columns["Descripción"].HeaderText = Traductor.INSTANCIA.Traducir("LblDescripcion", "");
             dgv.Columns["Precio"].HeaderText = Traductor.INSTANCIA.Traducir("LblPrecio", "");
@@ -52,7 +53,7 @@ namespace GUI
 
         private object LinqProductos()
         {
-            return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre }).ToList();
+            return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, BajoStock = p.isBajoStock }).ToList();
         }
 
         private void LlenarComboBox()
@@ -237,8 +238,7 @@ namespace GUI
 
         private object LinqProductosAprobados()
         {
-            //return (from p in BLLProducto.ListarProductos() where p.estado == RbActivos.Checked && p.resposicionAprobada == true select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, ReposicionAprobada = p.resposicionAprobada }).ToList();
-            return null;
+            return (from p in BLLProducto.ListaProductosAprobados() where p.estado == RbActivos.Checked select new { ID = p.idProducto, Producto = p.nombre, Descripción = p.descripcion, Precio = $"${p.precio}", Stock = p.stock, Categoria = p.categoria.nombre, BajoStock = p.isBajoStock }).ToList();
         }
 
         public void ActualizarLenguaje()
@@ -272,15 +272,32 @@ namespace GUI
         {
             try
             {
-                string motivo = Interaction.InputBox("Motivo");
-                if (string.IsNullOrWhiteSpace(motivo)) throw new Exception("Motivo inválido");
                 BEProducto producto = BLLProducto.ListarProductos().Find(x => x.idProducto == int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()));
                 if (BLLSolicitud.ExisteSolicitud(producto.idProducto)) throw new Exception("Ya existe una solicitud pendiente o en revisión de este producto");
+                string motivo = Interaction.InputBox("Motivo");
+                if (string.IsNullOrWhiteSpace(motivo)) throw new Exception("Motivo inválido");
                 BESolicitudReposicion solicitudReposicion = new BESolicitudReposicion(producto, DateTime.Now, motivo, "En revisión");
                 BLLSolicitud.Agregar(solicitudReposicion);
                 MessageBox.Show("Solicitud de reposición solicitada con éxito");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+        }
+
+        private void Dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            try
+            {
+                foreach (DataGridViewRow row in Dgv.Rows)
+                {
+                    if (bool.Parse(row.Cells[6].Value.ToString()))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Gray;
+                    }
+                }
+                Dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                Dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            }
+            catch { }
         }
     }
 }

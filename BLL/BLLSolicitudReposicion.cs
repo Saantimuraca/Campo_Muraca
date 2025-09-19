@@ -43,5 +43,10 @@ namespace BLL
         {
             dalSolicitud.AprobarSolicitud(pIdSolicitud);
         }
+
+        public void AsignarOrdenCompra(int pIdSolicitud, int pIdOrdenCompra)
+        {
+            dalSolicitud.AsignarOrdenCompra(pIdSolicitud, pIdOrdenCompra);
+        }
     }
 }

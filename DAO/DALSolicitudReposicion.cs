@@ -50,5 +50,13 @@ namespace DAO
             dr["estado"] = "Aprobada";
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("SolicitudReposicion");
         }
+
+        public void AsignarOrdenCompra(int pIdSolicitud, int pIdOrden)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("SolicitudReposicion").Rows.Find(pIdSolicitud);
+            dr["idOrdenCompra"] = pIdOrden;
+            dr["estado"] = "Pendiente";
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("SolicitudReposicion");
+        }
     }
 }

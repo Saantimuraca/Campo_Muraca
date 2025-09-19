@@ -127,6 +127,7 @@
             this.BtnCrearOrdenCompra.TabIndex = 8;
             this.BtnCrearOrdenCompra.Text = "Crear orden de compra";
             this.BtnCrearOrdenCompra.UseVisualStyleBackColor = false;
+            this.BtnCrearOrdenCompra.Click += new System.EventHandler(this.BtnCrearOrdenCompra_Click);
             // 
             // RevisarSolicitudes
             // 

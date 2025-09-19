@@ -84,5 +84,10 @@ namespace BLL
             }
             catch { return false; }
         }
+
+        public List<BEProducto> ListaProductosAprobados()
+        {
+            return dal.ListaProductosAprobados();
+        }
     }
 }
