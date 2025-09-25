@@ -316,5 +316,11 @@ namespace GUI
             RevisarSolicitudes gui = new RevisarSolicitudes();
             gui.Show();
         }
+
+        private void cajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GUICaja gui = new GUICaja();
+            gui.Show();
+        }
     }
 }

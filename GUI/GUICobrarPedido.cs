@@ -21,6 +21,7 @@ namespace GUI
         LogicaUsuario logicaUsuario = new LogicaUsuario();
         GeneradorFactura gf = new GeneradorFactura();
         LogicaBitacora bitacora = new LogicaBitacora();
+        BLLMovimientoCaja bllMovimiento = new BLLMovimientoCaja();
         public GUICobrarPedido()
         {
             InitializeComponent();
@@ -131,6 +132,9 @@ namespace GUI
             try
             {
                 bllPedido.CambiarEstado("Cobrado", int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()));
+                BEPedido pedido = bllPedido.ListarPedidos().Find(x => x.id == int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()));
+                BEMovimientoCaja movimiento = new BEMovimientoCaja($"Cobro del pedido {int.Parse(DgvPedidos.SelectedRows[0].Cells[0].Value.ToString())}", DateTime.Now, 
+                    pedido.total, comboBox1.SelectedItem.ToString(), true);
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Realizó el cobro del pedido {DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()}", 2));
                 Mostrar(DgvPedidos, LinqFacturados());
             }

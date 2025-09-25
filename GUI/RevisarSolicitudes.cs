@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using BE;
 using BLL;
 using Microsoft.VisualBasic;
+using Servicios;
+using Servicios.Logica;
 
 namespace GUI
 {
@@ -18,6 +20,7 @@ namespace GUI
         BLLSolicitudReposicion bllSolicitud = new BLLSolicitudReposicion();
         List<BESolicitudReposicion> lista = new List<BESolicitudReposicion>();
         BLLOrdenCompra bllOrdenCompra = new BLLOrdenCompra();
+        LogicaBitacora bitacora = new LogicaBitacora();
         public RevisarSolicitudes()
         {
             InitializeComponent();
@@ -49,6 +52,7 @@ namespace GUI
             {
                 bllSolicitud.Aprobar(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()));
                 Mostrar(Dgv, Linq(comboBox1.SelectedItem.ToString()));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Aprobó solicitud de reposición", 3));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
@@ -69,6 +73,7 @@ namespace GUI
                 if (string.IsNullOrWhiteSpace(motivo)) throw new Exception("Motivo inválido");
                 bllSolicitud.Cancelar(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()), motivo);
                 Mostrar(Dgv, Linq(comboBox1.SelectedItem.ToString()));
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Rechazó solicitud de reposición", 3));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
@@ -88,6 +93,7 @@ namespace GUI
                     detalleOrden += $"{solicitud.producto.nombre}" + Environment.NewLine;
                 }
                 MessageBox.Show("Sé generó la orden de compra para los siguientes productos: " + Environment.NewLine + detalleOrden);
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Creó una orden de compra", 3));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }

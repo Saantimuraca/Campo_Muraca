@@ -11,6 +11,7 @@ using BE;
 using BLL;
 using Microsoft.VisualBasic;
 using Servicios;
+using Servicios.Logica;
 
 namespace GUI
 {
@@ -21,6 +22,7 @@ namespace GUI
         BLLProducto BLLProducto = new BLLProducto();
         BLLSolicitudReposicion BLLSolicitud = new BLLSolicitudReposicion();
         List<string> lista = new List<string>();
+        LogicaBitacora bitacora = new LogicaBitacora();
         public ABMProducto()
         {
             InitializeComponent();
@@ -239,6 +241,7 @@ namespace GUI
                     {
                         TxtStockActualizado.Text += producto + Environment.NewLine;
                     }
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Actualizó stock de {historiaNombre}", 3));
                 }
        
             }

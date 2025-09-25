@@ -46,13 +46,14 @@
             this.cobrarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aBMProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.solicitudesDeReposiciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnCerrarSesion = new System.Windows.Forms.Button();
             this.BtnCambiarContrasena = new System.Windows.Forms.Button();
             this.BtnCambiarIdioma = new System.Windows.Forms.Button();
             this.CbIdioma = new System.Windows.Forms.ComboBox();
-            this.solicitudesDeReposiciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +75,8 @@
             this.opcion1ToolStripMenuItem,
             this.clientesToolStripMenuItem,
             this.pedidosToolStripMenuItem,
-            this.productosToolStripMenuItem});
+            this.productosToolStripMenuItem,
+            this.cajaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(687, 24);
@@ -227,6 +229,13 @@
             this.aBMProductosToolStripMenuItem.Text = "ABM Productos";
             this.aBMProductosToolStripMenuItem.Click += new System.EventHandler(this.aBMProductosToolStripMenuItem_Click);
             // 
+            // solicitudesDeReposiciónToolStripMenuItem
+            // 
+            this.solicitudesDeReposiciónToolStripMenuItem.Name = "solicitudesDeReposiciónToolStripMenuItem";
+            this.solicitudesDeReposiciónToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.solicitudesDeReposiciónToolStripMenuItem.Text = "Solicitudes de Reposición";
+            this.solicitudesDeReposiciónToolStripMenuItem.Click += new System.EventHandler(this.solicitudesDeReposiciónToolStripMenuItem_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -297,12 +306,14 @@
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
             // 
-            // solicitudesDeReposiciónToolStripMenuItem
+            // cajaToolStripMenuItem
             // 
-            this.solicitudesDeReposiciónToolStripMenuItem.Name = "solicitudesDeReposiciónToolStripMenuItem";
-            this.solicitudesDeReposiciónToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.solicitudesDeReposiciónToolStripMenuItem.Text = "Solicitudes de Reposición";
-            this.solicitudesDeReposiciónToolStripMenuItem.Click += new System.EventHandler(this.solicitudesDeReposiciónToolStripMenuItem_Click);
+            this.cajaToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cajaToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
+            this.cajaToolStripMenuItem.Name = "cajaToolStripMenuItem";
+            this.cajaToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.cajaToolStripMenuItem.Text = "Caja";
+            this.cajaToolStripMenuItem.Click += new System.EventHandler(this.cajaToolStripMenuItem_Click);
             // 
             // Menu
             // 
@@ -360,5 +371,6 @@
         private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aBMProductosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem solicitudesDeReposiciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cajaToolStripMenuItem;
     }
 }

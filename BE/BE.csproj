@@ -52,6 +52,7 @@
     <Compile Include="BECategoria.cs" />
     <Compile Include="BECliente.cs" />
     <Compile Include="BEHistoriaProducto.cs" />
+    <Compile Include="BEMovimientoCaja.cs" />
     <Compile Include="BEOrdenCompra.cs" />
     <Compile Include="BEPedido.cs" />
     <Compile Include="BEProducto.cs" />
