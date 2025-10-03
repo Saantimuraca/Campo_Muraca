@@ -20,13 +20,16 @@ namespace BE
 
         public BEOrdenCompra ordenCompra { get; set; }
 
-        public BESolicitudReposicion(BEProducto producto, DateTime fecha, string motivo, string estado, int id = 0)
+        public int cantidad { get; set; }
+
+        public BESolicitudReposicion(BEProducto producto, DateTime fecha, string motivo, string estado, int cantidad = 0, int id = 0)
         {
             this.id = id;
             this.producto = producto;
             this.fecha = fecha;
             this.motivo = motivo;
             this.estado = estado;
+            this.cantidad = cantidad;
         }
     }
 }

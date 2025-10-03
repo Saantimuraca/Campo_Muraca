@@ -32,5 +32,26 @@ namespace DAO
             }
             return maxId;
         }
+
+        public List<BEOrdenCompra> Ordenes()
+        {
+            List<BEOrdenCompra> lista = new List<BEOrdenCompra>();
+            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("OrdenCompra").Rows)
+            {
+                BEOrdenCompra orden = new BEOrdenCompra(row["estado"].ToString(), DateTime.Parse(row["fecha"].ToString()), int.Parse(row["id"].ToString()));
+                lista.Add(orden);
+            }
+            return lista;
+        }
+
+        public void Finalizar(int pidOrden)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("OrdenCompra").Select("id = " + pidOrden).FirstOrDefault();
+            if (dr != null)
+            {
+                dr["estado"] = "Finalizada";
+                Gestor_Datos.INSTANCIA.ActualizarPorTabla("OrdenCompra");
+            }
+        }
     }
 }

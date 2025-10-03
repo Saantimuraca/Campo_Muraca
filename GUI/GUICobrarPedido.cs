@@ -137,6 +137,7 @@ namespace GUI
                     pedido.total, comboBox1.SelectedItem.ToString(), true);
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Realizó el cobro del pedido {DgvPedidos.SelectedRows[0].Cells[0].Value.ToString()}", 2));
                 Mostrar(DgvPedidos, LinqFacturados());
+                bllMovimiento.Agregar(movimiento);
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);}
         }

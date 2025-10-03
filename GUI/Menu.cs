@@ -21,6 +21,7 @@ namespace GUI
         Sesion sesion = Sesion.INSTANCIA;
         LogicaBitacora bitacora = new LogicaBitacora();
         Traductor traductor = Traductor.INSTANCIA;
+        private bool _relaunch;
         public Menu()
         {
             InitializeComponent();
@@ -49,7 +50,14 @@ namespace GUI
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
-           Environment.Exit(0);
+            if (_relaunch)
+            {
+                Process.Start(Application.ExecutablePath);
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
 
         private void BtnCerrarSesion_Click(object sender, EventArgs e)
@@ -266,9 +274,9 @@ namespace GUI
                 GestorDeCopiasDeDatos gp = new GestorDeCopiasDeDatos();
                 try
                 {
-                    if(gp.HacerRespaldo()) { MessageBox.Show(traductor.Traducir("Respaldo exitoso!!!", ""), "", MessageBoxButtons.OK, MessageBoxIcon.Information); var exe = Application.ExecutablePath;
-                        Process.Start(exe);
-                        Environment.Exit(0);
+                    if(gp.HacerRespaldo()) { MessageBox.Show(traductor.Traducir("Respaldo exitoso!!!", ""), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _relaunch = true;
+                        Close();
                     }
                     else { throw new Exception(); }
                 }
@@ -320,6 +328,12 @@ namespace GUI
         private void cajaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GUICaja gui = new GUICaja();
+            gui.Show();
+        }
+
+        private void ordenesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdenesCompra gui = new OrdenesCompra();
             gui.Show();
         }
     }

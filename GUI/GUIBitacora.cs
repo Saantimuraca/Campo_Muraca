@@ -97,11 +97,10 @@ namespace GUI
             {
                 switch (int.Parse(row.Cells[3].Value.ToString()))
                 {
-                    case 1: row.DefaultCellStyle.BackColor = Color.GreenYellow; break;
-                    case 2: row.DefaultCellStyle.BackColor = Color.Coral; break;
-                    case 3: row.DefaultCellStyle.BackColor = Color.Orange; break;
-                    case 4: row.DefaultCellStyle.BackColor = Color.OrangeRed; break;
-                    case 5: row.DefaultCellStyle.BackColor = Color.Firebrick; break;
+                    case 1: row.DefaultCellStyle.BackColor = row.DefaultCellStyle.BackColor = Color.LightGray; ; break;
+                    case 2: row.DefaultCellStyle.BackColor = row.DefaultCellStyle.BackColor = Color.Khaki; break;
+                    case 3: row.DefaultCellStyle.BackColor = row.DefaultCellStyle.BackColor = Color.RosyBrown; break;
+                    case 4: row.DefaultCellStyle.BackColor = row.DefaultCellStyle.BackColor = Color.IndianRed; break;
                     default: break;
                 }
             }

@@ -112,6 +112,7 @@ namespace GUI
                     BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, true);
                     BLLProducto.Agregar(producto);
                     LimpiarControles();
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Agregó el producto {nombre}", 1));
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -136,6 +137,7 @@ namespace GUI
                 {
                     BLLProducto.CambiarEstado(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()));
                     LimpiarControles();
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"{(RbActivos.Checked ? "Deshabilitó" : "Habilitó")} el producto {Dgv.SelectedRows[0].Cells["Producto"].Value.ToString()}", 2));
                 }
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
@@ -198,7 +200,6 @@ namespace GUI
                     decimal precio = decimal.Parse(sinSimbolo);
                     int stock = int.Parse(numericUpDown1.Value.ToString());
                     BECategoria categoria = comboBox1.SelectedItem as BECategoria;
-                    bool reposicionAprobada = bool.Parse(Dgv.SelectedRows[0].Cells["ReposicionAprobada"].Value.ToString());
                     BEProducto producto = new BEProducto(nombre, descripcion, precio, stock, categoria, RbActivos.Checked);
                     producto.idProducto = int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString());
                     string historiaNombre = Dgv.SelectedRows[0].Cells["Producto"].Value.ToString();
@@ -210,6 +211,7 @@ namespace GUI
                     BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, producto.idProducto);
                     BLLProducto.AgregarHistoria(historiaProducto);
                     LimpiarControles();
+                    bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Modificó el producto {historiaNombre}", 2));
                 }
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
@@ -274,6 +276,8 @@ namespace GUI
         {
             HistoriaProductos gui = new HistoriaProductos(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()));
             gui.Show();
+            if (RbActivos.Checked) { BtnCambiarEstadoProducto.Text = Traductor.INSTANCIA.Traducir("Deshabilitar", ""); }
+            else { BtnCambiarEstadoProducto.Text = Traductor.INSTANCIA.Traducir("Habilitar", ""); }
         }
 
         public void Actualizar()
@@ -297,6 +301,7 @@ namespace GUI
                 BESolicitudReposicion solicitudReposicion = new BESolicitudReposicion(producto, DateTime.Now, motivo, "En revisión");
                 BLLSolicitud.Agregar(solicitudReposicion);
                 MessageBox.Show("Solicitud de reposición solicitada con éxito");
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Solicitó reposición del producto {producto.nombre}", 3));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
@@ -316,6 +321,11 @@ namespace GUI
                 Dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
             }
             catch { }
+        }
+
+        private void RbInactivos_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

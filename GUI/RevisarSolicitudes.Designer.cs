@@ -109,6 +109,7 @@
             "Aprobada",
             "Rechazada",
             "En revisión",
+            "Realizada",
             "Todas"});
             this.comboBox1.Location = new System.Drawing.Point(506, 44);
             this.comboBox1.Name = "comboBox1";

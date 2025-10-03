@@ -11,6 +11,7 @@ namespace BLL
     public class BLLOrdenCompra
     {
         DALOrdenCompra dal = new DALOrdenCompra();
+        BLLSolicitudReposicion bllSolicitud = new BLLSolicitudReposicion();
         public void CrearOrden(BEOrdenCompra pOrdenCompra)
         {
             dal.CrearOrden(pOrdenCompra);
@@ -19,6 +20,20 @@ namespace BLL
         public int DevolverUltimoId()
         {
             return dal.DevolverUltimoId();  
+        }
+
+        public List<BEOrdenCompra> Ordenes()
+        {
+            return dal.Ordenes();
+        }
+
+        public void Finalizar(int pidOrden)
+        {
+            dal.Finalizar(pidOrden);
+            foreach(BESolicitudReposicion sol in bllSolicitud.Solicitudes().Where(x => x.ordenCompra.id == pidOrden))
+            {
+               bllSolicitud.MarcarComoRealizada(sol.id);
+            }
         }
     }
 }

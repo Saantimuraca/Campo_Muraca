@@ -39,6 +39,7 @@ namespace GUI
             dgv.DataSource = null;
             dgv.DataSource = obj;
             dgv.Columns[0].Visible = false;
+            BtnCrearOrdenCompra.Enabled = false;
         }
 
         private object Linq(string pEstado)
@@ -50,7 +51,8 @@ namespace GUI
         {
             try
             {
-                bllSolicitud.Aprobar(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()));
+                int cantidad = int.Parse(Interaction.InputBox("Ingrese la cantidad de productos a reponer"));
+                bllSolicitud.Aprobar(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()), cantidad);
                 Mostrar(Dgv, Linq(comboBox1.SelectedItem.ToString()));
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Aprobó solicitud de reposición", 3));
             }
@@ -94,6 +96,7 @@ namespace GUI
                 }
                 MessageBox.Show("Sé generó la orden de compra para los siguientes productos: " + Environment.NewLine + detalleOrden);
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Creó una orden de compra", 3));
+                Mostrar(Dgv, Linq(comboBox1.SelectedItem.ToString()));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
