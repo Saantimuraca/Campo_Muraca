@@ -336,5 +336,11 @@ namespace GUI
             OrdenesCompra gui = new OrdenesCompra();
             gui.Show();
         }
+
+        private void sueldosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GUISueldos gui = new GUISueldos();
+            gui.Show();
+        }
     }
 }

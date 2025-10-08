@@ -52,9 +52,11 @@
     <Compile Include="DALCliente.cs" />
     <Compile Include="DALMovimientoCaja.cs" />
     <Compile Include="DALOrdenCompra.cs" />
+    <Compile Include="DALPago.cs" />
     <Compile Include="DALPedido.cs" />
     <Compile Include="DALProducto.cs" />
     <Compile Include="DALSolicitudReposicion.cs" />
+    <Compile Include="DALSueldo.cs" />
     <Compile Include="Gestor_Datos.cs" />
     <Compile Include="IIntegridadRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

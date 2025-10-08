@@ -36,7 +36,6 @@
             this.ErrorNombre = new System.Windows.Forms.Label();
             this.LblComisión = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.ErrorIdioma = new System.Windows.Forms.Label();
             this.BtnModificar = new System.Windows.Forms.Button();
             this.BtnSolicitarPago = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -60,6 +59,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // LblSueldo
             // 
@@ -119,17 +119,6 @@
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 31;
             // 
-            // ErrorIdioma
-            // 
-            this.ErrorIdioma.AutoSize = true;
-            this.ErrorIdioma.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ErrorIdioma.ForeColor = System.Drawing.Color.Red;
-            this.ErrorIdioma.Location = new System.Drawing.Point(85, 134);
-            this.ErrorIdioma.Name = "ErrorIdioma";
-            this.ErrorIdioma.Size = new System.Drawing.Size(108, 13);
-            this.ErrorIdioma.TabIndex = 32;
-            this.ErrorIdioma.Text = "Campo obligatorio";
-            // 
             // BtnModificar
             // 
             this.BtnModificar.BackColor = System.Drawing.Color.SlateBlue;
@@ -141,6 +130,7 @@
             this.BtnModificar.Tag = "";
             this.BtnModificar.Text = "Modificar";
             this.BtnModificar.UseVisualStyleBackColor = false;
+            this.BtnModificar.Click += new System.EventHandler(this.BtnModificar_Click);
             // 
             // BtnSolicitarPago
             // 
@@ -153,6 +143,7 @@
             this.BtnSolicitarPago.Tag = "";
             this.BtnSolicitarPago.Text = "Solicitar pago";
             this.BtnSolicitarPago.UseVisualStyleBackColor = false;
+            this.BtnSolicitarPago.Click += new System.EventHandler(this.BtnSolicitarPago_Click);
             // 
             // GUISueldos
             // 
@@ -162,7 +153,6 @@
             this.ClientSize = new System.Drawing.Size(240, 279);
             this.Controls.Add(this.BtnSolicitarPago);
             this.Controls.Add(this.BtnModificar);
-            this.Controls.Add(this.ErrorIdioma);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.LblComisión);
             this.Controls.Add(this.ErrorNombre);
@@ -189,7 +179,6 @@
         private System.Windows.Forms.Label ErrorNombre;
         private System.Windows.Forms.Label LblComisión;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label ErrorIdioma;
         private System.Windows.Forms.Button BtnModificar;
         private System.Windows.Forms.Button BtnSolicitarPago;
     }

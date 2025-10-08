@@ -60,9 +60,11 @@
     <Compile Include="BLLCliente.cs" />
     <Compile Include="BLLMovimientoCaja.cs" />
     <Compile Include="BLLOrdenCompra.cs" />
+    <Compile Include="BLLPago.cs" />
     <Compile Include="BLLPedido.cs" />
     <Compile Include="BLLProducto.cs" />
     <Compile Include="BLLSolicitudReposicion.cs" />
+    <Compile Include="BLLSueldo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
