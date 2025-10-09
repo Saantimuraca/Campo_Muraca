@@ -342,5 +342,11 @@ namespace GUI
             GUISueldos gui = new GUISueldos();
             gui.Show();
         }
+
+        private void evaluarViabilidadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GUIEvaluarViabilidad gui = new GUIEvaluarViabilidad();
+            gui.Show();
+        }
     }
 }

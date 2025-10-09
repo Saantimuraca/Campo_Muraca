@@ -52,5 +52,28 @@ namespace BLL
         {
             return dalPago.ListarPagos();
         }
+
+        public Dictionary<string, decimal> DetallePago(int pIdPago)
+        {
+            Dictionary<string, decimal> dic = new Dictionary<string, decimal>();
+            BEPago pago = ListarPagos().Find(x => x.id == pIdPago);
+            foreach(EntidadUsuario usuario in lu.ListaUsuarios())
+            {
+                if(usuario.Rol.DevolverNombrePermiso() != "Administrador")
+                {
+                    BESueldo sueldo = BLLSueldo.ObtenerPorRol(usuario.Rol.DevolverNombrePermiso());
+                    decimal totalEmpleado = sueldo.sueldo;
+                    if (usuario.Rol.DevolverNombrePermiso() == "Vendedor")
+                    {
+                        foreach (BEPedido pedido in BLLPedido.PedidosVendedor(pago.fecha.Month, usuario.Dni_Usuario))
+                        {
+                            totalEmpleado += (pedido.total * sueldo.comision) / 100;
+                        }
+                    }
+                    dic.Add($"{usuario.Rol.DevolverNombrePermiso()}: {usuario.Nombre_Usuario}", totalEmpleado);
+                }
+            }
+            return dic;
+        }
     }
 }

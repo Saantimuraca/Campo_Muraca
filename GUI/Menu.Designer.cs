@@ -49,13 +49,15 @@
             this.solicitudesDeReposiciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ordenesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sueldosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnCerrarSesion = new System.Windows.Forms.Button();
             this.BtnCambiarContrasena = new System.Windows.Forms.Button();
             this.BtnCambiarIdioma = new System.Windows.Forms.Button();
             this.CbIdioma = new System.Windows.Forms.ComboBox();
-            this.sueldosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.evaluarViabilidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +81,8 @@
             this.pedidosToolStripMenuItem,
             this.productosToolStripMenuItem,
             this.cajaToolStripMenuItem,
-            this.sueldosToolStripMenuItem});
+            this.sueldosToolStripMenuItem,
+            this.pagosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(687, 24);
@@ -259,6 +262,14 @@
             this.cajaToolStripMenuItem.Text = "Caja";
             this.cajaToolStripMenuItem.Click += new System.EventHandler(this.cajaToolStripMenuItem_Click);
             // 
+            // sueldosToolStripMenuItem
+            // 
+            this.sueldosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sueldosToolStripMenuItem.Name = "sueldosToolStripMenuItem";
+            this.sueldosToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.sueldosToolStripMenuItem.Text = "Sueldos";
+            this.sueldosToolStripMenuItem.Click += new System.EventHandler(this.sueldosToolStripMenuItem_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -329,13 +340,21 @@
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
             // 
-            // sueldosToolStripMenuItem
+            // pagosToolStripMenuItem
             // 
-            this.sueldosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sueldosToolStripMenuItem.Name = "sueldosToolStripMenuItem";
-            this.sueldosToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.sueldosToolStripMenuItem.Text = "Sueldos";
-            this.sueldosToolStripMenuItem.Click += new System.EventHandler(this.sueldosToolStripMenuItem_Click);
+            this.pagosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.evaluarViabilidadToolStripMenuItem});
+            this.pagosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
+            this.pagosToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.pagosToolStripMenuItem.Text = "Pagos";
+            // 
+            // evaluarViabilidadToolStripMenuItem
+            // 
+            this.evaluarViabilidadToolStripMenuItem.Name = "evaluarViabilidadToolStripMenuItem";
+            this.evaluarViabilidadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.evaluarViabilidadToolStripMenuItem.Text = "Evaluar Viabilidad";
+            this.evaluarViabilidadToolStripMenuItem.Click += new System.EventHandler(this.evaluarViabilidadToolStripMenuItem_Click);
             // 
             // Menu
             // 
@@ -396,5 +415,7 @@
         private System.Windows.Forms.ToolStripMenuItem cajaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ordenesDeCompraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sueldosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pagosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem evaluarViabilidadToolStripMenuItem;
     }
 }
