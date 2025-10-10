@@ -12,6 +12,7 @@ namespace BLL
     public class BLLMovimientoCaja
     {
         DALMovimientoCaja dalMovimiento = new DALMovimientoCaja();
+        BLLPago bllPago = new BLLPago();
 
         public void Agregar(BEMovimientoCaja pMovimiento)
         {
@@ -45,6 +46,31 @@ namespace BLL
         public void Modificar(BEMovimientoCaja pMovimiento)
         {
             dalMovimiento.Modificar(pMovimiento);
+        }
+
+        public Dictionary<string, decimal> Balance()
+        {
+            Dictionary<string, decimal> balance = new Dictionary<string, decimal>();
+            balance.Add("Sueldos", bllPago.ObtenerPagoMasReciente().monto);
+            decimal totalGastosOtro = 0;
+            foreach(BEMovimientoCaja movimiento in Movimientos().FindAll(x => !x.tipo))
+            {
+                if (movimiento.descripcion != "Pago de sueldos" && movimiento.fecha.Month == bllPago.ObtenerPagoMasReciente().fecha.Month && movimiento.fecha.Year == bllPago.ObtenerPagoMasReciente().fecha.Year)
+                {
+                    totalGastosOtro = totalGastosOtro + movimiento.importe;
+                }
+            }
+            balance.Add("Otros Gastos", totalGastosOtro);
+            decimal totalIngresos = 0;
+            foreach (BEMovimientoCaja movimiento in Movimientos().FindAll(x => x.tipo))
+            {
+                if (movimiento.fecha.Month == bllPago.ObtenerPagoMasReciente().fecha.Month && movimiento.fecha.Year == bllPago.ObtenerPagoMasReciente().fecha.Year)
+                {
+                    totalIngresos = totalIngresos + movimiento.importe;
+                }
+            }
+            balance.Add("Ingresos", totalIngresos);
+            return balance; 
         }
     }
 }

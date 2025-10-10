@@ -22,7 +22,6 @@ namespace GUI
         public GUICaja()
         {
             InitializeComponent();
-            ErrorNombre.Visible = false;
             errores.Clear();
             foreach(Control ctrl in this.Controls)
             {
@@ -36,20 +35,21 @@ namespace GUI
             ErrorRol.Visible=false;
             ErrorTipo.Visible=false;
             LblTotalCaja.Text = $"Caja: $" + bllMbvimiento.CalcularTotalCaja().ToString();
+            ErrorDescripcion.Visible = false;
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
             try
             {
-                if(string.IsNullOrWhiteSpace(TxtDescripcion.Text)) { ErrorNombre.Visible = true; }
-                if(!decimal.TryParse(TxtImporte.Text, out decimal importe)) { ErrorImporte.Visible = true; }
+                if(comboBox3.SelectedItem == null) { ErrorDescripcion.Visible = true; }
+                if (!decimal.TryParse(TxtImporte.Text, out decimal importe)) { ErrorImporte.Visible = true; }
                 if(comboBox1.SelectedItem == null) { ErrorRol.Visible = true; }
                 if(comboBox2.SelectedItem == null) { ErrorTipo.Visible = true; }
                 if (importe > bllMbvimiento.CalcularTotalCaja() && comboBox2.SelectedItem.ToString() == "Egreso") throw new Exception("El saldo de la caja es menor al importe ingresado");
                 if(IsHabilitado())
                 {
-                    BEMovimientoCaja movimientoCaja = new BEMovimientoCaja(TxtDescripcion.Text, DateTime.Now, importe, comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString() == "Ingreso" ? true:false);
+                    BEMovimientoCaja movimientoCaja = new BEMovimientoCaja(comboBox3.SelectedItem.ToString(), DateTime.Now, importe, comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString() == "Ingreso" ? true:false);
                     bllMbvimiento.Agregar(movimientoCaja);
                     Mostrar(Dgv, Linq());
                     LimpiarControles();
@@ -62,7 +62,7 @@ namespace GUI
 
         private void LimpiarControles()
         {
-            TxtDescripcion.Text = "";
+            comboBox3.SelectedItem = null;
             TxtImporte.Text = "";
             comboBox1.SelectedItem = null;
             comboBox2.SelectedItem = null;
@@ -90,11 +90,6 @@ namespace GUI
             return true;
         }
 
-        private void TxtDescripcion_KeyUp(object sender, KeyEventArgs e)
-        {
-            ErrorNombre.Visible = false;
-        }
-
         private void TxtImporte_KeyUp(object sender, KeyEventArgs e)
         {
             ErrorImporte.Visible = false;
@@ -108,6 +103,26 @@ namespace GUI
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox2.SelectedItem != null) { ErrorTipo.Visible = false; }
+            if(comboBox2.SelectedItem != null)
+            {
+                if (comboBox2.SelectedItem.ToString() == "Egreso")
+                {
+                    comboBox3.Items.Clear();
+                    comboBox3.Items.Add("Pago de sueldos");
+                    comboBox3.Items.Add("Pago de proveedores");
+                    comboBox3.Items.Add("Pago de impuestos");
+                    comboBox3.Items.Add("Pago de servicios");
+                    comboBox3.Items.Add("Pago de seguros");
+                    comboBox3.Items.Add("Retiro del propietario");
+                    comboBox3.Items.Add("Otros gastos");
+                }
+                else
+                {
+                    comboBox3.Items.Clear();
+                    comboBox3.Items.Add("Aporte del propietario");
+                    comboBox3.Items.Add("Otros ingresos");
+                }
+            }
         }
 
         private void BtnModificar_Click(object sender, EventArgs e)
@@ -116,10 +131,10 @@ namespace GUI
             {
                 if(Dgv.SelectedRows.Count > 0)
                 {
-                    if (string.IsNullOrWhiteSpace(TxtDescripcion.Text)) { ErrorNombre.Visible = true; }
+                    if (comboBox3.SelectedItem == null) { ErrorDescripcion.Visible = true; }
                     if (!decimal.TryParse(TxtImporte.Text, out decimal importe)) { ErrorImporte.Visible = true; }
                     if (importe > bllMbvimiento.CalcularTotalCaja() && comboBox2.SelectedItem.ToString() == "Egreso") throw new Exception("El saldo de la caja es menor al importe ingresado");
-                    BEMovimientoCaja movimiento = new BEMovimientoCaja(TxtDescripcion.Text, DateTime.Parse(Dgv.SelectedRows[0].Cells["Fecha"].Value.ToString()), importe, comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString() == "Ingreso" ? true : false, 
+                    BEMovimientoCaja movimiento = new BEMovimientoCaja(comboBox3.SelectedItem.ToString(), DateTime.Parse(Dgv.SelectedRows[0].Cells["Fecha"].Value.ToString()), importe, comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString() == "Ingreso" ? true : false, 
                         int.Parse(Dgv.SelectedRows[0].Cells["ID"].Value.ToString()));
                     if(IsHabilitado())
                     {
@@ -138,7 +153,7 @@ namespace GUI
         {
             if(Dgv.SelectedRows.Count > 0)
             {
-                TxtDescripcion.Text = Dgv.SelectedRows[0].Cells["Descripción"].Value.ToString();
+                comboBox3.SelectedItem = Dgv.SelectedRows[0].Cells["Descripción"].Value.ToString();
                 TxtImporte.Text = Dgv.SelectedRows[0].Cells["Importe"].Value.ToString();
                 comboBox1.SelectedItem = Dgv.SelectedRows[0].Cells["Metodo_Pago"].Value.ToString();
                 comboBox2.SelectedItem = Dgv.SelectedRows[0].Cells["Tipo"].Value.ToString();

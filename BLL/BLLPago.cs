@@ -7,6 +7,7 @@ using BE;
 using DAO;
 using Servicios.Entidades;
 using Servicios.Logica;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BLL
 {
@@ -16,6 +17,7 @@ namespace BLL
         BLLSueldo BLLSueldo = new BLLSueldo();
         BLLPedido BLLPedido = new BLLPedido();
         DALPago dalPago = new DALPago();
+        GestorPermisos gp = new GestorPermisos();
         public void SolicitarPago(BEPago pPago)
         {
             dalPago.SolicitarPago(pPago);
@@ -32,7 +34,7 @@ namespace BLL
                     decimal totalEmpleado = sueldo.sueldo;
                     if (usuario.Rol.DevolverNombrePermiso() == "Vendedor")
                     {
-                        foreach(BEPedido pedido in BLLPedido.PedidosVendedor(DateTime.Now.Month, usuario.Dni_Usuario))
+                        foreach(BEPedido pedido in BLLPedido.PedidosVendedor(DateTime.Now.Month, usuario.Dni_Usuario, DateTime.Now.Year))
                         {
                             totalEmpleado += (pedido.total * sueldo.comision) / 100;
                         }
@@ -65,7 +67,7 @@ namespace BLL
                     decimal totalEmpleado = sueldo.sueldo;
                     if (usuario.Rol.DevolverNombrePermiso() == "Vendedor")
                     {
-                        foreach (BEPedido pedido in BLLPedido.PedidosVendedor(pago.fecha.Month, usuario.Dni_Usuario))
+                        foreach (BEPedido pedido in BLLPedido.PedidosVendedor(pago.fecha.Month, usuario.Dni_Usuario, pago.fecha.Year))
                         {
                             totalEmpleado += (pedido.total * sueldo.comision) / 100;
                         }
@@ -74,6 +76,47 @@ namespace BLL
                 }
             }
             return dic;
+        }
+
+        public Dictionary<string, decimal> SueldosArea(int pIdPago)
+        {
+            Dictionary<string, decimal> dic = new Dictionary<string, decimal>();
+            foreach (EntidadPermiso permiso in gp.ObtenerPermisos("Roles"))
+            {
+                if (permiso.DevolverNombrePermiso() != "Administrador")
+                {
+                    decimal totalArea = 0;
+                    foreach (EntidadUsuario usuario in lu.ListaUsuarios().FindAll(x => x.Rol.DevolverNombrePermiso() == permiso.DevolverNombrePermiso()))
+                    {
+                        BESueldo sueldo = BLLSueldo.ObtenerPorRol(usuario.Rol.DevolverNombrePermiso());
+                        decimal totalEmpleado = sueldo.sueldo;
+                        BEPago pago = ListarPagos().Find(x => x.id == pIdPago);
+                        if (usuario.Rol.DevolverNombrePermiso() == "Vendedor")
+                        {
+                            foreach (BEPedido pedido in BLLPedido.PedidosVendedor(pago.fecha.Month, usuario.Dni_Usuario, pago.fecha.Year))
+                            {
+                                totalEmpleado += (pedido.total * sueldo.comision) / 100;
+                            }
+                        }
+                        totalArea += totalEmpleado;
+                    }
+                    dic.Add(permiso.DevolverNombrePermiso(), totalArea);
+                }
+            }
+            return dic;
+        }
+
+        public BEPago ObtenerPagoMasReciente()
+        {
+            if (ListarPagos() == null || ListarPagos().Count == 0)
+                return null;
+
+            return ListarPagos().OrderByDescending(p => p.fecha).FirstOrDefault();
+        }
+
+        public void CambiarEstado(string pEstado, int pIdPago)
+        {
+            dalPago.CambiarEstado(pEstado, pIdPago);
         }
     }
 }

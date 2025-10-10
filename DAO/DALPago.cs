@@ -45,5 +45,12 @@ namespace DAO
             }
             return pagos;
         }
+
+        public void CambiarEstado(string pEstado, int pIdPago)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Pago").Select($"id = {pIdPago}")[0];
+            dr["estado"] = pEstado;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pago");
+        }
     }
 }

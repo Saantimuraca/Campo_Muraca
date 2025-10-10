@@ -55,9 +55,9 @@ namespace BLL
             }
         }
 
-        public List<BEPedido> PedidosVendedor(int pMes, string pDniVendedor)
+        public List<BEPedido> PedidosVendedor(int pMes, string pDniVendedor, int pAño)
         {
-            return ListarPedidos().Where(x => x.dniVendedor == pDniVendedor).Where(x => x.fecha.Month == pMes).ToList();
+            return ListarPedidos().Where(x => x.dniVendedor == pDniVendedor).Where(x => x.fecha.Month == pMes).Where(x => x.fecha.Year == pAño).ToList();
         }
     }
 }
