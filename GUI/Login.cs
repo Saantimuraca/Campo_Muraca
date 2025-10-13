@@ -63,7 +63,7 @@ namespace GUI
                     {
                         bitacora.RegistrarBitacora(bitacora.CrearBitacora(sesion.ObtenerUsuarioActual(), "Inicio de sesión", 4));
                     }
-                        DatosDV.INSTANCIA.VerificarIntegridadBD();
+                        //DatosDV.INSTANCIA.VerificarIntegridadBD();
                         a.Definir_Estado(new EstadoMenu());
                 }
             }

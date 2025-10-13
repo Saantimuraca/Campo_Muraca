@@ -118,5 +118,10 @@ namespace BLL
         {
             dalPago.CambiarEstado(pEstado, pIdPago);
         }
+
+        public void AsentarPago(int pIdPago, string pMetodoPago, DateTime pFechaPago)
+        {
+            dalPago.AsentarPago(pIdPago, pMetodoPago, pFechaPago);
+        }   
     }
 }

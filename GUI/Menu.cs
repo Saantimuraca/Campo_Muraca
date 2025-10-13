@@ -348,5 +348,11 @@ namespace GUI
             GUIEvaluarViabilidad gui = new GUIEvaluarViabilidad();
             gui.Show();
         }
+
+        private void asentarPagosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GUIPagos gui = new GUIPagos();
+            gui.Show();
+        }
     }
 }

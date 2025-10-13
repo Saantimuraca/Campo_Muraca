@@ -22,9 +22,9 @@ namespace GUI
             var log = Path.Combine(logDir, "startup.log");
             File.AppendAllText(log, $"[{DateTime.Now}] Main INICIO\n");
 
-            /*Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += (s, e) => { File.AppendAllText(log, $"[{DateTime.Now}] ERROR UI: {e.Exception}\n"); MessageBox.Show(e.Exception.Message); };
-            AppDomain.CurrentDomain.UnhandledException += (s, e) => { File.AppendAllText(log, $"[{DateTime.Now}] ERROR BG: {e.ExceptionObject}\n"); };*/
+            AppDomain.CurrentDomain.UnhandledException += (s, e) => { File.AppendAllText(log, $"[{DateTime.Now}] ERROR BG: {e.ExceptionObject}\n"); };
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

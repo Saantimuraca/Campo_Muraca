@@ -52,5 +52,14 @@ namespace DAO
             dr["estado"] = pEstado;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pago");
         }
+
+        public void AsentarPago(int pIdPago, string pMetodoPago, DateTime pFechaPago)
+        {
+            DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Pago").Select($"id = {pIdPago}")[0];
+            dr["estado"] = "Pagado";
+            dr["fechaPago"] = pFechaPago;
+            dr["metodoPago"] = pMetodoPago;
+            Gestor_Datos.INSTANCIA.ActualizarPorTabla("Pago");
+        }
     }
 }

@@ -50,14 +50,15 @@
             this.ordenesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sueldosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.evaluarViabilidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asentarPagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnCerrarSesion = new System.Windows.Forms.Button();
             this.BtnCambiarContrasena = new System.Windows.Forms.Button();
             this.BtnCambiarIdioma = new System.Windows.Forms.Button();
             this.CbIdioma = new System.Windows.Forms.ComboBox();
-            this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.evaluarViabilidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -267,8 +268,35 @@
             this.sueldosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sueldosToolStripMenuItem.Name = "sueldosToolStripMenuItem";
             this.sueldosToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.sueldosToolStripMenuItem.Tag = "Modificar Sueldos";
             this.sueldosToolStripMenuItem.Text = "Sueldos";
             this.sueldosToolStripMenuItem.Click += new System.EventHandler(this.sueldosToolStripMenuItem_Click);
+            // 
+            // pagosToolStripMenuItem
+            // 
+            this.pagosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.evaluarViabilidadToolStripMenuItem,
+            this.asentarPagosToolStripMenuItem});
+            this.pagosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
+            this.pagosToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.pagosToolStripMenuItem.Text = "Pagos";
+            // 
+            // evaluarViabilidadToolStripMenuItem
+            // 
+            this.evaluarViabilidadToolStripMenuItem.Name = "evaluarViabilidadToolStripMenuItem";
+            this.evaluarViabilidadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.evaluarViabilidadToolStripMenuItem.Tag = "Evaluar Viabilidad";
+            this.evaluarViabilidadToolStripMenuItem.Text = "Evaluar Viabilidad";
+            this.evaluarViabilidadToolStripMenuItem.Click += new System.EventHandler(this.evaluarViabilidadToolStripMenuItem_Click);
+            // 
+            // asentarPagosToolStripMenuItem
+            // 
+            this.asentarPagosToolStripMenuItem.Name = "asentarPagosToolStripMenuItem";
+            this.asentarPagosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.asentarPagosToolStripMenuItem.Tag = "Asentar Pago";
+            this.asentarPagosToolStripMenuItem.Text = "Asentar Pagos";
+            this.asentarPagosToolStripMenuItem.Click += new System.EventHandler(this.asentarPagosToolStripMenuItem_Click);
             // 
             // label2
             // 
@@ -340,22 +368,6 @@
             this.CbIdioma.Size = new System.Drawing.Size(97, 21);
             this.CbIdioma.TabIndex = 8;
             // 
-            // pagosToolStripMenuItem
-            // 
-            this.pagosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.evaluarViabilidadToolStripMenuItem});
-            this.pagosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
-            this.pagosToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.pagosToolStripMenuItem.Text = "Pagos";
-            // 
-            // evaluarViabilidadToolStripMenuItem
-            // 
-            this.evaluarViabilidadToolStripMenuItem.Name = "evaluarViabilidadToolStripMenuItem";
-            this.evaluarViabilidadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.evaluarViabilidadToolStripMenuItem.Text = "Evaluar Viabilidad";
-            this.evaluarViabilidadToolStripMenuItem.Click += new System.EventHandler(this.evaluarViabilidadToolStripMenuItem_Click);
-            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,5 +429,6 @@
         private System.Windows.Forms.ToolStripMenuItem sueldosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pagosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem evaluarViabilidadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem asentarPagosToolStripMenuItem;
     }
 }

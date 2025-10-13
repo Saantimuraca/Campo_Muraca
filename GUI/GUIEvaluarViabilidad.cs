@@ -34,7 +34,11 @@ namespace GUI
                 dgv.Columns[2].Visible = false;
                 dgv.Columns[4].Visible = false;
             }
-            textBox1.Text = "";
+            else
+            {
+                dgv.Columns[2].Visible = true;
+                dgv.Columns[4].Visible = true;
+            }
         }
 
         private object Linq()
@@ -163,6 +167,7 @@ namespace GUI
                     BtnAprobar.Enabled = false;
                     BtnRechazar.Enabled = false;
                     MessageBox.Show("Pago aprobado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    textBox1.Text = "";
                 }
             }
             catch(Exception ex)
@@ -183,6 +188,7 @@ namespace GUI
                     BtnAprobar.Enabled = false;
                     BtnRechazar.Enabled = false;
                     MessageBox.Show("Pago rechazado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    textBox1.Text = "";
                 }
             }
             catch (Exception ex)
