@@ -88,6 +88,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(687, 24);
             this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Tag = "MenuStrip";
             this.menuStrip1.Text = "menuStrip1";
             // 
             // opcion1ToolStripMenuItem
@@ -101,7 +102,7 @@
             this.opcion1ToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.opcion1ToolStripMenuItem.Name = "opcion1ToolStripMenuItem";
             this.opcion1ToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
-            this.opcion1ToolStripMenuItem.Tag = "";
+            this.opcion1ToolStripMenuItem.Tag = "Administración";
             this.opcion1ToolStripMenuItem.Text = "Administración";
             // 
             // gestionDeUsuariosToolStripMenuItem
@@ -285,7 +286,7 @@
             // evaluarViabilidadToolStripMenuItem
             // 
             this.evaluarViabilidadToolStripMenuItem.Name = "evaluarViabilidadToolStripMenuItem";
-            this.evaluarViabilidadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.evaluarViabilidadToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.evaluarViabilidadToolStripMenuItem.Tag = "Evaluar Viabilidad";
             this.evaluarViabilidadToolStripMenuItem.Text = "Evaluar Viabilidad";
             this.evaluarViabilidadToolStripMenuItem.Click += new System.EventHandler(this.evaluarViabilidadToolStripMenuItem_Click);
@@ -293,7 +294,7 @@
             // asentarPagosToolStripMenuItem
             // 
             this.asentarPagosToolStripMenuItem.Name = "asentarPagosToolStripMenuItem";
-            this.asentarPagosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.asentarPagosToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.asentarPagosToolStripMenuItem.Tag = "Asentar Pago";
             this.asentarPagosToolStripMenuItem.Text = "Asentar Pagos";
             this.asentarPagosToolStripMenuItem.Click += new System.EventHandler(this.asentarPagosToolStripMenuItem_Click);

@@ -18,6 +18,7 @@ namespace Servicios.Logica
         public bool Configurar_Control(string tag)
         {
             Sesion sesion = Sesion.INSTANCIA;
+            if(!DatosDV.INSTANCIA.VerificarIntegridadBD() && tag != "Administración" && tag != "Ingresar Datos" && tag != "Hacer Respaldo" && tag != "MenuStrip") {  return false; }
             if (tag == null || tag == "" || sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador")
             {
                 return true;
