@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace DAL
 {
@@ -37,7 +38,8 @@ namespace DAL
         {
             BaseDeDatosEnMemoria = new DataSet();
             //.\\SQLEXPRESS
-            cone = new SqlConnection("Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True");
+            //@"Data Source=.\SQLEXPRESS;Initial Catalog=BdProyecto;Integrated Security=True"
+            cone = new SqlConnection(@"Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True");
             string query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'";
 
             SqlDataAdapter Adaptador = new SqlDataAdapter(query, cone);

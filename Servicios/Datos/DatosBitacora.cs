@@ -49,18 +49,6 @@ namespace Servicios.Datos
             return dr;
         }*/
 
-        public int DevolverUltimoId()
-        {
-            int maxId = 0;
-            foreach (DataRow row in Gestor_Datos.INSTANCIA.DevolverTabla("Bitacora").Rows)
-            {
-                int id = int.Parse(row["idBitacora"].ToString());
-                if (id > maxId)
-                    maxId = id;
-            }
-            return maxId;
-        }
-
         public List<EntidadBitacora> ListaBitacora()
         {
             List<EntidadBitacora> lista = new List<EntidadBitacora>();

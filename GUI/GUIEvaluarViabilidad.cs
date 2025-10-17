@@ -22,6 +22,8 @@ namespace GUI
             chartSueldos.Visible = false;
             BtnAprobar.Enabled = false;
             BtnRechazar.Enabled = false;
+            LblDetalle.Visible = false;
+            textBox1.Visible = false;
         }
 
         private void Mostrar(DataGridView dgv, object obj)
@@ -39,6 +41,8 @@ namespace GUI
                 dgv.Columns[2].Visible = true;
                 dgv.Columns[4].Visible = true;
             }
+            LblDetalle.Visible = false;
+            textBox1.Visible = false;
         }
 
         private object Linq()
@@ -57,15 +61,20 @@ namespace GUI
 
         private void Dgv_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            foreach(var par in BLLPago.DetallePago(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString())))
+            if(Dgv.SelectedRows.Count != 0)
             {
-                textBox1.Text += $"{par.Key} ${par.Value}" + Environment.NewLine + Environment.NewLine;   
+                LblDetalle.Visible = true;
+                textBox1.Visible = true;
+                foreach (var par in BLLPago.DetallePago(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString())))
+                {
+                    textBox1.Text += $"{par.Key} ${par.Value}" + Environment.NewLine + Environment.NewLine;
+                }
+                textBox1.Text += "\r\n-------------------------------------------------------------------------------------\r\n";
+                textBox1.Text += "Total:" +
+                    "" + Dgv.SelectedRows[0].Cells[5].Value.ToString();
+                if (Dgv.SelectedRows[0].Cells[1].Value.ToString() == "En Revisión") { BtnAprobar.Enabled = true; BtnRechazar.Enabled = true; }
+                else { BtnAprobar.Enabled = false; BtnRechazar.Enabled = false; }
             }
-            textBox1.Text += "\r\n-------------------------------------------------------------------------------------\r\n";
-            textBox1.Text += "Total:" +
-                "" + Dgv.SelectedRows[0].Cells[5].Value.ToString();
-            if(Dgv.SelectedRows[0].Cells[1].Value.ToString() == "En Revisión") { BtnAprobar.Enabled = true; BtnRechazar.Enabled = true; }
-            else { BtnAprobar.Enabled = false; BtnRechazar.Enabled = false; }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

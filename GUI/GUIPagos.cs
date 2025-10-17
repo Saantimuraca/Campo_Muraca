@@ -18,7 +18,6 @@ namespace GUI
         public GUIPagos()
         {
             InitializeComponent();
-            dateTimePicker1.Enabled = false;
             BtnAsentarPago.Enabled = false;
         }
 
@@ -74,6 +73,7 @@ namespace GUI
                 Mostrar(Dgv, Linq());
                 BtnAsentarPago.Enabled = false;
                 comboBox2.SelectedItem = null;
+                dateTimePicker1.Value = DateTime.Now;
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }

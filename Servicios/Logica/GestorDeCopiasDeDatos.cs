@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Servicios
 {
@@ -22,7 +23,7 @@ namespace Servicios
                 Directory.CreateDirectory(carpetaBackup);
             string nombreArchivo = $"Backup_{DateTime.Now:ddmmyyyyhhmmss}.bak";
             string archivoBackUp = Path.Combine(carpetaBackup, nombreArchivo);
-            using (SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True"))
             {
                 con.Open();
                 string consulta = $@"BACKUP DATABASE [{nombreDBActual}] TO DISK = '{archivoBackUp}'"; 
@@ -49,7 +50,7 @@ namespace Servicios
                 try
                 {
                     //.\\SQLEXPRESS
-                    var cs = "Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True";
+                    var cs = @"Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True";
                     using (var con = new SqlConnection(cs))
                     {
                         con.Open();
