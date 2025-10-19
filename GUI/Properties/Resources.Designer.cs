@@ -63,6 +63,16 @@ namespace GUI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap assets_task_01k7smb750fs1tzpdx9ctrhkv6_1760723166_img_1 {
+            get {
+                object obj = ResourceManager.GetObject("assets_task_01k7smb750fs1tzpdx9ctrhkv6_1760723166_img_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Screenshot_1 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot_1", resourceCulture);

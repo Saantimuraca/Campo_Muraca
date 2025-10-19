@@ -313,6 +313,7 @@
     <Content Include="LogoFactura.jpeg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\assets_task_01k7smb750fs1tzpdx9ctrhkv6_1760723166_img_1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Screenshot_11.png" />

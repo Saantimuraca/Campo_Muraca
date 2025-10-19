@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Configuration;
+using System.IO;
+using System.Web.Script.Serialization;
+using System.Diagnostics;
 
 namespace DAL
 {
@@ -122,6 +125,50 @@ namespace DAL
         public SqlConnection DevolverConexion()
         {
             return cone;
+        }
+
+        public string ObtenerStringConexion()
+        {
+            try
+            {
+                // --- Obtener la ruta del ejecutable actual ---
+                string exePath = Environment.GetCommandLineArgs()[0];
+                if (string.IsNullOrEmpty(exePath))
+                    exePath = Process.GetCurrentProcess().MainModule != null
+                        ? Process.GetCurrentProcess().MainModule.FileName
+                        : null;
+
+                if (string.IsNullOrEmpty(exePath))
+                    throw new InvalidOperationException("No se pudo resolver la ruta del ejecutable.");
+
+                string baseDir = Path.GetDirectoryName(exePath);
+                string path = Path.Combine(baseDir, "config.json");
+
+                if (!File.Exists(path))
+                    throw new FileNotFoundException("No se encontró config.json", path);
+
+                // --- Leer contenido del JSON ---
+                string json = File.ReadAllText(path);
+
+                // --- Deserializar con JavaScriptSerializer ---
+                var serializer = new JavaScriptSerializer();
+                var data = serializer.Deserialize<Dictionary<string, object>>(json);
+
+                if (data == null || !data.ContainsKey("ConnectionString"))
+                    throw new InvalidDataException("config.json inválido o sin 'ConnectionString'.");
+
+                string cs = Convert.ToString(data["ConnectionString"]);
+
+                if (string.IsNullOrWhiteSpace(cs))
+                    throw new InvalidDataException("El campo 'ConnectionString' está vacío o no válido.");
+
+                return cs;
+            }
+            catch (Exception ex)
+            {
+                // Lanzar la excepción original para depurar
+                throw new Exception("Error al obtener la cadena de conexión: " + ex.Message, ex);
+            }
         }
     }
 }
