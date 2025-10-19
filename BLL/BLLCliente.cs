@@ -45,7 +45,7 @@ namespace BLL
             return ListaClientes().Find(x => x.dni == dni) == null ? false : true;
         }
 
-        public void Serializar(List<BECliente> pLista)
+        public string Serializar(List<BECliente> pLista)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<BECliente>));
             string documentos = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -55,6 +55,7 @@ namespace BLL
             {
                 serializer.Serialize(fs, pLista);
             }
+            return documentos;
         }
     }
 }

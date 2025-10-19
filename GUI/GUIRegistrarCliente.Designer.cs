@@ -333,6 +333,7 @@
             this.BtnSerializar.TabIndex = 24;
             this.BtnSerializar.Text = "Serializar";
             this.BtnSerializar.UseVisualStyleBackColor = false;
+            this.BtnSerializar.Click += new System.EventHandler(this.BtnSerializar_Click);
             // 
             // GUIRegistrarCliente
             // 

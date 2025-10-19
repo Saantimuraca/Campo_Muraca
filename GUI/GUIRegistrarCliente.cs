@@ -44,6 +44,7 @@ namespace GUI
             opcion = pOpcion;
             form = pForm;
             ChequearAccesibilidadControles();
+            BtnSerializar.Enabled = false;
         }
 
         private void ChequearAccesibilidadControles()
@@ -247,6 +248,8 @@ namespace GUI
             TxtNombre.Text = DgvClientes.SelectedRows[0].Cells[2].Value.ToString();
             comboBox1.SelectedItem = DgvClientes.SelectedRows[0].Cells[3].Value.ToString();
             TxtTelefono.Text = DgvClientes.SelectedRows[0].Cells[4].Value.ToString();
+            if(DgvClientes.SelectedRows.Count  > 0) { BtnSerializar.Enabled = true; }
+            else { BtnSerializar.Enabled = false; }
         }
 
         private void BtnEliminarSeleccion_Click(object sender, EventArgs e)
@@ -281,6 +284,23 @@ namespace GUI
                     ctrl.Text = Traductor.INSTANCIA.Traducir(ctrl.Name, Sesion.INSTANCIA.ObtenerIdiomaSesion());
                 }
             }
+        }
+
+        private void BtnSerializar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<BECliente> listaClientesAExportar = new List<BECliente>();
+                foreach (DataGridViewRow row in DgvClientes.SelectedRows)
+                {
+                    BECliente cliente = bllCliente.ListaClientes().Find(x => x.dni == row.Cells[0].Value.ToString());
+                    listaClientesAExportar.Add(cliente);
+                }
+                if (listaClientesAExportar.Count == 0) throw new Exception(Traductor.INSTANCIA.Traducir("Debe seleccionar al menos un cliente para exportar", ""));
+                string path = bllCliente.Serializar(listaClientesAExportar);
+                MessageBox.Show(Traductor.INSTANCIA.Traducir("Clientes exportados exitosamente a la ruta: ", "") + path, Traductor.INSTANCIA.Traducir("Operación exitosa", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception ex) {  MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
         }
     }
 }
