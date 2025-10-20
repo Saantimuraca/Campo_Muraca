@@ -242,14 +242,17 @@ namespace GUI
 
         private void DgvClientes_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            TxtDNI.Text = DgvClientes.SelectedRows[0].Cells[0].Value.ToString();
-            TxtDNI.Enabled = false;
-            TxtCorreo.Text = DgvClientes.SelectedRows[0].Cells[1].Value.ToString();
-            TxtNombre.Text = DgvClientes.SelectedRows[0].Cells[2].Value.ToString();
-            comboBox1.SelectedItem = DgvClientes.SelectedRows[0].Cells[3].Value.ToString();
-            TxtTelefono.Text = DgvClientes.SelectedRows[0].Cells[4].Value.ToString();
-            if(DgvClientes.SelectedRows.Count  > 0) { BtnSerializar.Enabled = true; }
-            else { BtnSerializar.Enabled = false; }
+            if(DgvClientes.SelectedRows.Count > 0)
+            {
+                TxtDNI.Text = DgvClientes.SelectedRows[0].Cells[0].Value.ToString();
+                TxtDNI.Enabled = false;
+                TxtCorreo.Text = DgvClientes.SelectedRows[0].Cells[1].Value.ToString();
+                TxtNombre.Text = DgvClientes.SelectedRows[0].Cells[2].Value.ToString();
+                comboBox1.SelectedItem = DgvClientes.SelectedRows[0].Cells[3].Value.ToString();
+                TxtTelefono.Text = DgvClientes.SelectedRows[0].Cells[4].Value.ToString();
+                if (DgvClientes.SelectedRows.Count > 0) { BtnSerializar.Enabled = true; }
+                else { BtnSerializar.Enabled = false; }
+            }
         }
 
         private void BtnEliminarSeleccion_Click(object sender, EventArgs e)
@@ -301,6 +304,23 @@ namespace GUI
                 MessageBox.Show(Traductor.INSTANCIA.Traducir("Clientes exportados exitosamente a la ruta: ", "") + path, Traductor.INSTANCIA.Traducir("Operación exitosa", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex) {  MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
+        }
+
+        private void BtnDeserializar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                ofd.Filter = "Archivos XML (*.xml)|*.xml";
+                ofd.Title = "Seleccionar archivo de clientes";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string rutaSeleccionada = ofd.FileName;
+                    List<BECliente> listaClientes = Deserializar(rutaSeleccionada);
+
+                }
+            catch(Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
         }
     }
 }

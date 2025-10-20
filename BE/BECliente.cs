@@ -29,5 +29,7 @@ namespace BE
             isActivo = pIsActivo;
             telefono = pTelefono;
         }
+
+        public BECliente() { }
     }
 }

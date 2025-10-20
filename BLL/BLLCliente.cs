@@ -49,9 +49,9 @@ namespace BLL
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<BECliente>));
             string documentos = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string nombreArchivo = $"Clientes_{DateTime.Now}";
+            string nombreArchivo = $"Clientes_{DateTime.Now:yyyyMMdd_HHmmss}.xml";
             string path = Path.Combine(documentos, nombreArchivo);
-            using (FileStream fs = new FileStream(nombreArchivo, FileMode.Create))
+            using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 serializer.Serialize(fs, pLista);
             }

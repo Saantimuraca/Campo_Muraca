@@ -54,6 +54,7 @@
             this.TxtDNI = new System.Windows.Forms.TextBox();
             this.BtnEliminarSeleccion = new System.Windows.Forms.Button();
             this.BtnSerializar = new System.Windows.Forms.Button();
+            this.BtnDeserializar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DgvClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -316,7 +317,7 @@
             // BtnEliminarSeleccion
             // 
             this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
-            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(398, 444);
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(1155, 444);
             this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
             this.BtnEliminarSeleccion.Size = new System.Drawing.Size(121, 36);
             this.BtnEliminarSeleccion.TabIndex = 23;
@@ -327,7 +328,7 @@
             // BtnSerializar
             // 
             this.BtnSerializar.BackColor = System.Drawing.Color.SlateBlue;
-            this.BtnSerializar.Location = new System.Drawing.Point(525, 444);
+            this.BtnSerializar.Location = new System.Drawing.Point(388, 444);
             this.BtnSerializar.Name = "BtnSerializar";
             this.BtnSerializar.Size = new System.Drawing.Size(121, 36);
             this.BtnSerializar.TabIndex = 24;
@@ -335,12 +336,24 @@
             this.BtnSerializar.UseVisualStyleBackColor = false;
             this.BtnSerializar.Click += new System.EventHandler(this.BtnSerializar_Click);
             // 
+            // BtnDeserializar
+            // 
+            this.BtnDeserializar.BackColor = System.Drawing.Color.SlateBlue;
+            this.BtnDeserializar.Location = new System.Drawing.Point(528, 444);
+            this.BtnDeserializar.Name = "BtnDeserializar";
+            this.BtnDeserializar.Size = new System.Drawing.Size(121, 36);
+            this.BtnDeserializar.TabIndex = 25;
+            this.BtnDeserializar.Text = "Deserializar";
+            this.BtnDeserializar.UseVisualStyleBackColor = false;
+            this.BtnDeserializar.Click += new System.EventHandler(this.BtnDeserializar_Click);
+            // 
             // GUIRegistrarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1279, 487);
+            this.Controls.Add(this.BtnDeserializar);
             this.Controls.Add(this.BtnSerializar);
             this.Controls.Add(this.BtnEliminarSeleccion);
             this.Controls.Add(this.ErrorDNI);
@@ -402,5 +415,6 @@
         private System.Windows.Forms.TextBox TxtDNI;
         private System.Windows.Forms.Button BtnEliminarSeleccion;
         private System.Windows.Forms.Button BtnSerializar;
+        private System.Windows.Forms.Button BtnDeserializar;
     }
 }
