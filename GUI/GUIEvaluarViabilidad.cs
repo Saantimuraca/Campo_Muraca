@@ -63,15 +63,19 @@ namespace GUI
         {
             if(Dgv.SelectedRows.Count != 0)
             {
-                LblDetalle.Visible = true;
-                textBox1.Visible = true;
-                foreach (var par in BLLPago.DetallePago(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString())))
+                if(comboBox2.SelectedItem.ToString() != "En Revisión")
                 {
-                    textBox1.Text += $"{par.Key} ${par.Value}" + Environment.NewLine + Environment.NewLine;
+                    textBox1.Text = "";
+                    LblDetalle.Visible = true;
+                    textBox1.Visible = true;
+                    foreach (var par in BLLPago.DetallePago(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString())))
+                    {
+                        textBox1.Text += $"{par.Key} ${par.Value}" + Environment.NewLine + Environment.NewLine;
+                    }
+                    textBox1.Text += "\r\n-------------------------------------------------------------------------------------\r\n";
+                    textBox1.Text += "Total:" +
+                        "" + Dgv.SelectedRows[0].Cells[5].Value.ToString();
                 }
-                textBox1.Text += "\r\n-------------------------------------------------------------------------------------\r\n";
-                textBox1.Text += "Total:" +
-                    "" + Dgv.SelectedRows[0].Cells[5].Value.ToString();
                 if (Dgv.SelectedRows[0].Cells[1].Value.ToString() == "En Revisión") { BtnAprobar.Enabled = true; BtnRechazar.Enabled = true; }
                 else { BtnAprobar.Enabled = false; BtnRechazar.Enabled = false; }
             }

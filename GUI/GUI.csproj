@@ -141,6 +141,12 @@
     <Compile Include="GUIConfirmarPedido.Designer.cs">
       <DependentUpon>GUIConfirmarPedido.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUIDeserializacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIDeserializacion.Designer.cs">
+      <DependentUpon>GUIDeserializacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIEvaluarViabilidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIConfirmarPedido.resx">
       <DependentUpon>GUIConfirmarPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIDeserializacion.resx">
+      <DependentUpon>GUIDeserializacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIEvaluarViabilidad.resx">
       <DependentUpon>GUIEvaluarViabilidad.cs</DependentUpon>

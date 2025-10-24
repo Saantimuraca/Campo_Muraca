@@ -127,15 +127,15 @@ namespace Servicios.Logica
                 dalPedido.AdjuntarFactura(factura.nroFactura, pPedido.id);
                 /*dalPedido.AgregarDvhPedido(dalPedido.DevolverRowPedido(pPedido.id), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalPedido.DevolverRowPedido(pPedido.id)));
                 DatosDV.INSTANCIA.CalcularDvvTabla("Pedido");*/
-                VerFactura(rutaCompleta);
                 string[] vectorMail = pPedido.cliente.mail.Split('@');
                 if (vectorMail[1] == "gmail.com")
                 {
                     string destinatario = pPedido.cliente.mail;
                     string asunto = "Factura de su compra - TecnoSoft S.A.";
                     string cuerpo = $"Estimado/a {pPedido.cliente.nombre},\r\n\r\nLe enviamos adjunta la factura correspondiente a su compra realizada el día {fecha}.\r\n\r\n📄 Número de Factura: {nroFactura}  \r\n💳 Método de Pago: {metodoPago}  \r\n💰 Total: ${totalConIVA}  \r\n\r\nSi tiene alguna duda o necesita un comprobante adicional, no dude en responder a este correo.\r\n\r\nGracias por confiar en **TecnoSoft S.A.**  \r\nEstamos a su disposición para lo que necesite.\r\n\r\nSaludos cordiales,  \r\nEl equipo de TecnoSoft  ";
-                    mail.EnviarCorreo(destinatario, asunto, cuerpo, "saantimuraca12@gmail.com", "sdrjuqddpkdzwsph", rutaCompleta);
+                    mail.EnviarCorreo(destinatario, asunto, cuerpo, "saantimuraca12@gmail.com", "nspp vaef zhgg cqsd", rutaCompleta);
                 }
+                VerFactura(rutaCompleta);
             }
         }
 

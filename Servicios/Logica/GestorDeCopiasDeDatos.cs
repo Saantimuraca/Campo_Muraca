@@ -25,7 +25,7 @@ namespace Servicios
                 Directory.CreateDirectory(carpetaBackup);
             string nombreArchivo = $"Backup_{DateTime.Now:ddmmyyyyhhmmss}.bak";
             string archivoBackUp = Path.Combine(carpetaBackup, nombreArchivo);
-            using (SqlConnection con = new SqlConnection(@"Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection(Gestor_Datos.INSTANCIA.ObtenerStringConexion()))
             {
                 con.Open();
                 string consulta = $@"BACKUP DATABASE [{nombreDBActual}] TO DISK = '{archivoBackUp}'"; 
@@ -52,7 +52,7 @@ namespace Servicios
                 try
                 {
                     //.\\SQLEXPRESS
-                    var cs = @"Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True";
+                    var cs = Gestor_Datos.INSTANCIA.ObtenerStringConexion();
                     using (var con = new SqlConnection(cs))
                     {
                         con.Open();

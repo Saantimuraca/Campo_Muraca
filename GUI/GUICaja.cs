@@ -42,22 +42,37 @@ namespace GUI
         {
             try
             {
-                if(comboBox3.SelectedItem == null) { ErrorDescripcion.Visible = true; }
-                if (!decimal.TryParse(TxtImporte.Text, out decimal importe)) { ErrorImporte.Visible = true; }
-                if(comboBox1.SelectedItem == null) { ErrorRol.Visible = true; }
-                if(comboBox2.SelectedItem == null) { ErrorTipo.Visible = true; }
-                if (importe > bllMbvimiento.CalcularTotalCaja() && comboBox2.SelectedItem.ToString() == "Egreso") throw new Exception("El saldo de la caja es menor al importe ingresado");
-                if(IsHabilitado())
+                if (comboBox3.SelectedItem == null) { ErrorDescripcion.Visible = true; }
+                if (!decimal.TryParse(TxtImporte.Text, out decimal importe))
                 {
-                    BEMovimientoCaja movimientoCaja = new BEMovimientoCaja(comboBox3.SelectedItem.ToString(), DateTime.Now, importe, comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString() == "Ingreso" ? true:false);
+                    ErrorImporte.Visible = true;
+                    return;
+                }
+                if (importe < 0)
+                {
+                    ErrorImporte.Visible = true;
+                }
+                if (comboBox1.SelectedItem == null) { ErrorRol.Visible = true; }
+                if (comboBox2.SelectedItem == null) { ErrorTipo.Visible = true; }
+                if (importe > bllMbvimiento.CalcularTotalCaja() && comboBox2.SelectedItem.ToString() == "Egreso")
+                    throw new Exception("El saldo de la caja es menor al importe ingresado");
+                if (IsHabilitado())
+                {
+                    BEMovimientoCaja movimientoCaja = new BEMovimientoCaja(
+                        comboBox3.SelectedItem.ToString(),
+                        DateTime.Now,
+                        importe,
+                        comboBox1.SelectedItem.ToString(),
+                        comboBox2.SelectedItem.ToString() == "Ingreso"
+                    );
                     bllMbvimiento.Agregar(movimientoCaja);
                     Mostrar(Dgv, Linq());
                     LimpiarControles();
-                    LblTotalCaja.Text = $"Caja: $" + bllMbvimiento.CalcularTotalCaja().ToString();
+                    LblTotalCaja.Text = $"Caja: ${bllMbvimiento.CalcularTotalCaja()}";
                     bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Registró un movimiento en caja", 3));
                 }
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void LimpiarControles()
@@ -157,7 +172,51 @@ namespace GUI
                 TxtImporte.Text = Dgv.SelectedRows[0].Cells["Importe"].Value.ToString();
                 comboBox1.SelectedItem = Dgv.SelectedRows[0].Cells["Metodo_Pago"].Value.ToString();
                 comboBox2.SelectedItem = Dgv.SelectedRows[0].Cells["Tipo"].Value.ToString();
+                comboBox3.SelectedItem = Dgv.SelectedRows[0].Cells["Descripción"].Value.ToString();
+                ErrorTipo.Visible = false;
+                ErrorDescripcion.Visible = false;
+                ErrorImporte.Visible = false;
+                ErrorRol.Visible = false;
             }
+        }
+
+        private void comboBox2_Leave(object sender, EventArgs e)
+        {
+            if(comboBox2.SelectedItem != null) { ErrorTipo.Visible = false; }
+        }
+
+        private void comboBox3_Leave(object sender, EventArgs e)
+        {
+            if (comboBox3.SelectedItem != null) { ErrorDescripcion.Visible = false; }
+        }
+
+        private void TxtImporte_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtImporte.Text))
+            {
+                return;
+            }
+            if (!decimal.TryParse(TxtImporte.Text, out decimal importe) || importe < 0)
+            {
+                return;
+            }
+            else
+            {
+                ErrorImporte.Visible = false;
+            }
+        }
+
+        private void comboBox1_Leave(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem != null) { ErrorRol.Visible = false; }
+        }
+
+        private void BtnEliminarSeleccion_Click(object sender, EventArgs e)
+        {
+            comboBox2.SelectedItem = null;
+            comboBox3.SelectedItem = null;
+            TxtImporte.Text = "";
+            comboBox1.SelectedItem = null;
         }
     }
 }

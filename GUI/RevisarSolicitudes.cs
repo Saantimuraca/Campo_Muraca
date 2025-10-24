@@ -51,8 +51,7 @@ namespace GUI
         {
             try
             {
-                int cantidad = int.Parse(Interaction.InputBox("Ingrese la cantidad de productos a reponer"));
-                bllSolicitud.Aprobar(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()), cantidad);
+                bllSolicitud.Aprobar(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString()));
                 Mostrar(Dgv, Linq(comboBox1.SelectedItem.ToString()));
                 bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Aprobó solicitud de reposición", 3));
             }

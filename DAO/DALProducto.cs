@@ -122,7 +122,8 @@ namespace DAO
         public void ModificarStock(int idProducto, int cantidad)
         {
             DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("Producto").Rows.Find(idProducto);
-            dr["stock"] = cantidad;
+            int stockActual = int.Parse(dr["stock"].ToString());
+            dr["stock"] = cantidad + stockActual;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("Producto");
         }
 

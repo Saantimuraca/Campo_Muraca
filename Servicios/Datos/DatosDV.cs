@@ -41,7 +41,7 @@ namespace Servicios.Datos
         {
             readers.Clear();
             //readers.Add(DALCategoria.INSTANCIA);
-            readers.Add(DALCliente.INSTANCIA);
+            //readers.Add(DALCliente.INSTANCIA);
             //readers.Add(DALPedido.INSTANCIA);
             readers.Add(DALProducto.INSTANCIA);
             //readers.Add(DatosBitacora.INSTANCIA);

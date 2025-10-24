@@ -17,22 +17,22 @@ namespace BLL
         public void Agregar(BECliente pCliente)
         {
             dalCliente.Agregar(pCliente);
-            dalCliente.AgregarDvh(dalCliente.DevolverRow(pCliente.dni), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalCliente.DevolverRow(pCliente.dni)));
-            DatosDV.INSTANCIA.CalcularDvvTabla("Cliente");
+            //dalCliente.AgregarDvh(dalCliente.DevolverRow(pCliente.dni), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalCliente.DevolverRow(pCliente.dni)));
+            //DatosDV.INSTANCIA.CalcularDvvTabla("Cliente");
         }
 
         public void CambiarEstado(BECliente pCliente)
         {
             dalCliente.CambiarEstado(pCliente);
-            dalCliente.AgregarDvh(dalCliente.DevolverRow(pCliente.dni), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalCliente.DevolverRow(pCliente.dni)));
-            DatosDV.INSTANCIA.CalcularDvvTabla("Cliente");
+            //dalCliente.AgregarDvh(dalCliente.DevolverRow(pCliente.dni), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalCliente.DevolverRow(pCliente.dni)));
+            //DatosDV.INSTANCIA.CalcularDvvTabla("Cliente");
         }
 
         public void Modificar(BECliente pCliente)
         {
             dalCliente.Modificar(pCliente);
-            dalCliente.AgregarDvh(dalCliente.DevolverRow(pCliente.dni), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalCliente.DevolverRow(pCliente.dni)));
-            DatosDV.INSTANCIA.CalcularDvvTabla("Cliente");
+            //dalCliente.AgregarDvh(dalCliente.DevolverRow(pCliente.dni), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dalCliente.DevolverRow(pCliente.dni)));
+            //DatosDV.INSTANCIA.CalcularDvvTabla("Cliente");
         }
 
         public List<BECliente> ListaClientes()
@@ -56,6 +56,15 @@ namespace BLL
                 serializer.Serialize(fs, pLista);
             }
             return documentos;
+        }
+
+        public List<BECliente> Deserializar(string rutaArchivo)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<BECliente>));
+            using (FileStream fs = new FileStream(rutaArchivo, FileMode.Open))
+            {
+                return (List<BECliente>)serializer.Deserialize(fs);
+            }
         }
     }
 }

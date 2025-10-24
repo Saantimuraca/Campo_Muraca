@@ -32,7 +32,12 @@ namespace Servicios.Logica
 
         public List<EntidadBitacora> ListaBitacoraFecha(DateTime pDesde, DateTime pHasta)
         {
-            return dalBitacora.ListaBitacora().Where(x => x.fechaHora >= pDesde).Where(x => x.fechaHora <= pHasta).ToList();
+            DateTime hasta = pHasta.Date.AddDays(1).AddSeconds(-1);
+            DateTime desde = pDesde.Date;
+
+            return dalBitacora.ListaBitacora()
+                .Where(x => x.fechaHora >= desde && x.fechaHora <= hasta)
+                .ToList();
         }
 
         public List<EntidadBitacora> ListaBitacoraCriticidad(int pCriticidad)

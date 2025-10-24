@@ -159,6 +159,7 @@
             this.TxtPrecio.Size = new System.Drawing.Size(140, 20);
             this.TxtPrecio.TabIndex = 8;
             this.TxtPrecio.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtPrecio_KeyUp);
+            this.TxtPrecio.Leave += new System.EventHandler(this.TxtPrecio_Leave);
             // 
             // LblPrecio
             // 
@@ -189,11 +190,6 @@
             this.numericUpDown1.Location = new System.Drawing.Point(1156, 488);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             300000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});
@@ -364,6 +360,7 @@
             this.TxtStockActualizado.Location = new System.Drawing.Point(18, 189);
             this.TxtStockActualizado.Multiline = true;
             this.TxtStockActualizado.Name = "TxtStockActualizado";
+            this.TxtStockActualizado.ReadOnly = true;
             this.TxtStockActualizado.Size = new System.Drawing.Size(247, 261);
             this.TxtStockActualizado.TabIndex = 25;
             // 

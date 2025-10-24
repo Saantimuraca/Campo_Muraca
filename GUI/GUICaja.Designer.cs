@@ -45,6 +45,7 @@
             this.ErrorDescripcion = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.BtnEliminarSeleccion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,6 +92,7 @@
             this.TxtImporte.Size = new System.Drawing.Size(172, 20);
             this.TxtImporte.TabIndex = 8;
             this.TxtImporte.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtImporte_KeyUp);
+            this.TxtImporte.Leave += new System.EventHandler(this.TxtImporte_Leave);
             // 
             // LblImporte
             // 
@@ -130,6 +132,7 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 10;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.Leave += new System.EventHandler(this.comboBox1_Leave);
             // 
             // ErrorRol
             // 
@@ -180,6 +183,7 @@
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 31;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.comboBox2.Leave += new System.EventHandler(this.comboBox2_Leave);
             // 
             // LblTipo
             // 
@@ -247,6 +251,20 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 21);
             this.comboBox3.TabIndex = 35;
+            this.comboBox3.Leave += new System.EventHandler(this.comboBox3_Leave);
+            // 
+            // BtnEliminarSeleccion
+            // 
+            this.BtnEliminarSeleccion.BackColor = System.Drawing.Color.SlateBlue;
+            this.BtnEliminarSeleccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEliminarSeleccion.Location = new System.Drawing.Point(702, 278);
+            this.BtnEliminarSeleccion.Name = "BtnEliminarSeleccion";
+            this.BtnEliminarSeleccion.Size = new System.Drawing.Size(100, 44);
+            this.BtnEliminarSeleccion.TabIndex = 38;
+            this.BtnEliminarSeleccion.Tag = "";
+            this.BtnEliminarSeleccion.Text = "Eliminar selección";
+            this.BtnEliminarSeleccion.UseVisualStyleBackColor = false;
+            this.BtnEliminarSeleccion.Click += new System.EventHandler(this.BtnEliminarSeleccion_Click);
             // 
             // GUICaja
             // 
@@ -254,6 +272,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(865, 450);
+            this.Controls.Add(this.BtnEliminarSeleccion);
             this.Controls.Add(this.ErrorDescripcion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBox3);
@@ -298,5 +317,6 @@
         private System.Windows.Forms.Label ErrorDescripcion;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Button BtnEliminarSeleccion;
     }
 }

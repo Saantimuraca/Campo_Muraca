@@ -49,7 +49,18 @@ namespace GUI
             try
             {
                 if (comboBox1.SelectedItem == null) { ErrorRol.Visible = true; return; }
-                if (string.IsNullOrEmpty(TxtSueldo.Text)) { ErrorNombre.Visible = true; return; }
+                if (string.IsNullOrWhiteSpace(TxtSueldo.Text))
+                {
+                    return;
+                }
+                if (!decimal.TryParse(TxtSueldo.Text, out decimal importe) || importe < 0)
+                {
+                    return;
+                }
+                else
+                {
+                    ErrorNombre.Visible = false;
+                }
                 BESueldo sueldo = new BESueldo(comboBox1.SelectedItem.ToString(), Convert.ToDecimal(TxtSueldo.Text), Convert.ToInt32(numericUpDown1.Value), DateTime.Now);
                 bllSueldo.Modificar(sueldo);
                 MessageBox.Show("Sueldo modificado con éxito", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -59,6 +70,7 @@ namespace GUI
                 MessageBox.Show("Error: " + ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private void ActualizarSueldos()
         {

@@ -119,7 +119,7 @@ namespace GUI
                     string plantilla = traductor.Traducir("Mensaje mail", Sesion.ObtenerIdiomaSesion());
                     string cuerpo = plantilla.Replace("{usuario}", usuario);
                     string emailOrigen = "saantimuraca12@gmail.com";
-                    string contraseña = "sdrjuqddpkdzwsph";
+                    string contraseña = "nspp vaef zhgg cqsd";
                     string[] vectorMail = TxtMail.Text.Split('@');
                     MessageBox.Show(traductor.Traducir("Usuario creado exitosamente!!!", Sesion.ObtenerIdiomaSesion()));
                     if (vectorMail[1].ToLower() == "gmail.com")
@@ -261,7 +261,7 @@ namespace GUI
         {
             Regex r = new Regex(@"^\d{7,8}$");
             if (!r.IsMatch(TxtDNIUsuario.Text)) { ErrorDNI.Visible = true; }
-
+            else { ErrorDNI.Visible = false; }  
         }
 
         private void TxtDNIUsuario_KeyUp(object sender, KeyEventArgs e)
@@ -272,6 +272,7 @@ namespace GUI
         private void TxtNombreUsuario_Leave(object sender, EventArgs e)
         {
             if(String.IsNullOrEmpty(TxtNombreUsuario.Text)) { ErrorNombre.Visible = true; }
+            else { ErrorNombre.Visible = false; }
         }
 
         private void TxtNombreUsuario_KeyUp(object sender, KeyEventArgs e)
@@ -283,7 +284,7 @@ namespace GUI
         {
             string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             if(!Regex.IsMatch(TxtMail.Text, patron)) { ErrorCorreo.Visible = true; }
-            
+            else { ErrorCorreo.Visible = false; }
         }
 
         private void TxtMail_KeyUp(object sender, KeyEventArgs e)
@@ -295,7 +296,7 @@ namespace GUI
         {
             string patron = @"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$";
             if(!Regex.IsMatch(TxtFechaNacimiento.Text, patron)) { ErrorFecha.Visible = true; }
-            
+            else { ErrorFecha.Visible = false; }
         }
 
         private void TxtFechaNacimiento_KeyUp(object sender, KeyEventArgs e)
@@ -307,6 +308,7 @@ namespace GUI
         {
             string patron = @"^\d{10}$";
             if(!Regex.IsMatch(TxtTelefonoUsuario.Text, patron)) { ErrorTelefono.Visible = true; }
+            else { ErrorTelefono.Visible = false; }
         }
 
         private void TxtTelefonoUsuario_KeyUp(object sender, KeyEventArgs e)
@@ -317,6 +319,7 @@ namespace GUI
         private void CbRol_Leave(object sender, EventArgs e)
         {
             if(CbRol.SelectedItem == null) { ErrorRol.Visible = true; }
+            else { ErrorRol.Visible = false; }
         }
 
         private void CbRol_SelectedIndexChanged(object sender, EventArgs e)
@@ -332,6 +335,7 @@ namespace GUI
         private void CbIdioma_Leave(object sender, EventArgs e)
         {
             if(CbIdioma.SelectedItem == null) { ErrorIdioma.Visible=true; }
+            else { ErrorIdioma.Visible = false; }
         }
 
         private void DgvUsuarios_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -350,6 +354,7 @@ namespace GUI
             CbIdioma.Enabled = false;
             if (DgvUsuarios.SelectedRows[0].Cells[5].Value.ToString() == "Administrador") { BtnBajaUsuario.Enabled = false; }
             else if(Sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador" && DgvUsuarios.SelectedRows[0].Cells[5].Value.ToString() != "Administrador") { BtnBajaUsuario.Enabled = true; }
+            foreach(Label l in listaLabels) { l.Visible = false; }
         }
 
         public void Actualizar()
@@ -361,6 +366,11 @@ namespace GUI
         {
             HistoriaUsuarios gui = new HistoriaUsuarios(TxtDNIUsuario.Text);
             gui.Show();
+        }
+
+        private void ABM_Usuarios_Leave(object sender, EventArgs e)
+        {
+
         }
     }
 }

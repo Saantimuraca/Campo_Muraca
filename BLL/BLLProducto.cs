@@ -31,6 +31,7 @@ namespace BLL
         public void ModificarStock(int id, int cantidad)
         {
             dal.ModificarStock(id, cantidad);
+            if(cantidad == 0) { NotificarBajoStock(id); }
             dal.AgregarDvh(dal.DevolverRow(id), DatosDV.INSTANCIA.CalcularDVHRegistroBase64(dal.DevolverRow(id)));
             DatosDV.INSTANCIA.CalcularDvvTabla("Producto");
         }

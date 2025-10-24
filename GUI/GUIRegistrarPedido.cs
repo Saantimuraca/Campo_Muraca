@@ -55,39 +55,43 @@ namespace GUI
         {
             string texto = comboBox1.Text.Trim();
 
+            // Resetear selección antes de limpiar
+            comboBox1.SelectedIndex = -1;
+            comboBox1.DroppedDown = false;
             comboBox1.Items.Clear();
 
             List<BECliente> resultados;
 
-            if (string.IsNullOrEmpty(texto)) return;
-
-            if (texto.All(char.IsDigit))
+            // Si no hay texto → mostrar todos los clientes
+            if (string.IsNullOrEmpty(texto))
+            {
+                resultados = bllCliente.ListaClientes();
+            }
+            else if (texto.All(char.IsDigit))
             {
                 resultados = bllCliente.ListaClientes()
                     .Where(c => c.dni.ToString().StartsWith(texto))
                     .ToList();
             }
-            else 
+            else
             {
                 resultados = bllCliente.ListaClientes()
                     .Where(c => c.nombre.StartsWith(texto, StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
 
+            // Agregar los resultados al ComboBox
             foreach (var cliente in resultados)
             {
                 comboBox1.Items.Add($"{cliente.dni}, {cliente.nombre}");
             }
 
+            // Mantener el texto que el usuario está escribiendo
             comboBox1.SelectionStart = comboBox1.Text.Length;
-            if (resultados.Any())
-            {
-                comboBox1.DroppedDown = true;
-            }
-            else
-            {
-                comboBox1.DroppedDown = false;
-            }
+            comboBox1.SelectionLength = 0;
+
+            // Mostrar el desplegable solo si hay algo para mostrar
+            comboBox1.DroppedDown = resultados.Any();
         }
 
         private void Mostrar(DataGridView dgv, object obj)
@@ -144,8 +148,8 @@ namespace GUI
             numericUpDown1.Minimum = 1;
             numericUpDown1.Value = 1;
             numericUpDown1.Maximum = int.Parse(DgvProductos.SelectedRows[0].Cells[4].Value.ToString());
-            if (int.Parse(DgvProductos.SelectedRows[0].Cells[0].Value.ToString()) == 0 || comboBox1.SelectedItem == null) { BtnAgregarCarrito.Enabled = false; }
-            else { BtnAgregarCarrito.Enabled = true; }
+            if(DgvProductos.SelectedRows.Count > 0) { BtnAgregarCarrito.Enabled = true; }
+            else { BtnAgregarCarrito.Enabled = false; }
             BtnNotificarBajoStock.Enabled = true;
         }
 
@@ -261,19 +265,22 @@ namespace GUI
 
         private void BtnRegistrarPedido_Click(object sender, EventArgs e)
         {
-            string[] vectorCb = comboBox1.SelectedItem.ToString().Split(',');
-            BECliente cliente = bllCliente.ListaClientes().Find(x => x.dni == vectorCb[0]);
-            string estado = CalcularTotalGeneral() > 5000000 ? "En evaluación" : "Aprobado";
-            BEPedido pedido = new BEPedido(cliente, estado, DateTime.Now, CalcularTotalGeneral(), Sesion.INSTANCIA.ObtenerUsuarioActual().Dni_Usuario);
-            bllPedido.Agregar(pedido, BECarrito.INSTANCIA.d);
-            MessageBox.Show(Traductor.INSTANCIA.Traducir("Pedido registrado", ""), Traductor.INSTANCIA.Traducir("Información", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
-            bllCarrito.VaciarCarrito();
-            ActualizarCarrito();
-            LBLTotal.Text = Traductor.INSTANCIA.Traducir("Total: ${calculoTotal}", "");
-            LBLTotal.Text = LBLTotal.Text.Replace("{calculoTotal}", CalcularTotalGeneral().ToString());
-            Mostrar(DgvProductos, LinqProductos());
-            numericUpDown1.Value = 1;
-            bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Registró un pedido del cliente {cliente.dni} {cliente.nombre}", 2));
+            if(ErrorSeleccionCliente.Visible == false)
+            {
+                string[] vectorCb = comboBox1.SelectedItem.ToString().Split(',');
+                BECliente cliente = bllCliente.ListaClientes().Find(x => x.dni == vectorCb[0]);
+                string estado = CalcularTotalGeneral() > 5000000 ? "En evaluación" : "Aprobado";
+                BEPedido pedido = new BEPedido(cliente, estado, DateTime.Now, CalcularTotalGeneral(), Sesion.INSTANCIA.ObtenerUsuarioActual().Dni_Usuario);
+                bllPedido.Agregar(pedido, BECarrito.INSTANCIA.d);
+                MessageBox.Show(Traductor.INSTANCIA.Traducir("Pedido registrado", ""), Traductor.INSTANCIA.Traducir("Información", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                bllCarrito.VaciarCarrito();
+                ActualizarCarrito();
+                LBLTotal.Text = Traductor.INSTANCIA.Traducir("Total: ${calculoTotal}", "");
+                LBLTotal.Text = LBLTotal.Text.Replace("{calculoTotal}", CalcularTotalGeneral().ToString());
+                Mostrar(DgvProductos, LinqProductos());
+                numericUpDown1.Value = 1;
+                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Registró un pedido del cliente {cliente.dni} {cliente.nombre}", 2));
+            }
         }  
 
         public void ActualizarLenguaje()

@@ -19,7 +19,7 @@ namespace DAO
             foreach(DataRowView row in Gestor_Datos.INSTANCIA.DevolverTabla("SolicitudReposicion").DefaultView)
             {
                 BEProducto producto = dalProducto.ListarProductos().Find(x => x.idProducto == int.Parse(row["idProducto"].ToString()));
-                BESolicitudReposicion solicitudReposicion = new BESolicitudReposicion(producto, DateTime.Parse(row["fecha"].ToString()), row["motivo"].ToString(), row["estado"].ToString(), int.Parse(row["cantidad"].ToString()),int.Parse(row["id"].ToString()));
+                BESolicitudReposicion solicitudReposicion = new BESolicitudReposicion(producto, DateTime.Parse(row["fecha"].ToString()), row["motivo"].ToString(), row["estado"].ToString(), int.Parse(row["id"].ToString()));
                 if(row["idOrdenCompra"] != DBNull.Value)
                 {
                     solicitudReposicion.ordenCompra = dalOrden.Ordenes().Find(x => x.id == int.Parse(row["idOrdenCompra"].ToString()));
@@ -49,11 +49,10 @@ namespace DAO
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("SolicitudReposicion");
         }
 
-        public void AprobarSolicitud(int pIdSolicitud, int pCantidad)
+        public void AprobarSolicitud(int pIdSolicitud)
         {
             DataRow dr = Gestor_Datos.INSTANCIA.DevolverTabla("SolicitudReposicion").Rows.Find(pIdSolicitud);
             dr["estado"] = "Aprobada";
-            dr["cantidad"] = pCantidad;
             Gestor_Datos.INSTANCIA.ActualizarPorTabla("SolicitudReposicion");
         }
 

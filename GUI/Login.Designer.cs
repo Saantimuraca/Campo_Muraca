@@ -42,7 +42,8 @@
             // BtnIniciarSesion
             // 
             this.BtnIniciarSesion.BackColor = System.Drawing.Color.SlateBlue;
-            this.BtnIniciarSesion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnIniciarSesion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnIniciarSesion.ForeColor = System.Drawing.Color.Black;
             this.BtnIniciarSesion.Location = new System.Drawing.Point(223, 307);
             this.BtnIniciarSesion.Name = "BtnIniciarSesion";
             this.BtnIniciarSesion.Size = new System.Drawing.Size(158, 43);
@@ -101,13 +102,15 @@
             // 
             // BtnVisibilidadContraseña
             // 
-            this.BtnVisibilidadContraseña.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVisibilidadContraseña.BackColor = System.Drawing.Color.SlateBlue;
+            this.BtnVisibilidadContraseña.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVisibilidadContraseña.ForeColor = System.Drawing.Color.Black;
             this.BtnVisibilidadContraseña.Location = new System.Drawing.Point(415, 262);
             this.BtnVisibilidadContraseña.Name = "BtnVisibilidadContraseña";
             this.BtnVisibilidadContraseña.Size = new System.Drawing.Size(58, 20);
             this.BtnVisibilidadContraseña.TabIndex = 6;
             this.BtnVisibilidadContraseña.Text = "VER";
-            this.BtnVisibilidadContraseña.UseVisualStyleBackColor = true;
+            this.BtnVisibilidadContraseña.UseVisualStyleBackColor = false;
             this.BtnVisibilidadContraseña.Click += new System.EventHandler(this.BtnVisibilidadContraseña_Click);
             // 
             // pictureBox1

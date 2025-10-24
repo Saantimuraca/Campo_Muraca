@@ -123,8 +123,17 @@ namespace GUI
             int cont = 0;
             if (string.IsNullOrWhiteSpace(TxtProducto.Text)) { ErrorNombre.Visible = true; cont++; }
             if (string.IsNullOrWhiteSpace(TxtDescripcion.Text)) { ErrorIdioma.Visible = true; cont++; }
-            string sinSimbolo = TxtPrecio.Text.Replace("$", "");
-            if (!decimal.TryParse(sinSimbolo, out var precio) || string.IsNullOrWhiteSpace(TxtPrecio.Text)) { ErrorPrecio.Visible = true; cont++; }
+            string sinSimbolo = TxtPrecio.Text.Replace("$", "").Trim();
+
+            if (!decimal.TryParse(sinSimbolo, out var precio) || string.IsNullOrWhiteSpace(TxtPrecio.Text) || precio < 0)
+            {
+                ErrorPrecio.Visible = true;
+                cont++;
+            }
+            else
+            {
+                ErrorPrecio.Visible = false;
+            }
             if (comboBox1.SelectedItem == null) { ErrorRol.Visible = true; cont++; }
             return cont;
         }
@@ -155,7 +164,7 @@ namespace GUI
             TxtProducto.Text = Dgv.SelectedRows[0].Cells["Producto"].Value.ToString();
             TxtDescripcion.Text = Dgv.SelectedRows[0].Cells["Descripción"].Value.ToString();
             TxtPrecio.Text = Dgv.SelectedRows[0].Cells["Precio"].Value.ToString();
-            numericUpDown1.Value = Dgv.SelectedRows[0].Cells["Precio"].Value.ToString().Length;
+            numericUpDown1.Value = int.Parse(Dgv.SelectedRows[0].Cells["Stock"].Value.ToString());
             numericUpDown1.Enabled = false;
             var categoriaNombre = Dgv.SelectedRows[0].Cells["Categoria"].Value.ToString();
             var item = comboBox1.Items.Cast<BECategoria>().FirstOrDefault(x => x.nombre == categoriaNombre);
@@ -164,6 +173,10 @@ namespace GUI
             else { BtnActualizarStock.Enabled= false; }
             if (Dgv.SelectedRows.Count > 0) { BtnSolicitarReposición.Enabled = true; }
             else { BtnSolicitarReposición.Enabled = false; }
+            ErrorIdioma.Visible = false;
+            ErrorNombre.Visible = false;
+            ErrorPrecio.Visible = false;
+            ErrorRol.Visible = false;
         }
 
         private bool EvaluarOdenCompra(int pIdProducto)
@@ -326,6 +339,22 @@ namespace GUI
         private void RbInactivos_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void TxtPrecio_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtPrecio.Text))
+            {
+                return;
+            }
+            if (!decimal.TryParse(TxtPrecio.Text, out decimal importe) || importe < 0)
+            {
+                return;
+            }
+            else
+            {
+                ErrorPrecio.Visible = false;
+            }
         }
     }
 }

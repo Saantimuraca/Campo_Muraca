@@ -66,7 +66,7 @@ namespace GUI
 
         private object LinqDetalle(int pIdOrden)
         {
-            return (from s in bllSolicitud.Solicitudes() where s.ordenCompra != null && s.ordenCompra.id == pIdOrden select new { Id = s.id, Producto = s.producto.nombre, Cantidad = s.cantidad, Estado = s.estado }).ToList();
+            return (from s in bllSolicitud.Solicitudes() where s.ordenCompra != null && s.ordenCompra.id == pIdOrden select new { Id = s.id, Producto = s.producto.nombre, Estado = s.estado }).ToList();
         }
 
         private void BtnFinalizar_Click(object sender, EventArgs e)

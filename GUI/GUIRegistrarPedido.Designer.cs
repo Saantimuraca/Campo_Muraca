@@ -161,7 +161,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DgvProductos.DefaultCellStyle = dataGridViewCellStyle2;
             this.DgvProductos.EnableHeadersVisualStyles = false;
-            this.DgvProductos.Location = new System.Drawing.Point(12, 112);
+            this.DgvProductos.Location = new System.Drawing.Point(35, 116);
             this.DgvProductos.Name = "DgvProductos";
             this.DgvProductos.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;

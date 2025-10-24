@@ -39,9 +39,9 @@ namespace BLL
             dalSolicitud.CancelarSolicitud(pIdSolicitud, pMotivo);
         }
 
-        public void Aprobar(int pIdSolicitud, int pCantidad)
+        public void Aprobar(int pIdSolicitud)
         {
-            dalSolicitud.AprobarSolicitud(pIdSolicitud, pCantidad);
+            dalSolicitud.AprobarSolicitud(pIdSolicitud);
         }
 
         public void AsignarOrdenCompra(int pIdSolicitud, int pIdOrdenCompra)

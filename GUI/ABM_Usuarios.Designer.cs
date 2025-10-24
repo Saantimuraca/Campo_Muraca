@@ -403,6 +403,7 @@
             this.Name = "ABM_Usuarios";
             this.Text = "ABM_Usuarios";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ABM_Usuarios_FormClosed);
+            this.Leave += new System.EventHandler(this.ABM_Usuarios_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.DgvUsuarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

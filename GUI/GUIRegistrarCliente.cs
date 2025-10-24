@@ -151,7 +151,7 @@ namespace GUI
                     string plantilla = "Hola {cliente},\r\n\r\nQueremos informarte que hemos registrado tus datos en nuestro sistema como nuevo cliente.\r\n\r\nA partir de ahora, vas a poder disfrutar de una atención más personalizada y recibir nuestras novedades, promociones y beneficios.\r\n\r\nDatos registrados:\r\n\r\n📛 Nombre: {nombre}\r\n\r\n📧 Email: {correo}\r\n\r\n📞 Teléfono: {telefono}\r\n\r\n\U0001f9fe Condición frente al IVA: {iva}\r\n\r\nSi alguno de estos datos es incorrecto, por favor comunicate con nosotros para actualizarlo.\r\n\r\n";
                     string cuerpo = plantilla.Replace("{cliente}", cliente.nombre).Replace("{nombre}", cliente.nombre).Replace("{correo}", cliente.mail).Replace("{telefono}", cliente.telefono).Replace("{iva}", cliente.condicionIVA);
                     string mailOrigen = "Saantimuraca12@gmail.com";
-                    string contraseña = "sdrjuqddpkdzwsph";
+                    string contraseña = "nspp vaef zhgg cqsd";
                     string[] vectorMail = cliente.mail.Split('@');
                     if (vectorMail[1].ToLower() == "gmail.com") { mail.EnviarCorreo(cliente.mail, asunto, cuerpo, mailOrigen, contraseña); }
                     Mostrar(DgvClientes, LinqClientes(RbActivos.Checked));
@@ -252,6 +252,7 @@ namespace GUI
                 TxtTelefono.Text = DgvClientes.SelectedRows[0].Cells[4].Value.ToString();
                 if (DgvClientes.SelectedRows.Count > 0) { BtnSerializar.Enabled = true; }
                 else { BtnSerializar.Enabled = false; }
+                foreach(Label l in listaLabels) { l.Visible = false; }
             }
         }
 
@@ -301,7 +302,7 @@ namespace GUI
                 }
                 if (listaClientesAExportar.Count == 0) throw new Exception(Traductor.INSTANCIA.Traducir("Debe seleccionar al menos un cliente para exportar", ""));
                 string path = bllCliente.Serializar(listaClientesAExportar);
-                MessageBox.Show(Traductor.INSTANCIA.Traducir("Clientes exportados exitosamente a la ruta: ", "") + path, Traductor.INSTANCIA.Traducir("Operación exitosa", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Traductor.INSTANCIA.Traducir(Traductor.INSTANCIA.Traducir("Clientes exportados exitosamente a la ruta:", ""), "") + path, Traductor.INSTANCIA.Traducir("Operación exitosa", ""), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex) {  MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
         }
@@ -317,10 +318,17 @@ namespace GUI
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     string rutaSeleccionada = ofd.FileName;
-                    List<BECliente> listaClientes = Deserializar(rutaSeleccionada);
-
+                    List<BECliente> listaClientes = bllCliente.Deserializar(rutaSeleccionada);
+                    GUIDeserializacion formDeserializacion = new GUIDeserializacion(listaClientes);
+                    formDeserializacion.Show();
                 }
-            catch(Exception ex) { MessageBox.Show(ex.Message, Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
+            }
+            catch{ MessageBox.Show(Traductor.INSTANCIA.Traducir("No se pudo relizar la deserialización", ""), Traductor.INSTANCIA.Traducir("Advertencia", ""), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); }
+        }
+
+        public void Actualizar()
+        {
+            Mostrar(DgvClientes, LinqClientes(RbActivos.Checked));
         }
     }
 }
