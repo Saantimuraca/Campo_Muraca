@@ -24,6 +24,17 @@ namespace GUI
             BtnRechazar.Enabled = false;
             LblDetalle.Visible = false;
             textBox1.Visible = false;
+            textBox1.Text = "";
+            LblDetalle.Visible = true;
+            textBox1.Visible = true;
+            foreach (var par in BLLPago.DetallePago(BLLPago.ObtenerPagoMasReciente().id))
+            {
+                textBox1.Text += $"{par.Key} ${par.Value}" + Environment.NewLine + Environment.NewLine;
+            }
+            textBox1.Text += "\r\n-------------------------------------------------------------------------------------\r\n";
+            textBox1.Text += "Total:" +
+                "" + BLLPago.ObtenerPagoMasReciente().monto;
+            label3.Text += bllMovimiento.CalcularTotalCaja().ToString("C2");
         }
 
         private void Mostrar(DataGridView dgv, object obj)
@@ -63,19 +74,6 @@ namespace GUI
         {
             if(Dgv.SelectedRows.Count != 0)
             {
-                if(comboBox2.SelectedItem.ToString() != "En Revisión")
-                {
-                    textBox1.Text = "";
-                    LblDetalle.Visible = true;
-                    textBox1.Visible = true;
-                    foreach (var par in BLLPago.DetallePago(int.Parse(Dgv.SelectedRows[0].Cells[0].Value.ToString())))
-                    {
-                        textBox1.Text += $"{par.Key} ${par.Value}" + Environment.NewLine + Environment.NewLine;
-                    }
-                    textBox1.Text += "\r\n-------------------------------------------------------------------------------------\r\n";
-                    textBox1.Text += "Total:" +
-                        "" + Dgv.SelectedRows[0].Cells[5].Value.ToString();
-                }
                 if (Dgv.SelectedRows[0].Cells[1].Value.ToString() == "En Revisión") { BtnAprobar.Enabled = true; BtnRechazar.Enabled = true; }
                 else { BtnAprobar.Enabled = false; BtnRechazar.Enabled = false; }
             }
@@ -208,6 +206,11 @@ namespace GUI
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

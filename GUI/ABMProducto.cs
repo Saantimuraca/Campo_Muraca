@@ -250,6 +250,7 @@ namespace GUI
                     BEProducto historiaProducto = new BEProducto(historiaNombre, historiaDescripcion, historiaPrecio, stock, historiaCategoria, RbActivos.Checked, id);
                     BLLProducto.AgregarHistoria(historiaProducto);
                     LimpiarControles();
+                    if(checkBox1.Checked) { Mostrar(Dgv, LinqProductosAprobados()); }
                     lista.Add(historiaNombre);
                     TxtStockActualizado.Text = "";
                     foreach(string producto in  lista)

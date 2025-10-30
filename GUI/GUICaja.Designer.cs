@@ -210,13 +210,13 @@
             // LblTotalCaja
             // 
             this.LblTotalCaja.AutoSize = true;
-            this.LblTotalCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblTotalCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblTotalCaja.ForeColor = System.Drawing.Color.White;
-            this.LblTotalCaja.Location = new System.Drawing.Point(682, 428);
+            this.LblTotalCaja.Location = new System.Drawing.Point(589, 416);
             this.LblTotalCaja.Name = "LblTotalCaja";
-            this.LblTotalCaja.Size = new System.Drawing.Size(47, 13);
+            this.LblTotalCaja.Size = new System.Drawing.Size(74, 25);
             this.LblTotalCaja.TabIndex = 34;
-            this.LblTotalCaja.Text = "Caja: $";
+            this.LblTotalCaja.Text = "Caja: ";
             // 
             // ErrorDescripcion
             // 

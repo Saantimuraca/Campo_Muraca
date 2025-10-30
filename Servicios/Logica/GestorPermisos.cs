@@ -19,7 +19,7 @@ namespace Servicios.Logica
         {
             Sesion sesion = Sesion.INSTANCIA;
             if(!DatosDV.INSTANCIA.VerificarIntegridadBD() && tag != "Administración" && tag != "Ingresar Datos" && tag != "Hacer Respaldo" && tag != "MenuStrip") {  return false; }
-            if (tag == null || tag == "" || sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador")
+            if (tag == null || tag == "" || sesion.ObtenerUsuarioActual().Rol.DevolverNombrePermiso() == "Administrador" || tag == "MenuStrip")
             {
                 return true;
             }

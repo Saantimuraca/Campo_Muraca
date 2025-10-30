@@ -73,11 +73,18 @@ namespace GUI
         {
             try
             {
-                bllOrden.Finalizar(int.Parse(DgvOrdenes.SelectedRows[0].Cells[0].Value.ToString()));
-                MessageBox.Show($"Orden {DgvOrdenes.SelectedRows[0].Cells[0].Value.ToString()} finalizada con éxito", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                int idOrden = int.Parse(DgvOrdenes.SelectedRows[0].Cells[0].Value.ToString());
+                bllOrden.Finalizar(idOrden);
+                MessageBox.Show($"Orden {idOrden} finalizada con éxito", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Mostrar(DgvOrdenes, LinqOrdenes(comboBox1.SelectedItem.ToString()));
                 DgvDetalle.DataSource = null;
-                bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), $"Finalizó la orden de compra {DgvOrdenes.SelectedRows[0].Cells[0].Value.ToString()}", 1));
+                bitacora.RegistrarBitacora(
+                    bitacora.CrearBitacora(
+                        Sesion.INSTANCIA.ObtenerUsuarioActual(),
+                        $"Finalizó la orden de compra {idOrden}",
+                        1
+                    )
+                );
             }
             catch(Exception ex) { MessageBox.Show(ex.Message, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }

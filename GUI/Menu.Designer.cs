@@ -39,7 +39,6 @@
             this.Backup = new System.Windows.Forms.ToolStripMenuItem();
             this.respaldoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aBMClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarPedidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.supervisarPedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,7 +102,7 @@
             this.opcion1ToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.opcion1ToolStripMenuItem.Name = "opcion1ToolStripMenuItem";
             this.opcion1ToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
-            this.opcion1ToolStripMenuItem.Tag = "Administración";
+            this.opcion1ToolStripMenuItem.Tag = "Ver Administración";
             this.opcion1ToolStripMenuItem.Text = "Administración";
             // 
             // gestionDeUsuariosToolStripMenuItem
@@ -167,21 +166,12 @@
             // 
             // clientesToolStripMenuItem
             // 
-            this.clientesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aBMClientesToolStripMenuItem});
             this.clientesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
             this.clientesToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.clientesToolStripMenuItem.Tag = "";
+            this.clientesToolStripMenuItem.Tag = "ABM Cliente";
             this.clientesToolStripMenuItem.Text = "Clientes";
-            // 
-            // aBMClientesToolStripMenuItem
-            // 
-            this.aBMClientesToolStripMenuItem.Name = "aBMClientesToolStripMenuItem";
-            this.aBMClientesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.aBMClientesToolStripMenuItem.Tag = "ABM Cliente";
-            this.aBMClientesToolStripMenuItem.Text = "ABM Clientes";
-            this.aBMClientesToolStripMenuItem.Click += new System.EventHandler(this.aBMClientesToolStripMenuItem_Click);
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
             // 
             // pedidosToolStripMenuItem
             // 
@@ -192,7 +182,7 @@
             this.pedidosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
             this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.pedidosToolStripMenuItem.Tag = "";
+            this.pedidosToolStripMenuItem.Tag = "Ver Pedidos";
             this.pedidosToolStripMenuItem.Text = "Pedidos";
             // 
             // registrarPedidoToolStripMenuItem
@@ -228,7 +218,7 @@
             this.productosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
             this.productosToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
-            this.productosToolStripMenuItem.Tag = "";
+            this.productosToolStripMenuItem.Tag = "Ver Productos";
             this.productosToolStripMenuItem.Text = "Productos";
             // 
             // aBMProductosToolStripMenuItem
@@ -282,6 +272,7 @@
             this.pagosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
             this.pagosToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.pagosToolStripMenuItem.Tag = "Ver Pagos";
             this.pagosToolStripMenuItem.Text = "Pagos";
             // 
             // evaluarViabilidadToolStripMenuItem
@@ -421,7 +412,6 @@
         private System.Windows.Forms.ToolStripMenuItem Backup;
         private System.Windows.Forms.ToolStripMenuItem respaldoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aBMClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarPedidoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem supervisarPedidosToolStripMenuItem;

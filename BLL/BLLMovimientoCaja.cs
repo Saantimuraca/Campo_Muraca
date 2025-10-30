@@ -51,7 +51,7 @@ namespace BLL
         public Dictionary<string, decimal> Balance()
         {
             Dictionary<string, decimal> balance = new Dictionary<string, decimal>();
-            balance.Add("Sueldos", bllPago.ObtenerPagoMasReciente().monto);
+            balance.Add("Sueldos", bllPago.DevolverMontoPagosMes());
             decimal totalGastosOtro = 0;
             foreach(BEMovimientoCaja movimiento in Movimientos().FindAll(x => !x.tipo))
             {

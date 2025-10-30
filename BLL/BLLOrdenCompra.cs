@@ -30,9 +30,9 @@ namespace BLL
         public void Finalizar(int pidOrden)
         {
             dal.Finalizar(pidOrden);
-            foreach(BESolicitudReposicion sol in bllSolicitud.Solicitudes().Where(x => x.ordenCompra.id == pidOrden))
+            foreach (BESolicitudReposicion sol in bllSolicitud.Solicitudes().Where(x => x.ordenCompra != null && x.ordenCompra.id == pidOrden))
             {
-               bllSolicitud.MarcarComoRealizada(sol.id);
+                bllSolicitud.MarcarComoRealizada(sol.id);
             }
         }
     }

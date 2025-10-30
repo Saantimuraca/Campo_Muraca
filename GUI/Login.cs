@@ -46,7 +46,7 @@ namespace GUI
                         case 2: MessageBox.Show("Le queda 1 intento antes de que se bloquee el usuario!!!"); break;
                         default: MessageBox.Show("Usuario bloqueado!!!"); break;
                     }
-                    if(usuario.Estado_Usuario != false) throw new Exception("Credenciales incorrectas!!!");
+                    if (usuario.Estado_Usuario != false) throw new Exception("Credenciales incorrectas!!!");
                 }
                 else
                 {

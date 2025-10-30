@@ -132,7 +132,7 @@
             this.LBL_Carrito.AutoSize = true;
             this.LBL_Carrito.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBL_Carrito.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LBL_Carrito.Location = new System.Drawing.Point(1354, 9);
+            this.LBL_Carrito.Location = new System.Drawing.Point(1374, 9);
             this.LBL_Carrito.Name = "LBL_Carrito";
             this.LBL_Carrito.Size = new System.Drawing.Size(113, 13);
             this.LBL_Carrito.TabIndex = 6;

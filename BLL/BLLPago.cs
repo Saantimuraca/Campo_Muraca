@@ -114,6 +114,19 @@ namespace BLL
             return ListarPagos().OrderByDescending(p => p.fecha).FirstOrDefault();
         }
 
+        public decimal DevolverMontoPagosMes()
+        {
+            decimal total = 0;
+            foreach(BEPago pago in ListarPagos())
+            {
+                if (pago.fecha.Month == DateTime.Now.Month && pago.fecha.Year == DateTime.Now.Year)
+                {
+                    total += pago.monto;
+                }
+            }
+            return total;
+        }
+
         public void CambiarEstado(string pEstado, int pIdPago)
         {
             dalPago.CambiarEstado(pEstado, pIdPago);

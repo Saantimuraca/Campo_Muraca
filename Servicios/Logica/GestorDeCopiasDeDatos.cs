@@ -51,7 +51,6 @@ namespace Servicios
                 string rutaBackUp = ofd.FileName;
                 try
                 {
-                    //.\\SQLEXPRESS
                     var cs = Gestor_Datos.INSTANCIA.ObtenerStringConexion();
                     using (var con = new SqlConnection(cs))
                     {

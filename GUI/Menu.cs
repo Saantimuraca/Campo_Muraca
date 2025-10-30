@@ -354,5 +354,11 @@ namespace GUI
             GUIPagos gui = new GUIPagos();
             gui.Show();
         }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GUIRegistrarCliente gui = new GUIRegistrarCliente();
+            gui.Show();
+        }
     }
 }

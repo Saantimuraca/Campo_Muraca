@@ -34,7 +34,7 @@ namespace GUI
             ErrorImporte.Visible = false;
             ErrorRol.Visible=false;
             ErrorTipo.Visible=false;
-            LblTotalCaja.Text = $"Caja: $" + bllMbvimiento.CalcularTotalCaja().ToString();
+            LblTotalCaja.Text = $"Caja: " + bllMbvimiento.CalcularTotalCaja().ToString("C2");
             ErrorDescripcion.Visible = false;
         }
 
@@ -68,7 +68,7 @@ namespace GUI
                     bllMbvimiento.Agregar(movimientoCaja);
                     Mostrar(Dgv, Linq());
                     LimpiarControles();
-                    LblTotalCaja.Text = $"Caja: ${bllMbvimiento.CalcularTotalCaja()}";
+                    LblTotalCaja.Text = $"Caja: ${bllMbvimiento.CalcularTotalCaja().ToString("C2")}";
                     bitacora.RegistrarBitacora(bitacora.CrearBitacora(Sesion.INSTANCIA.ObtenerUsuarioActual(), "Registró un movimiento en caja", 3));
                 }
             }
@@ -156,7 +156,7 @@ namespace GUI
                         bllMbvimiento.Modificar(movimiento);
                         Mostrar(Dgv, Linq());
                         LimpiarControles();
-                        LblTotalCaja.Text = $"Caja: $" + bllMbvimiento.CalcularTotalCaja().ToString();
+                        LblTotalCaja.Text = $"Caja: $" + bllMbvimiento.CalcularTotalCaja().ToString("C2");
                     }
 
                 }
