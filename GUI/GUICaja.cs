@@ -194,10 +194,12 @@ namespace GUI
         {
             if (string.IsNullOrWhiteSpace(TxtImporte.Text))
             {
+                ErrorImporte.Visible = true;
                 return;
             }
             if (!decimal.TryParse(TxtImporte.Text, out decimal importe) || importe < 0)
             {
+                ErrorImporte.Visible = true;
                 return;
             }
             else
