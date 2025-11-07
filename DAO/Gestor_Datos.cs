@@ -41,7 +41,7 @@ namespace DAL
         {
             BaseDeDatosEnMemoria = new DataSet();
             //@"Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True"
-            cone = new SqlConnection(ObtenerStringConexion());
+            cone = new SqlConnection(@"Data Source=.;Initial Catalog=BdProyecto;Integrated Security=True");
             string query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'";
             SqlDataAdapter Adaptador = new SqlDataAdapter(query, cone);
             DataTable TablaNombreDeLasTablas = new DataTable();
