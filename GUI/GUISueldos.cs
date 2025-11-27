@@ -74,7 +74,13 @@ namespace GUI
 
         private void ActualizarSueldos()
         {
-            BESueldo sueldoSeleccionado = bllSueldo.ObtenerPorRol(comboBox1.SelectedItem.ToString());
+            var sueldoSeleccionado = bllSueldo.ObtenerPorRol(comboBox1.SelectedItem.ToString());
+            if (sueldoSeleccionado == null)
+            {
+                TxtSueldo.Text = "";
+                numericUpDown1.Value = 0;
+                return;
+            }
             TxtSueldo.Text = sueldoSeleccionado.sueldo.ToString();
             if (comboBox1.SelectedItem.ToString() == "Vendedor")
             {
