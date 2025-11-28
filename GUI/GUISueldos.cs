@@ -96,8 +96,6 @@ namespace GUI
         {
             try
             {
-                if (comboBox1.SelectedItem == null) { ErrorRol.Visible = true; return; }
-                if (string.IsNullOrEmpty(TxtSueldo.Text)) { ErrorNombre.Visible = true; return; }
                 if(bllPago.ExistePago(DateTime.Now.Month))
                 {
                     DialogResult result = MessageBox.Show("Ya se ha solicitado el pago de este mes. ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
